@@ -1,0 +1,12 @@
+### GET root path 
+GET http://localhost:3000 HTTP/1.1
+
+###
+POST http://localhost:3000/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "email":"atan",
+    "password": "@Li44272815",
+    "passwordConfirmation": "@Li44272815"
+}

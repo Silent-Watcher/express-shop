@@ -1,0 +1,128 @@
+<div class="container">
+	<div class="row">
+		<div class="col-12 col-lg-8 offset-lg-2 mt-2 mt-lg-5">
+			<!-- navbar start -->
+			<nav class="navbar navbar-expand-lg sticky-top">
+				<div class="container-fluid">
+					<a class="navbar-brand" href="/">فروشگاه عطن</a>
+					<button 
+						class="navbar-toggler"
+						type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#navbarSupportedContent"
+						aria-controls="navbarSupportedContent"
+						aria-expanded="false"
+						aria-label="Toggle navigation"
+					>
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+							<li class="nav-item">
+								<a class="nav-link active" aria-current="page" href="/"
+									>صفحه اصلی</a
+								>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">محصولات</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">درباره ما</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">تماس با ما</a>
+							</li>
+							<li class="nav-item dropdown">
+								<a
+									class="nav-link dropdown-toggle"
+									href="#"
+									role="button"
+									data-bs-toggle="dropdown"
+									aria-expanded="false"
+								>
+									مقالات
+								</a>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item" href="#">Action</a></li>
+									<li>
+										<a class="dropdown-item" href="#">Another action</a>
+									</li>
+									<li><hr class="dropdown-divider" /></li>
+									<li>
+										<a class="dropdown-item" href="#">Something else here</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<% if (user) { %>
+						<div class="dropdown dropcenter">
+							<section
+								class="rounded-circle"
+								data-bs-toggle="dropdown"
+								aria-expanded="false"
+							>
+								<img
+									class="avatar img-fluid"
+									src="/static/imgs/avatar.png"
+									alt="avatar"
+								/>
+							</section>
+							<ul class="dropdown-menu dropdown-menu-lg-end p-4">
+								<div class="d-flex justify-content-center align-items-center">
+									<a href="#"
+										><img
+											class="avatar img-fluid me-3"
+											src="/static/imgs/avatar.png"
+											alt="avatar"
+									/></a>
+									<div>
+										<a class="link-dark" href="#"
+											><p class="mb-0">
+												<%= user.name ??
+												user.email.slice(0,user.email.indexOf('@')) + '@' %>
+											</p></a
+										>
+										<a class="icon-link icon-link-hover text-14" href="#">
+											مشاهده پنل کاربری
+											<i class="bx bx-left-arrow-alt"></i>
+										</a>
+									</div>
+								</div>
+								<li><hr class="dropdown-divider" /></li>
+								<li>
+									<a
+										class="dropdown-item d-inline-flex align-items-center"
+										href="#"
+										><i class="bx bx-video text-secondary"></i
+										><span class="ms-2">دوره ها</span></a
+									>
+								</li>
+								<li>
+									<a
+										class="dropdown-item d-inline-flex align-items-center"
+										href="/auth/logout"
+										><i class="bx bx-log-out text-secondary"></i>
+										<span class="ms-2">خروج از حساب کاربری</span></a
+									>
+								</li>
+							</ul>
+						</div>
+						<% } else { %>
+						<ul class="nav navbar-navnavbar-right">
+							<li>
+								<a href="/auth/register" class="btn btn-primary btn-sm me-2"
+									>عضویت</a
+								>
+							</li>
+							<li>
+								<a href="/auth/login" class="btn btn-info btn-sm">ورود</a>
+							</li>
+						</ul>
+						<% } %>
+					</div>
+				</div>
+			</nav>
+			<!-- navbar end -->
+		</div>
+	</div>
+</div>

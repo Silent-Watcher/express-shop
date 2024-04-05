@@ -1,0 +1,48 @@
+* {
+	font-family: Vazirmatn, sans-serif;
+}
+
+/* Webkit (Chrome, Safari) solution */
+::-webkit-input-placeholder {
+	text-align: right;
+	font-size: 14px;
+}
+
+/* Mozilla (Firefox) solution */
+input:-moz-placeholder {
+	text-align: right;
+	font-size: 14px;
+}
+
+a {
+	text-decoration: none;
+}
+
+.avatar {
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+}
+
+.text-14 {
+	font-size: 14px;
+}
+
+footer {
+	text-align: center;
+	background-color: #303030;
+}
+
+footer ul {
+	list-style: none;
+}
+
+footer ul li {
+	margin: 10px 0;
+	cursor: pointer;
+	transition: all 0.3s linear;
+}
+
+footer ul li:hover {
+	color: #0d6efd;
+}

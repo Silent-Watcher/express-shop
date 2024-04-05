@@ -1,0 +1,9 @@
+{
+	"watch": ["./app/**", "server.js"],
+	"ext": "js,json",
+	"ignore": ["node_modules/", "dist/", "coverage"],
+	"restartable": "rs",
+	"env": {
+		"NODE_ENV": "development"
+	}
+}

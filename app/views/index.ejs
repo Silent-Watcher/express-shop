@@ -1,0 +1,23 @@
+<%- include('./components/header.ejs') %>
+<!-- error messages here -->
+<div class="col-12 col-lg-4">
+	<% if(errors.length > 0) { %>
+	<div class="alert alert-danger alert-dismissible">
+		<button
+			type="button"
+			class="btn-close btn-danger position-absolute top-0 end-0"
+			aria-label="Close"
+		></button>
+		<ul>
+			<% errors.forEach(error => { %>
+			<li><%= error %></li>
+			<% }) %>
+		</ul>
+	</div>
+	<% } %>
+	<!-- error messages here -->
+	<!-- start from here ... -->
+	<div class="container"></div>
+</div>
+
+<%- include('./components/footer.ejs') %>

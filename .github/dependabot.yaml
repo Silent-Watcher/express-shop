@@ -1,0 +1,11 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'monthly'
+    allow:
+      - dependency-type: 'production'
+    target-branch: 'develop'
+    labels:
+      - 'NPM updates by Dependabot'

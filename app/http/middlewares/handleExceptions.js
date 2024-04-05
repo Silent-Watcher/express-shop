@@ -1,17 +1,22 @@
+const path = require('path');
+
+const dotenv = require('dotenv-safe');
+dotenv.config({ path: path.join(process.cwd(), '.env') });
+
 const createError = require('http-errors');
-const httpStatus = require('http-status');
 const normalizeStatusCode = require('../../helpers/normalizer');
 
 function handleNotFoundError(req, res, next) {
-	next(createError(httpStatus.NOT_FOUND));
+	return next(createError(404, 'صفحه یافت نشد 😣'));
 }
 
-function handleExceptions(err, req, res) {
+// eslint-disable-next-line no-unused-vars
+function handleExceptions(err, req, res, next) {
 	let status = err.status || err.code || err.statusCode || 500;
+	req.app.set('layout', 'layouts/error');
 	status = normalizeStatusCode(status);
-	res.locals.message = err.message;
-	res.locals.error = req.app.get('env') == 'development' ? err : { status };
-	if (req.app.get('env') == 'development') res.status(status).json(err);
+	res.locals.error = process.env.APP_ENV == 'development' ? err : { status, message: err.message };
+	if (process.env.APP_ENV == 'development') res.status(status).json(err);
 	else res.render('error');
 }
 

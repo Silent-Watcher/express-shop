@@ -59,6 +59,9 @@ dependencies:
   passport:
     specifier: ^0.7.0
     version: 0.7.0
+  passport-google-oauth:
+    specifier: ^2.0.0
+    version: 2.0.0
   passport-local:
     specifier: ^1.0.0
     version: 1.0.0
@@ -639,6 +642,11 @@ packages:
   /base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
     dev: true
+
+  /base64url@3.0.1:
+    resolution: {integrity: sha512-ir1UPr3dkwexU7FdV8qBBbNDRUhMmIekYMFZfi+C/sLNnRESKPl23nB9b2pltqfOQNnGzsDdId90AEtG5tCx4A==}
+    engines: {node: '>=6.0.0'}
+    dev: false
 
   /bcrypt@5.1.1:
     resolution: {integrity: sha512-AGBHOG5hPYZ5Xl9KXzU5iKq9516yEmvCKDg3ecP5kX2aB6UqTeXZxk2ELnDgDm6BQSMlLt9rDB4LoSMx0rYwww==}
@@ -2800,6 +2808,14 @@ packages:
       set-blocking: 2.0.0
     dev: false
 
+  /oauth@0.10.0:
+    resolution: {integrity: sha512-1orQ9MT1vHFGQxhuy7E/0gECD3fd2fCC+PIX+/jgmU/gI3EpRocXtmtvxCO5x3WZ443FLTLFWNDjl5MPJf9u+Q==}
+    dev: false
+
+  /oauth@0.9.15:
+    resolution: {integrity: sha512-a5ERWK1kh38ExDEfoO6qUHJb32rd7aYmPHuyCu3Fta/cnICvYmgd2uhuKXvPD+PXB+gCEYYEaQdIRAjCOwAKNA==}
+    dev: false
+
   /object-assign@4.1.1:
     resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
     engines: {node: '>=0.10.0'}
@@ -2960,11 +2976,52 @@ packages:
     engines: {node: '>= 0.8'}
     dev: false
 
+  /passport-google-oauth1@1.0.0:
+    resolution: {integrity: sha512-qpCEhuflJgYrdg5zZIpAq/K3gTqa1CtHjbubsEsidIdpBPLkEVq6tB1I8kBNcH89RdSiYbnKpCBXAZXX/dtx1Q==}
+    dependencies:
+      passport-oauth1: 1.3.0
+    dev: false
+
+  /passport-google-oauth20@2.0.0:
+    resolution: {integrity: sha512-KSk6IJ15RoxuGq7D1UKK/8qKhNfzbLeLrG3gkLZ7p4A6DBCcv7xpyQwuXtWdpyR0+E0mwkpjY1VfPOhxQrKzdQ==}
+    engines: {node: '>= 0.4.0'}
+    dependencies:
+      passport-oauth2: 1.8.0
+    dev: false
+
+  /passport-google-oauth@2.0.0:
+    resolution: {integrity: sha512-JKxZpBx6wBQXX1/a1s7VmdBgwOugohH+IxCy84aPTZNq/iIPX6u7Mqov1zY7MKRz3niFPol0KJz8zPLBoHKtYA==}
+    engines: {node: '>= 0.4.0'}
+    dependencies:
+      passport-google-oauth1: 1.0.0
+      passport-google-oauth20: 2.0.0
+    dev: false
+
   /passport-local@1.0.0:
     resolution: {integrity: sha512-9wCE6qKznvf9mQYYbgJ3sVOHmCWoUNMVFoZzNoznmISbhnNNPhN9xfY3sLmScHMetEJeoY7CXwfhCe7argfQow==}
     engines: {node: '>= 0.4.0'}
     dependencies:
       passport-strategy: 1.0.0
+    dev: false
+
+  /passport-oauth1@1.3.0:
+    resolution: {integrity: sha512-8T/nX4gwKTw0PjxP1xfD0QhrydQNakzeOpZ6M5Uqdgz9/a/Ag62RmJxnZQ4LkbdXGrRehQHIAHNAu11rCP46Sw==}
+    engines: {node: '>= 0.4.0'}
+    dependencies:
+      oauth: 0.9.15
+      passport-strategy: 1.0.0
+      utils-merge: 1.0.1
+    dev: false
+
+  /passport-oauth2@1.8.0:
+    resolution: {integrity: sha512-cjsQbOrXIDE4P8nNb3FQRCCmJJ/utnFKEz2NX209f7KOHPoX18gF7gBzBbLLsj2/je4KrgiwLLGjf0lm9rtTBA==}
+    engines: {node: '>= 0.4.0'}
+    dependencies:
+      base64url: 3.0.1
+      oauth: 0.10.0
+      passport-strategy: 1.0.0
+      uid2: 0.0.4
+      utils-merge: 1.0.1
     dev: false
 
   /passport-strategy@1.0.0:
@@ -3692,6 +3749,10 @@ packages:
     engines: {node: '>= 0.8'}
     dependencies:
       random-bytes: 1.0.0
+    dev: false
+
+  /uid2@0.0.4:
+    resolution: {integrity: sha512-IevTus0SbGwQzYh3+fRsAMTVVPOoIVufzacXcHPmdlle1jUpq7BRL+mw3dgeLanvGZdwwbWhRV6XrcFNdBmjWA==}
     dev: false
 
   /undefsafe@2.0.5:

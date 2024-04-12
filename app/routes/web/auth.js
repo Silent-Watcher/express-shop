@@ -3,6 +3,7 @@ const { validateRegisterData, validateLoginData } = require('app/validators/auth
 const checkDataValidation = require('app/http/middlewares/validation.middleware');
 const validateRecaptcha = require('app/validators/recaptcha.validator');
 const { redirectIfAuthenticate, isUserAuthenticate } = require('app/http/guards/auth.guard');
+const passport = require('passport');
 
 const router = require('express').Router();
 
@@ -16,6 +17,17 @@ router
 		checkDataValidation,
 		authController.register
 	);
+
+// google authentication
+router.route('/google').get(redirectIfAuthenticate, authController.authWithGoogle);
+router.get(
+	'/google/callback',
+	redirectIfAuthenticate,
+	passport.authenticate('google', {
+		successRedirect: '/',
+		failureRedirect: '/auth/register',
+	})
+);
 
 router
 	.route('/login')

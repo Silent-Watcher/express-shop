@@ -2,7 +2,7 @@ const { body } = require('express-validator');
 
 function validateRegisterData() {
 	return [
-		body('email').trim().isEmail().withMessage('ایمیل وارد شده معتبر نیست'),
+		body('email').trim().isEmail().normalizeEmail().withMessage('ایمیل وارد شده معتبر نیست'),
 		body('password').trim().notEmpty().escape().isLength({ min: 4 }).withMessage('رمز وارد شده معتبر نیست'),
 		body('passwordConfirmation')
 			.custom((value, { req }) => {

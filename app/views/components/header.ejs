@@ -5,7 +5,7 @@
 			<nav class="navbar navbar-expand-lg sticky-top">
 				<div class="container-fluid">
 					<a class="navbar-brand" href="/">فروشگاه عطن</a>
-					<button 
+					<button
 						class="navbar-toggler"
 						type="button"
 						data-bs-toggle="collapse"
@@ -61,20 +61,37 @@
 								data-bs-toggle="dropdown"
 								aria-expanded="false"
 							>
+							<% if (user.photo) { %>
 								<img
-									class="avatar img-fluid"
-									src="/static/imgs/avatar.png"
-									alt="avatar"
-								/>
+								class="avatar img-fluid rounded-circle"
+								src="<%= user.photo %>"
+								alt="avatar"
+							/>
+							<% } else {%>
+								<img
+								class="avatar img-fluid rounded-circle"
+								src="/static/imgs/avatar.png"
+								alt="avatar"
+							/>
+							<% }  %>
 							</section>
 							<ul class="dropdown-menu dropdown-menu-lg-end p-4">
-								<div class="d-flex justify-content-center align-items-center">
-									<a href="#"
-										><img
-											class="avatar img-fluid me-3"
+								<div class="d-flex justify-content-around align-items-center">
+									<a href="#">
+										<% if (user.photo) { %>
+											<img
+											class="avatar img-fluid rounded-circle"
+											src="<%= user.photo %>"
+											alt="avatar"
+										/>
+										<% } else {%>
+											<img
+											class="avatar img-fluid rounded-circle"
 											src="/static/imgs/avatar.png"
 											alt="avatar"
-									/></a>
+										/>
+										<% }  %>
+									</a>
 									<div>
 										<a class="link-dark" href="#"
 											><p class="mb-0">

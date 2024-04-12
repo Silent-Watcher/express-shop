@@ -1,13 +1,12 @@
-const compression = require('compression');
-
-const express = require('express');
-const http = require('http');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
-const flash = require('connect-flash');
-const mongoose = require('mongoose');
 const autoBind = require('auto-bind');
+const compression = require('compression');
+const cookieParser = require('cookie-parser');
+const express = require('express');
+const flash = require('connect-flash');
+const http = require('http');
+const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo');
+const session = require('express-session');
 
 const { VIEW_FILES_PATH, STATIC_FILES_PATH } = require('app/common/globals');
 const expressEjsLayouts = require('express-ejs-layouts');
@@ -41,6 +40,7 @@ class Application {
 	//------------------
 	setConfigs() {
 		require('./passport/local');
+		require('./passport/google');
 		this.#app.set('view engine', 'ejs');
 		this.#app.set('views', VIEW_FILES_PATH);
 		this.#app.use('/static', express.static(STATIC_FILES_PATH));

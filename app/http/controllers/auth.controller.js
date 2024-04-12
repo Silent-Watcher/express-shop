@@ -24,13 +24,22 @@ class AuthController extends Controller {
 			next(error);
 		}
 	}
+
+	authWithGoogle(req, res, next) {
+		try {
+			passport.authenticate('google', { scope: ['profile', 'email'] })(req, res, next);
+		} catch (error) {
+			next(error);
+		}
+	}
+
 	login(req, res, next) {
 		try {
 			passport.authenticate('local.login', (err, user) => {
 				if (!user) return res.redirect('/auth/login');
 				req.login(user, async err => {
 					if (err) return next(err);
-					if (req.body.remember == 'true') await setRememberToken(res, user);
+					await setRememberToken(res, user);
 					res.locals = { user: req.user };
 					return res.redirect('/');
 				});

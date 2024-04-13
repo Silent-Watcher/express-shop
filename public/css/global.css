@@ -46,3 +46,15 @@ footer ul li {
 footer ul li:hover {
 	color: #0d6efd;
 }
+
+.alert {
+	direction: rtl;
+}
+
+.alert ul {
+	text-align: center;
+	list-style: none;
+}
+.alert button {
+	right: 0;
+}

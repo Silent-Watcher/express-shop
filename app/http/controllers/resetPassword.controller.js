@@ -48,6 +48,7 @@ class ResetPasswordController extends Controller {
 			}
 			foundedPasswordReset.use = true;
 			await foundedPasswordReset.save();
+			req.flash('success', 'رمز عبور شما با موفقیت تغییر کرد.وارد حساب خود شوید.');
 			return res.redirect('/auth/login');
 		} catch (error) {
 			next(error);

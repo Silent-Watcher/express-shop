@@ -15,6 +15,20 @@
 		</ul>
 	</div>
 	<% } %>
+	<% if(success.length > 0) { %>
+	<div class="alert alert-success alert-dismissible">
+		<button
+			type="button"
+			class="btn-close btn-success position-absolute top-0 end-0"
+			aria-label="Close"
+		></button>
+		<ul>
+			<% success.forEach(msg => { %>
+			<li><%= msg %></li>
+			<% }) %>
+		</ul>
+	</div>
+	<% } %>
 	<!-- error messages here -->
 	<!-- start from here ... -->
 	<div class="container"></div>

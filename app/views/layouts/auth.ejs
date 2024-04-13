@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="Fa-IR" dir="rtl">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="description" content="صفحه ورود و ثبت نام فروشگاه عطن">
+		<meta name="description" content="صفحه ورود و ثبت نام فروشگاه عطن" />
 		<!-- bootstrap RTL css CDN -->
 		<link
 			rel="stylesheet"
@@ -19,7 +19,7 @@
 		/>
 		<!-- CSS files -->
 		<link rel="stylesheet" href="/static/css/global.css" />
-		<title>فروشگاه</title>
+		<title><%= title ?? 'فروشگاه' %></title>
 	</head>
 	<body>
 		<div class="container-fluid">
@@ -44,9 +44,7 @@
 								<div class="collapse navbar-collapse" id="navbarSupportedContent">
 									<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 										<li class="nav-item">
-											<a class="nav-link active" aria-current="page" href="/"
-												>صفحه اصلی</a
-											>
+											<a class="nav-link active" aria-current="page" href="/">صفحه اصلی</a>
 										</li>
 										<li class="nav-item">
 											<a class="nav-link" href="#">محصولات</a>
@@ -74,18 +72,14 @@
 												</li>
 												<li><hr class="dropdown-divider" /></li>
 												<li>
-													<a class="dropdown-item" href="#"
-														>Something else here</a
-													>
+													<a class="dropdown-item" href="#">Something else here</a>
 												</li>
 											</ul>
 										</li>
 									</ul>
 									<ul class="nav navbar-navnavbar-right">
 										<li>
-											<a href="/auth/register" class="btn btn-primary btn-sm me-2"
-												>عضویت</a
-											>
+											<a href="/auth/register" class="btn btn-primary btn-sm me-2">عضویت</a>
 										</li>
 										<li>
 											<a href="/auth/login" class="btn btn-info btn-sm">ورود</a>
@@ -100,6 +94,9 @@
 			</div>
 			<%- body %>
 		</div>
+		<%- include('../components/footer.ejs') %>
+		<script src="/static/js/popper.js"></script>
+		<script src="/static/js/bootstrap.min.js"></script>
 		<script async src="/static/js/auth.js"></script>
 	</body>
 </html>

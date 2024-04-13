@@ -41,6 +41,7 @@ passport.use(
 	new Strategy({ usernameField: 'email', passReqToCallback: true }, async (req, email, password, done) => {
 		try {
 			const foundedUser = await User.findOne({ email });
+			console.log('compare', await passwordUtil.compare(password, foundedUser.password));
 			if (!foundedUser || !(await passwordUtil.compare(password, foundedUser.password)))
 				return done(null, false, req.flash('error', 'اطلاعات وارد شده صحیح نمیباشد'));
 			done(null, foundedUser);

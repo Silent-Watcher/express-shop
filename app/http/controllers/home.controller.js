@@ -9,7 +9,8 @@ class HomeController extends Controller {
 	}
 	async index(req, res, next) {
 		try {
-			res.render('index', { errors: req.flash('error') });
+			const title = 'فروشگاه';
+			res.render('index', { errors: req.flash('error'), title });
 		} catch (error) {
 			next(error);
 		}

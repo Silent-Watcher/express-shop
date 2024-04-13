@@ -1,3 +1,4 @@
+const normalizePort = require('app/http/middlewares/normalizePort');
 const autoBind = require('auto-bind');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
@@ -78,11 +79,12 @@ class Application {
 	}
 	//------------------
 	connectToMongoDb(dbUrl, dbName) {
-		mongoose.set('strictQuery', true);
+		// mongoose.set('strictQuery', true);
 		return mongoose.connect(dbUrl, { dbName });
 	}
 	//------------------
 	handleErrors() {
+		this.#app.use(normalizePort);
 		this.#app.use(handleNotFoundError);
 		this.#app.use(handleExceptions);
 	}

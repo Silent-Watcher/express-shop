@@ -19,7 +19,7 @@
 			<form
 				class="form-horizontal"
 				method="POST"
-				action="/auth/login"
+				action="/auth/password/email"
 				autocomplete="off"
 			>
 				<div class="form-group mt-3">
@@ -36,51 +36,12 @@
 				</div>
 				<p class="form-text">برای مثال : backendwithali@gmail.com</p>
 
-				<div class="form-group mt-3">
-					<label for="password" class="control-label mb-2">رمز عبور</label>
-					<input
-						autocomplete="current-password"
-						id="password"
-						type="password"
-						class="form-control"
-						name="password"
-						required="true"
-					/>
-					<p class="form-text">
-						<a href="/auth/password/reset" class="link-underline-primary"
-							>فراموش کرده اید؟</a
-						>
-					</p>
-				</div>
-
-				<div class="form-check">
-					<input
-						class="form-check-input"
-						type="checkbox"
-						value="true"
-						id="flexCheckDefault"
-						name="remember"
-					/>
-					<label class="form-check-label text-14" for="flexCheckDefault">
-						من را به خاطر بسپار
-					</label>
-				</div>
-
 				<div class="form-group mt-3"><%- captcha %></div>
-
-				<p class="text-center mt-3 link-underline-opacity-0">
-					<span> حساب کاربری ندارید؟ </span>
-					<a class="link-underline-opacity-0" href="/auth/register">
-						ثبت نام
-					</a>
-				</p>
 
 				<div class="form-group mt-3 d-grid">
 					<button disabled type="submit" class="btn btn-primary submitButton">
-						ورود
+						تغییر رمز عبور
 					</button>
-					<p class="text-center mt-3">یا</p>
-					<a href="/auth/google" class="btn btn-danger">ورود با اکانت گوگل</a>
 				</div>
 			</form>
 		</div>

@@ -61,9 +61,11 @@ class AuthController extends Controller {
 
 	getRegisterPage(req, res, next) {
 		try {
+			const title = 'ثبت نام';
 			res.render('auth/register', {
-				messages: req.flash('error'),
+				errors: req.flash('error'),
 				captcha: recaptcha.render(),
+				title,
 			});
 		} catch (error) {
 			next(error);
@@ -71,9 +73,11 @@ class AuthController extends Controller {
 	}
 	getLoginPage(req, res, next) {
 		try {
+			const title = 'ورود';
 			res.render('auth/login', {
-				messages: req.flash('error'),
+				errors: req.flash('error'),
 				captcha: recaptcha.render(),
+				title,
 			});
 		} catch (error) {
 			next(error);

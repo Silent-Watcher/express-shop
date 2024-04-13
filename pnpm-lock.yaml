@@ -47,6 +47,9 @@ dependencies:
   express-validator:
     specifier: ^7.0.1
     version: 7.0.1
+  helmet:
+    specifier: ^7.1.0
+    version: 7.1.0
   http-errors:
     specifier: ^2.0.0
     version: 2.0.0
@@ -1957,6 +1960,11 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       function-bind: 1.1.2
+
+  /helmet@7.1.0:
+    resolution: {integrity: sha512-g+HZqgfbpXdCkme/Cd/mZkV0aV3BZZZSugecH03kl38m/Kmdx8jKjBikpDj2cr+Iynv4KpYEviojNdTJActJAg==}
+    engines: {node: '>=16.0.0'}
+    dev: false
 
   /homedir-polyfill@1.0.3:
     resolution: {integrity: sha512-eSmmWE5bZTK2Nou4g0AI3zZ9rswp7GRKoKXS1BLUkvPviOqs4YTN1djQIqrXy9k5gEtdLPy86JjRwsNM9tnDcA==}

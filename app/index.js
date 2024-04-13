@@ -14,6 +14,7 @@ const expressEjsLayouts = require('express-ejs-layouts');
 const { handleExceptions, handleNotFoundError } = require('app/http/middlewares/handleExceptions');
 const passport = require('passport');
 const rememberLogin = require('app/http/middlewares/remember.middleware');
+const helmet = require('helmet');
 
 const { env } = process;
 
@@ -45,6 +46,16 @@ class Application {
 		this.#app.set('view engine', 'ejs');
 		this.#app.set('views', VIEW_FILES_PATH);
 		this.#app.use('/static', express.static(STATIC_FILES_PATH));
+		this.#app.use(
+			helmet({
+				contentSecurityPolicy: {
+					directives: {
+						'script-src': ["'self'", "'http://www.google.com/'"],
+					},
+					reportOnly: true,
+				},
+			})
+		);
 		this.#app.use(
 			express.json(),
 			express.urlencoded({ extended: true }),

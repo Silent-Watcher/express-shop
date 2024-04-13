@@ -29,6 +29,7 @@
 		"express-recaptcha": "^5.1.0",
 		"express-session": "^1.18.0",
 		"express-validator": "^7.0.1",
+		"helmet": "^7.1.0",
 		"http-errors": "^2.0.0",
 		"http-status": "^1.7.4",
 		"mongoose": "^8.2.4",

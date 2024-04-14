@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html class="no-js" lang="fa">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>پنل مدیریت</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- fonts -->
+    <link
+      href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Icon Font CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"
+    />
+
+    <!-- Helper CSS -->
+
+    <!-- css file -->
+    <link id="cus-style" rel="stylesheet" href="/static/admin/css/style.css" />
+  </head>
+
+  <!-- dark mode : class (body tag) : skin-dark  replace with side-header-light-->
+
+  <body dir="rtl" class="" >
+    <div class="main-wrapper">
+      <!-- Header Section Start -->
+      <div class="header-section">
+        <div class="container-fluid">
+          <div class="row justify-content-between align-items-center">
+            <!-- Header Logo (Header Left) Start -->
+            <div class="header-logo col-auto">
+                <h3>
+                    <a href="/">
+                        فروشگاه عطن
+                    </a>
+                </h>
+            </div>
+            <!-- Header Logo (Header Left) End -->
+
+            <!-- Header Right Start -->
+            <div class="header-right flex-grow-1 col-auto">
+              <div class="row justify-content-between align-items-center">
+                <!-- Side Header Toggle & Search Start -->
+                <div class="col-auto">
+                  <div class="row align-items-center">
+                    <!--Side Header Toggle-->
+                    <div class="col-auto">
+                      <button class="side-header-toggle">
+                        <i class="zmdi zmdi-menu"></i>
+                      </button>
+                    </div>
+
+                    <!--Header Search-->
+                    <div class="col-auto">
+                      <div class="header-search">
+                        <button class="header-search-open d-block d-xl-none">
+                          <i class="zmdi zmdi-search"></i>
+                        </button>
+
+                        <div class="header-search-form">
+                          <form action="#">
+                            <input type="text" placeholder="جستجو کنید" />
+                            <button><i class="zmdi zmdi-search"></i></button>
+                          </form>
+                          <button class="header-search-close d-block d-xl-none">
+                            <i class="zmdi zmdi-close"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                       <!-- toggle dark mode  -->
+                       <div class="col">
+                        <button class="btn toggle-dark"><img width="20px" class="img-fluid" src="/static/admin/images/moon.svg"></button>
+                      </div>
+                  </div>
+                </div>
+                <!-- Side Header Toggle & Search End -->
+
+                <!-- Header Notifications Area Start -->
+                <div class="col-auto">
+                  <ul class="header-notification-area">
+                    <!--User-->
+                    <li class="adomx-dropdown col-auto">
+                      <a class="toggle" href="#">
+                        <span class="user">
+                          <span class="avatar">
+														<% if (user.photo != null) { %>
+															<img
+																src="<%= user.photo %>"
+																alt=""
+															/>
+														<% } else {%>
+                            <img
+                              src="/static/admin/images/avatar.jpg"
+                              alt=""
+                            />
+														<% }%>
+                            <span class="status"></span>
+                          </span>
+                        </span>
+                      </a>
+
+                      <!-- Dropdown -->
+                      <div class="adomx-dropdown-menu dropdown-menu-user">
+                        <div class="head">
+                          <h5 class="name"><a href="#"><%= user.name %></a></h5>
+                          <a class="mail" href="#"><%= user.email %></a>
+                        </div>
+                        <div class="body">
+                          <ul>
+                            <li>
+                              <a href="#"
+                                ><i class="zmdi zmdi-account"></i>پروفایل</a
+                              >
+                            </li>
+                            <li>
+                              <a href="#"
+                                ><i class="zmdi zmdi-email-open"></i>صندوق
+                                ورودی</a
+                              >
+                            </li>
+                            <li>
+                              <a href="#"
+                                ><i class="zmdi zmdi-wallpaper"></i>فعالیت</a
+                              >
+                            </li>
+                          </ul>
+                          <ul>
+                            <li>
+                              <a href="#"
+                                ><i class="zmdi zmdi-settings"></i>تنظیمات</a
+                              >
+                            </li>
+                            <li>
+                              <a href="#"
+                                ><i class="zmdi zmdi-lock-open"></i>خروج</a
+                              >
+                            </li>
+                          </ul>
+                          <ul>
+                            <li>
+                              <a href="#"
+                                ><i class="zmdi zmdi-paypal"></i>پرداخت ها</a
+                              >
+                            </li>
+                            <li>
+                              <a href="#"
+                                ><i class="zmdi zmdi-google-pages"></i
+                                >صورتحساب</a
+                              >
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <!-- Header Notifications Area End -->
+              </div>
+            </div>
+            <!-- Header Right End -->
+          </div>
+        </div>
+      </div>
+      <!-- Header Section End -->
+
+      <!-- Side Header Start -->
+      <div class="side-header show">
+        <button class="side-header-close">
+          <i class="zmdi zmdi-close"></i>
+        </button>
+        <!-- Side Header Inner Start -->
+        <div class="side-header-inner custom-scroll">
+          <nav class="side-header-menu" id="side-header-menu">
+            <ul>
+              <li class="has-sub-menu">
+                <a href="#"><i class="ti-home"></i> <span>داشبورد</span></a>
+                <ul class="side-header-sub-menu">
+                  <li>
+                    <a href="index.html"
+                      ><span>تجارت الکترونیکی (پیش فرض)</span></a
+                    >
+                  </li>
+                  <li>
+                    <a href="index-crypto.html"><span>کریپتوکارنسی</span></a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="widgets.html"
+                  ><i class="ti-palette"></i> <span>ابزارک ها</span></a
+                >
+              </li>
+              <li class="has-sub-menu">
+                <a href="#"
+                  ><i class="ti-crown"></i> <span>عناصر پیشرفته</span></a
+                >
+                <ul class="side-header-sub-menu">
+                  <li>
+                    <a href="elements-clipboard.html"><span>کلیپ بورد</span></a>
+                  </li>
+                  <li>
+                    <a href="elements-fullcalendar.html"
+                      ><span>تقویم کامل</span></a
+                    >
+                  </li>
+                  <li>
+                    <a href="elements-media-player.html"
+                      ><span>پخش رسانه ای</span></a
+                    >
+                  </li>
+                  <li>
+                    <a href="elements-sortable.html"
+                      ><span>قابل مرتب شدن (درگ و دراپ)</span></a
+                    >
+                  </li>
+                  <li>
+                    <a href="elements-toastr.html"><span>توستر</span></a>
+                  </li>
+                  <li>
+                    <a href="elements-rating.html"><span>رتبه بندی</span></a>
+                  </li>
+                  <li>
+                    <a href="elements-sweetalert.html"
+                      ><span>هشدار خوب</span></a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <!-- Side Header Inner End -->
+      </div>
+      <!-- Side Header End -->
+
+      <!-- Content Body Start -->
+      <div class="content-body">
+        <!-- Page Headings Start -->
+        <div class="row justify-content-between align-items-center mb-10">
+          <!-- Page Heading Start -->
+          <div class="col-12 col-lg-auto mb-20">
+            <div class="page-heading">
+              <!-- <h3 class="title">صفحات <span>/ خالی</span></h3> -->
+							<%- body %>
+            </div>
+          </div>
+          <!-- Page Heading End -->
+        </div>
+        <!-- Page Headings End -->
+      </div>
+      <!-- Content Body End -->
+
+      <!-- Footer Section Start -->
+      <div class="footer-section">
+        <div class="container-fluid">
+          <div class="footer-copyright text-center">
+            <p class="text-body-light">1403 &copy; <a href="#">علی نظری</a></p>
+          </div>
+        </div>
+      </div>
+      <!-- Footer Section End -->
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+      crossorigin="anonymous"
+    ></script>
+    <!--Main JS-->
+    <script src="/static/admin/js/admin.js"></script>
+  </body>
+</html>

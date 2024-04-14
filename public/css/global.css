@@ -2,13 +2,11 @@
 	font-family: Vazirmatn, sans-serif;
 }
 
-/* Webkit (Chrome, Safari) solution */
 ::-webkit-input-placeholder {
 	text-align: right;
 	font-size: 14px;
 }
 
-/* Mozilla (Firefox) solution */
 input:-moz-placeholder {
 	text-align: right;
 	font-size: 14px;

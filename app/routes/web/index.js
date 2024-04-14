@@ -2,8 +2,9 @@ const router = require('express').Router();
 const authRouter = require('./auth');
 const adminRouter = require('./admin');
 const homeRouter = require('./home');
-const { redirectIfAuthenticate } = require('app/http/guards/auth.guard');
+const { redirectIfAuthenticate, isUserAuthenticate, checkUserIsAdmin } = require('app/http/guards/auth.guard');
 
+// authentication routes
 router.use(
 	'/auth',
 	redirectIfAuthenticate,
@@ -13,7 +14,20 @@ router.use(
 	},
 	authRouter
 );
-router.use('/admin', adminRouter);
+
+// admin routes
+router.use(
+	'/admin',
+	isUserAuthenticate,
+	checkUserIsAdmin,
+	(req, res, next) => {
+		req.app.set('layout', 'layouts/admin');
+		next();
+	},
+	adminRouter
+);
+
+// main page routes
 router.use(
 	'/',
 	(req, res, next) => {

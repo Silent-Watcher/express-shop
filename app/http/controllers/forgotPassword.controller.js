@@ -36,7 +36,6 @@ class ForgotPasswordController extends Controller {
 			});
 			// send mail
 			const resetPassEmailMessage = `<a target='_blank' href='http://localhost:3000/auth/password/reset/${token}'>تغییر رمز عبور </a>`;
-			console.log(path.join(process.cwd(), 'public', 'imgs', 'logoMail.svg'));
 			sendmail(
 				{
 					from: 'backendwithali@gmail.com',

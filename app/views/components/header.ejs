@@ -1,9 +1,9 @@
 <div class="container">
 	<div class="row">
-		<div class="col-12 col-lg-8 offset-lg-2 mt-2 mt-lg-5">
+		<div class="col-12 col-lg-10 offset-lg-1 mt-2 mt-lg-5">
 			<!-- navbar start -->
 			<nav class="navbar navbar-expand-lg sticky-top">
-				<div class="container-fluid">
+				<div class="container-fluid align-items-center">
 					<a class="navbar-brand" href="/">فروشگاه عطن</a>
 					<button
 						class="navbar-toggler"
@@ -55,6 +55,9 @@
 							</li>
 						</ul>
 						<% if (user) { %>
+							<% if (user.admin) { %>
+								<a class="btn btn-outline-primary btn-sm me-lg-4 mb-3 mb-lg-0" href="/admin" target="_blank">پنل مدیریت</a>
+							<% } %>
 						<div class="dropdown dropcenter">
 							<section
 								class="rounded-circle"
@@ -124,6 +127,7 @@
 								</li>
 							</ul>
 						</div>
+
 						<% } else { %>
 						<ul class="nav navbar-navnavbar-right">
 							<li>

@@ -142,36 +142,6 @@
 		}
 	});
 
-	// Adding active class to nav menu depending on page
-	let pageUrl = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
-	$('.side-header-menu a').each(function () {
-		if ($(this).attr('href') === pageUrl || $(this).attr('href') === '') {
-			$(this)
-				.closest('li')
-				.addClass('active')
-				.parents('li')
-				.addClass('active')
-				.children('ul')
-				.slideDown()
-				.siblings('a')
-				.find('.menu-expand i')
-				.removeClass('zmdi-chevron-down')
-				.addClass('zmdi-chevron-up');
-		} else if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
-			$('.side-header-menu a[href="index.html"]')
-				.closest('li')
-				.addClass('active')
-				.parents('li')
-				.addClass('active')
-				.children('ul')
-				.slideDown()
-				.siblings('a')
-				.find('.menu-expand i')
-				.removeClass('zmdi-chevron-down')
-				.addClass('zmdi-chevron-up');
-		}
-	});
-
 	$window.on('load', function () {
 		// dark mode
 		const toggleDARK = document.querySelector('.toggle-dark');

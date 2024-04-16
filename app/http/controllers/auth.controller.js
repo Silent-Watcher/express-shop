@@ -76,6 +76,7 @@ class AuthController extends Controller {
 			const title = 'ورود';
 			res.render('auth/login', {
 				errors: req.flash('error'),
+				success: req.flash('success'),
 				captcha: recaptcha.render(),
 				title,
 			});

@@ -1,0 +1,58 @@
+<div class="container">
+	<!-- course header -->
+	<div class="row w-100">
+		<div class="col-12 col-lg-6"><h3>دوره ها</h3></div>
+		<div class="col-12 col-lg-6 text-center">
+			<a type="button" class="btn btn-primary ms-auto btn-sm" href="/admin/courses/create">ایجاد دوره جدید</a>
+			<button type="button" class="btn btn-warning btn-sm">بخش ویدیو ها</button>
+		</div>
+	</div>
+	<!-- course table -->
+	<table class="mt-5 w-100">
+		<thead>
+			<tr>
+				<th>عنوان دوره</th>
+				<th>تعداد نظرات</th>
+				<th>مقدار بازدید</th>
+				<th>تعد شرکت کننده ها</th>
+				<th>وضعیت دوره</th>
+				<th>تنظیمات</th>
+			</tr>
+		</thead>
+		<tbody class="table-group-divider">
+			<tr>
+				<td><a href="/courses/آپدیت-جدید-راکت">آموزش پروژه محور bootstrap 4</a></td>
+				<td>0</td>
+				<td>0</td>
+				<td>آموزش پروژه محور bootstrap 4</td>
+				<td>نقدی</td>
+				<td>
+					<form action="http://localhost:8000/admin/courses/2" method="post">
+						<input type="hidden" name="_method" value="delete" />
+						<input type="hidden" name="_token" value="Dso45XzqoXsAkRC8BBMQ63ZsOFS0c2tELkxR4i3Y" />
+						<div class="btn-group btn-group-sm">
+							<a href="http://localhost:8000/admin/courses/2/edit" class="btn btn-primary rounded ms-1">ویرایش</a>
+							<button type="submit" class="btn btn-outline-danger rounded">حذف</button>
+						</div>
+					</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="d-flex justify-content-center">
+		<!-- pagination -->
+		<div class="col-lg-4 col-md-6 col-12 mb-30 __web-inspector-hide-shortcut__">
+			<ul class="pagination pagination-sm justify-content-center mt-3">
+				<li class="page-item">
+					<a class="page-link" href="#"><i class="zmdi zmdi-chevron-right"></i></a>
+				</li>
+				<li class="page-item active"><a class="page-link" href="#">1</a></li>
+				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				<li class="page-item">
+					<a class="page-link" href="#"><i class="zmdi zmdi-chevron-left"></i></a>
+				</li>
+			</ul>
+		</div>
+		<!-- pagination -->
+	</div>
+</div>

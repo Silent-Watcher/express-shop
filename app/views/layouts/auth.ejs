@@ -20,6 +20,7 @@
 		<!-- CSS files -->
 		<link rel="stylesheet" href="/static/css/global.css" />
 		<title><%= title ?? 'فروشگاه' %></title>
+		<%- script %>
 	</head>
 	<body>
 		<div class="container-fluid">
@@ -92,9 +93,12 @@
 					<!-- navbar end -->
 				</div>
 			</div>
+
+
+			<%- include('../components/messages.ejs') %>
 			<%- body %>
 		</div>
-		<%- include('../components/footer.ejs') %>
+		
 		<script src="/static/js/popper.js"></script>
 		<script src="/static/js/bootstrap.min.js"></script>
 		<script async src="/static/js/auth.js"></script>

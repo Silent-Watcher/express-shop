@@ -4,6 +4,18 @@ const adminRouter = require('./admin');
 const homeRouter = require('./home');
 const { redirectIfAuthenticate, isUserAuthenticate, checkUserIsAdmin } = require('app/http/guards/auth.guard');
 
+// main page routes
+router.use(
+	'/',
+	(req, res, next) => {
+		req.app.set('layout', 'layouts/layout');
+		res.locals.errors = [];
+		res.locals.success = [];
+		next();
+	},
+	homeRouter
+);
+
 // authentication routes
 router.use(
 	'/auth',
@@ -22,19 +34,11 @@ router.use(
 	checkUserIsAdmin,
 	(req, res, next) => {
 		req.app.set('layout', 'layouts/admin');
+		res.locals.user = req.user;
+		res.locals.title = 'پنل مدیریت';
 		next();
 	},
 	adminRouter
-);
-
-// main page routes
-router.use(
-	'/',
-	(req, res, next) => {
-		req.app.set('layout', 'layouts/layout');
-		next();
-	},
-	homeRouter
 );
 
 module.exports = router;

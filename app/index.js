@@ -45,9 +45,14 @@ class Application {
 		require('./passport/google');
 		this.#app.set('view engine', 'ejs');
 		this.#app.set('views', VIEW_FILES_PATH);
+		this.#app.set('layout extractScripts', true);
+		this.#app.set('layout extractStyles', true);
 		this.#app.use('/static', express.static(STATIC_FILES_PATH));
 		this.#app.use(
 			helmet({
+				referrerPolicy: {
+					policy: ['origin', 'unsafe-url'],
+				},
 				contentSecurityPolicy: {
 					directives: {
 						'script-src': ["'self'", "'http://www.google.com/'"],
@@ -70,6 +75,7 @@ class Application {
 			}),
 			flash()
 		);
+
 		this.#app.use(passport.initialize());
 		this.#app.use(passport.session());
 		this.#app.use(rememberLogin);

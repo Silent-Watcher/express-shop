@@ -23,7 +23,19 @@
 		<title><%= title ?? 'فروشگاه' %></title>
 	</head>
 	<body>
-		<div class="container-fluid g-0"><%- body %></div>
+		<div class="container-fluid g-0">
+			<!-- header -->
+			<%- include('../components/header.ejs') %>
+			<!-- header -->
+
+			<!-- messages -->
+			<%- include('../components/messages.ejs') %>
+			<!-- messages -->
+			<%- body %>
+		</div>
+		<!-- footer -->
+		<%- include('../components/footer.ejs') %>
+		<!-- footer -->
 		<script src="/static/js/popper.js"></script>
 		<script src="/static/js/bootstrap.min.js"></script>
 		<script async src="/static/js/index.js"></script>

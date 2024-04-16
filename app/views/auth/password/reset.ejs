@@ -1,59 +1,31 @@
-
 <div class="container">
 	<div class="row pt-5 justify-content-center">
 		<div class="col-12 col-lg-4">
-			<% if(errors.length > 0) { %>
-			<div class="alert alert-danger alert-dismissible">
-				<button
-					type="button"
-					class="btn-close btn-danger position-absolute top-0 end-0"
-					aria-label="Close"
-				></button>
-				<ul>
-					<% errors.forEach(error => { %>
-					<li><%= error %></li>
-					<% }) %>
-				</ul>
-			</div>
-			<% } %>
-			<form
-				class="form-horizontal"
-				method="POST"
-				action="/auth/password/reset"
-				autocomplete="off"
-			>
-			<!-- email -->
-			<div class="form-group mt-3">
-				<label for="email" class="control-label mb-2">ایمیل</label>
-				<input
-					dir="rtl"
-					id="email"
-					type="email"
-					class="form-control"
-					name="email"
-					required="true"
-					inputmode="email"
-				/>
-			</div>
-			<p class="form-text">گرفتن مجدد ایمیل به دلایل مسائل امنیتی الزامی است.</p>
-			<!-- token -->
-			<input type="hidden" name="token" value="<%= token %>">
-			<!-- new password -->
+			<form class="form-horizontal" method="POST" action="/auth/password/reset" autocomplete="off">
+				<!-- email -->
+				<div class="form-group mt-3">
+					<label for="email" class="control-label mb-2">ایمیل</label>
+					<input
+						dir="rtl"
+						id="email"
+						type="email"
+						class="form-control"
+						name="email"
+						required="true"
+						inputmode="email"
+					/>
+				</div>
+				<p class="form-text">گرفتن مجدد ایمیل به دلایل مسائل امنیتی الزامی است.</p>
+				<!-- token -->
+				<input type="hidden" name="token" value="<%= token %>" />
+				<!-- new password -->
 				<div class="form-group mt-3">
 					<label for="password" class="control-label mb-2">رمز عبور جدید</label>
-					<input
-						id="password"
-						type="password"
-						class="form-control"
-						name="password"
-						required="true"
-					/>
+					<input id="password" type="password" class="form-control" name="password" required="true" />
 				</div>
 				<!-- confirm new password -->
 				<div class="form-group mt-3">
-					<label for="password-confirm" class="control-label mb-2"
-						>تکرار رمز عبور</label
-					>
+					<label for="password-confirm" class="control-label mb-2">تکرار رمز عبور</label>
 					<input
 						id="password-confirm"
 						type="password"
@@ -66,9 +38,7 @@
 				<div class="form-group mt-3"><%- captcha %></div>
 				<!-- submit -->
 				<div class="form-group mt-3 d-grid">
-					<button disabled type="submit" class="btn btn-primary submitButton">
-						ثبت
-					</button>
+					<button disabled type="submit" class="btn btn-primary submitButton">ثبت</button>
 				</div>
 			</form>
 		</div>

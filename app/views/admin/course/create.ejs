@@ -1,0 +1,60 @@
+<link rel="stylesheet" href="/static/admin/course/css/create.css" />
+<div class="container">
+	<!-- course header -->
+	<div class="row w-100">
+		<div class="col-12 col-lg-6 "><h3>ایجاد دوره جدید</h3></div>
+		<div class="col-12 col-lg-6 text-center">
+			<a type="button" class="btn btn-primary ms-auto btn-sm" href="/admin/courses/">دوره ها</a>
+		</div>
+	</div>
+	<!-- create a new course form start -->
+	<div class="row w-100">
+		<form class="col-12 col-lg-8 offset-lg-2">
+			<div class="row mbn-20">
+				<!--  -->
+				<div class="col-12 mb-20">
+					<label class="mb-2 mt-4" for="newCourseTitle">عنوان دوره</label>
+					<input type="text" id="newCourseTitle" class="form-control" name="title" />
+				</div>
+				<!--  -->
+				<div class="col-12 mb-20">
+					<label class="my-2" for="newCourseType">نوع دوره</label>
+					<select class="form-control" name="type" id="newCourseType">
+						<option selected>نقدی</option>
+						<option>رایگان</option>
+					</select>
+				</div>
+				<!--  -->
+				<div class="col-12 mb-20">
+					<label class="my-2" for="newCourseImage">تصویر دوره</label>
+					<div class="input-group">
+						<input type="file" class="form-control" id="newCourseImage" />
+					</div>
+				</div>
+				<!--  -->
+				<div class="col-12 mb-20">
+					<label class="my-2" for="newCourseDesc">توضیحات دوره</label>
+					<textarea rows="4" id="newCourseDesc" class="form-control p-2"></textarea>
+				</div>
+				<!--  -->
+				<div class="col-12 mb-20">
+					<label class="my-2" for="newCoursePrice">قیمت</label>
+					<input type="text" id="newCoursePrice" class="form-control" name="price" />
+				</div>
+				<!--  -->
+				<div class="col-12 mb-20 tags-input">
+					<label class="my-2" for="input-tag">تگ ها</label>
+					<input class="form-control" type="text" name="tags" id="input-tag" />
+					<ul class="d-flex justify-content-end align-items-center ps-0" id="tags"></ul>
+				</div>
+				<!--  -->
+				<div class="d-grid ">
+					<button class="btn btn-primary btn-sm">ایجاد</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- create a new course form end -->
+</div>
+
+<script src="/static/admin/course/js/create.js"></script>

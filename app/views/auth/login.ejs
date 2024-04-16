@@ -1,21 +1,8 @@
 <!-- form start -->
-<div class="container">
+<div class="container mb-4">
 	<div class="row pt-5 justify-content-center">
 		<div class="col-12 col-lg-4">
-			<% if(errors.length > 0) { %>
-			<div class="alert alert-danger alert-dismissible">
-				<button
-					type="button"
-					class="btn-close btn-danger position-absolute top-0 end-0"
-					aria-label="Close"
-				></button>
-				<ul>
-					<% errors.forEach(error => { %>
-					<li><%= error %></li>
-					<% }) %>
-				</ul>
-			</div>
-			<% } %>
+
 			<form
 				class="form-horizontal"
 				method="POST"

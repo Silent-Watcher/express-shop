@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>پنل مدیریت</title>
+    <title><%= title ?? 'پنل مدیریت' %></title>
     <meta name="robots" content="noindex, follow" />
     <meta
       name="viewport"
@@ -28,9 +28,8 @@
 
     <!-- css file -->
     <link id="cus-style" rel="stylesheet" href="/static/admin/css/style.css" />
+		<%- style %>
   </head>
-
-  <!-- dark mode : class (body tag) : skin-dark  replace with side-header-light-->
 
   <body dir="rtl" class="" >
     <div class="main-wrapper">
@@ -185,7 +184,7 @@
           <nav class="side-header-menu" id="side-header-menu">
             <ul>
               <li class="has-sub-menu">
-                <a href="#"><i class="ti-home"></i> <span>داشبورد</span></a>
+                <a href="#"><i class="zmdi zmdi-home"></i> <span>داشبورد</span></a>
                 <ul class="side-header-sub-menu">
                   <li>
                     <a href="index.html"
@@ -198,46 +197,12 @@
                 </ul>
               </li>
               <li>
-                <a href="widgets.html"
-                  ><i class="ti-palette"></i> <span>ابزارک ها</span></a
-                >
+                <a href="/admin/"><i class="zmdi zmdi-home"></i> <span>داشبورد</span></a>
               </li>
-              <li class="has-sub-menu">
-                <a href="#"
-                  ><i class="ti-crown"></i> <span>عناصر پیشرفته</span></a
-                >
-                <ul class="side-header-sub-menu">
-                  <li>
-                    <a href="elements-clipboard.html"><span>کلیپ بورد</span></a>
-                  </li>
-                  <li>
-                    <a href="elements-fullcalendar.html"
-                      ><span>تقویم کامل</span></a
-                    >
-                  </li>
-                  <li>
-                    <a href="elements-media-player.html"
-                      ><span>پخش رسانه ای</span></a
-                    >
-                  </li>
-                  <li>
-                    <a href="elements-sortable.html"
-                      ><span>قابل مرتب شدن (درگ و دراپ)</span></a
-                    >
-                  </li>
-                  <li>
-                    <a href="elements-toastr.html"><span>توستر</span></a>
-                  </li>
-                  <li>
-                    <a href="elements-rating.html"><span>رتبه بندی</span></a>
-                  </li>
-                  <li>
-                    <a href="elements-sweetalert.html"
-                      ><span>هشدار خوب</span></a
-                    >
-                  </li>
-                </ul>
+              <li>
+                <a href="/admin/courses"><i class="zmdi zmdi-folder"></i> <span>دوره ها</span></a>
               </li>
+
             </ul>
           </nav>
         </div>
@@ -250,9 +215,11 @@
         <!-- Page Headings Start -->
         <div class="row justify-content-between align-items-center mb-10">
           <!-- Page Heading Start -->
-          <div class="col-12 col-lg-auto mb-20">
+          <div class="col-12 mb-20">
             <div class="page-heading">
-              <!-- <h3 class="title">صفحات <span>/ خالی</span></h3> -->
+							<!-- messages -->
+							<%- include('../components/messages.ejs') %>
+							<!-- messages -->
 							<%- body %>
             </div>
           </div>
@@ -292,5 +259,6 @@
     ></script>
     <!--Main JS-->
     <script src="/static/admin/js/admin.js"></script>
+		<%- script %>
   </body>
 </html>

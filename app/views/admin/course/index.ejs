@@ -10,30 +10,30 @@
 	<!-- course table -->
 	<table class="mt-5 w-100">
 		<thead>
-			<tr>
+			<tr class="text-center">
 				<th>عنوان دوره</th>
 				<th>تعداد نظرات</th>
 				<th>مقدار بازدید</th>
-				<th>slug</th>
-				<th>وضعیت دوره</th>
+				<th class="d-none d-lg-table-cell">slug</th>
+				<th class="d-none d-lg-table-cell">وضعیت دوره</th>
 				<th>تنظیمات</th>
 			</tr>
 		</thead>
 		<tbody class="table-group-divider">
 			<% courses.forEach(course => { %>
-				<tr>
+				<tr class="text-center">
 					<td><a href="/courses/<%= course.slug %>"><%= course.title %></a></td>
 					<td><%= course.commentCount %></td>
 					<td><%= course.viewCount %></td>
-					<td><%= course.slug %></td>
-					<td><%= course.type %></td>
+					<td class="d-none d-lg-table-cell"><%= course.slug %></td>
+					<td class="d-none d-lg-table-cell"><%= course.type %></td>
 					<td>
 						<form action="http://localhost:8000/admin/courses/2" method="post">
 							<input type="hidden" name="_method" value="delete" />
 							<input type="hidden" name="_token" value="Dso45XzqoXsAkRC8BBMQ63ZsOFS0c2tELkxR4i3Y" />
-							<div class="btn-group btn-group-sm">
-								<a href="http://localhost:8000/admin/courses/2/edit" class="btn btn-primary rounded ms-1">ویرایش</a>
-								<button type="submit" class="btn btn-outline-danger rounded">حذف</button>
+							<div class="d-flex flex-column flex-lg-row">
+								<a href="http://localhost:8000/admin/courses/2/edit" class="btn btn-primary rounded ms-1 btn-sm">ویرایش</a>
+								<button type="submit" class="btn btn-outline-danger rounded btn-sm mt-2 mt-lg-0">حذف</button>
 							</div>
 						</form>
 					</td>

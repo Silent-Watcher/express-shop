@@ -2,56 +2,101 @@
 <div class="container">
 	<!-- course header -->
 	<div class="row w-100">
-		<div class="col-12 col-lg-6 "><h3>ایجاد دوره جدید</h3></div>
+		<div class="col-12 col-lg-6"><h3>ایجاد دوره جدید</h3></div>
 		<div class="col-12 col-lg-6 text-center">
 			<a type="button" class="btn btn-primary ms-auto btn-sm" href="/admin/courses/">دوره ها</a>
 		</div>
 	</div>
 	<!-- create a new course form start -->
 	<div class="row w-100">
-		<form class="col-12 col-lg-8 offset-lg-2">
+		<form method="POST" action="/admin/courses/create" class="col-12 col-lg-8 offset-lg-2">
 			<div class="row mbn-20">
-				<!--  -->
+				<!-- title  -->
 				<div class="col-12 mb-20">
 					<label class="mb-2 mt-4" for="newCourseTitle">عنوان دوره</label>
-					<input type="text" id="newCourseTitle" class="form-control" name="title" />
+					<input
+						autofocus
+						type="text"
+						id="newCourseTitle"
+						class="form-control"
+						name="title"
+						required
+						value="<%- old?.title ?? '' %>"
+					/>
 				</div>
-				<!--  -->
+				<!-- type -->
 				<div class="col-12 mb-20">
 					<label class="my-2" for="newCourseType">نوع دوره</label>
-					<select class="form-control" name="type" id="newCourseType">
-						<option selected>نقدی</option>
-						<option>رایگان</option>
+					<select class="form-control" name="type" id="newCourseType" required>
+						<option value="paid" <%- old?.type == 'paid' ? 'selected' : '' %>>نقدی</option>
+						<option value="free" <%- old?.type == 'free' ? 'selected' : '' %>>رایگان</option>
 					</select>
 				</div>
-				<!--  -->
+				<!-- slug -->
+				<div class="col-12 mb-20">
+					<label class="mb-2 mt-4" for="newCourseSlug"> slug</label>
+					<input
+						autofocus
+						type="text"
+						id="newCourseSlug"
+						class="form-control"
+						name="slug"
+						required
+						value="<%- old?.slug ?? '' %>"
+					/>
+					<p dir="ltr" class="form-text text-secondary" id="courseSlugPreview"><span> www.yourSite.com/</span><span id="courseSlugPreviewValue"></span></p>
+				</div>
+
+				<!-- image  -->
 				<div class="col-12 mb-20">
 					<label class="my-2" for="newCourseImage">تصویر دوره</label>
 					<div class="input-group">
-						<input type="file" class="form-control" id="newCourseImage" />
+						<input
+							accept=".jpg,.jpeg,.png,.webp,.avif"
+							name="image"
+							type="file"
+							class="form-control"
+							id="newCourseImage"
+						/>
 					</div>
+					<p class="form-text">پسوند های قابل قبول : jpg ، png ، webp ، avif</p>
 				</div>
-				<!--  -->
+				<!-- desc -->
 				<div class="col-12 mb-20">
 					<label class="my-2" for="newCourseDesc">توضیحات دوره</label>
-					<textarea rows="4" id="newCourseDesc" class="form-control p-2"></textarea>
+					<textarea name="description" rows="4" id="newCourseDesc" class="form-control p-2">
+<%- old?.description ?? ''%></textarea
+					>
 				</div>
-				<!--  -->
+				<!-- price  -->
 				<div class="col-12 mb-20">
-					<label class="my-2" for="newCoursePrice">قیمت</label>
-					<input type="text" id="newCoursePrice" class="form-control" name="price" />
+					<label class="my-2" for="newCoursePrice">قیمت (به تومان)</label>
+					<input
+						value="<%- old?.price ?? 0 %>"
+						type="number"
+						id="newCoursePrice"
+						class="form-control"
+						name="price"
+						required
+						inputmode="numeric"
+						min="0"
+					/>
 				</div>
-				<!--  -->
+
+				<!-- tags  -->
 				<div class="col-12 mb-20 tags-input">
 					<label class="my-2" for="input-tag">تگ ها</label>
-					<input class="form-control" type="text" name="tags" id="input-tag" />
-					<ul class="d-flex justify-content-end align-items-center ps-0" id="tags"></ul>
+					<input class="form-control" type="text" name="tags" id="input-tag" value="" />
+					<p class="form-text text-warning mb-0">تگ ها با اسامی تکراری یک بار لحاظ میشوند</p>
+					<ul class="d-flex justify-content-end align-items-center ps-0" id="tags">
+					</ul>
 				</div>
 				<!--  -->
-				<div class="d-grid ">
+				<div class="d-grid">
 					<button class="btn btn-primary btn-sm">ایجاد</button>
 				</div>
 			</div>
+			<input type="hidden" name="user" value="<%= user._id %>">
 		</form>
 	</div>
 	<!-- create a new course form end -->

@@ -13,7 +13,6 @@ class ResetPasswordController extends Controller {
 		try {
 			const title = 'بازیابی رمز عبور';
 			res.render('auth/password/reset', {
-				errors: req.flash('error'),
 				title,
 				token: req.params.token,
 				captcha: recaptcha.render(),

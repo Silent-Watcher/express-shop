@@ -1,9 +1,9 @@
 .mbn-20 {
-	margin-bottom: -20px ;
+	margin-bottom: -20px;
 }
 
 .mb-20 {
-	margin-bottom: 20px ;
+	margin-bottom: 20px;
 }
 
 body.skin-dark .form-control {
@@ -29,21 +29,14 @@ body.skin-dark .form-control {
 	padding: 2px 5px;
 	margin-right: 5px;
 	margin-bottom: 5px;
-}
-
-.tags-input .delete-button {
-	background-color: transparent;
-	border: none;
-	color: #474747;
 	cursor: pointer;
-	padding: 0 5px;
 }
 
 body.skin-dark .tags-input li {
-		background-color: #161824;
-		color: #fafafa;
+	background-color: #161824;
+	color: #fafafa;
 }
 
-body.skin-dark .tags-input .delete-button{
-	color: #ddd;
+#courseSlugPreview {
+	text-align: justify;
 }

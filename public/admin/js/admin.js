@@ -160,6 +160,15 @@
 				this.firstElementChild.src = '/static/admin/images/sun.svg';
 			}
 		});
+		// close button messages functionality
+		const closeButton = document.querySelector('.btn-close');
+		if (closeButton != null) {
+			// modal close button
+			closeButton.addEventListener('click', e => {
+				let parent = e.target.parentElement;
+				parent.remove();
+			});
+		}
 	});
 	// eslint-disable-next-line no-undef
 })(jQuery);

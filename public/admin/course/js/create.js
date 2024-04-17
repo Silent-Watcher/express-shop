@@ -1,45 +1,80 @@
 'use strict';
-// Get the tags and input elements from the DOM
 const tags = document.getElementById('tags');
 const input = document.getElementById('input-tag');
 
-// Add an event listener for keydown on the input element
+let inputValue = '';
+
+function recursiveReplace(inputString, searchValue, replaceValue) {
+	const index = inputString.indexOf(searchValue);
+	if (index === -1) return inputString;
+	const before = inputString.slice(0, index);
+	const after = inputString.slice(index + searchValue.length);
+	return before + replaceValue + recursiveReplace(after, searchValue, replaceValue);
+}
 input.addEventListener('keydown', function (event) {
-	// Check if the key pressed is 'Enter'
 	if (event.key == 'Enter') {
-		// Prevent the default action of the keypress
-		// event (submitting the form)
 		event.preventDefault();
-		// Create a new list item element for the tag
-		const tag = document.createElement('li');
-		tag.className = 'd-inline-flex justify-content-between align-items-center';
+		let tagContent = input.value.trim();
+		if (!isTagExists(tagContent)) {
+			input.value = recursiveReplace(input.value, ' ', '-');
+			tagContent = input.value;
+			inputValue += input.value + '/';
 
-		// Get the trimmed value of the input element
-		const tagContent = input.value.trim();
+			const tag = document.createElement('li');
+			tag.className = 'd-inline-flex justify-content-between align-items-center';
 
-		// If the trimmed value is not an empty string
-		if (tagContent != '') {
-			// Set the text content of the tag to
-			// the trimmed value
-			tag.innerHTML = `<p class="mb-0">${tagContent}</p>`;
+			if (tagContent != '') {
+				tag.innerHTML = `<p class="mb-0">${tagContent}</p>`;
 
-			// Add a delete button to the tag
-			tag.innerHTML += '<button class="delete-button">X</button>';
+				tag.addEventListener('click', event => {
+					inputValue = recursiveReplace(inputValue, `${event.target.innerText}/`, '');
+					input.value = inputValue;
+					event.target.parentElement.remove();
+				});
 
-			// Append the tag to the tags list
-			tags.appendChild(tag);
-
-			// Clear the input element's value
-			input.value = '';
+				tags.appendChild(tag);
+				input.value = '';
+			}
 		}
 	}
 });
 
-// Add an event listener for click on the tags list
-tags.addEventListener('click', function (event) {
-	// If the clicked element has the class 'delete-button'
-	if (event.target.classList.contains('delete-button')) {
-		// Remove the parent element (the tag)
-		event.target.parentNode.remove();
-	}
+function isTagExists(tag) {
+	let tags = inputValue.split('/');
+	return tags.includes(tag);
+}
+
+input.addEventListener('blur', event => {
+	if (tags.children.length == 0) input.value = '';
+	else event.target.value = inputValue;
+});
+
+input.addEventListener('focus', () => {
+	input.value = '';
+});
+
+// price input activeness base on price input
+const newCourseTypeInput = document.querySelector('#newCourseType');
+const newCoursePriceInput = document.querySelector('#newCoursePrice');
+const newCourseTitleInput = document.querySelector('#newCourseTitle');
+const courseSlugPreviewValue = document.querySelector('#courseSlugPreviewValue');
+const newCourseSlugInput = document.querySelector('#newCourseSlug');
+newCourseTypeInput.addEventListener('change', event => {
+	if (event.target.value == 'free') {
+		newCoursePriceInput.value = 0;
+		newCoursePriceInput.disabled = true;
+	} else newCoursePriceInput.disabled = false;
+});
+
+newCourseTitleInput.addEventListener('input', event => {
+	let inputValue = event.target.value;
+	let slug = recursiveReplace(inputValue, ' ', '-');
+	newCourseSlugInput.value = slug;
+	courseSlugPreviewValue.innerText = slug;
+});
+
+newCourseSlugInput.addEventListener('input', event => {
+	let { value } = event.target;
+	let slug = recursiveReplace(value, ' ', '-');
+	courseSlugPreviewValue.innerText = slug;
 });

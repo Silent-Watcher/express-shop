@@ -55,7 +55,7 @@ class Application {
 				},
 				contentSecurityPolicy: {
 					directives: {
-						'script-src': ["'self'", "'http://www.google.com/'"],
+						'script-src': ["'self'", "'http://www.google.com/'", "'https://cdn.jsdelivr.net/'"],
 					},
 					reportOnly: true,
 				},

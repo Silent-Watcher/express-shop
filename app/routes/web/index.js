@@ -9,8 +9,9 @@ router.use(
 	'/',
 	(req, res, next) => {
 		req.app.set('layout', 'layouts/layout');
-		res.locals.errors = [];
-		res.locals.success = [];
+		res.locals.old = req.flash('formData')[0];
+		res.locals.errors = req.flash('error');
+		res.locals.success = req.flash('success');
 		next();
 	},
 	homeRouter

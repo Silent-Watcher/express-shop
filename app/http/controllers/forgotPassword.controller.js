@@ -15,7 +15,7 @@ class ForgotPasswordController extends Controller {
 	getForgotPasswordPage(req, res, next) {
 		try {
 			const title = 'فراموشی رمز عبور';
-			res.render('auth/password/email', { errors: req.flash('error'), title, captcha: recaptcha.render() });
+			res.render('auth/password/email', { title, captcha: recaptcha.render() });
 		} catch (error) {
 			next(error);
 		}

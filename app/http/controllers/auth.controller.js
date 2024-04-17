@@ -63,7 +63,6 @@ class AuthController extends Controller {
 		try {
 			const title = 'ثبت نام';
 			res.render('auth/register', {
-				errors: req.flash('error'),
 				captcha: recaptcha.render(),
 				title,
 			});
@@ -75,8 +74,6 @@ class AuthController extends Controller {
 		try {
 			const title = 'ورود';
 			res.render('auth/login', {
-				errors: req.flash('error'),
-				success: req.flash('success'),
 				captcha: recaptcha.render(),
 				title,
 			});

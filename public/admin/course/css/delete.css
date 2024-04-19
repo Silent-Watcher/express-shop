@@ -1,0 +1,65 @@
+.form-control.danger {
+	border-color: #fd427c;
+}
+body.skin-dark .form-control {
+	color: #fafafa;
+	border-color: #fb7da4;
+	background-color: #202334;
+}
+
+body.skin-dark .form-text {
+	color: #fafafa;
+}
+
+.button {
+	display: inline-block;
+	background-color: #eff8fe;
+	border-color: #eff8fe;
+	color: #666666;
+	border-radius: 4px;
+	text-transform: capitalize;
+	font-size: 15px;
+	line-height: 24px;
+	padding: 7px 20px;
+	border-width: 1px;
+	border-style: solid;
+	margin-bottom: 5px;
+	margin-right: 2px;
+}
+
+.button span {
+	display: inline-block;
+}
+
+.button-secondary {
+	background-color: #fb7da4;
+	border-color: #fb7da4;
+	color: #ffffff;
+}
+
+.button-secondary.button-outline {
+	background-color: transparent;
+	color: #fb7da4;
+}
+
+/* .button-secondary.button-outline:hover {
+	background-color: #fb7da4;
+	border-color: #fb7da4;
+	color: #ffffff;
+}
+
+.button-secondary:hover {
+	background-color: #fa6493;
+	border-color: #fa6493;
+	color: #ffffff;
+} */
+
+.button:disabled {
+	cursor: not-allowed;
+}
+
+.button-secondary.active {
+	background-color: #fb7da4;
+	border-color: #fb7da4;
+	color: #ffffff;
+}

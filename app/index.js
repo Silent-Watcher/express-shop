@@ -14,7 +14,7 @@ const expressEjsLayouts = require('express-ejs-layouts');
 const { handleExceptions, handleNotFoundError } = require('app/http/middlewares/handleExceptions');
 const passport = require('passport');
 const rememberLogin = require('app/http/middlewares/remember.middleware');
-const helmet = require('helmet');
+// const helmet = require('helmet');
 
 const { env } = process;
 
@@ -48,19 +48,24 @@ class Application {
 		this.#app.set('layout extractScripts', true);
 		this.#app.set('layout extractStyles', true);
 		this.#app.use('/static', express.static(STATIC_FILES_PATH));
-		this.#app.use(
-			helmet({
-				referrerPolicy: {
-					policy: ['origin', 'unsafe-url'],
-				},
-				contentSecurityPolicy: {
-					directives: {
-						'script-src': ["'self'", "'http://www.google.com/'", "'https://cdn.jsdelivr.net/'"],
-					},
-					reportOnly: true,
-				},
-			})
-		);
+		// this.#app.use(
+		// 	helmet({
+		// 		referrerPolicy: {
+		// 			policy: ['origin', 'unsafe-url'],
+		// 		},
+		// 		contentSecurityPolicy: {
+		// 			directives: {
+		// 				'script-src': [
+		// 					"'self'",
+		// 					"'http://www.google.com/'",
+		// 					"'https://cdn.jsdelivr.net/'",
+		// 					"'https://code.jquery.com/'",
+		// 				],
+		// 			},
+		// 			reportOnly: true,
+		// 		},
+		// 	})
+		// );
 		this.#app.use(
 			express.json(),
 			express.urlencoded({ extended: true }),

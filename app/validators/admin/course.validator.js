@@ -41,7 +41,48 @@ function validateCreateCourseData() {
 		body('user').isMongoId().withMessage('آیدی ایجاد کننده دوره نامعتبر است'),
 	];
 }
+function validateEditCourseData() {
+	return [
+		body('title').isString().trim().not().isEmpty().escape().withMessage('عنوان دوره نامعتبر است.'),
+		body('title')
+			.isString()
+			.escape()
+			.custom(async (value, { req }) => {
+				const foundedSlug = await Course.findOne({ title: value, _id: { $ne: req.body.courseId } }, { title: 1 });
+				if (foundedSlug) throw new Error('چنین دوره ای با این عنوان قبلا در سایت قرار داده شده است.');
+			}),
+		body('type')
+			.custom(value => {
+				let typeWhiteList = ['vip', 'free', 'paid'];
+				return typeWhiteList.includes(value);
+			})
+			.withMessage('نوع دوره نامعتبر است'),
+		body('description').isString().trim().escape().withMessage('متن توضیحات دوره معتبر نیست'),
+		body('price')
+			.custom((value, { req }) => {
+				if ('free' == req.body.type) return value == 0;
+				else return value != 0;
+			})
+			.withMessage('قیمت دوره رایگان باید صفر باشد'),
+		body('price')
+			.custom(value => {
+				return isNumeric(value);
+			})
+			.withMessage('قیمت دوره باید یک مقدار عددی باشد'),
+		// body('slug').trim().escape().isSlug().withMessage('اسلاگ تعریف شده از استاندارد های لازم پیروی نمی کند'),
+		body('courseId').isMongoId().withMessage('آیدی ایجاد کننده دوره نامعتبر است'),
+		body('slug')
+			.trim()
+			.escape()
+			.custom(async (value, { req }) => {
+				const foundedSlug = await Course.findOne({ slug: value, _id: { $ne: req.body.courseId } }, { title: 1 });
+				if (foundedSlug) throw new Error('این slug قبلا تعریف شده است');
+			}),
+		body('user').isMongoId().withMessage('آیدی ایجاد کننده دوره نامعتبر است'),
+	];
+}
 
 module.exports = {
 	validateCreateCourseData,
+	validateEditCourseData,
 };

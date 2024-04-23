@@ -1,0 +1,22 @@
+#fileUploader {
+	border: 3px dashed royalblue;
+	height: auto;
+	padding: 40px;
+	border-radius: 15px;
+}
+#fileUploader span:last-child {
+	font-size: 14px;
+}
+
+
+#fileUploader > button {
+	font-size: 14px;
+}
+
+img {
+	width: 100%;
+	height: 100%;
+	display: block;
+	-o-object-fit: fill;
+	object-fit: fill;
+}

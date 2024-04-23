@@ -22,7 +22,10 @@
 		<tbody class="table-group-divider">
 			<% courses.forEach(course => { %>
 				<tr class="text-center">
-					<td><a href="admin/courses/<%= course.slug %>"><%= course.title %></a></td>
+					<td>
+						<img class="img-fluid" width="50px" height="25px" style="border-radius: 10px;"  src="<%= course.images[0] ?? '/static/imgs/defaultImage.avif' %>" alt="">
+						<a href="admin/courses/<%= course.slug %>"><%= course.title %></a>
+					</td>
 					<td><%= course.commentCount %></td>
 					<td><%= course.viewCount %></td>
 					<td class="d-none d-lg-table-cell"><%= course.slug %></td>

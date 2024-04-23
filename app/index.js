@@ -1,4 +1,3 @@
-const normalizePort = require('app/http/middlewares/normalizePort');
 const autoBind = require('auto-bind');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
@@ -27,10 +26,10 @@ class Application {
 		this.#port = port;
 		this.setConfigs();
 		this.router();
-		this.handleErrors();
 		this.connectToMongoDb(env.DB_URL, env.DB_NAME).then(() => {
 			this.createServer(this.#port);
 		});
+		this.handleErrors();
 	}
 	//------------------
 	createServer(port) {
@@ -106,9 +105,8 @@ class Application {
 	}
 	//------------------
 	handleErrors() {
-		this.#app.use(normalizePort);
-		this.#app.use(handleNotFoundError);
 		this.#app.use(handleExceptions);
+		this.#app.use(handleNotFoundError);
 	}
 }
 

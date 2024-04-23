@@ -4,29 +4,47 @@ const { validateCreateCourseData, validateEditCourseData } = require('app/valida
 const checkDataValidation = require('app/http/middlewares/validation.middleware');
 const getOldData = require('app/http/middlewares/getOldData');
 const { param, body } = require('express-validator');
+const { uploadCourseImage } = require('../../config/imageUploader');
+
 const router = require('express').Router();
 
 router.get('/', adminController.getIndexPage);
 
+// ========== COURSES PATHS ================
+// COURSE INDEX PAGE
 router.get('/courses', courseController.getIndexPage);
+// CREATE COURSES
 router.get('/courses/create', courseController.getCreateCoursePage);
-router.post('/courses/create', getOldData, validateCreateCourseData(), checkDataValidation, courseController.create);
+router.post(
+	'/courses/create',
+	uploadCourseImage.single('image'),
+	getOldData,
+	validateCreateCourseData(),
+	checkDataValidation,
+	courseController.create
+);
+// EDIT COURSES
 router.get(
 	'/courses/:id/edit',
 	param('id').isMongoId().withMessage('شناسه دوره نامعتبر است'),
 	checkDataValidation,
 	courseController.getEditCoursePage
 );
-
-router.post('/courses/:id/edit', getOldData, validateEditCourseData(), checkDataValidation, courseController.edit);
-
+router.post(
+	'/courses/:id/edit',
+	uploadCourseImage.single('image'),
+	getOldData,
+	validateEditCourseData(),
+	checkDataValidation,
+	courseController.edit
+);
+// DELETE COURSES
 router.get(
 	'/courses/:id/delete',
 	param('id').isMongoId().withMessage('شناسه دوره نامعتبر است'),
 	checkDataValidation,
 	courseController.getDeleteCoursePage
 );
-
 router.post(
 	'/courses/:id/delete',
 	param('id').isMongoId().withMessage('شناسه دوره نامعتبر است'),
@@ -34,4 +52,5 @@ router.post(
 	checkDataValidation,
 	courseController.delete
 );
+// =================================
 module.exports = router;

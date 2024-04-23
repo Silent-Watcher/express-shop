@@ -85,7 +85,7 @@ newCourseSlugInput.addEventListener('input', event => {
 });
 
 window.addEventListener('load', () => {
-	let tagsStringValue = document.querySelector('#storedTagValues').value;
+	let tagsStringValue = document.querySelector('#storedTagValues')?.value ?? '';
 	if (tagsStringValue.length > 0) {
 		let tags = input.value.length > 0 ? input.value.split('/') : tagsStringValue.split('/');
 		let tagsFragment = document.createDocumentFragment();

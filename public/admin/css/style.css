@@ -22,12 +22,6 @@ body {
 	font-family: Vazirmatn, sans-serif;
 	direction: rtl;
 }
-*,
-*::after,
-*::before {
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-}
 
 html,
 body,
@@ -355,10 +349,6 @@ textarea:-ms-input-placeholder {
 
 .text-heading {
 	color: #343434 !important;
-}
-
-.text-primary {
-	color: #428bfa !important;
 }
 
 .text-secondary {
@@ -3634,7 +3624,6 @@ body.skin-dark .jsgrid-table [dir='rtl'] .footable.table thead tr th .footable-f
 	right: auto;
 }
 
-
 /* table */
 table td,
 table th {
@@ -3645,61 +3634,60 @@ body.skin-dark table {
 	color: #fafafa;
 }
 
-
 /*--
     - Pagination
 --------------------------------------*/
 .pagination {
-  -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
-  margin-bottom: -10px;
-  padding: 0;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	margin-bottom: -10px;
+	padding: 0;
 }
 
 .pagination .page-item {
-  margin-right: 10px;
-  margin-bottom: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
 }
 
 .pagination .page-item:last-child {
-  margin-right: 0;
+	margin-right: 0;
 }
 
 .pagination .page-item .page-link {
-  display: inline-block;
-  background-color: transparent;
-  color: #666666;
-  border-radius: 4px;
-  text-transform: capitalize;
-  font-size: 15px;
-  padding: 4px 15px;
-  border-width: 1px;
-  border-style: solid;
+	display: inline-block;
+	background-color: transparent;
+	color: #666666;
+	border-radius: 4px;
+	text-transform: capitalize;
+	font-size: 15px;
+	padding: 4px 15px;
+	border-width: 1px;
+	border-style: solid;
 }
 
 .pagination .page-item .page-link:hover {
-  background-color: #428bfa;
-  border-color: #428bfa;
-  color: #ffffff;
+	background-color: #428bfa;
+	border-color: #428bfa;
+	color: #ffffff;
 }
 
 .pagination .page-item.active .page-link {
-  background-color: #428bfa;
-  border-color: #428bfa;
-  color: #ffffff;
+	background-color: #428bfa;
+	border-color: #428bfa;
+	color: #ffffff;
 }
 
 .pagination.pagination-lg .page-item .page-link {
-  font-size: 18px;
-  padding: 10px 20px;
+	font-size: 18px;
+	padding: 10px 20px;
 }
 
 .pagination.pagination-sm .page-item .page-link {
-  font-size: 12px;
-  padding: 0 10px;
+	font-size: 12px;
+	padding: 0 10px;
 }
 
-body.skin-dark .pagination .page-item .page-link{
+body.skin-dark .pagination .page-item .page-link {
 	color: #fafafa;
 }

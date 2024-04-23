@@ -9,7 +9,7 @@
 	</div>
 	<!-- create a new course form start -->
 	<div class="row w-100">
-		<form method="POST" action="/admin/courses/create" class="col-12 col-lg-8 offset-lg-2">
+		<form method="POST" enctype="multipart/form-data" action="/admin/courses/create" class="col-12 col-lg-8 offset-lg-2">
 			<div class="row mbn-20">
 				<!-- title  -->
 				<div class="col-12 mb-20">
@@ -49,7 +49,7 @@
 
 				<!-- image  -->
 				<div class="col-12 mb-20">
-					<label class="my-2" for="newCourseImage">تصویر دوره</label>
+					<label class="my-2">تصویر دوره</label>
 					<div class="input-group">
 						<input
 							accept=".jpg,.jpeg,.png,.webp,.avif"
@@ -59,7 +59,6 @@
 							id="newCourseImage"
 						/>
 					</div>
-					<p class="form-text">پسوند های قابل قبول : jpg ، png ، webp ، avif</p>
 				</div>
 				<!-- desc -->
 				<div class="col-12 mb-20">

@@ -1,4 +1,4 @@
 <h1 class="text-center text-primary"><%= error.status %></h1>
 <h3 class="text-center mt-3 text-secondary"><%= error.message %></h>
 <pre class="text-secondary mt-2" ><%= error.stack %></pre>
-<a href="/" class="btn btn-primary">بازگشت به خانه</a>
+<a href="<%= error.redirectLink %>" class="btn btn-primary">بازگشت به خانه</a>

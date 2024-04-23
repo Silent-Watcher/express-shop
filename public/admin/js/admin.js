@@ -143,10 +143,14 @@
 	});
 
 	$window.on('load', function () {
+		let theme = localStorage.getItem('admin-theme') ?? null;
+		if (theme == 'dark') document.body.classList.add('skin-dark');
+		else document.body.classList.remove('skin-dark');
 		// dark mode
 		const toggleDARK = document.querySelector('.toggle-dark');
 		toggleDARK.addEventListener('click', function () {
 			if (document.body.classList.contains('skin-dark')) {
+				localStorage.setItem('admin-theme', 'light');
 				document.body.classList.remove('skin-dark');
 				this.firstElementChild.src = '/static/admin/images/moon.svg';
 				$body.removeClass(function (index, className) {
@@ -156,6 +160,7 @@
 					return (className.match(/\bside-header-\S+/g) || []).join(' ');
 				});
 			} else {
+				localStorage.setItem('admin-theme', 'dark');
 				document.body.classList.add('skin-dark');
 				this.firstElementChild.src = '/static/admin/images/sun.svg';
 			}

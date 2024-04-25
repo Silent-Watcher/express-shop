@@ -23,7 +23,7 @@ function handleNotFoundError(req, res, next) {
 		error: {
 			status: 404,
 			message: 'صفحه یافت نشد 😣',
-			redirectLink: req.headers.referer,
+			redirectLink: '/',
 		},
 	});
 }

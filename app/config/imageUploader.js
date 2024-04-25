@@ -15,14 +15,14 @@ const courseImagesStorage = multer.diskStorage({
 			const [year, month, day] = [now.getFullYear().toString(), now.getMonth().toString(), now.getDay().toString()];
 			const uploadPath = path.join(COURSE_IMAGES_BASE_PATH, year, month, day);
 			await mkdirp(uploadPath);
-			cb(null, uploadPath);
+			return cb(null, uploadPath);
 		} catch (error) {
-			cb(new Error({ status: 500, message: 'خطا در مسیر بارگذاری عکس های دوره' }));
+			return cb(new Error({ status: 500, message: 'خطا در مسیر بارگذاری عکس های دوره' }));
 		}
 	},
 	filename: (req, file, cb) => {
 		// check for the right mime type
-		if (!IMAGES_MIME_TYPES.includes(file.mimetype)) cb({ status: 406, message: 'فرمت تصویر نامعتبر است' });
+		if (!IMAGES_MIME_TYPES.includes(file.mimetype)) return cb({ status: 406, message: 'فرمت تصویر نامعتبر است' });
 		//check for the right size
 		// hash the file name
 		const fileName = sha1(file.filename + new Date().getTime().toString()) + path.extname(file.originalname);

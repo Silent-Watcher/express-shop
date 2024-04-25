@@ -1,9 +1,12 @@
+const sharp = require('sharp');
+
 const fs = require('fs');
 
 const slugify = require('slugify');
 const Controller = require('app/http/controllers/controller');
 const Course = require('../../../models/course.model');
 const { STATIC_FILES_PATH } = require('../../../common/globals');
+const path = require('path');
 
 class CourseController extends Controller {
 	constructor() {
@@ -14,10 +17,10 @@ class CourseController extends Controller {
 		try {
 			const { title, type, slug, description, price, tags } = req.body;
 			const image = req?.file;
-			// const imageAddr = image.path.replace(STATIC_FILES_PATH, '/static/');
-			let imageAddr = '';
+			let imageAddrs = [];
+
 			if (image) {
-				imageAddr = this.createImagesAddr(image.path);
+				imageAddrs = Object.values(this.resizeImage(image.path));
 			}
 			await Course.create({
 				title,
@@ -25,14 +28,14 @@ class CourseController extends Controller {
 				slug: slugify(slug, { lower: true, replacement: '-' }),
 				description,
 				user: req.user._id,
-				images: imageAddr ? [imageAddr] : [],
+				images: imageAddrs,
 				price,
 				tags,
 			});
 			req.flash('success', `دوره ${title} با موفقیت ایجاد شد`);
 			res.redirect('/admin/courses');
 		} catch (error) {
-			next(error);
+			next({ status: 500, message: `something went wrong !`, stack: error.stack });
 		}
 	}
 	//
@@ -47,10 +50,10 @@ class CourseController extends Controller {
 			this.removeCourseImages(foundedCourse.images);
 			// add new image
 			const image = req?.file;
-			let imageAddr = null;
+			let imageAddrs = null;
 			// const imageAddr = image.path.replace(STATIC_FILES_PATH, '/static');
 			if (image) {
-				imageAddr = this.createImagesAddr(image.path);
+				imageAddrs = this.resizeImage(image.path);
 			}
 			// foundedCourse.images.forEach(async image => {
 			// 	await fs.unlink(image.replace('/static/', STATIC_FILES_PATH));
@@ -60,7 +63,7 @@ class CourseController extends Controller {
 				{
 					$set: {
 						...req.body,
-						images: [imageAddr],
+						images: imageAddrs,
 					},
 				}
 			);
@@ -71,7 +74,7 @@ class CourseController extends Controller {
 			req.flash('success', `دوره ${req.body.title} با موفقیت به روز رسانی شد`);
 			return res.redirect(`/admin/courses`);
 		} catch (error) {
-			next(error);
+			next({ status: 500, message: `something went wrong !`, stack: error.stack });
 		}
 	}
 	//
@@ -91,11 +94,11 @@ class CourseController extends Controller {
 				// foundedCourse.images.forEach(async image => {
 				// 	await fs.unlink(image.replace('/static/', STATIC_FILES_PATH));
 				// });
+				req.flash('success', 'دوره با موفقیت حذف شد');
 			}
-			req.flash('success', 'دوره با موفقیت حذف شد');
 			return res.redirect(`/admin/courses`);
 		} catch (error) {
-			next(error);
+			next({ status: 500, message: `something went wrong !`, stack: error.stack });
 		}
 	}
 	//
@@ -105,7 +108,7 @@ class CourseController extends Controller {
 			const courses = await Course.find({}).lean();
 			res.render('admin/course/index', { title, courses });
 		} catch (error) {
-			next(error);
+			next({ status: 500, message: `something went wrong !`, stack: error.stack });
 		}
 	}
 	//
@@ -148,14 +151,31 @@ class CourseController extends Controller {
 	removeCourseImages(images) {
 		// remove the old images
 		if (images.length == 0) return;
-		let imagePath;
 		images.forEach(image => {
-			imagePath = image.replace('/static/', STATIC_FILES_PATH);
-			if (fs.existsSync(imagePath)) fs.unlinkSync(imagePath);
+			let imagePath = image.path.replace('/static/', `${STATIC_FILES_PATH}\\`);
+			if (fs.existsSync(imagePath)) fs.rmSync(imagePath, { force: true });
 		});
 	}
-	createImagesAddr(imagePath) {
-		return imagePath.replace(STATIC_FILES_PATH, '/static/');
+	createImageUrlAddr(imagePath) {
+		return imagePath.replace(`${STATIC_FILES_PATH}\\`, '/static/');
+	}
+	resizeImage(filePath) {
+		const imageInfo = path.parse(filePath);
+		const imageSizes = [1080, 720, 480];
+		let [image, imgAddr] = [{}, ''];
+		let images = [];
+		image.path = this.createImageUrlAddr(filePath);
+		image.size = 'original';
+		images.push(image);
+		imageSizes.map(size => {
+			imgAddr = path.join(imageInfo.dir, `${imageInfo.name}-${size}${imageInfo.ext}`);
+			let image = {};
+			image.path = this.createImageUrlAddr(imgAddr);
+			image.size = size;
+			images.push(image);
+			sharp(filePath).resize(size, size, { fit: 'fill' }).toFile(imgAddr);
+		});
+		return images;
 	}
 }
 

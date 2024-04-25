@@ -1,5 +1,10 @@
 const { Schema, model } = require('mongoose');
 
+const imageSchema = new Schema({
+	size: { type: String, required: true, unique: false },
+	path: { type: String, required: true, unique: false },
+});
+
 const courseSchema = new Schema(
 	{
 		title: { type: String, required: true, unique: true },
@@ -11,7 +16,7 @@ const courseSchema = new Schema(
 		tags: { type: String, required: false },
 		viewCount: { type: Number, default: 0 },
 		commentCount: { type: Number, default: 0 },
-		images: { type: [String], required: false, default: [] },
+		images: { type: [imageSchema], required: false, default: [] },
 	},
 	{ timestamps: true }
 );

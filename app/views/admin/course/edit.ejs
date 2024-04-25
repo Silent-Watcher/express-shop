@@ -64,9 +64,12 @@
 				</div>
 				<!-- images preview -->
 				<% if (course.images.length > 0) { %>
-						<div class="d-flex justify-content-center align-items-center flex-wrap">
+						<div class="d-flex justify-content-around align-items-center flex-wrap my-4">
 							<% course.images.forEach(image => { %>
-								<img loading="lazy" width="100px" src="<%= image %>" alt="<%= image %>" class="img-fluid">
+								<figure>
+									<img loading="lazy" width="100px" src="<%= image.path %>" alt="course image : size <%= image.size %>" class="img-fluid rounded">
+									<figcaption class="text-center mt-3"><%= image.size %></figcaption>
+								</figure>
 							<% }) %>
 						</div>
 				<% } else { %>

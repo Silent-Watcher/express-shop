@@ -23,7 +23,7 @@
 			<% courses.forEach(course => { %>
 				<tr class="text-center">
 					<td>
-						<img class="img-fluid" width="50px" height="25px" style="border-radius: 10px;"  src="<%= course.images[0] ?? '/static/imgs/defaultImage.avif' %>" alt="">
+						<img class="img-fluid" width="50px" height="25px" style="border-radius: 10px;"  src="<%= course.images[0].path ?? '/static/imgs/defaultImage.avif' %>" alt="">
 						<a href="admin/courses/<%= course.slug %>"><%= course.title %></a>
 					</td>
 					<td><%= course.commentCount %></td>

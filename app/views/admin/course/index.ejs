@@ -1,7 +1,7 @@
 <div class="container">
 	<!-- course header -->
 	<div class="row w-100">
-		<div class="col-12 col-lg-6"><h3>دوره ها</h3></div>
+		<div class="col-12 col-lg-6"><h3>دوره ها</h3><p class="admin_sub_heading mt-3">مجموع :  <span><%= courses.totalDocs %></span></p></div>
 		<div class="col-12 col-lg-6 text-center">
 			<a type="button" class="btn btn-primary ms-auto btn-sm" href="/admin/courses/create">ایجاد دوره جدید</a>
 			<button type="button" class="btn btn-warning btn-sm">بخش ویدیو ها</button>
@@ -20,16 +20,24 @@
 			</tr>
 		</thead>
 		<tbody class="table-group-divider">
-			<% courses.forEach(course => { %>
+			<% courses.docs.forEach(course => { %>
 				<tr class="text-center">
 					<td>
-						<img class="img-fluid" width="50px" height="25px" style="border-radius: 10px;"  src="<%= course.images[0].path ?? '/static/imgs/defaultImage.avif' %>" alt="">
+						<img class="img-fluid" width="50px" height="25px" style="border-radius: 10px;"  src="<%= course?.images[0]?.path ?? '/static/imgs/defaultImage.avif' %>" alt="">
 						<a href="admin/courses/<%= course.slug %>"><%= course.title %></a>
 					</td>
 					<td><%= course.commentCount %></td>
 					<td><%= course.viewCount %></td>
 					<td class="d-none d-lg-table-cell"><%= course.slug %></td>
-					<td class="d-none d-lg-table-cell"><%= course.type %></td>
+					<td class="d-none d-lg-table-cell">
+						<% if (course.type == 'paid') { %>
+							نقدی
+						<% } else if (course.type == 'free') {%>
+							رایگان
+						<% } else { %>
+							اعضای ویژه
+						<% } %>
+					</td>
 					<td>
 						<div class="d-flex flex-column flex-lg-row">
 							<a href="/admin/courses/<%= course._id %>/edit" class="btn btn-primary rounded ms-1 btn-sm">ویرایش</a>
@@ -42,7 +50,8 @@
 	</table>
 	<div class="d-flex justify-content-center">
 		<!-- pagination -->
-		<div class="col-lg-4 col-md-6 col-12 mb-30 __web-inspector-hide-shortcut__">
+		<%- include('../../components/pagination.ejs' , {pagination : courses}) %>
+		<!-- <div class="col-lg-4 col-md-6 col-12 mb-30 __web-inspector-hide-shortcut__">
 			<ul class="pagination pagination-sm justify-content-center mt-3">
 				<li class="page-item">
 					<a class="page-link" href="#"><i class="zmdi zmdi-chevron-right"></i></a>
@@ -53,7 +62,7 @@
 					<a class="page-link" href="#"><i class="zmdi zmdi-chevron-left"></i></a>
 				</li>
 			</ul>
-		</div>
+		</div> -->
 		<!-- pagination -->
 	</div>
 </div>

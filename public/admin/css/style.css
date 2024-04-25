@@ -3691,3 +3691,13 @@ body.skin-dark table {
 body.skin-dark .pagination .page-item .page-link {
 	color: #fafafa;
 }
+
+.admin_sub_heading{
+	color: #ccc;
+	font-size: 12px;
+}
+
+
+body.skin-dark .admin_sub_heading{
+	color: #fafafa;
+}

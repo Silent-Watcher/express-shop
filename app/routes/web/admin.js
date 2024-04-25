@@ -12,7 +12,7 @@ router.get('/', adminController.getIndexPage);
 
 // ========== COURSES PATHS ================
 // COURSE INDEX PAGE
-router.get('/courses', courseController.getIndexPage);
+router.get('/courses', checkDataValidation, courseController.getIndexPage);
 // CREATE COURSES
 router.get('/courses/create', courseController.getCreateCoursePage);
 router.post(

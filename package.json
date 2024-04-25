@@ -34,6 +34,7 @@
 		"http-status": "^1.7.4",
 		"mkdirp": "^3.0.1",
 		"mongoose": "^8.2.4",
+		"mongoose-paginate-v2": "^1.8.0",
 		"multer": "1.4.5-lts.1",
 		"nodemailer": "^6.9.13",
 		"passport": "^0.7.0",

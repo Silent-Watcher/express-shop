@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const imageSchema = new Schema({
 	size: { type: String, required: true, unique: false },
@@ -20,6 +21,8 @@ const courseSchema = new Schema(
 	},
 	{ timestamps: true }
 );
+
+courseSchema.plugin(mongoosePaginate);
 
 const Course = model('course', courseSchema);
 

@@ -1,0 +1,29 @@
+<div class="d-flex justify-content-center">
+	<% if (pagination.totalPages > 1) { %>
+			<ul class="pagination pagination-sm justify-content-center mt-3">
+				<% if (pagination.page > 1) { %>
+						<li class="page-item"><a class="page-link" href="?page=1"><i class="zmdi zmdi-chevron-right"></i></a></li>
+				<% } %>
+				<% let i = 1;
+				if (pagination.page > 5) {
+					i = +pagination.page - 4;
+				} %>
+				<% if (i !== 1) { %>
+						<li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+				<% } %>
+				<% for (i; i<=pagination.totalPages; i++) { %>
+					<% if (pagination.page == i) { %>
+							<li class="page-item active"><a class="page-link" href="#"><span><%= i %></span></a></li>
+					<% } else { %>
+							<li class="page-item"><a class="page-link" href="?page=<%= i %>"><%= i %></a></li>
+					<% } %>
+					<% if (i == (+pagination.page + 4)) { %>
+							<li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+					<% break; } %>
+				<% } %>
+				<% if (pagination.page != pagination.totalPages) { %>
+						<li class="page-item"><a class="page-link" href="?page=<%= pagination.totalPages %>"><i class="zmdi zmdi-chevron-left"></i></a></li>
+				<% } %>
+			</ul>
+	<% } %>
+</div>

@@ -66,9 +66,14 @@
 				<% if (course.images.length > 0) { %>
 						<div class="d-flex justify-content-around align-items-center flex-wrap my-4">
 							<% course.images.forEach(image => { %>
-								<figure>
-									<img loading="lazy" width="100px" src="<%= image.path %>" alt="course image : size <%= image.size %>" class="img-fluid rounded">
+								<figure class="text-center">
+									<label for="thumbSize-<%=image.size%>"><img loading="lazy" width="100px" src="<%= image.path %>" alt="course image : size <%= image.size %>" class="img-fluid rounded"></label>
 									<figcaption class="text-center mt-3"><%= image.size %></figcaption>
+									<% if (course.thumbnail.size == image.size) { %>
+										<input type="radio" name="thumbSize" id="thumbSize-<%=image.size%>" checked value="<%= image.size %>">
+									<% } else { %>
+										<input type="radio" name="thumbSize" id="thumbSize-<%=image.size%>" value="<%= image.size %>">
+									<% } %>
 								</figure>
 							<% }) %>
 						</div>

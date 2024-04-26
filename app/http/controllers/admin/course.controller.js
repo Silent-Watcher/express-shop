@@ -39,18 +39,25 @@ class CourseController extends Controller {
 	//
 	async edit(req, res, next) {
 		try {
+			const image = req?.file;
+			let imageAddrs = null;
 			const foundedCourse = await Course.findById(req.body.courseId);
+			let thumbnail = imageAddrs?.find(imageAddr => imageAddr.size == '480') ?? foundedCourse.thumbnail;
 			if (!foundedCourse) {
 				req.flash('error', 'شناسه دوره نامعتبر است');
 				return res.redirect(`/admin/courses/${req.body.courseId}/edit`);
 			}
 			// add new image
-			const image = req?.file;
-			let imageAddrs = null;
 			if (image) {
 				// remove the old images
 				this.removeCourseImages(foundedCourse.images);
 				imageAddrs = this.resizeImage(image.path);
+			}
+
+			//update thumbnail size
+			const { thumbSize } = req.body;
+			if (thumbSize != '480') {
+				thumbnail = foundedCourse.images.find(image => image.size == thumbSize);
 			}
 
 			const updatedCourse = await Course.updateOne(
@@ -59,7 +66,7 @@ class CourseController extends Controller {
 					$set: {
 						...req.body,
 						images: imageAddrs ?? foundedCourse.images,
-						thumbnail: imageAddrs?.find(imageAddr => imageAddr.size == '480') ?? foundedCourse.thumbnail,
+						thumbnail,
 					},
 				}
 			);

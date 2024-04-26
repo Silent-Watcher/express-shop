@@ -1,22 +1,18 @@
-const adminController = require('app/http/controllers/admin/admin.controller');
+const router = require('express').Router();
 const courseController = require('app/http/controllers/admin/course.controller');
 const { validateCreateCourseData, validateEditCourseData } = require('app/validators/admin/course.validator');
 const checkDataValidation = require('app/http/middlewares/validation.middleware');
 const getOldData = require('app/http/middlewares/getOldData');
 const { param, body } = require('express-validator');
-const { uploadCourseImage } = require('../../config/imageUploader');
-
-const router = require('express').Router();
-
-router.get('/', adminController.getIndexPage);
+const { uploadCourseImage } = require('../../../config/imageUploader');
 
 // ========== COURSES PATHS ================
 // COURSE INDEX PAGE
-router.get('/courses', checkDataValidation, courseController.getIndexPage);
+router.get('/', checkDataValidation, courseController.getIndexPage);
 // CREATE COURSES
-router.get('/courses/create', courseController.getCreateCoursePage);
+router.get('/create', courseController.getCreateCoursePage);
 router.post(
-	'/courses/create',
+	'/create',
 	uploadCourseImage.single('image'),
 	getOldData,
 	validateCreateCourseData(),
@@ -25,13 +21,13 @@ router.post(
 );
 // EDIT COURSES
 router.get(
-	'/courses/:id/edit',
+	'/:id/edit',
 	param('id').isMongoId().withMessage('شناسه دوره نامعتبر است'),
 	checkDataValidation,
 	courseController.getEditCoursePage
 );
 router.put(
-	'/courses/:id/edit',
+	'/:id/edit',
 	uploadCourseImage.single('image'),
 	getOldData,
 	validateEditCourseData(),
@@ -40,17 +36,18 @@ router.put(
 );
 // DELETE COURSES
 router.get(
-	'/courses/:id/delete',
+	'/:id/delete',
 	param('id').isMongoId().withMessage('شناسه دوره نامعتبر است'),
 	checkDataValidation,
 	courseController.getDeleteCoursePage
 );
 router.delete(
-	'/courses/:id/delete',
+	'/:id/delete',
 	param('id').isMongoId().withMessage('شناسه دوره نامعتبر است'),
 	body('course').isString().trim().escape().withMessage('نام دوره نامعتبر است'),
 	checkDataValidation,
 	courseController.delete
 );
 // =================================
+
 module.exports = router;

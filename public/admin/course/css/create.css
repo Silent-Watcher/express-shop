@@ -40,3 +40,7 @@ body.skin-dark .tags-input li {
 #courseSlugPreview {
 	text-align: justify;
 }
+
+label {
+	cursor: pointer;
+}

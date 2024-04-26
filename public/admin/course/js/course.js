@@ -16,6 +16,7 @@ function recursiveReplace(inputString, searchValue, replaceValue) {
 	const after = inputString.slice(index + searchValue.length);
 	return before + replaceValue + recursiveReplace(after, searchValue, replaceValue);
 }
+
 input.addEventListener('keydown', function (event) {
 	if (event.key == 'Enter') {
 		event.preventDefault();

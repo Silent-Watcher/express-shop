@@ -14,7 +14,7 @@
 	</div>
 	<section class="deleteFormSection" hidden>
 		<div class="row">
-			<form method="POST" action="/admin/courses/<%= course._id %>/delete" class="col-12 col-lg-4 mb-15 mx-auto mt-4">
+			<form method="POST" action="/admin/courses/<%= course._id %>/delete?_method=DELETE" class="col-12 col-lg-4 mb-15 mx-auto mt-4">
 				<p class="form-text mb-1">برای حذف عبارت "<%= course.title %>" را وارد کنید</p>
 				<input
 					data-course="<%= course.title %>"

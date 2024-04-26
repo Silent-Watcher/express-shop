@@ -7,6 +7,7 @@ const Controller = require('app/http/controllers/controller');
 const Course = require('../../../models/course.model');
 const { STATIC_FILES_PATH } = require('../../../common/globals');
 const path = require('path');
+const recursiveReplace = require('../../../helpers/string/recursiveReplace');
 
 class CourseController extends Controller {
 	constructor() {
@@ -26,6 +27,7 @@ class CourseController extends Controller {
 				description,
 				user: req.user._id,
 				images: imageAddrs ?? [],
+				thumbnail: imageAddrs.find(imageAddr => imageAddr.size == '480'),
 				price,
 				tags,
 			});
@@ -42,19 +44,22 @@ class CourseController extends Controller {
 				req.flash('error', 'شناسه دوره نامعتبر است');
 				return res.redirect(`/admin/courses/${req.body.courseId}/edit`);
 			}
-			// remove the old images
-			this.removeCourseImages(foundedCourse.images);
 			// add new image
 			const image = req?.file;
 			let imageAddrs = null;
-			if (image) imageAddrs = this.resizeImage(image.path);
+			if (image) {
+				// remove the old images
+				this.removeCourseImages(foundedCourse.images);
+				imageAddrs = this.resizeImage(image.path);
+			}
 
 			const updatedCourse = await Course.updateOne(
 				{ _id: req.body.courseId },
 				{
 					$set: {
 						...req.body,
-						images: imageAddrs ?? [],
+						images: imageAddrs ?? foundedCourse.images,
+						thumbnail: imageAddrs?.find(imageAddr => imageAddr.size == '480') ?? foundedCourse.thumbnail,
 					},
 				}
 			);
@@ -150,11 +155,13 @@ class CourseController extends Controller {
 		}
 	}
 	removeCourseImages(images) {
-		if (images.length == 0) return;
-		images.forEach(image => {
-			let imagePath = image.path.replace('/static/', `${STATIC_FILES_PATH}\\`);
-			if (fs.existsSync(imagePath)) fs.rmSync(imagePath, { force: true });
-		});
+		if (images.length > 0) {
+			images.forEach(image => {
+				let imagePath = image.path.replace('/static/', `${STATIC_FILES_PATH}\\`);
+				let optimizedPath = recursiveReplace(imagePath, '\\', '/');
+				if (fs.existsSync(optimizedPath)) fs.unlinkSync(optimizedPath);
+			});
+		}
 	}
 	createImageUrlAddr(imagePath) {
 		return imagePath.replace(`${STATIC_FILES_PATH}\\`, '/static/');
@@ -173,7 +180,7 @@ class CourseController extends Controller {
 			image.path = this.createImageUrlAddr(imgAddr);
 			image.size = size;
 			images.push(image);
-			sharp(filePath).resize(size, size, { fit: 'fill' }).toFile(imgAddr);
+			sharp(filePath).resize(size, null, { fit: 'fill' }).toFile(imgAddr);
 		});
 		return images;
 	}

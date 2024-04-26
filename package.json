@@ -32,6 +32,7 @@
 		"helmet": "^7.1.0",
 		"http-errors": "^2.0.0",
 		"http-status": "^1.7.4",
+		"method-override": "^3.0.0",
 		"mkdirp": "^3.0.1",
 		"mongoose": "^8.2.4",
 		"mongoose-paginate-v2": "^1.8.0",

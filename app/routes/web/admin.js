@@ -30,7 +30,7 @@ router.get(
 	checkDataValidation,
 	courseController.getEditCoursePage
 );
-router.post(
+router.put(
 	'/courses/:id/edit',
 	uploadCourseImage.single('image'),
 	getOldData,
@@ -45,7 +45,7 @@ router.get(
 	checkDataValidation,
 	courseController.getDeleteCoursePage
 );
-router.post(
+router.delete(
 	'/courses/:id/delete',
 	param('id').isMongoId().withMessage('شناسه دوره نامعتبر است'),
 	body('course').isString().trim().escape().withMessage('نام دوره نامعتبر است'),

@@ -9,7 +9,7 @@
 	</div>
 	<!-- create a new course form start -->
 	<div class="row w-100">
-		<form method="POST" enctype="multipart/form-data" action="/admin/courses/<%= course._id %>/edit" class="col-12 col-lg-8 offset-lg-2">
+		<form method="POST" enctype="multipart/form-data" action="/admin/courses/<%= course._id %>/edit?_method=PUT" class="col-12 col-lg-8 offset-lg-2">
 			<input type="hidden" name="courseId" value="<%= course._id %>">
 			<div class="row mbn-20">
 				<!-- title  -->

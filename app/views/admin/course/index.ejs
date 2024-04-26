@@ -11,6 +11,7 @@
 	<table class="mt-5 w-100">
 		<thead>
 			<tr class="text-center">
+				<th></th>
 				<th>عنوان دوره</th>
 				<th>تعداد نظرات</th>
 				<th>مقدار بازدید</th>
@@ -22,8 +23,10 @@
 		<tbody class="table-group-divider">
 			<% courses.docs.forEach(course => { %>
 				<tr class="text-center">
+					<td class="text-left">
+						<img class="img-fluid" width="50px" height="25px" style="border-radius: 10px;"  src="<%= course?.thumbnail?.path ?? '/static/imgs/defaultImage.avif' %>" alt="">
+					</td>
 					<td>
-						<img class="img-fluid" width="50px" height="25px" style="border-radius: 10px;"  src="<%= course?.images[0]?.path ?? '/static/imgs/defaultImage.avif' %>" alt="">
 						<a href="admin/courses/<%= course.slug %>"><%= course.title %></a>
 					</td>
 					<td><%= course.commentCount %></td>

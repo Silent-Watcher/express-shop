@@ -18,6 +18,7 @@ const courseSchema = new Schema(
 		viewCount: { type: Number, default: 0 },
 		commentCount: { type: Number, default: 0 },
 		images: { type: [imageSchema], required: false, default: [] },
+		thumbnail: { type: imageSchema, required: false },
 	},
 	{ timestamps: true }
 );

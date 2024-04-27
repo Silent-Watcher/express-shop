@@ -12,8 +12,7 @@ function handleExceptions(err, req, res, next) {
 	req.app.set('layout', 'layouts/error');
 	res.locals.error =
 		process.env.APP_ENV == 'development' ? err : { status, message: err.message, redirectLink: req.headers.referer };
-	if (process.env.APP_ENV == 'development') res.status(status).json(err);
-	else res.status(status).render('error');
+	res.status(status).render('error');
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -23,7 +22,7 @@ function handleNotFoundError(req, res, next) {
 		error: {
 			status: 404,
 			message: 'صفحه یافت نشد 😣',
-			redirectLink: '/',
+			redirectLink: req.headers.referer,
 		},
 	});
 }

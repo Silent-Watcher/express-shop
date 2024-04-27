@@ -1,4 +1,9 @@
+* {
+	font-family: Vazirmatn, sans-serif;
+}
 h1 {
-	color: crimson;
-	font-weight: bold;
+	font-size: 8rem;
+}
+pre{
+	font-size: 14px;
 }

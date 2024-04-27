@@ -17,16 +17,12 @@
 			rel="stylesheet"
 			type="text/css"
 		/>
-		<style>
-			* {
-				font-family: Vazirmatn, sans-serif;
-			}
-			h1 {
-				font-size: 8rem;
-			}
-		</style>
+		<link rel="stylesheet" href="/static/css/error.css" />
+		<%- style %>
 	</head>
 	<body class="vw-100 vh-100 overflow-hidden d-flex flex-column justify-content-center align-items-center">
 		<%- body %>
 	</body>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+	<%- script %>
 </html>

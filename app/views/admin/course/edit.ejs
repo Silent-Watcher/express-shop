@@ -47,40 +47,51 @@
 					/>
 					<p dir="ltr" class="form-text text-secondary user-select-none" id="courseSlugPreview"><span> www.yourSite.com/</span><span id="courseSlugPreviewValue"></span></p>
 				</div>
-
-				<!-- image  -->
-				<div class="col-12 mb-20">
-					<label class="my-2 user-select-none" for="newCourseImage">تصویر دوره</label>
-					<div class="input-group">
-						<input
-							accept=".jpg,.jpeg,.png,.webp,.avif"
-							name="image"
-							type="file"
-							class="form-control"
-							id="newCourseImage"
-						/>
-					</div>
-					<p class="form-text user-select-none">پسوند های قابل قبول : jpg ، png ، webp ، avif</p>
-				</div>
-				<!-- images preview -->
 				<% if (course.images.length > 0) { %>
-						<div class="d-flex justify-content-around align-items-center flex-wrap my-4">
-							<% course.images.forEach(image => { %>
-								<figure class="text-center">
-									<label for="thumbSize-<%=image?.size%>"><img loading="lazy" width="100px" src="<%= image?.path %>" alt="course image : size <%= image?.size %>" class="img-fluid rounded"></label>
-									<figcaption class="text-center mt-3"><%= image?.size %></figcaption>
-									<% if (course?.thumbnail?.size == image?.size) { %>
-										<input type="radio" name="thumbSize" id="thumbSize-<%=image?.size%>" checked value="<%= image?.size %>">
-									<% } else { %>
-										<input type="radio" name="thumbSize" id="thumbSize-<%=image?.size%>" value="<%= image?.size %>">
-									<% } %>
-								</figure>
-							<% }) %>
+					<!-- use default course image -->
+					<div class="col-12 mb-20 d-flex align-items-center justify-content-center">
+						<label class="ms-2" for="useDefaultImage">از عکس پیش فرض استفاده کن</label>
+						<input type="checkbox" name="useDefaultImage" id="useDefaultImage" value="true">
+					</div>
+					<div class="text-center">
+						<img class="rounded" width="100px" src="/static/imgs/defaultImage.avif" alt="عکس پیش فرض">
+					</div>
+				<% } %>
+				<!-- edit course image section -->
+				<section id="editCourseImageSection">
+					<!-- image  -->
+					<div class="col-12 mb-20">
+						<label class="my-2 user-select-none" for="newCourseImage">تصویر دوره</label>
+						<div class="input-group">
+							<input
+								accept=".jpg,.jpeg,.png,.webp,.avif"
+								name="image"
+								type="file"
+								class="form-control"
+								id="newCourseImage"
+							/>
 						</div>
-				<% } else { %>
-					<p class="form-text text-center mb-0 text-danger user-select-none">برای دوره عکسی تعریف نشده است .</p>
-				<% }  %>
-
+						<p class="form-text user-select-none">پسوند های قابل قبول : jpg ، png ، webp ، avif</p>
+					</div>
+					<!-- images preview -->
+					<% if (course.images.length > 0) { %>
+							<div class="d-flex justify-content-around align-items-center flex-wrap my-4">
+								<% course.images.forEach(image => { %>
+									<figure class="text-center">
+										<label for="thumbSize-<%=image?.size%>"><img loading="lazy" width="100px" src="<%= image?.path %>" alt="course image : size <%= image?.size %>" class="img-fluid rounded"></label>
+										<figcaption class="text-center mt-3"><%= image?.size %></figcaption>
+										<% if (course?.thumbnail?.size == image?.size) { %>
+											<input type="radio" name="thumbSize" id="thumbSize-<%=image?.size%>" checked value="<%= image?.size %>">
+										<% } else { %>
+											<input type="radio" name="thumbSize" id="thumbSize-<%=image?.size%>" value="<%= image?.size %>">
+										<% } %>
+									</figure>
+								<% }) %>
+							</div>
+					<% } else { %>
+						<p class="form-text text-center mb-0 text-danger user-select-none">برای دوره عکسی تعریف نشده است .</p>
+					<% }  %>
+				</section>
 				<!-- desc -->
 				<div class="col-12 mb-20">
 					<label class="my-2 user-select-none" for="newCourseDesc">توضیحات دوره</label>
@@ -123,3 +134,4 @@
 </div>
 
 <script src="/static/admin/course/js/course.js"></script>
+<script src="/static/admin/course/js/edit.js"></script>

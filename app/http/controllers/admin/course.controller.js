@@ -5,7 +5,7 @@ const fs = require('fs');
 const slugify = require('slugify');
 const Controller = require('app/http/controllers/controller');
 const Course = require('../../../models/course.model');
-const { STATIC_FILES_PATH, DEFAULT_IMAGE_Addr } = require('../../../common/globals');
+const { STATIC_FILES_PATH, DEFAULT_IMAGE_Addr, DEFAULT_THUMBNAIL } = require('../../../common/globals');
 const path = require('path');
 const recursiveReplace = require('../../../helpers/string/recursiveReplace');
 
@@ -42,25 +42,33 @@ class CourseController extends Controller {
 	//
 	async edit(req, res, next) {
 		try {
-			const image = req?.file;
-			let imageAddrs = null;
+			const { useDefaultImage } = req.body;
 			const foundedCourse = await Course.findById(req.body.courseId);
-			let thumbnail = foundedCourse?.thumbnail ?? { size: 'original', path: DEFAULT_IMAGE_Addr };
-			if (!foundedCourse) {
-				req.flash('error', 'شناسه دوره نامعتبر است');
-				return res.redirect(`/admin/courses/${req.body.courseId}/edit`);
-			}
-			// add new image
-			if (image) {
-				// remove the old images
-				this.removeCourseImages(foundedCourse.images);
-				imageAddrs = this.resizeImage(image.path);
-				thumbnail = imageAddrs.find(imageAddr => imageAddr.size == '480');
+			let thumbnail = foundedCourse?.thumbnail ?? DEFAULT_THUMBNAIL;
+			let imageAddrs = null;
+
+			if (useDefaultImage == 'true') {
+				imageAddrs = [];
+				thumbnail = DEFAULT_THUMBNAIL;
+				await this.removeCourseImages(foundedCourse.images);
 			} else {
-				//update thumbnail size
-				const { thumbSize } = req.body;
-				if (thumbSize != '480') {
-					thumbnail = foundedCourse.images.find(image => image.size == thumbSize);
+				const image = req?.file;
+				if (!foundedCourse) {
+					req.flash('error', 'شناسه دوره نامعتبر است');
+					return res.redirect(`/admin/courses/${req.body.courseId}/edit`);
+				}
+				// add new image
+				if (image) {
+					// remove the old images
+					await this.removeCourseImages(foundedCourse.images);
+					imageAddrs = this.resizeImage(image.path);
+					thumbnail = imageAddrs.find(imageAddr => imageAddr.size == '480');
+				} else {
+					//update thumbnail size
+					const { thumbSize } = req.body;
+					if (thumbSize != '480') {
+						thumbnail = foundedCourse.images.find(image => image.size == thumbSize);
+					}
 				}
 			}
 			const updatedCourse = await Course.updateOne(
@@ -164,7 +172,7 @@ class CourseController extends Controller {
 			next(error);
 		}
 	}
-	removeCourseImages(images) {
+	async removeCourseImages(images) {
 		if (images.length > 0) {
 			images.forEach(image => {
 				let imagePath = image.path.replace('/static/', `${STATIC_FILES_PATH}\\`);

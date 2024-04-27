@@ -5,7 +5,7 @@ const fs = require('fs');
 const slugify = require('slugify');
 const Controller = require('app/http/controllers/controller');
 const Course = require('../../../models/course.model');
-const { STATIC_FILES_PATH } = require('../../../common/globals');
+const { STATIC_FILES_PATH, DEFAULT_IMAGE_Addr } = require('../../../common/globals');
 const path = require('path');
 const recursiveReplace = require('../../../helpers/string/recursiveReplace');
 
@@ -27,7 +27,10 @@ class CourseController extends Controller {
 				description,
 				user: req.user._id,
 				images: imageAddrs ?? [],
-				thumbnail: imageAddrs.find(imageAddr => imageAddr.size == '480'),
+				thumbnail: imageAddrs.find(imageAddr => imageAddr.size == '480') ?? {
+					size: 'original',
+					path: DEFAULT_IMAGE_Addr,
+				},
 				price,
 				tags,
 			});
@@ -42,7 +45,7 @@ class CourseController extends Controller {
 			const image = req?.file;
 			let imageAddrs = null;
 			const foundedCourse = await Course.findById(req.body.courseId);
-			let thumbnail = imageAddrs?.find(imageAddr => imageAddr.size == '480') ?? foundedCourse.thumbnail;
+			let thumbnail = foundedCourse?.thumbnail ?? { size: 'original', path: DEFAULT_IMAGE_Addr };
 			if (!foundedCourse) {
 				req.flash('error', 'شناسه دوره نامعتبر است');
 				return res.redirect(`/admin/courses/${req.body.courseId}/edit`);
@@ -52,14 +55,14 @@ class CourseController extends Controller {
 				// remove the old images
 				this.removeCourseImages(foundedCourse.images);
 				imageAddrs = this.resizeImage(image.path);
+				thumbnail = imageAddrs.find(imageAddr => imageAddr.size == '480');
+			} else {
+				//update thumbnail size
+				const { thumbSize } = req.body;
+				if (thumbSize != '480') {
+					thumbnail = foundedCourse.images.find(image => image.size == thumbSize);
+				}
 			}
-
-			//update thumbnail size
-			const { thumbSize } = req.body;
-			if (thumbSize != '480') {
-				thumbnail = foundedCourse.images.find(image => image.size == thumbSize);
-			}
-
 			const updatedCourse = await Course.updateOne(
 				{ _id: req.body.courseId },
 				{

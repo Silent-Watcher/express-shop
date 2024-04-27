@@ -1,8 +1,6 @@
 'use strict';
 const tags = document.getElementById('tags');
 const input = document.getElementById('input-tag');
-const newCourseTypeInput = document.querySelector('#newCourseType');
-const newCoursePriceInput = document.querySelector('#newCoursePrice');
 const newCourseTitleInput = document.querySelector('#newCourseTitle');
 const courseSlugPreviewValue = document.querySelector('#courseSlugPreviewValue');
 const newCourseSlugInput = document.querySelector('#newCourseSlug');
@@ -63,13 +61,6 @@ input.addEventListener('blur', event => {
 
 input.addEventListener('focus', () => {
 	input.value = '';
-});
-
-newCourseTypeInput.addEventListener('change', event => {
-	if (event.target.value == 'free') {
-		newCoursePriceInput.value = 0;
-		newCoursePriceInput.disabled = true;
-	} else newCoursePriceInput.disabled = false;
 });
 
 newCourseTitleInput.addEventListener('input', event => {

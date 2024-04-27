@@ -59,16 +59,16 @@ function validateEditCourseData() {
 			.withMessage('نوع دوره نامعتبر است'),
 		body('description').isString().trim().escape().withMessage('متن توضیحات دوره معتبر نیست'),
 		body('price')
-			.custom((value, { req }) => {
-				if ('free' == req.body.type) return value == 0;
-				else return value != 0;
-			})
-			.withMessage('قیمت دوره رایگان باید صفر باشد'),
-		body('price')
 			.custom(value => {
 				return isNumeric(value);
 			})
 			.withMessage('قیمت دوره باید یک مقدار عددی باشد'),
+		body('price')
+			.custom((value, { req }) => {
+				if ('free' == req.body.type) return value == 0;
+				else return value != 0;
+			})
+			.withMessage('قیمت دوره با نوع دوره تطابق ندارد'),
 		// body('slug').trim().escape().isSlug().withMessage('اسلاگ تعریف شده از استاندارد های لازم پیروی نمی کند'),
 		body('courseId').isMongoId().withMessage('آیدی ایجاد کننده دوره نامعتبر است'),
 		body('slug')

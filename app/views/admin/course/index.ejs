@@ -13,10 +13,10 @@
 			<tr class="text-center">
 				<th></th>
 				<th>عنوان دوره</th>
-				<th>تعداد نظرات</th>
-				<th>مقدار بازدید</th>
+				<th class="d-none d-sm-table-cell">تعداد نظرات</th>
+				<th class="d-none d-lg-table-cell">مقدار بازدید</th>
 				<th class="d-none d-lg-table-cell">slug</th>
-				<th class="d-none d-lg-table-cell">وضعیت دوره</th>
+				<th >وضعیت دوره</th>
 				<th>تنظیمات</th>
 			</tr>
 		</thead>
@@ -29,16 +29,20 @@
 					<td>
 						<a href="admin/courses/<%= course.slug %>"><%= course.title %></a>
 					</td>
-					<td><%= course.commentCount %></td>
-					<td><%= course.viewCount %></td>
+					<td class="d-none d-sm-table-cell"><%= course.commentCount %></td>
+					<td class="d-none d-lg-table-cell "><%= course.viewCount %></td>
 					<td class="d-none d-lg-table-cell"><%= course.slug %></td>
-					<td class="d-none d-lg-table-cell">
+					<td >
 						<% if (course.type == 'paid') { %>
-							نقدی
+							<p class="mb-0">نقدی</p>
+							<div class="d-flex justify-content-center mt-1">
+								<p><%= course.price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."); %></p>
+								<span class="me-2"><img class="img-fluid" src="/static/imgs/toman.svg" width="20px" alt="toman"></span>
+							</div>
 						<% } else if (course.type == 'free') {%>
-							رایگان
+							<p>رایگان</p>
 						<% } else { %>
-							اعضای ویژه
+							<p>اعضای ویژه</p>
 						<% } %>
 					</td>
 					<td>

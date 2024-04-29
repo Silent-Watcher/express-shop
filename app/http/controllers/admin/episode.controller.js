@@ -29,10 +29,22 @@ class EpisodeController extends Controller {
 	// 	} catch (error) {}
 	// }
 	//
-	// async delete(req, res, next) {
-	// 	try {
-	// 	} catch (error) {}
-	// }
+	async delete(req, res, next) {
+		try {
+			const { episode } = req.body;
+			const { id } = req.params;
+			const foundedEpisode = await Episode.findOneAndDelete({
+				$and: [{ title: episode }, { _id: id }],
+			});
+			if (!foundedEpisode) {
+				req.flash('error', `عملیات حذف دوره موفقیت آمیز نبود . لطفا مجدد تلاش کنید.`);
+				return res.redirect(`/admin/courses/${req.body.courseId}/delete`);
+			} else req.flash('success', 'دوره با موفقیت حذف شد');
+			return res.redirect(`/admin/episodes`);
+		} catch (error) {
+			next(error);
+		}
+	}
 	//
 	async getIndexPage(req, res, next) {
 		try {
@@ -64,10 +76,19 @@ class EpisodeController extends Controller {
 	// 	} catch (error) {}
 	// }
 	//
-	// async getDeleteCoursePage(req, res, next) {
-	// 	try {
-	// 	} catch (error) {}
-	// }
+	async getDeleteEpisodePage(req, res, next) {
+		try {
+			const title = 'پنل مدیریت | حذف جلسه';
+			const episode = await Episode.findById(req.params.id).lean();
+			if (!episode) {
+				req.flash('error', 'آیدی جلسه نامعتبر است');
+				res.redirect('/admin/episodes');
+			}
+			res.render('admin/episode/delete', { title, episode });
+		} catch (error) {
+			next(error);
+		}
+	}
 }
 
 module.exports = new EpisodeController();

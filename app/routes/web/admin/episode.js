@@ -3,8 +3,7 @@ const episodeController = require('../../../http/controllers/admin/episode.contr
 const checkDataValidation = require('app/http/middlewares/validation.middleware');
 const getOldData = require('app/http/middlewares/getOldData');
 const { validateCreateEpisodeData } = require('../../../validators/admin/episode.validator');
-// const { param, body } = require('express-validator');
-// const episodeController = require('../../../http/controllers/admin/episode.controller');
+const { param, body } = require('express-validator');
 
 // ========== EPISODES PATHS ================
 // EPISODE INDEX PAGE
@@ -21,19 +20,19 @@ router.post('/create', getOldData, validateCreateEpisodeData(), checkDataValidat
 // );
 // router.put('/:id/edit', getOldData, validateEditCourseData(), checkDataValidation, episodeController.edit);
 // DELETE EPISODES
-// router.get(
-// 	'/:id/delete',
-// 	param('id').isMongoId().withMessage('شناسه دوره نامعتبر است'),
-// 	checkDataValidation,
-// 	episodeController.getDeleteCoursePage
-// );
-// router.delete(
-// 	'/:id/delete',
-// 	param('id').isMongoId().withMessage('شناسه دوره نامعتبر است'),
-// 	body('course').isString().trim().escape().withMessage('نام دوره نامعتبر است'),
-// 	checkDataValidation,
-// 	episodeController.delete
-// );
+router.get(
+	'/:id/delete',
+	param('id').isMongoId().withMessage('شناسه جلسه نامعتبر است'),
+	checkDataValidation,
+	episodeController.getDeleteEpisodePage
+);
+router.delete(
+	'/:id/delete',
+	param('id').isMongoId().withMessage('شناسه جلسه نامعتبر است'),
+	body('episode').isString().trim().escape().withMessage('نام جلسه نامعتبر است'),
+	checkDataValidation,
+	episodeController.delete
+);
 // =================================
 
 module.exports = router;

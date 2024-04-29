@@ -10,8 +10,8 @@ class EpisodeController extends Controller {
 	//
 	async create(req, res, next) {
 		try {
-			let { title: courseTitle } = await Course.findById(req.body.course);
-			await Episode.create({ ...req.body });
+			let { title: courseTitle } = await Course.findById(req.body.course, { title: 1 }).lean();
+			await Episode.create({ ...req.body, courseTitle });
 			return this.flashAndRedirect(
 				req,
 				res,

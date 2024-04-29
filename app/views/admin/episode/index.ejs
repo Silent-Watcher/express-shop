@@ -29,7 +29,7 @@
 					<td>
 						<a href="<%= episode.url %>"><%= episode.title %></a>
 					</td>
-					<td><%= episode?.courseName ?? episode.course %></td>
+					<td><%= episode?.courseTitle ?? episode.course %></td>
 					<td >
 						<% if (episode.type == 'paid') { %>
 							<p class="mb-0 text-success">نقدی</p>

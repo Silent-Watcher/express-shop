@@ -9,8 +9,8 @@ function validateCreateCourseData() {
 			.isString()
 			.escape()
 			.custom(async value => {
-				const foundedSlug = await Course.findOne({ title: value }, { title: 1 });
-				if (foundedSlug) throw new Error('چنین دوره ای با این عنوان قبلا در سایت قرار داده شده است.');
+				const foundedTitle = await Course.findOne({ title: value }, { title: 1 });
+				if (foundedTitle) throw new Error('چنین دوره ای با این عنوان قبلا در سایت قرار داده شده است.');
 			}),
 		body('type')
 			.custom(value => {

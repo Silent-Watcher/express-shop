@@ -4,7 +4,7 @@
 		<div class="col-12 col-lg-6"><h3>دوره ها</h3><p class="admin_sub_heading mt-3">مجموع :  <span><%= courses.totalDocs %></span></p></div>
 		<div class="col-12 col-lg-6 text-center">
 			<a type="button" class="btn btn-primary ms-auto btn-sm" href="/admin/courses/create">ایجاد دوره جدید</a>
-			<button type="button" class="btn btn-warning btn-sm">بخش ویدیو ها</button>
+			<a type="button" href="/admin/episodes" class="btn btn-warning ms-auto btn-sm">بخش ویدیو ها</a>
 		</div>
 	</div>
 	<!-- course table -->
@@ -34,7 +34,7 @@
 					<td class="d-none d-lg-table-cell"><%= course.slug %></td>
 					<td >
 						<% if (course.type == 'paid') { %>
-							<p class="mb-0">نقدی</p>
+							<p class="mb-0 text-success">نقدی</p>
 							<div class="d-flex justify-content-center mt-1">
 								<p><%= course.price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."); %></p>
 								<span class="me-2"><img class="img-fluid" src="/static/imgs/toman.svg" width="20px" alt="toman"></span>
@@ -46,7 +46,7 @@
 						<% } %>
 					</td>
 					<td>
-						<div class="d-flex flex-column flex-lg-row">
+						<div class="d-flex flex-column flex-lg-row justify-content-center">
 							<a href="/admin/courses/<%= course._id %>/edit" class="btn btn-primary rounded ms-1 btn-sm">ویرایش</a>
 							<a href="/admin/courses/<%= course._id %>/delete" class="btn btn-outline-danger rounded btn-sm mt-2 mt-lg-0">حذف</a>
 						</div>
@@ -58,18 +58,6 @@
 	<div class="d-flex justify-content-center">
 		<!-- pagination -->
 		<%- include('../../components/pagination.ejs' , {pagination : courses}) %>
-		<!-- <div class="col-lg-4 col-md-6 col-12 mb-30 __web-inspector-hide-shortcut__">
-			<ul class="pagination pagination-sm justify-content-center mt-3">
-				<li class="page-item">
-					<a class="page-link" href="#"><i class="zmdi zmdi-chevron-right"></i></a>
-				</li>
-				<li class="page-item active"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item">
-					<a class="page-link" href="#"><i class="zmdi zmdi-chevron-left"></i></a>
-				</li>
-			</ul>
-		</div> -->
 		<!-- pagination -->
 	</div>
 </div>

@@ -4,7 +4,7 @@ const { validateCreateCourseData, validateEditCourseData } = require('app/valida
 const checkDataValidation = require('app/http/middlewares/validation.middleware');
 const getOldData = require('app/http/middlewares/getOldData');
 const { param, body } = require('express-validator');
-const { uploadCourseImage } = require('../../../config/imageUploader');
+const { uploadCourseImage } = require('app/config/imageUploader');
 
 // ========== COURSES PATHS ================
 // COURSE INDEX PAGE

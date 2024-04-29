@@ -1,0 +1,137 @@
+<link rel="stylesheet" href="/static/admin/course/css/create.css" />
+<div class="container">
+	<!-- course header -->
+	<div class="row w-100">
+		<div class="col-12 col-lg-6"><h3>ویرایش دوره <%= course.title %></h3></div>
+		<div class="col-12 col-lg-6 text-start mt-3 mt-lg-0">
+			<a type="button" class="btn btn-primary ms-auto btn-sm" href="/admin/courses/">دوره ها</a>
+		</div>
+	</div>
+	<!-- create a new course form start -->
+	<div class="row w-100">
+		<form method="POST" enctype="multipart/form-data" action="/admin/courses/<%= course._id %>/edit?_method=PUT" class="col-12 col-lg-8 offset-lg-2">
+			<input type="hidden" name="courseId" value="<%= course._id %>">
+			<div class="row mbn-20">
+				<!-- title  -->
+				<div class="col-12 mb-20">
+					<label class="mb-2 mt-4 user-select-none" for="newCourseTitle">عنوان دوره</label>
+					<input
+						autofocus
+						type="text"
+						id="newCourseTitle"
+						class="form-control"
+						name="title"
+						required
+						value="<%- course.title %>"
+					/>
+				</div>
+				<!-- type -->
+				<div class="col-12 mb-20">
+					<label class="my-2 user-select-none" for="newCourseType">نوع دوره</label>
+					<select class="form-control" name="type" id="newCourseType" required>
+						<option value="paid" <%- course.type == 'paid' ? 'selected' : '' %>>نقدی</option>
+						<option value="free" <%- course.type == 'free' ? 'selected' : '' %>>رایگان</option>
+					</select>
+				</div>
+				<!-- slug -->
+				<div class="col-12 mb-20">
+					<label class="mb-2 mt-4 user-select-none" for="newCourseSlug"> slug</label>
+					<input
+						autofocus
+						type="text"
+						id="newCourseSlug"
+						class="form-control"
+						name="slug"
+						required
+						value="<%- course.slug %>"
+					/>
+					<p dir="ltr" class="form-text text-secondary user-select-none" id="courseSlugPreview"><span> www.yourSite.com/</span><span id="courseSlugPreviewValue"></span></p>
+				</div>
+				<% if (course.images.length > 0) { %>
+					<!-- use default course image -->
+					<div class="col-12 mb-20 d-flex align-items-center justify-content-center">
+						<label class="ms-2" for="useDefaultImage">از عکس پیش فرض استفاده کن</label>
+						<input type="checkbox" name="useDefaultImage" id="useDefaultImage" value="true">
+					</div>
+					<div class="text-center">
+						<img class="rounded" width="100px" src="/static/imgs/defaultImage.avif" alt="عکس پیش فرض">
+					</div>
+				<% } %>
+				<!-- edit course image section -->
+				<section id="editCourseImageSection">
+					<!-- image  -->
+					<div class="col-12 mb-20">
+						<label class="my-2 user-select-none" for="newCourseImage">تصویر دوره</label>
+						<div class="input-group">
+							<input
+								accept=".jpg,.jpeg,.png,.webp,.avif"
+								name="image"
+								type="file"
+								class="form-control"
+								id="newCourseImage"
+							/>
+						</div>
+						<p class="form-text user-select-none">پسوند های قابل قبول : jpg ، png ، webp ، avif</p>
+					</div>
+					<!-- images preview -->
+					<% if (course.images.length > 0) { %>
+							<div class="d-flex justify-content-around align-items-center flex-wrap my-4">
+								<% course.images.forEach(image => { %>
+									<figure class="text-center">
+										<label for="thumbSize-<%=image?.size%>"><img loading="lazy" width="100px" src="<%= image?.path %>" alt="course image : size <%= image?.size %>" class="img-fluid rounded"></label>
+										<figcaption class="text-center mt-3"><%= image?.size %></figcaption>
+										<% if (course?.thumbnail?.size == image?.size) { %>
+											<input type="radio" name="thumbSize" id="thumbSize-<%=image?.size%>" checked value="<%= image?.size %>">
+										<% } else { %>
+											<input type="radio" name="thumbSize" id="thumbSize-<%=image?.size%>" value="<%= image?.size %>">
+										<% } %>
+									</figure>
+								<% }) %>
+							</div>
+					<% } else { %>
+						<p class="form-text text-center mb-0 text-danger user-select-none">برای دوره عکسی تعریف نشده است .</p>
+					<% }  %>
+				</section>
+				<!-- desc -->
+				<div class="col-12 mb-20">
+					<label class="my-2 user-select-none" for="newCourseDesc">توضیحات دوره</label>
+					<textarea name="description" rows="4" id="newCourseDesc" class="form-control p-2">
+<%- course.description %></textarea
+					>
+				</div>
+				<!-- price  -->
+				<div class="col-12 mb-20">
+					<label class="my-2 user-select-none" for="newCoursePrice">قیمت (به تومان)</label>
+					<input
+						value="<%- course.price %>"
+						type="number"
+						id="newCoursePrice"
+						class="form-control"
+						name="price"
+						required
+						inputmode="numeric"
+						min="0"
+					/>
+				</div>
+
+				<!-- tags  -->
+				<input type="hidden" value="<%- course.tags %>" id="storedTagValues">
+				<div class="col-12 mb-20 tags-input">
+					<label class="my-2 user-select-none" for="input-tag">تگ ها</label>
+					<input class="form-control" type="text" name="tags" id="input-tag" value="" />
+					<p class="form-text text-warning mb-0">تگ ها با اسامی تکراری یک بار لحاظ میشوند</p>
+					<ul class="d-flex justify-content-end align-items-center ps-0" id="tags"></ul>
+				</div>
+				<!--  -->
+				<div class="d-grid">
+					<button class="btn btn-primary btn-sm" >ویرایش</button>
+				</div>
+			</div>
+			<input type="hidden" name="user" value="<%= course.user %>">
+		</form>
+	</div>
+	<!-- create a new course form end -->
+</div>
+
+<script src="/static/admin/course/js/course.js"></script>
+<script src="/static/admin/course/js/edit.js"></script>

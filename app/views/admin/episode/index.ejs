@@ -1,0 +1,59 @@
+<div class="container">
+	<!-- episodes header -->
+	<div class="row w-100">
+		<div class="col-12 col-lg-6">
+			<h3>ویدیو ها</h3>
+			<p class="admin_sub_heading mt-3">مجموع :  <span><%= episodes?.totalDocs ?? '' %></span></p></div>
+		<div class="col-12 col-lg-6 text-center">
+			<a type="button" class="btn btn-primary ms-auto btn-sm" href="/admin/episodes/create">ایجاد جلسه جدید</a>
+			<a type="button" class="btn btn-warning ms-auto btn-sm" href="/admin/courses">دوره ها</a>
+		</div>
+	</div>
+
+	<!-- episodes table start -->
+	<!-- course table -->
+	<table class="mt-5 w-100">
+		<thead>
+			<tr class="text-center">
+				<th>شماره جلسه</th>
+				<th>عنوان جلسه</th>
+				<th class="d-none d-sm-table-cell">دوره</th>
+				<th >وضعیت دوره</th>
+				<th>تنظیمات</th>
+			</tr>
+		</thead>
+		<tbody class="table-group-divider">
+			<% episodes.docs.forEach(episode => { %>
+				<tr class="text-center">
+					<td><%= episode.number %></td>
+					<td>
+						<a href="<%= episode.url %>"><%= episode.title %></a>
+					</td>
+					<td><%= episode?.courseName ?? episode.course %></td>
+					<td >
+						<% if (episode.type == 'paid') { %>
+							<p class="mb-0 text-success">نقدی</p>
+						<% } else if (episode.type == 'free') {%>
+							<p>رایگان</p>
+						<% } else { %>
+							<p>اعضای ویژه</p>
+						<% } %>
+					</td>
+					<td>
+						<div class="d-flex flex-column flex-lg-row justify-content-center">
+							<a href="/admin/episodes/<%= episode._id %>/edit" class="btn btn-primary rounded ms-1 btn-sm">ویرایش</a>
+							<a href="/admin/episodes/<%= episode._id %>/delete" class="btn btn-outline-danger rounded btn-sm mt-2 mt-lg-0">حذف</a>
+						</div>
+					</td>
+				</tr>
+			<% }) %>
+		</tbody>
+	</table>
+	<!-- episodes table end -->
+
+	<div class="d-flex justify-content-center">
+		<!-- pagination start -->
+		<%- include('../../components/pagination.ejs' , {pagination : episodes}) %>
+		<!-- pagination end -->
+	</div>
+</div>

@@ -1,0 +1,107 @@
+<link rel="stylesheet" href="/static/admin/episode/css/create.css" />
+<div class="container">
+	<!-- course header -->
+	<div class="row w-100">
+		<div class="col-12 col-lg-6"><h3>ایجاد جلسه جدید</h3></div>
+		<div class="col-12 col-lg-6 text-center">
+			<a type="button" class="btn btn-primary ms-auto btn-sm" href="/admin/episodes/">جلسات</a>
+		</div>
+	</div>
+	<!-- create a new course form start -->
+	<div class="row w-100">
+		<form method="POST" action="/admin/episodes/create" class="col-12 col-lg-8 offset-lg-2">
+			<div class="row mbn-20">
+				<!-- title  -->
+				<div class="col-12 mb-20">
+					<label class="mb-2 mt-4" for="newEpisodeTitle">عنوان جلسه</label>
+					<input
+						autofocus
+						type="text"
+						id="newEpisodeTitle"
+						class="form-control"
+						name="title"
+						required
+						value="<%- old?.title ?? '' %>"
+					/>
+				</div>
+				<!-- type -->
+				<div class="col-12 mb-20">
+					<label class="my-2" for="newEpisodeType">دوره مربوطه</label>
+					<select class="form-control" name="course" id="newEpisodeType" required>
+						<option value="">انتخاب کنید ...</option>
+						<% courses.forEach((course) => { %>
+							<option value="<%= course._id %>" <%- old?.course == course._id ? 'selected' : '' %>><%= course.title %></option>
+						<% }) %>
+					</select>
+				</div>
+				<div class="row">
+						<!-- video number  -->
+						<div class="col-12 col-md-6 mb-20">
+							<label class="my-2" for="newEpisodeNumber">شماره ویدیو</label>
+							<input
+								value="<%- old?.number ?? 0 %>"
+								type="number"
+								id="newEpisodeNumber"
+								class="form-control"
+								name="number"
+								required
+								inputmode="numeric"
+								min="0"
+							/>
+						</div>
+						<!-- type -->
+						<div class="col-12 col-md-6 mb-20">
+							<label class="my-2" for="newEpisodeType">نوع ویدیو</label>
+									<select class="form-control" name="type" id="newEpisodeType" required>
+										<option value="paid" <%- old?.type == 'paid' ? 'selected' : '' %>>نقدی</option>
+										<option value="free" <%- old?.type == 'free' ? 'selected' : '' %>>رایگان</option>
+									</select>
+						</div>
+				</div>
+
+				<!-- link -->
+				<div class="col-12 mb-20">
+					<label class="mb-2 mt-4" for="newEpisodeLink">لینک ویدیو</label>
+					<input
+						type="text"
+						dir="ltr"
+						id="newEpisodeLink"
+						class="form-control"
+						name="url"
+						required
+						value="<%- old?.url ?? '' %>"
+					/>
+				</div>
+				<!-- time -->
+				<div class="col-12 mb-20">
+					<label class="mb-2 mt-4" for="newEpisodeTime">مدت زمان</label>
+					<input
+						type="text"
+						id="newEpisodeTime"
+						class="form-control"
+						name="time"
+						required
+						pattern="([0-5]{1}[0-9]{1}:){0,2}[0-5]{0,1}[0-9]{1}(\.\d+)?"
+						value="<%- old?.time ?? '00:00:00' %>"
+						dir="ltr"
+					/>
+				</div>
+				<!-- desc -->
+				<div class="col-12 mb-20">
+					<label class="my-2" for="newEpisodeDesc">توضیحات ویدیو </label>
+					<textarea name="description" rows="4" id="newEpisodeDesc" class="form-control p-2">
+						<%- old?.description ?? ''%></textarea>
+				</div>
+
+				<!--  -->
+				<div class="d-grid">
+					<button class="btn btn-primary btn-sm">ایجاد</button>
+				</div>
+			</div>
+			<input type="hidden" name="user" value="<%= user._id %>">
+		</form>
+	</div>
+	<!-- create a new course form end -->
+</div>
+
+<!-- <script src="/static/admin/episode/js/create.js"></script> -->

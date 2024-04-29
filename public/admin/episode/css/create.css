@@ -1,0 +1,21 @@
+.mbn-20 {
+	margin-bottom: -20px;
+}
+
+.mb-20 {
+	margin-bottom: 20px;
+}
+
+body.skin-dark .form-control {
+	max-width: 100%;
+	background-color: #161824;
+	border-color: transparent;
+	color: #8b8d9b;
+}
+
+#newEpisodeTime:valid {
+	border: 1px solid #90ee90 ;
+}
+#newEpisodeTime:invalid {
+	border: 1px solid #fd427c ;
+}

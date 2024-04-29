@@ -17,6 +17,7 @@ const courseSchema = new Schema(
 		tags: { type: String, required: false },
 		viewCount: { type: Number, default: 0 },
 		commentCount: { type: Number, default: 0 },
+		time: { type: String, required: true, default: '00:00:00' },
 		images: { type: [imageSchema], required: false, default: [] },
 		thumbnail: { type: imageSchema, required: false },
 	},

@@ -1,4 +1,5 @@
 const { body } = require('express-validator');
+const Episode = require('../../models/episode.model');
 
 function validateCreateEpisodeData() {
 	return [
@@ -15,6 +16,10 @@ function validateCreateEpisodeData() {
 			})
 			.withMessage('مدت زمان دوره یه مقدار نامعتبر است'),
 		body('url').isString().withMessage('لینک دانلود دوره نامعتبر است'),
+		body('url').custom(async value => {
+			let foundedUrl = await Episode.find({ url: value });
+			if (foundedUrl) throw new Error('یک ویدیو با این لینک دانلود قبلا در سایت ثبت شده است');
+		}),
 		body('number').isNumeric().withMessage('شماره ویدیو باید یه مقدار عددی باشد'),
 		body('description').isString().trim().escape().withMessage('متن توضیحات ویدیو معتبر نیست'),
 		body('course').isMongoId().withMessage('آیدی مربوط به دوره ویدیو نامعتبر است'),

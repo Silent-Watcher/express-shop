@@ -1,13 +1,8 @@
-const sharp = require('sharp');
-
-const fs = require('fs');
-
 const slugify = require('slugify');
 const Controller = require('app/http/controllers/controller');
 const Course = require('../../../models/course.model');
-const { STATIC_FILES_PATH, DEFAULT_IMAGE_Addr, DEFAULT_THUMBNAIL } = require('../../../common/globals');
-const path = require('path');
-const recursiveReplace = require('../../../helpers/string/recursiveReplace');
+const { DEFAULT_IMAGE_Addr, DEFAULT_THUMBNAIL } = require('../../../common/globals');
+const imageHelper = require('../../../helpers/image.helper');
 
 class CourseController extends Controller {
 	constructor() {
@@ -19,7 +14,7 @@ class CourseController extends Controller {
 			const { title, type, slug, description, price, tags } = req.body;
 			const image = req?.file;
 			let imageAddrs = [];
-			if (image) imageAddrs = Object.values(this.resizeImage(image.path));
+			if (image) imageAddrs = Object.values(imageHelper.resizeImage(image.path));
 			await Course.create({
 				title,
 				type,
@@ -50,7 +45,7 @@ class CourseController extends Controller {
 			if (useDefaultImage == 'true') {
 				imageAddrs = [];
 				thumbnail = DEFAULT_THUMBNAIL;
-				await this.removeCourseImages(foundedCourse.images);
+				await imageHelper.removeImages(foundedCourse.images);
 			} else {
 				const image = req?.file;
 				if (!foundedCourse) {
@@ -60,8 +55,8 @@ class CourseController extends Controller {
 				// add new image
 				if (image) {
 					// remove the old images
-					await this.removeCourseImages(foundedCourse.images);
-					imageAddrs = this.resizeImage(image.path);
+					await imageHelper.removeImages(foundedCourse.images);
+					imageAddrs = imageHelper.resizeImage(image.path);
 					thumbnail = imageAddrs.find(imageAddr => imageAddr.size == '480');
 				} else {
 					//update thumbnail size
@@ -110,10 +105,15 @@ class CourseController extends Controller {
 				$and: [{ title: course }, { _id: id }],
 			});
 			if (!foundedCourse) {
-				req.flash('error', `عملیات حذف دوره موفقیت آمیز نبود . لطفا مجدد تلاش کنید.`);
-				return res.redirect(`/admin/courses/${req.body.courseId}/delete`);
+				return this.flashAndRedirect(
+					req,
+					res,
+					'error',
+					`عملیات حذف دوره موفقیت آمیز نبود . لطفا مجدد تلاش کنید.`,
+					`/admin/courses/${req.body.courseId}/delete`
+				);
 			} else {
-				this.removeCourseImages(foundedCourse.images);
+				await imageHelper.removeImages(foundedCourse.images);
 				req.flash('success', 'دوره با موفقیت حذف شد');
 			}
 			return res.redirect(`/admin/courses`);
@@ -121,7 +121,7 @@ class CourseController extends Controller {
 			next({ status: 500, message: `something went wrong !`, stack: error.stack });
 		}
 	}
-	//
+	// FETCH PAGES
 	async getIndexPage(req, res, next) {
 		try {
 			let page = req.query.page ?? 1;
@@ -163,44 +163,11 @@ class CourseController extends Controller {
 		try {
 			const title = 'پنل مدیریت | حذف دوره';
 			const course = await Course.findById(req.params.id).lean();
-			if (!course) {
-				req.flash('error', 'آیدی دوره نامعتبر است');
-				res.redirect('/admin/courses');
-			}
+			if (!course) return this.flashAndRedirect(req, res, 'error', 'آیدی دوره نامعتبر است', '/admin/courses');
 			res.render('admin/course/delete', { title, course });
 		} catch (error) {
 			next(error);
 		}
-	}
-	async removeCourseImages(images) {
-		if (images.length > 0) {
-			images.forEach(image => {
-				let imagePath = image.path.replace('/static/', `${STATIC_FILES_PATH}\\`);
-				let optimizedPath = recursiveReplace(imagePath, '\\', '/');
-				if (fs.existsSync(optimizedPath)) fs.unlinkSync(optimizedPath);
-			});
-		}
-	}
-	createImageUrlAddr(imagePath) {
-		return imagePath.replace(`${STATIC_FILES_PATH}\\`, '/static/');
-	}
-	resizeImage(filePath) {
-		const imageInfo = path.parse(filePath);
-		const imageSizes = [1080, 720, 480];
-		let [image, imgAddr] = [{}, ''];
-		let images = [];
-		image.path = this.createImageUrlAddr(filePath);
-		image.size = 'original';
-		images.push(image);
-		imageSizes.map(size => {
-			imgAddr = path.join(imageInfo.dir, `${imageInfo.name}-${size}${imageInfo.ext}`);
-			let image = {};
-			image.path = this.createImageUrlAddr(imgAddr);
-			image.size = size;
-			images.push(image);
-			sharp(filePath).resize(size, null, { fit: 'fill' }).toFile(imgAddr);
-		});
-		return images;
 	}
 }
 

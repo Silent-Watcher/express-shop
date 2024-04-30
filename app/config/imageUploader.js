@@ -3,9 +3,8 @@ const path = require('path');
 const sha1 = require('sha1');
 
 const multer = require('multer');
-const { IMAGES_MIME_TYPES, COURSE_IMAGES_BASE_PATH } = require('../common/globals');
+const { COURSE_IMAGES_BASE_PATH, IMAGES_MIME_TYPES } = require('../common/globals');
 const { mkdirp } = require('mkdirp');
-const _2MB = 2 * 1024 * 1024;
 
 const courseImagesStorage = multer.diskStorage({
 	// eslint-disable-next-line no-unused-vars
@@ -30,6 +29,6 @@ const courseImagesStorage = multer.diskStorage({
 	},
 });
 
-const uploadCourseImage = multer({ storage: courseImagesStorage, limits: { fileSize: _2MB } });
+const uploadCourseImage = multer({ storage: courseImagesStorage });
 
 module.exports = { uploadCourseImage };

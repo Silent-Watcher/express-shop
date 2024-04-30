@@ -5,6 +5,7 @@ const checkDataValidation = require('app/http/middlewares/validation.middleware'
 const getOldData = require('app/http/middlewares/getOldData');
 const { param, body } = require('express-validator');
 const { uploadCourseImage } = require('app/config/imageUploader');
+const validateImageSize = require('../../../validators/imageSize.validator');
 
 // ========== COURSES PATHS ================
 // COURSE INDEX PAGE
@@ -14,6 +15,7 @@ router.get('/create', courseController.getCreateCoursePage);
 router.post(
 	'/create',
 	uploadCourseImage.single('image'),
+	validateImageSize,
 	getOldData,
 	validateCreateCourseData(),
 	checkDataValidation,

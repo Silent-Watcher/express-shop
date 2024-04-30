@@ -27,7 +27,7 @@
 				<tr class="text-center">
 					<td><%= episode.number %></td>
 					<td>
-						<a href="<%= episode.url %>"><%= episode.title %></a>
+						<a class="d-flex align-items-center justify-content-center" href="<%= episode.url %>"><i class="zmdi zmdi-videocam ms-3"></i><%= episode.title %></a>
 					</td>
 					<td><%= episode?.courseTitle ?? episode.course %></td>
 					<td >

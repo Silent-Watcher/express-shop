@@ -30,3 +30,12 @@ window.addEventListener('load', () => {
 		courseTime.innerHTML = replaceEnglishWithPersianNumbers(time);
 	});
 });
+
+// eslint-disable-next-line no-undef
+new Swiper('.swiper', {
+	direction: 'vertical',
+	loop: true,
+	pagination: {
+		el: '.swiper-pagination',
+	},
+});

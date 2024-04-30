@@ -75,3 +75,9 @@ footer ul li:hover {
 		font-size: 12px;
 	}
 }
+
+.swiper {
+  width: 480px;
+  height: 200px;
+	border-radius: 20px;
+}

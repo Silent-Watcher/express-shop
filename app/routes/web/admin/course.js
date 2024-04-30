@@ -31,6 +31,7 @@ router.get(
 router.put(
 	'/:id/edit',
 	uploadCourseImage.single('image'),
+	validateImageSize,
 	getOldData,
 	validateEditCourseData(),
 	checkDataValidation,

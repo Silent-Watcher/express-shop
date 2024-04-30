@@ -56,3 +56,22 @@ footer ul li:hover {
 .alert button {
 	right: 0;
 }
+
+.course-card {
+	overflow: hidden;
+}
+.course-card img {
+	transition: all 0.3s ease;
+}
+.course-card:hover img {
+	transform: scale(1.1);
+}
+.header_meta {
+	font-size: 14px;
+}
+
+@media (min-width: 768px) and (max-width: 993px) {
+	.header_meta {
+		font-size: 12px;
+	}
+}

@@ -1,8 +1,9 @@
 const httpErrors = require('http-errors');
 
 const Controller = require('app/http/controllers/controller');
-const Episode = require('app/models/episode.model');
-const Course = require('app/models/course.model');
+const Episode = require('../../../models/episode.model');
+const Course = require('../../../models/course.model');
+const { sprintf } = require('sprintf-js');
 class EpisodeController extends Controller {
 	constructor() {
 		super();
@@ -12,6 +13,7 @@ class EpisodeController extends Controller {
 		try {
 			let { title: courseTitle } = await Course.findById(req.body.course, { title: 1 }).lean();
 			await Episode.create({ ...req.body, courseTitle });
+			await this.updateCourseTime(req.body.course);
 			return this.flashAndRedirect(
 				req,
 				res,
@@ -63,6 +65,7 @@ class EpisodeController extends Controller {
 					`/admin/episodes/${req.body.episodeId}/edit`
 				);
 			}
+			await this.updateCourseTime(foundedCourse._id);
 			return this.flashAndRedirect(
 				req,
 				res,
@@ -85,7 +88,10 @@ class EpisodeController extends Controller {
 			if (!foundedEpisode) {
 				req.flash('error', `عملیات حذف دوره موفقیت آمیز نبود . لطفا مجدد تلاش کنید.`);
 				return res.redirect(`/admin/courses/${req.body.courseId}/delete`);
-			} else req.flash('success', 'دوره با موفقیت حذف شد');
+			} else {
+				await this.updateCourseTime(foundedEpisode.course);
+				req.flash('success', 'دوره با موفقیت حذف شد');
+			}
 			return res.redirect(`/admin/episodes`);
 		} catch (error) {
 			next(error);
@@ -142,6 +148,32 @@ class EpisodeController extends Controller {
 		} catch (error) {
 			next(error);
 		}
+	}
+	//
+	async updateCourseTime(courseId) {
+		let episodes = await Episode.find({ course: courseId }).lean();
+		let course = await Course.findById(courseId);
+		course.set({ time: this.getTime(episodes) });
+		await course.save();
+	}
+	getTime(episodes) {
+		let second = 0;
+		episodes.forEach(episode => {
+			let time = episode.time.split(':');
+			if (time.length == 2) {
+				second += parseInt(time[0]) * 60;
+				second += parseInt(time[1]);
+			} else if (time.length == 3) {
+				second += parseInt(time[0]) * 60 * 60;
+				second += parseInt(time[1]) * 60;
+				second += parseInt(time[0]);
+			}
+		});
+		let minutes = Math.floor(second / 60);
+		let hours = Math.floor(minutes / 60);
+		minutes -= hours * 60;
+		second = Math.floor(((second / 60) % 1) * 60);
+		return sprintf('%02d:%02d:%02d', hours, minutes, second);
 	}
 }
 

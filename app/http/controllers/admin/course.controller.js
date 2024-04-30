@@ -1,7 +1,7 @@
 const slugify = require('slugify');
 const Controller = require('app/http/controllers/controller');
 const Course = require('app/models/course.model');
-const { DEFAULT_IMAGE_Addr, DEFAULT_THUMBNAIL } = require('app/common/globals');
+const { DEFAULT_THUMBNAIL } = require('app/common/globals');
 const imageHelper = require('app/helpers/image.helper');
 
 class CourseController extends Controller {
@@ -23,10 +23,7 @@ class CourseController extends Controller {
 				user: req.user._id,
 				userName: req.user.name,
 				images: imageAddrs ?? [],
-				thumbnail: imageAddrs.find(imageAddr => imageAddr.size == 'original') ?? {
-					size: 'original',
-					path: DEFAULT_IMAGE_Addr,
-				},
+				thumbnail: imageAddrs.find(imageAddr => imageAddr.size == 'original') ?? DEFAULT_THUMBNAIL,
 				price,
 				tags,
 			});
@@ -63,12 +60,14 @@ class CourseController extends Controller {
 					// remove the old images
 					await imageHelper.removeImages(foundedCourse.images);
 					imageAddrs = imageHelper.resizeImage(image.path);
-					thumbnail = imageAddrs.find(imageAddr => imageAddr.size == '480');
+					thumbnail = imageAddrs.find(imageAddr => imageAddr.size == 'original');
 				} else {
 					//update thumbnail size
 					const { thumbSize } = req.body;
 					if (thumbSize != 'original') {
 						thumbnail = foundedCourse.images.find(image => image.size == thumbSize);
+					} else {
+						thumbnail = foundedCourse.images.find(image => image.size == 'original');
 					}
 				}
 			}

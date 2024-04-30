@@ -161,7 +161,7 @@
 	<div class="row mt-5 d-flex flex-wrap" style="gap: 16px;">
 		<% latestCourses.forEach(course => { %>
 			<!-- course card start -->
-			<div class="card p-0 gap-2" style="width: 16rem;">
+			<div class="card p-0 gap-2" style="width: 20rem;">
 				<img height="200px" loading="lazy" src="<%= course.thumbnail.path %>" class="card-img-top" alt="<%= course.title %>">
 				<div class="card-body">
 					<h5 class="card-title fw-bold fs-5"><a class="link-dark" href="/courses/<%= course.slug %>"><%=course.title%></a></h5>

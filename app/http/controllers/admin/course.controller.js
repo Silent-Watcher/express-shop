@@ -1,8 +1,8 @@
 const slugify = require('slugify');
 const Controller = require('app/http/controllers/controller');
-const Course = require('../../../models/course.model');
-const { DEFAULT_IMAGE_Addr, DEFAULT_THUMBNAIL } = require('../../../common/globals');
-const imageHelper = require('../../../helpers/image.helper');
+const Course = require('app/models/course.model');
+const { DEFAULT_IMAGE_Addr, DEFAULT_THUMBNAIL } = require('app/common/globals');
+const imageHelper = require('app/helpers/image.helper');
 
 class CourseController extends Controller {
 	constructor() {
@@ -22,7 +22,7 @@ class CourseController extends Controller {
 				description,
 				user: req.user._id,
 				images: imageAddrs ?? [],
-				thumbnail: imageAddrs.find(imageAddr => imageAddr.size == '480') ?? {
+				thumbnail: imageAddrs.find(imageAddr => imageAddr.size == 'original') ?? {
 					size: 'original',
 					path: DEFAULT_IMAGE_Addr,
 				},
@@ -49,8 +49,13 @@ class CourseController extends Controller {
 			} else {
 				const image = req?.file;
 				if (!foundedCourse) {
-					req.flash('error', 'شناسه دوره نامعتبر است');
-					return res.redirect(`/admin/courses/${req.body.courseId}/edit`);
+					return this.flashAndRedirect(
+						req,
+						res,
+						'error',
+						'شناسه دوره نامعتبر است',
+						`/admin/courses/${req.body.courseId}/edit`
+					);
 				}
 				// add new image
 				if (image) {
@@ -61,7 +66,7 @@ class CourseController extends Controller {
 				} else {
 					//update thumbnail size
 					const { thumbSize } = req.body;
-					if (thumbSize != '480') {
+					if (thumbSize != 'original') {
 						thumbnail = foundedCourse.images.find(image => image.size == thumbSize);
 					}
 				}

@@ -9,7 +9,7 @@ function validateCreateCourseData() {
 			.isString()
 			.escape()
 			.custom(async value => {
-				const foundedTitle = await Course.findOne({ title: value }, { title: 1 });
+				const foundedTitle = await Course.findOne({ title: value }, { title: 1 }).lean();
 				if (foundedTitle) throw new Error('چنین دوره ای با این عنوان قبلا در سایت قرار داده شده است.');
 			}),
 		body('type')
@@ -30,12 +30,11 @@ function validateCreateCourseData() {
 				return isNumeric(value);
 			})
 			.withMessage('قیمت دوره باید یک مقدار عددی باشد'),
-		// body('slug').trim().escape().isSlug().withMessage('اسلاگ تعریف شده از استاندارد های لازم پیروی نمی کند'),
 		body('slug')
 			.trim()
 			.escape()
 			.custom(async value => {
-				const foundedSlug = await Course.findOne({ slug: value }, { title: 1 });
+				const foundedSlug = await Course.findOne({ slug: value }, { title: 1 }).lean();
 				if (foundedSlug) throw new Error('این slug قبلا تعریف شده است');
 			}),
 		body('user').isMongoId().withMessage('آیدی ایجاد کننده دوره نامعتبر است'),
@@ -48,8 +47,11 @@ function validateEditCourseData() {
 			.isString()
 			.escape()
 			.custom(async (value, { req }) => {
-				const foundedSlug = await Course.findOne({ title: value, _id: { $ne: req.body.courseId } }, { title: 1 });
-				if (foundedSlug) throw new Error('چنین دوره ای با این عنوان قبلا در سایت قرار داده شده است.');
+				const foundedCourse = await Course.findOne(
+					{ title: value, _id: { $ne: req.body.courseId } },
+					{ title: 1 }
+				).lean();
+				if (foundedCourse) throw new Error('چنین دوره ای با این عنوان قبلا در سایت قرار داده شده است.');
 			}),
 		body('type')
 			.custom(value => {
@@ -69,13 +71,12 @@ function validateEditCourseData() {
 				else return value != 0;
 			})
 			.withMessage('قیمت دوره با نوع دوره تطابق ندارد'),
-		// body('slug').trim().escape().isSlug().withMessage('اسلاگ تعریف شده از استاندارد های لازم پیروی نمی کند'),
 		body('courseId').isMongoId().withMessage('آیدی ایجاد کننده دوره نامعتبر است'),
 		body('slug')
 			.trim()
 			.escape()
 			.custom(async (value, { req }) => {
-				const foundedSlug = await Course.findOne({ slug: value, _id: { $ne: req.body.courseId } }, { title: 1 });
+				const foundedSlug = await Course.findOne({ slug: value, _id: { $ne: req.body.courseId } }, { title: 1 }).lean();
 				if (foundedSlug) throw new Error('این slug قبلا تعریف شده است');
 			}),
 		body('user').isMongoId().withMessage('آیدی ایجاد کننده دوره نامعتبر است'),

@@ -5,7 +5,6 @@
 -----------------------------------*/
 	let $window = $(window);
 	let $body = $('body');
-
 	/*--
     Adomx Dropdown (Custom Dropdown)
 -----------------------------------*/
@@ -175,5 +174,13 @@
 			});
 		}
 	});
+	// image size validation for every file input that uploads a photo
+	const UploadImageInput = document.querySelector('.uploadImageInput');
+	UploadImageInput.onchange = function () {
+		if (this.files[0].size > 1e6) {
+			alert('عکس اپلود شده باید کم تر از 1 مگابایت باشد');
+			this.value = '';
+		}
+	};
 	// eslint-disable-next-line no-undef
 })(jQuery);

@@ -21,6 +21,7 @@ class CourseController extends Controller {
 				slug: slugify(slug, { lower: true, replacement: '-' }),
 				description,
 				user: req.user._id,
+				userName: req.user.name,
 				images: imageAddrs ?? [],
 				thumbnail: imageAddrs.find(imageAddr => imageAddr.size == 'original') ?? {
 					size: 'original',

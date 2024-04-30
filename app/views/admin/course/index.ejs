@@ -14,8 +14,8 @@
 				<th></th>
 				<th>عنوان دوره</th>
 				<th class="d-none d-sm-table-cell">تعداد نظرات</th>
-				<th class="d-none d-lg-table-cell">مقدار بازدید</th>
-				<th class="d-none d-lg-table-cell">slug</th>
+				<th class="d-none d-lg-table-cell">مدت زمان</th>
+				<th class="d-none d-lg-table-cell">مدرس</th>
 				<th >وضعیت دوره</th>
 				<th>تنظیمات</th>
 			</tr>
@@ -30,8 +30,8 @@
 						<a href="admin/courses/<%= course.slug %>"><%= course.title %></a>
 					</td>
 					<td class="d-none d-sm-table-cell"><%= course.commentCount %></td>
-					<td class="d-none d-lg-table-cell "><%= course.viewCount %></td>
-					<td class="d-none d-lg-table-cell"><%= course.slug %></td>
+					<td class="d-none d-lg-table-cell "><%= course.time %></td>
+					<td class="d-none d-lg-table-cell"><%= course.userName %></td>
 					<td >
 						<% if (course.type == 'paid') { %>
 							<p class="mb-0 text-success">نقدی</p>

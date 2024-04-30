@@ -10,6 +10,7 @@ const courseSchema = new Schema(
 	{
 		title: { type: String, required: true, unique: true },
 		user: { type: Schema.Types.ObjectId, ref: 'User' },
+		userName: { type: String, required: false },
 		slug: { type: String, required: true, unique: true },
 		type: { type: String, enum: ['free', 'paid'], required: true, default: 'free' },
 		description: { type: String, required: false },

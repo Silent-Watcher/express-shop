@@ -27,7 +27,6 @@ a {
 }
 
 footer {
-	text-align: center;
 	background-color: #303030;
 }
 
@@ -38,11 +37,6 @@ footer ul {
 footer ul li {
 	margin: 10px 0;
 	cursor: pointer;
-	transition: all 0.3s linear;
-}
-
-footer ul li:hover {
-	color: #0d6efd;
 }
 
 .alert {

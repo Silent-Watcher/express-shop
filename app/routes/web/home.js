@@ -7,4 +7,6 @@ const router = require('express').Router();
 router.get('/', homeController.index);
 router.get('/logout', isUserAuthenticate, authController.logout);
 
+router.get('/contact-us', homeController.getContactUsPage);
+
 module.exports = router;

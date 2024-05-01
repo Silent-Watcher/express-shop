@@ -22,6 +22,15 @@ class HomeController extends Controller {
 			next(error);
 		}
 	}
+	//
+	getContactUsPage(req, res, next) {
+		try {
+			const title = 'تماس با ما';
+			res.render('pages/contactUs', { title });
+		} catch (error) {
+			next(error);
+		}
+	}
 }
 
 module.exports = new HomeController();

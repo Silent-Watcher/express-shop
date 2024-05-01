@@ -15,6 +15,7 @@ const expressEjsLayouts = require('express-ejs-layouts');
 const { handleExceptions, handleNotFoundError } = require('app/http/middlewares/handleExceptions');
 const passport = require('passport');
 const rememberLogin = require('app/http/middlewares/remember.middleware');
+const addBreadcrumbs = require('./http/middlewares/breadcrumb.middleware');
 // const helmet = require('helmet');
 
 const { env } = process;
@@ -50,6 +51,7 @@ class Application {
 		this.#app.set('layout extractStyles', true);
 		this.#app.use(methodOverride('_method'));
 		this.#app.use('/static', express.static(STATIC_FILES_PATH));
+		this.#app.use(addBreadcrumbs);
 		// this.#app.use(
 		// 	helmet({
 		// 		referrerPolicy: {

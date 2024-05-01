@@ -12,6 +12,7 @@ router.use(
 		res.locals.old = req.flash('formData')[0];
 		res.locals.errors = req.flash('error');
 		res.locals.success = req.flash('success');
+		res.locals.breadcrumbs = req.breadcrumbs;
 		res.locals.title = 'فروشگاه عطن';
 		next();
 	},

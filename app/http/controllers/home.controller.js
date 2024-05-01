@@ -1,6 +1,7 @@
 const homeService = require('app/http/services/home.service');
 const Controller = require('app/http/controllers/controller');
 const Course = require('app/models/course.model');
+const recaptcha = require('app/config/recaptcha');
 class HomeController extends Controller {
 	#service;
 	constructor() {
@@ -26,7 +27,7 @@ class HomeController extends Controller {
 	getContactUsPage(req, res, next) {
 		try {
 			const title = 'تماس با ما';
-			res.render('pages/contactUs', { title });
+			res.render('pages/contactUs', { title, captcha: recaptcha.render() });
 		} catch (error) {
 			next(error);
 		}

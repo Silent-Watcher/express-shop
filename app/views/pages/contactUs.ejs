@@ -6,9 +6,7 @@
 />
 
 <div class="container mt-5">
-	<div class="row">
-		<%- include('../components/breadCrumbs.ejs') %>
-	</div>
+	<div class="row"><%- include('../components/breadCrumbs.ejs') %></div>
 	<div class="row text-center">
 		<h1 class="fw-bold">ارتباط با ما</h1>
 		<p class="mt-2">در این صفحه میتوانید اطلاعات ارتباطی فروشگاه عطن را مشاهده کنید.</p>
@@ -103,6 +101,49 @@
 			</div>
 			<div style="height: 280px" id="map"></div>
 		</section>
+	</div>
+</div>
+
+<div class="container mt-5">
+	<div class="row">
+		<div class="col-12 col-lg-6">
+			<form>
+				<div class="mb-3">
+					<label for="name" class="form-label">نام</label>
+					<input autofocus type="text" class="form-control" id="name" />
+				</div>
+				<div class="mb-3">
+					<label for="email" class="form-label">ایمیل</label>
+					<input inputmode="email" type="email" class="form-control" name="email" id="email" />
+					<div id="emailHelp" class="form-text">ما هرگز ایمیل شما رو در اختیار دیگران قرار نمیدهیم</div>
+				</div>
+				<div class="mb-3">
+					<label for="subject" class="form-label">موضوع</label>
+					<input name="subject" type="text" class="form-control" id="subject" />
+				</div>
+				<div class="mb-3">
+					<label for="content" class="form-label">پیام شما</label>
+					<textarea class="form-control" name="content" id="content" rows="3"></textarea>
+				</div>
+				<div class="form-group mt-3"><%- captcha %></div>
+				<button type="submit" class="btn btn-primary mt-3 w-100">ارسال</button>
+			</form>
+		</div>
+		<div class="col-12 col-lg-6 d-flex flex-column align-items-center justify-content-center order-first">
+			<h4>
+				<svg style="width: 50px" viewBox="0 0 32 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M7.17756 2.63068C5.29428 4.24542 4.23977 6.52208 4.00501 9.31384C0.759826 9.66531 0 11.1943 0 15.8181C0 20.4194 0.752432 21.956 3.9577 22.3172C3.95562 22.3476 3.95456 22.3782 3.95456 22.4091C3.95456 26.0492 6.90559 29 10.5456 29H11.8637C12.5917 29 13.1818 28.4098 13.1818 27.6818C13.1818 26.9538 12.5917 26.3636 11.8637 26.3636H10.5456C8.36153 26.3636 6.59092 24.5931 6.59092 22.4091L6.5909 22.4012C10.9121 22.2912 11.8637 20.9925 11.8637 15.8181C11.8637 10.6718 10.9224 9.35923 6.66063 9.23703C6.89267 7.15658 7.69283 5.66164 8.89359 4.63209C10.3665 3.36921 12.6395 2.6364 15.7745 2.63637C18.9125 2.63634 21.2108 3.36213 22.7064 4.62554C23.9243 5.6543 24.7391 7.1493 24.9749 9.23705C20.7139 9.35941 19.7728 10.6721 19.7728 15.8181C19.7728 21.2458 20.8197 22.4091 25.7046 22.4091C30.5895 22.4091 31.6364 21.2458 31.6364 15.8181C31.6364 11.1941 30.8765 9.66515 27.6309 9.31379C27.392 6.50179 26.3141 4.22196 24.4077 2.61158C22.2674 0.803509 19.2711 -3.70837e-05 15.7744 1.2837e-09C12.2747 3.70863e-05 9.29683 0.813592 7.17756 2.63068Z"
+						fill="currentColor"
+					></path></svg
+				><span class="ms-2">فرم تماس با ما</span>
+			</h4>
+			<p class="text-center w-75 mx-auto mt-3">
+				در کنار روش‌های که در برای ارتباط با فروشگاه عطن در نظر گرفته‌ایم،شما همچنین می‌توانید از طریق فرم زیر پیام خود
+				را برای ما ارسال کنید
+			</p>
+			<img class="img-fluid mt-2 d-none d-lg-block" width="150px" loading="lazy" src="/static/imgs/letter.avif" alt="نامه">
+		</div>
 	</div>
 </div>
 

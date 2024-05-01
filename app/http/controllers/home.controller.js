@@ -32,6 +32,15 @@ class HomeController extends Controller {
 			next(error);
 		}
 	}
+	//
+	getAboutUsPage(req, res, next) {
+		try {
+			const title = 'درباره ما';
+			res.render('pages/aboutUs', { title });
+		} catch (error) {
+			next(error);
+		}
+	}
 }
 
 module.exports = new HomeController();

@@ -8,5 +8,6 @@ router.get('/', homeController.index);
 router.get('/logout', isUserAuthenticate, authController.logout);
 
 router.get('/contact-us', homeController.getContactUsPage);
+router.get('/about-us', homeController.getAboutUsPage);
 
 module.exports = router;

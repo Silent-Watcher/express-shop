@@ -71,7 +71,15 @@ footer ul li {
 }
 
 .swiper {
-  width: 480px;
-  height: 200px;
+	width: 480px;
+	height: 200px;
 	border-radius: 20px;
+}
+
+.cart-button {
+	border-radius: 100%;
+	width: 40px;
+	height: 40px;
+	background-color: #e7e7e7;
+	border: 1px solid #ccc;
 }

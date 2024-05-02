@@ -2,7 +2,9 @@ const router = require('express').Router();
 const authRouter = require('./auth');
 const adminRouter = require('./admin');
 const homeRouter = require('./home');
+const courseRouter = require('./course');
 const { redirectIfAuthenticate, isUserAuthenticate, checkUserIsAdmin } = require('app/http/guards/auth.guard');
+const { PORT } = require('app/common/globals');
 
 // main page routes
 router.use(
@@ -13,6 +15,7 @@ router.use(
 		res.locals.errors = req.flash('error');
 		res.locals.success = req.flash('success');
 		res.locals.breadcrumbs = req.breadcrumbs;
+		res.locals.url = `${req.protocol}://${req.hostname}:${PORT}${req.url}`;
 		res.locals.title = 'فروشگاه عطن';
 		next();
 	},
@@ -43,5 +46,8 @@ router.use(
 	},
 	adminRouter
 );
+
+// courses routes
+router.use('/courses', courseRouter);
 
 module.exports = router;

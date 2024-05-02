@@ -106,6 +106,7 @@ class Application {
 	//------------------
 	connectToMongoDb(dbUrl, dbName) {
 		// mongoose.set('strictQuery', true);
+		// mongoose.set('strictPopulate', false);
 		return mongoose.connect(dbUrl, { dbName });
 	}
 	//------------------

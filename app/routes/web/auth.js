@@ -1,4 +1,4 @@
-const authController = require('app/http/controllers/auth.controller');
+const authController = require('app/http/controllers/auth/auth.controller');
 const {
 	validateRegisterData,
 	validateLoginData,
@@ -8,8 +8,8 @@ const {
 const checkDataValidation = require('app/http/middlewares/validation.middleware');
 const validateRecaptcha = require('app/validators/recaptcha.validator');
 const passport = require('passport');
-const forgotPasswordController = require('app/http/controllers/forgotPassword.controller');
-const resetPasswordController = require('app/http/controllers/resetPassword.controller');
+const forgotPasswordController = require('app/http/controllers/auth/forgotPassword.controller');
+const resetPasswordController = require('app/http/controllers/auth/resetPassword.controller');
 
 const router = require('express').Router();
 

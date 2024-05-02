@@ -4,8 +4,7 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 const episodeSchema = new Schema(
 	{
 		title: { type: String, required: true, unique: true },
-		course: { type: Schema.Types.ObjectId, ref: 'Course' },
-		courseTitle: { type: String, required: false },
+		course: { type: Schema.Types.ObjectId, ref: 'course' },
 		type: { type: String, enum: ['paid', 'free'], required: true, unique: false, default: 'free' },
 		url: { type: String, required: true, unique: true },
 		description: { type: String, required: false },

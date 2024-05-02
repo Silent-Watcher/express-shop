@@ -159,13 +159,13 @@
 		</section>
 	</div>
 	<div class="row mt-5 d-flex flex-wrap justify-content-center" style="gap: 16px;">
-		<% latestCourses.forEach(course => { %>
+		<% courses.forEach(course => { %>
 			<!-- course card start -->
 			<div class="card p-0 gap-2 course-card" style="width: 20rem;">
 				<img height="200px" loading="lazy" src="<%= course.thumbnail.path %>" class="card-img-top" alt="<%= course.title %>">
 				<div class="card-body">
 					<h5 class="card-title fw-bold fs-5"><a class="link-dark" href="/courses/<%= course.slug %>"><%=course.title%></a></h5>
-					<p class="card-text text-secondary" style="font-size: 14px;"><%= course.description  %></p>
+					<p class="card-text text-secondary" style="font-size: 14px;"><%= course.description.substr(0,200)  %>...</p>
 					<div class="d-flex align-items-center mb-2">
 						<svg class="ml-1" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<circle opacity="0.15" cx="12.3578" cy="13.5069" r="7.94769" transform="rotate(-36.651 12.3578 13.5069)" fill="#FFA826"></circle>

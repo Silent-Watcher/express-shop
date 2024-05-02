@@ -10,14 +10,21 @@ class HomeController extends Controller {
 	}
 	async index(req, res, next) {
 		try {
-			const courses = await Course.paginate({}, { lean: true, limit: 4, sort: { createdAt: 'desc' } });
 			const title = 'فروشگاه';
+			const courses = await Course.find({}).lean();
+			const latestCourses = await Course.find(
+				{},
+				{ _id: 0, __v: 0, createdAt: 0, updatedAt: 0, commentCount: 0, viewCount: 0, images: 0, user: 0, tags: 0 }
+			)
+				.sort({ createdAt: 'desc' })
+				.limit(6)
+				.lean();
 			res.render('index', {
 				errors: req.flash('error'),
 				title,
 				success: req.flash('success'),
-				courseCount: courses.totalDocs - 1,
-				latestCourses: courses.docs,
+				courses: latestCourses,
+				courseCount: courses.length,
 			});
 		} catch (error) {
 			next(error);

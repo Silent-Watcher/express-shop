@@ -9,8 +9,14 @@ const userSchema = new Schema(
 		photo: { type: String, required: false },
 		rememberToken: { type: String, required: false, default: null },
 	},
-	{ timestamps: true }
+	{ timestamps: true, toJSON: { virtuals: true } }
 );
+
+userSchema.virtual('courses', {
+	ref: 'course',
+	localField: '_id',
+	foreignField: 'user',
+});
 
 const User = model('user', userSchema);
 

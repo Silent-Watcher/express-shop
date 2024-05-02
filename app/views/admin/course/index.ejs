@@ -31,7 +31,7 @@
 					</td>
 					<td class="d-none d-sm-table-cell"><%= course.commentCount %></td>
 					<td class="d-none d-lg-table-cell "><%= course.time %></td>
-					<td class="d-none d-lg-table-cell"><%= course.userName %></td>
+					<td class="d-none d-lg-table-cell"><%= course.user.name %></td>
 					<td >
 						<% if (course.type == 'paid') { %>
 							<p class="mb-0 text-success">نقدی</p>

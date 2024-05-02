@@ -1,6 +1,6 @@
 const slugify = require('slugify');
 const Controller = require('app/http/controllers/controller');
-const Course = require('app/models/course.model');
+const Course = require('../../../models/course.model');
 const { DEFAULT_THUMBNAIL } = require('app/common/globals');
 const imageHelper = require('app/helpers/image.helper');
 
@@ -21,7 +21,6 @@ class CourseController extends Controller {
 				slug: slugify(slug, { lower: true, replacement: '-' }),
 				description,
 				user: req.user._id,
-				userName: req.user.name,
 				images: imageAddrs ?? [],
 				thumbnail: imageAddrs.find(imageAddr => imageAddr.size == 'original') ?? DEFAULT_THUMBNAIL,
 				price,
@@ -106,19 +105,20 @@ class CourseController extends Controller {
 		try {
 			const { course } = req.body;
 			const { id } = req.params;
-			const foundedCourse = await Course.findOneAndDelete({
+			const foundedCourse = await Course.findOne({
 				$and: [{ title: course }, { _id: id }],
-			});
+			})
+				.populate('episodes')
+				.exec();
 			if (!foundedCourse) {
-				return this.flashAndRedirect(
-					req,
-					res,
-					'error',
-					`عملیات حذف دوره موفقیت آمیز نبود . لطفا مجدد تلاش کنید.`,
-					`/admin/courses/${req.body.courseId}/delete`
-				);
+				return this.flashAndRedirect(req, res, 'error', `دوره یافت نشد`, `/admin/courses/${req.body.courseId}/delete`);
 			} else {
+				// remove course images
 				await imageHelper.removeImages(foundedCourse.images);
+				// remove course episodes
+				foundedCourse.episodes.forEach(async episode => await episode.deleteOne());
+				// remove Course
+				await foundedCourse.deleteOne();
 				req.flash('success', 'دوره با موفقیت حذف شد');
 			}
 			return res.redirect(`/admin/courses`);
@@ -135,7 +135,10 @@ class CourseController extends Controller {
 				return res.redirect('/admin/courses/');
 			}
 			const title = 'پنل مدیریت | دوره ها';
-			const courses = await Course.paginate({}, { limit: 4, page, sort: { createdAt: 'desc' }, lean: true });
+			const courses = await Course.paginate(
+				{},
+				{ limit: 4, page, sort: { createdAt: 'desc' }, lean: true, populate: [{ path: 'user', select: 'name' }] }
+			);
 			return res.render('admin/course/index', { title, courses });
 		} catch (error) {
 			next({ status: 500, message: `something went wrong !`, stack: error.stack });

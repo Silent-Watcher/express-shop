@@ -11,16 +11,9 @@ class EpisodeController extends Controller {
 	//
 	async create(req, res, next) {
 		try {
-			let { title: courseTitle } = await Course.findById(req.body.course, { title: 1 }).lean();
-			await Episode.create({ ...req.body, courseTitle });
+			await Episode.create({ ...req.body });
 			await this.updateCourseTime(req.body.course);
-			return this.flashAndRedirect(
-				req,
-				res,
-				'success',
-				`جلسه ${req.body.title} به دوره ${courseTitle} با موفقیت اضافه شد`,
-				'/admin/episodes'
-			);
+			return this.flashAndRedirect(req, res, 'success', `جلسه ${req.body.title} با موفقیت اضافه شد`, '/admin/episodes');
 		} catch (error) {
 			next({ status: 500, message: `something went wrong !`, stack: error.stack });
 		}
@@ -102,7 +95,10 @@ class EpisodeController extends Controller {
 		try {
 			let page = req.query.page ?? 1;
 			const title = 'پنل مدیریت | ویدیو ها';
-			const episodes = await Episode.paginate({}, { limit: 4, page, sort: { createdAt: 'desc' }, lean: true });
+			const episodes = await Episode.paginate(
+				{},
+				{ limit: 4, page, sort: { createdAt: 'desc' }, lean: true, populate: [{ path: 'course', select: 'title' }] }
+			);
 			if (isNaN(page)) {
 				req.flash('شماره صفحه نامعتبر است');
 				return res.redirect('/admin/episodes/');
@@ -151,9 +147,8 @@ class EpisodeController extends Controller {
 	}
 	//
 	async updateCourseTime(courseId) {
-		let episodes = await Episode.find({ course: courseId }).lean();
-		let course = await Course.findById(courseId);
-		course.set({ time: this.getTime(episodes) });
+		let course = await Course.findById(courseId).populate('episodes').exec();
+		course.set({ time: this.getTime(course.episodes) });
 		await course.save();
 	}
 	getTime(episodes) {

@@ -23,6 +23,7 @@ const courseTimes = Array.from(document.querySelectorAll('.course-time'));
 window.addEventListener('load', () => {
 	coursePrices.forEach(coursePrice => {
 		let price = coursePrice.dataset.price;
+		price = price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 		coursePrice.innerHTML = replaceEnglishWithPersianNumbers(price);
 	});
 	courseTimes.forEach(courseTime => {

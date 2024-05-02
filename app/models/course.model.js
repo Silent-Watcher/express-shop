@@ -9,8 +9,7 @@ const imageSchema = new Schema({
 const courseSchema = new Schema(
 	{
 		title: { type: String, required: true, unique: true },
-		user: { type: Schema.Types.ObjectId, ref: 'User' },
-		userName: { type: String, required: false },
+		user: { type: Schema.Types.ObjectId, ref: 'user' },
 		slug: { type: String, required: true, unique: true },
 		type: { type: String, enum: ['free', 'paid'], required: true, default: 'free' },
 		description: { type: String, required: false },
@@ -22,8 +21,14 @@ const courseSchema = new Schema(
 		images: { type: [imageSchema], required: false, default: [] },
 		thumbnail: { type: imageSchema, required: false },
 	},
-	{ timestamps: true }
+	{ timestamps: true, toJSON: { virtuals: true } }
 );
+
+courseSchema.virtual('episodes', {
+	ref: 'episode',
+	localField: '_id',
+	foreignField: 'course',
+});
 
 courseSchema.plugin(mongoosePaginate);
 

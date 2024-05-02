@@ -16,6 +16,11 @@ const { handleExceptions, handleNotFoundError } = require('app/http/middlewares/
 const passport = require('passport');
 const rememberLogin = require('app/http/middlewares/remember.middleware');
 const addBreadcrumbs = require('./http/middlewares/breadcrumb.middleware');
+const i18next = require('i18next');
+const i18nextMiddleware = require('i18next-http-middleware');
+const Backend = require('i18next-fs-backend');
+const path = require('path');
+
 // const helmet = require('helmet');
 
 const { env } = process;
@@ -27,6 +32,25 @@ class Application {
 	constructor(port) {
 		autoBind(this);
 		this.#port = port;
+
+		i18next
+			.use(Backend)
+			.use(i18nextMiddleware.LanguageDetector)
+			.init({
+				backend: {
+					loadPath: path.join(process.cwd(), 'app', 'locales', 'fa.json'),
+				},
+				detection: {
+					order: ['header'],
+				},
+				fallbackLng: 'fa',
+				preload: ['en', 'fa'], // Preload English and Persian translations
+			});
+		this.#app.use((req, res, next) => {
+			req.headers['accept-language'] = 'fa';
+			next();
+		});
+		this.#app.use(i18nextMiddleware.handle(i18next));
 		this.setConfigs();
 		this.router();
 		this.connectToMongoDb(env.DB_URL, env.DB_NAME).then(() => {

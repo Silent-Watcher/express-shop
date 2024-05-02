@@ -11,4 +11,5 @@ module.exports = Object.freeze({
 	DEFAULT_IMAGE_Addr: '/static/imgs/defaultImage.avif',
 	DEFAULT_THUMBNAIL: { size: 'original', path: '/static/imgs/defaultImage.avif' },
 	PORT: process.env.PORT,
+	LOCALES_PATH: path.join(process.cwd(), 'app', 'locales'),
 });

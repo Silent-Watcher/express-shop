@@ -19,6 +19,9 @@ const episodeSchema = new Schema(
 
 episodeSchema.plugin(mongoosePaginate);
 
+episodeSchema.methods.download = function () {
+	return '#';
+};
 const Episode = model('episode', episodeSchema);
 
 module.exports = Episode;

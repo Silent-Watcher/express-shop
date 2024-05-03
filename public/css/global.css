@@ -83,3 +83,35 @@ footer ul li {
 	background-color: #e7e7e7;
 	border: 1px solid #ccc;
 }
+
+.alert {
+	color: #666666;
+	padding: 15px 20px;
+	padding-right: 45px;
+	border: none;
+	background-color: #eff8fe;
+	position: relative;
+}
+
+/* alert boxes start */
+
+.alert.alert-danger {
+	background-color: rgba(253, 66, 124, 0.1);
+}
+
+.alert.alert-success {
+	background-color: rgba(41, 219, 45, 0.1);
+}
+
+.alert.alert-danger p {
+	color: #fd427c;
+}
+.alert.alert-success p {
+	color: #29db2d;
+}
+
+/* alert boxes end */
+
+.fs-14px {
+	font-size: 14px;
+}

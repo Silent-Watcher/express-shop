@@ -73,6 +73,7 @@ class Application {
 		this.#app.set('views', VIEW_FILES_PATH);
 		this.#app.set('layout extractScripts', true);
 		this.#app.set('layout extractStyles', true);
+		this.#app.set('layout extractMetas', true);
 		this.#app.use(methodOverride('_method'));
 		this.#app.use('/static', express.static(STATIC_FILES_PATH));
 		this.#app.use(addBreadcrumbs);

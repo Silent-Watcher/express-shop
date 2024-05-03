@@ -12,6 +12,7 @@ router.use(
 	(req, res, next) => {
 		req.app.set('layout', 'layouts/layout');
 		res.locals.old = req.flash('formData')[0];
+		res.locals.isAuthenticated = req.isAuthenticated();
 		res.locals.errors = req.flash('error');
 		res.locals.success = req.flash('success');
 		res.locals.breadcrumbs = req.breadcrumbs;

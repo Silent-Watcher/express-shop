@@ -7,6 +7,7 @@ const userSchema = new Schema(
 		password: { type: String, required: true, trim: true },
 		admin: { type: Boolean, required: true, default: false },
 		photo: { type: String, required: false },
+		bio: { type: String, required: false },
 		rememberToken: { type: String, required: false, default: null },
 	},
 	{ timestamps: true, toJSON: { virtuals: true } }
@@ -17,6 +18,16 @@ userSchema.virtual('courses', {
 	localField: '_id',
 	foreignField: 'user',
 });
+
+// eslint-disable-next-line no-unused-vars
+userSchema.methods.checkIfLearning = function (course) {
+	// TODO: check if a user buy a specific course
+	return true;
+};
+userSchema.methods.isVip = function () {
+	// TODO: check if a user became a vip or not
+	return false;
+};
 
 const User = model('user', userSchema);
 

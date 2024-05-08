@@ -1,5 +1,5 @@
 const Controller = require('app/http/controllers/controller');
-const Course = require('../../models/course.model');
+const Course = require('app/models/course.model');
 class CourseController extends Controller {
 	//
 	getCoursesPage(req, res, next) {

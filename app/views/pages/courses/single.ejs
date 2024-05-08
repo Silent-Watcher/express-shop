@@ -250,9 +250,23 @@
 				</div>
 			</div>
 			<!-- course teacher end -->
+			<!-- course tags start -->
+			<div class="row mt-4">
+				<div class="d-flex flex-column justify-content-center align-items-center bg-secondary-subtle rounded p-4" >
+					<p class="mb-3 fw-bold">برچسب های دوره</p>
+					<% if (course.tags.length > 0) { %>
+						<div class="d-flex justify-content-center align-items-center" id="courseTagsWrap" data-tags="<%= course.tags %>"></div>
+					<% } else { %>
+						<p>برچسبی برای این دوره ثبت نشده است</p>
+					<% }%>
+				</div>
+			</div>
+			<!-- course tags end -->
 			</section>
 		<!-- course main section meta info -->
 	</div>
 </div>
 <!-- course detail section end -->
 
+
+<script src="/static/js/tags.js"></script>

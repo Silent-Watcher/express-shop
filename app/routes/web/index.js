@@ -3,6 +3,7 @@ const authRouter = require('./auth');
 const adminRouter = require('./admin');
 const homeRouter = require('./home');
 const courseRouter = require('./course');
+const episodeRouter = require('./episode');
 const { redirectIfAuthenticate, isUserAuthenticate, checkUserIsAdmin } = require('app/http/guards/auth.guard');
 const { PORT } = require('app/common/globals');
 
@@ -50,5 +51,7 @@ router.use(
 
 // courses routes
 router.use('/courses', courseRouter);
+//  episodes routes
+router.use('/episodes', episodeRouter);
 
 module.exports = router;

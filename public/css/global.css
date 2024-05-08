@@ -1,7 +1,9 @@
 * {
 	font-family: Vazirmatn, sans-serif;
 }
-
+body{
+	overflow-x: hidden;
+}
 ::-webkit-input-placeholder {
 	text-align: right;
 	font-size: 14px;

@@ -22,7 +22,7 @@ userSchema.virtual('courses', {
 // eslint-disable-next-line no-unused-vars
 userSchema.methods.checkIfLearning = function (course) {
 	// TODO: check if a user buy a specific course
-	return true;
+	return false;
 };
 userSchema.methods.isVip = function () {
 	// TODO: check if a user became a vip or not

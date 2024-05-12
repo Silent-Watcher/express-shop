@@ -151,7 +151,7 @@
 									<% } else { %>
 										<tr>
 											<td>
-												<a href="/<%= episode.download() %>" class="link link-dark fs-5"><i class='bx bxs-download' style='color:#198754'  ></i></a>
+												<a href="/<%= episode.download(isAuthenticated, canUse) %>" class="link link-dark fs-5"><i class='bx bxs-download' style='color:#198754'  ></i></a>
 											</td>
 											<td>
 												<span class="me-2"><%= episode.number %></span>
@@ -172,7 +172,7 @@
 							<% } else if (episode.type == 'free') { %>
 								<tr>
 									<td>
-										<a href="/<%= episode.download() %>" class="link link-dark fs-5"><i class='bx bxs-download' style='color:#198754'  ></i></a>
+										<a href="/<%= episode.download(isAuthenticated, canUse) %>" class="link link-dark fs-5"><i class='bx bxs-download' style='color:#198754'  ></i></a>
 									</td>
 									<td>
 										<span class="me-2"><%= episode.number %></span>

@@ -1,4 +1,7 @@
 const { Schema, model } = require('mongoose');
+
+const bcrypt = require('bcrypt');
+
 const mongoosePaginate = require('mongoose-paginate-v2');
 
 const episodeSchema = new Schema(
@@ -19,8 +22,16 @@ const episodeSchema = new Schema(
 
 episodeSchema.plugin(mongoosePaginate);
 
-episodeSchema.methods.download = function () {
-	return `episodes/download/${this._id}`;
+episodeSchema.methods.download = function (isAuthenticated, canUse) {
+	if (!isAuthenticated) return '#';
+	let isLinkActive = false;
+	if (this.type == 'free') isLinkActive = true;
+	else if (this.type == 'paid' || this.type == 'vip') isLinkActive = canUse;
+
+	const now = new Date().getTime();
+	let hash = bcrypt.hashSync(`${process.env.DOWNLOAD_LINK_SECRET}${this.id}${now}`, 10);
+
+	return isLinkActive ? `episodes/download/${this._id}?mac=${hash}&t=${now}` : '#';
 };
 const Episode = model('episode', episodeSchema);
 

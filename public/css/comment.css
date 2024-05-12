@@ -1,0 +1,15 @@
+.comments-wrap{
+	list-style: none;
+}
+
+
+.comment .comment-body ,
+.reply .comment-body{
+	background-color: #d0d0d0
+}
+
+.reply {
+	width: 90%;
+	margin: 0 auto 0 0;
+}
+

@@ -199,7 +199,7 @@
 			</div>
 			<!-- episodes end -->
 			<!-- comments start -->
-			<div class="row bg-secondary-subtle rounded p-5 my-5">
+			<div class="row bg-secondary-subtle rounded p-5 mt-5">
 				<div class="d-flex flex-column flex-lg-row align-items-center justify-content-between">
 					<h2 class="fw-bold fs-4 mt-3 text-center text-lg-start">دیدگاه و پرسش ها</h2>
 					<% if (isAuthenticated) { %>
@@ -209,7 +209,7 @@
 				<% if (isAuthenticated) { %>
 					<div hidden class="border border-secondary-subtle p-4 mt-4 rounded" id="newCommentSection">
 						<div class="d-flex align-items-center mt-2">
-							<img width="65px" height="65px" src="<%= user.photo %>" alt="کاربر" class="img-fluid rounded-circle">
+							<img loading="lazy" width="55px" height="55px" src="<%= user.photo ?? '/static/imgs/avatar.png' %>" alt="کاربر" class="img-fluid rounded-circle">
 							<div class="ms-3">
 								<p class="mb-0"><%= user.name %></p>
 								<p class="mb-0"><%= user.email.split('@')[0] %>@</p>
@@ -231,68 +231,70 @@
 		</section>
 		<!-- course main section end -->
 		<!-- course main section meta info -->
-		<section class="d-none d-lg-block col-lg-4">
-			<!-- course score start -->
-			<div class="row bg-secondary-subtle rounded">
-				<section class="d-flex px-5 pb-3 pt-4 justify-content-between align-items-center">
-					<span>تکمیل ضبط</span>
-					<div class="score d-flex flex-column">
-						<%- include('../../components/rating.ejs') %>
-						<p class="mb-0 text-center mt-1" style="font-size: 14px;">4.67 از 9 رای</p>
-					</div>
-				</section>
-			</div>
-			<!-- course score end -->
-			<div class="row mt-4">
-				<section class="d-flex flex-wrap gap-3 justify-content-center">
-					<div class="meta-box rounded bg-secondary-subtle d-flex flex-column justify-content-center align-items-center p-3">
-						<img width="25px" src="/static/imgs/clock.svg" alt="ساعت">
-						<p class="mb-0 fs-14px mt-2">مدت دوره</p>
-						<p data-time="<%= course.time %>" class="mb-0 mt-1 fs-14px fw-bold course-time"></p>
-					</div>
-					<div class="meta-box rounded bg-secondary-subtle d-flex flex-column justify-content-center align-items-center p-3">
-						<img width="25px" src="/static/imgs/episodes.svg" alt="جلسات">
-						<p class="mb-0 fs-14px mt-2">تعداد جلسات</p>
-						<p class="mb-0 mt-1 fs-14px fw-bold number"><%= course.episodes.length %></p>
-					</div>
-					<div class="meta-box rounded bg-secondary-subtle d-flex flex-column justify-content-center align-items-center p-3">
-						<img width="25px" src="/static/imgs/badge.svg" alt="مدال">
-						<p class="mb-0 fs-14px mt-2">نوع دوره</p>
-						<p  class="mb-0 mt-1 fs-14px fw-bold course-time">
-							<% if (course.type == 'paid') { %>
-								نقدی و ویژه
-							<% } else if (course.type == 'vip') { %>
-								ویژه
-							<% } else {  %>
-								رایگان
-							<% }  %>
-						</p>
-					</div>
-				</section>
-			</div>
-			<!-- course teacher start -->
-			<div class="row mt-4">
-				<div class="d-flex flex-column justify-content-center align-items-center bg-secondary-subtle rounded p-4">
-					<img class="rounded-circle" width="50px" src="<%= course.user.photo%>" alt="مدرس">
-					<p class="d-inline-flex align-items-start mb-0 mt-2 justify-content-center fw-bold"><img class="mt-1" loading="lazy" src="/static/imgs/badge.svg" width="15px" alt=""><span class="ms-1"><%= course.user.name %></span></p>
-					<p class="mb-0 text-secandary fs-14px">مدرس دوره</p>
-					<p class="mt-2 fs-14px text-center"><%= course.user.bio %></p>
+		<section  class="d-none d-lg-block col-lg-4 ">
+			<div style="top: 20px;" class="position-sticky">
+				<!-- course score start -->
+				<div class="row bg-secondary-subtle rounded">
+					<section class="d-flex px-5 pb-3 pt-4 justify-content-between align-items-center">
+						<span>تکمیل ضبط</span>
+						<div class="score d-flex flex-column">
+							<%- include('../../components/rating.ejs') %>
+							<p class="mb-0 text-center mt-1" style="font-size: 14px;">4.67 از 9 رای</p>
+						</div>
+					</section>
 				</div>
-			</div>
-			<!-- course teacher end -->
-			<!-- course tags start -->
-			<div class="row mt-4">
-				<div class="d-flex flex-column justify-content-center align-items-center bg-secondary-subtle rounded p-4" >
-					<p class="mb-3 fw-bold">برچسب های دوره</p>
-					<% if (course.tags.length > 0) { %>
-						<div class="d-flex justify-content-center align-items-center" id="courseTagsWrap" data-tags="<%= course.tags %>"></div>
-					<% } else { %>
-						<p>برچسبی برای این دوره ثبت نشده است</p>
-					<% }%>
+				<!-- course score end -->
+				<div class="row mt-4">
+					<section class="d-flex flex-wrap gap-3 justify-content-center">
+						<div class="meta-box rounded bg-secondary-subtle d-flex flex-column justify-content-center align-items-center p-3">
+							<img width="25px" src="/static/imgs/clock.svg" alt="ساعت">
+							<p class="mb-0 fs-14px mt-2">مدت دوره</p>
+							<p data-time="<%= course.time %>" class="mb-0 mt-1 fs-14px fw-bold course-time"></p>
+						</div>
+						<div class="meta-box rounded bg-secondary-subtle d-flex flex-column justify-content-center align-items-center p-3">
+							<img width="25px" src="/static/imgs/episodes.svg" alt="جلسات">
+							<p class="mb-0 fs-14px mt-2">تعداد جلسات</p>
+							<p class="mb-0 mt-1 fs-14px fw-bold number"><%= course.episodes.length %></p>
+						</div>
+						<div class="meta-box rounded bg-secondary-subtle d-flex flex-column justify-content-center align-items-center p-3">
+							<img width="25px" src="/static/imgs/badge.svg" alt="مدال">
+							<p class="mb-0 fs-14px mt-2">نوع دوره</p>
+							<p  class="mb-0 mt-1 fs-14px fw-bold course-time">
+								<% if (course.type == 'paid') { %>
+									نقدی و ویژه
+								<% } else if (course.type == 'vip') { %>
+									ویژه
+								<% } else {  %>
+									رایگان
+								<% }  %>
+							</p>
+						</div>
+					</section>
 				</div>
+				<!-- course teacher start -->
+				<div class="row mt-4">
+					<div class="d-flex flex-column justify-content-center align-items-center bg-secondary-subtle rounded p-4">
+						<img class="rounded-circle" width="50px" src="<%= course.user.photo%>" alt="مدرس">
+						<p class="d-inline-flex align-items-start mb-0 mt-2 justify-content-center fw-bold"><img class="mt-1" loading="lazy" src="/static/imgs/badge.svg" width="15px" alt=""><span class="ms-1"><%= course.user.name %></span></p>
+						<p class="mb-0 text-secandary fs-14px">مدرس دوره</p>
+						<p class="mt-2 fs-14px text-center"><%= course.user.bio %></p>
+					</div>
+				</div>
+				<!-- course teacher end -->
+				<!-- course tags start -->
+				<div class="row mt-4">
+					<div class="d-flex flex-column justify-content-center align-items-center bg-secondary-subtle rounded p-4" >
+						<p class="mb-3 fw-bold">برچسب های دوره</p>
+						<% if (course.tags.length > 0) { %>
+							<div class="d-flex justify-content-center align-items-center" id="courseTagsWrap" data-tags="<%= course.tags %>"></div>
+						<% } else { %>
+							<p>برچسبی برای این دوره ثبت نشده است</p>
+						<% }%>
+					</div>
+				</div>
+				<!-- course tags end -->
 			</div>
-			<!-- course tags end -->
-			</section>
+		</section>
 		<!-- course main section meta info -->
 	</div>
 </div>

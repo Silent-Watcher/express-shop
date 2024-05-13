@@ -1,7 +1,10 @@
 const addNewCommentBtn = document.querySelector('#addNewCommentBtn');
 const newCommentSection = document.querySelector('#newCommentSection');
 const closeNewCommentSectionBtn = document.querySelector('#closeNewCommentSectionBtn');
-const replyCommentCTA = document.querySelector('#replyCommentCTA');
+const parentCommentIdInput = document.querySelector('#parentCommentIdInput');
+
+const replyCommentCTAs = document.querySelectorAll('.replyCommentCTA');
+console.log('replyCommentCTAs: ', replyCommentCTAs);
 const newReplySection = document.querySelector('#newReplySection');
 const closeNewReplySectionBtn = document.querySelector('#closeNewReplySectionBtn');
 
@@ -13,10 +16,20 @@ closeNewCommentSectionBtn.addEventListener('click', () => {
 	newCommentSection.hidden = true;
 });
 
-replyCommentCTA.addEventListener('click', () => {
-	if (newReplySection.hidden) newReplySection.hidden = false;
-});
-
 closeNewReplySectionBtn.addEventListener('click', () => {
 	newReplySection.hidden = true;
+});
+
+// replyCommentCTAs.foreEach(replyCommentCTA => {
+// 	console.log('replyCommentCTA: ', replyCommentCTA);
+// 	replyCommentCTA.addEventListener('click', () => {
+// 		if (newReplySection.hidden) newReplySection.hidden = false;
+// 	});
+// });
+
+replyCommentCTAs.forEach(replyCommentCTA => {
+	replyCommentCTA.addEventListener('click', () => {
+		if (newReplySection.hidden) newReplySection.hidden = false;
+		parentCommentIdInput.value = replyCommentCTA.dataset.commentid;
+	});
 });

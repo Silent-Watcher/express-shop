@@ -3,14 +3,6 @@
 const tagsWrap = document.querySelector('#courseTagsWrap');
 const tagsString = tagsWrap.dataset.tags;
 
-function getColor() {
-	let r = Math.floor(Math.random() * 255);
-	let g = Math.floor(Math.random() * 255);
-	let b = Math.floor(Math.random() * 255);
-	let color = `rgb(${r} , ${g} , ${b})`;
-	return color;
-}
-
 window.addEventListener('load', () => {
 	let tags = tagsString.split('/');
 	const tagsFragment = document.createDocumentFragment();
@@ -18,7 +10,7 @@ window.addEventListener('load', () => {
 		if (tag.length > 0) {
 			let span = document.createElement('span');
 			span.className = 'badge mx-2';
-			span.style.backgroundColor = getColor();
+			span.style.backgroundColor = '#808080';
 			span.innerHTML = tag;
 			tagsFragment.append(span);
 		}

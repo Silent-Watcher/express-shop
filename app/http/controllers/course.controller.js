@@ -14,10 +14,27 @@ class CourseController extends Controller {
 		try {
 			const { courseSlug } = req.params;
 			const course = await Course.findOne({ slug: courseSlug }, { images: 0, slug: 0, updatedAt: 0, __v: 0 })
-				.populate([{ path: 'episodes' }, { path: 'user' }])
+				.populate([
+					{ path: 'episodes' },
+					{ path: 'user' },
+					{
+						path: 'comments',
+						match: { parent: null, isApproved: true },
+						populate: [
+							{ path: 'user', select: 'name photo' },
+							{
+								path: 'comments',
+								match: { parent: null, isApproved: true },
+								populate: [{ path: 'user', select: 'name photo' }, { path: 'comments' }],
+							},
+						],
+					},
+				])
 				.exec();
+			// return res.json(course);
 			const title = course.title;
 			const canUse = await this.canUserUse(req, course);
+
 			res.render('pages/courses/single', { title, course, canUse });
 		} catch (error) {
 			next(error);

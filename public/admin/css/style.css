@@ -3512,3 +3512,8 @@ body.skin-dark .pagination .page-item .page-link {
 body.skin-dark .admin_sub_heading{
 	color: #fafafa;
 }
+
+body.skin-dark textarea {
+	color: #fff;
+	user-select: none;
+}

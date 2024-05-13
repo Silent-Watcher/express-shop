@@ -1,6 +1,6 @@
 const slugify = require('slugify');
 const Controller = require('app/http/controllers/controller');
-const Course = require('../../../models/course.model');
+const Course = require('app/models/course.model');
 const { DEFAULT_THUMBNAIL } = require('app/common/globals');
 const imageHelper = require('app/helpers/image.helper');
 
@@ -137,7 +137,13 @@ class CourseController extends Controller {
 			const title = 'پنل مدیریت | دوره ها';
 			const courses = await Course.paginate(
 				{},
-				{ limit: 4, page, sort: { createdAt: 'desc' }, lean: true, populate: [{ path: 'user', select: 'name' }] }
+				{
+					limit: 4,
+					page,
+					sort: { createdAt: 'desc' },
+					lean: true,
+					populate: [{ path: 'user', select: 'name' }],
+				}
 			);
 			return res.render('admin/course/index', { title, courses });
 		} catch (error) {

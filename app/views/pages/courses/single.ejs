@@ -199,34 +199,7 @@
 			</div>
 			<!-- episodes end -->
 			<!-- comments start -->
-			<div class="row bg-secondary-subtle rounded p-5 mt-5">
-				<div class="d-flex flex-column flex-lg-row align-items-center justify-content-between">
-					<h2 class="fw-bold fs-4 mt-3 text-center text-lg-start">دیدگاه و پرسش ها</h2>
-					<% if (isAuthenticated) { %>
-						<button id="addNewCommentBtn" class="btn btn-sm btn-primary d-inline-flex align-items-center mt-3 mt-lg-0">افزودن دیدگاه و پرسش جدید <i class='bx bx-plus-circle ms-2' style='color:#fbfbfb'  ></i></button>
-					<% } %>
-				</div>
-				<% if (isAuthenticated) { %>
-					<div hidden class="border border-secondary-subtle p-4 mt-4 rounded" id="newCommentSection">
-						<div class="d-flex align-items-center mt-2">
-							<img loading="lazy" width="55px" height="55px" src="<%= user.photo ?? '/static/imgs/avatar.png' %>" alt="کاربر" class="img-fluid rounded-circle">
-							<div class="ms-3">
-								<p class="mb-0"><%= user.name %></p>
-								<p class="mb-0"><%= user.email.split('@')[0] %>@</p>
-							</div>
-						</div>
-						<hr class="w-75 mx-auto">
-						<form action="" class="d-flex flex-column ">
-							<textarea placeholder="پیام خود را بنویسید" style="background-color: #d0d0d0;" class="w-100 p-3 rounded" name="" id=""  rows="5"></textarea>
-							<div class="d-flex justify-content-end elign-items-center mt-4">
-								<button type="button" class="btn btn-outline-secondary btn-sm me-3" id="closeNewCommentSectionBtn">لغو</button>
-								<button type="submit" class="btn btn-primary btn-sm">ثبت دیدگاه</button>
-							</div>
-						</form>
-					</div>
-				<% } %>
-				<%- include('../../components/comment.ejs') %>
-			</div>
+			<%- include('../../components/comment.ejs' , {subject: course}) %>
 			<!-- comments end -->
 		</section>
 		<!-- course main section end -->

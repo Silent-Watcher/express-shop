@@ -2,6 +2,7 @@ const homeService = require('app/http/services/home.service');
 const Controller = require('app/http/controllers/controller');
 const Course = require('app/models/course.model');
 const recaptcha = require('app/config/recaptcha');
+const Comment = require('../../models/comment.model');
 class HomeController extends Controller {
 	#service;
 	constructor() {
@@ -44,6 +45,22 @@ class HomeController extends Controller {
 		try {
 			const title = 'درباره ما';
 			res.render('pages/aboutUs', { title });
+		} catch (error) {
+			next(error);
+		}
+	}
+	//
+	async comment(req, res, next) {
+		try {
+			const result = await Comment.create({ user: req.user._id, ...req.body });
+			if (!result) this.flashAndRedirect(req, res, 'error', 'خطایی در ثبت نظر رخ داده است.', req.headers.referer);
+			return this.flashAndRedirect(
+				req,
+				res,
+				'success',
+				'دیدگاه با موفقیت ارسال شد. بعد از تایید دیدگاه شما در سایت به نمایش  در میاید',
+				req.headers.referer
+			);
 		} catch (error) {
 			next(error);
 		}

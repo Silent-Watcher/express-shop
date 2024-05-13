@@ -1,0 +1,74 @@
+<style>
+	body.skin-dark .form-control {
+		max-width: 100%;
+		background-color: #161824;
+		border-color: transparent;
+		color: #8b8d9b;
+	}
+</style>
+
+<div class="container">
+	<!-- comment header -->
+	<div class="row w-100">
+		<div class="col-12 col-lg-6"><h3>تنظیمات دیدگاه</h3></div>
+		<div class="col-12 col-lg-6 text-start mt-3 mt-lg-0">
+			<a type="button" class="btn btn-primary ms-auto btn-sm" href="/admin/comments/">نظرات</a>
+		</div>
+	</div>
+	<!-- comment info start -->
+	<div class="row w-100 mt-5">
+		<div class="col-12 col-lg-6">
+			<h4>اطلاعات فرستنده</h4>
+			<div class="d-flex flex-column align-items-start mt-3">
+				<p class="mb-0">
+					<img
+						width="50px"
+						class="img-fluid rounded-circle"
+						src="<%= comment.user.photo ?? '/static/imgs/avatar.png' %>"
+						alt="تصویر کاربر"
+					/>
+				</p>
+				<p class="me-2 mt-3"><span class="fw-bold">نام کاربر :</span> <%= comment.user.name %></p>
+				<p class="me-2">
+					<span class="fw-bold">ایمیل کاربر :</span>
+					<a href="mailto:<%= comment.user.email %>" target="_blank"><%= comment.user.email %></a>
+				</p>
+				<% if ('course' in comment) { %>
+					<h4 class="mb-2 mt-2 fw-bold">ارسال شده برای دوره</h4>
+					<div class="d-flex align-items-center">
+						<img class="rounded-pill ms-3" width="50px" src="<%= comment.course.thumbnail.path %>" alt="">
+						<p><span class="fw-bold">نام دوره : </span> <%= comment.course.title %></p>
+					</div>
+					<% } else if ('episode' in comment) { %>
+						<h4 class="mb-2 mt-2 fw-bold">ارسال شده برای جلسه</h4>
+						<p><span class="fw-bold"> عنوان ویدیو : </span> <%= comment.episode.title %></p>
+				<% } %>
+			</div>
+		</div>
+		<div class="col-12 col-lg-6">
+			<h4 class="mt-4 mt-lg-0">متن پیام</h4>
+			<textarea readonly disabled class="w-100 p-4 rounded mt-2"><%= comment.comment %></textarea>
+			<p class="mb-0 fw-bold">ارسال شده در تاریخ :</p>
+			<p class="mt-2 mb-0"><%= comment.createdAt %></p>
+			<h4 class="mt-4">وضعیت دیدگاه</h4>
+			<p class="<%= comment.isApproved ? '' : 'text-warning'  %>"><%= comment.isApproved ? 'تایید شده' : 'نیاز به برسی'  %></p>
+		</div>
+	</div>
+	<!-- comment info end -->
+	<!-- change comment approval start -->
+	<div class="row w-100 ">
+		<form action="/admin/comments/<%= comment._id %>/edit?_method=PUT" method="POST">
+			<div class="col-12 mb-20">
+				<h4 class="my-3">وضعیت دیدگاه</h4>
+				<select class="form-control" name="isApproved" id="isApproved" required>
+					<option value="1" <%- comment.isApproved ? 'selected' : '' %>>تایید شده (نمایش در سایت)</option>
+					<option value="0" <%- comment.isApproved == '' ? 'selected' : '' %>>نیاز به برسی</option>
+				</select>
+			</div>
+			<div class="d-flex">
+				<button class="btn btn-primary btn-sm me-auto mt-3">تغییر وضعیت</button>
+			</div>
+		</form>
+	</div>
+	<!-- change comment approval end -->
+</div>

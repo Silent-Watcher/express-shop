@@ -1,51 +1,88 @@
 <link rel="stylesheet" href="/static/css/comment.css">
-<ul class="comments-wrap mt-4">
-	<li class="comment d-flex flex-column flex-lg-row  align-items-center">
-		<div class="comment-body rounded p-4 w-100 ms-3">
-			<div class="d-flex align-items-center">
-				<img class="rounded-circle mb-2 mb-lg-0 img-fluid" width="35px" height="35px" loading="lazy" src="/static/imgs/avatar.png" alt="کاربر">
-				<div class="d-flex flex-column ms-3 me-auto">
-					<p class="mb-0 fw-bold text-secondary">علی نظری</p>
-					<p class="mb-0" style="font-size: 13px;"  class="form-text">5 روز پیش</p>
+			<!-- comments start -->
+			<div class="row bg-secondary-subtle rounded p-5 mt-5">
+				<div class="d-flex flex-column flex-lg-row align-items-center justify-content-between">
+					<h2 class="fw-bold fs-4 mt-3 text-center text-lg-start">دیدگاه و پرسش ها</h2>
+					<% if (isAuthenticated) { %>
+						<button id="addNewCommentBtn" class="btn btn-sm btn-primary d-inline-flex align-items-center mt-3 mt-lg-0">افزودن دیدگاه و پرسش جدید <i class='bx bx-plus-circle ms-2' style='color:#fbfbfb'  ></i></button>
+					<% } %>
 				</div>
-				<ul style="list-style: none" class="d-flex mb-0 d-inline-block align-items-center justify-content-center">
-					<li class="mx-2">
-						<a class="link link-dark" href="#">
-							<img loading="lazy" src="/static/imgs/heart.svg" alt="لایک">
-							<span>2</span>
-						</a>
-					</li>
-					<li class="mx-2">
-						<button class="btn btn-outline-primary btn-sm">پاسخ</button>
-					</li>
+				<% if (isAuthenticated) { %>
+					<div hidden class="border border-secondary-subtle p-4 mt-4 rounded" id="newCommentSection">
+						<div class="d-flex align-items-center mt-2">
+							<img loading="lazy" width="55px" height="55px" src="<%= user.photo ?? '/static/imgs/avatar.png' %>" alt="کاربر" class="img-fluid rounded-circle">
+							<div class="ms-3">
+								<p class="mb-0"><%= user.name %></p>
+								<p class="mb-0"><%= user.email.split('@')[0] %>@</p>
+							</div>
+						</div>
+						<hr class="w-75 mx-auto">
+						<form action="/comment" method="post" class="d-flex flex-column ">
+							<input type="hidden" name="<%= subject.constructor.modelName %>" value="<%= subject._id %>">
+							<textarea required placeholder="پیام خود را بنویسید" style="background-color: #d0d0d0;" class="w-100 p-3 rounded" name="comment"  rows="5"></textarea>
+							<div class="d-flex justify-content-end elign-items-center mt-4">
+								<button type="button" class="btn btn-outline-secondary btn-sm me-3" id="closeNewCommentSectionBtn">لغو</button>
+								<button type="submit" class="btn btn-primary btn-sm">ثبت دیدگاه</button>
+							</div>
+						</form>
+					</div>
+				<% } %>
+				<ul class="comments-wrap mt-4">
+					<% if (subject.comments.length > 0) { %>
+						<% subject.comments.forEach(comment => { %>
+							<li class="comment d-flex flex-column flex-lg-row  align-items-center">
+								<div class="comment-body rounded p-4 w-100 ms-3">
+									<div class="d-flex align-items-center">
+										<img class="rounded-circle mb-2 mb-lg-0 img-fluid" width="35px" height="35px" loading="lazy" src="<%= comment.user.photo ?? '/static/imgs/avatar.png' %>" alt="کاربر">
+										<div class="d-flex flex-column ms-3 me-auto">
+											<p class="mb-0 fw-bold text-secondary"><%= comment.user.name %></p>
+											<!-- <p class="mb-0" style="font-size: 13px;"  class="form-text"><%= comment.createdAt %></p> -->
+										</div>
+										<ul style="list-style: none" class="d-flex mb-0 d-inline-block align-items-center justify-content-center">
+											<li class="mx-2">
+												<a class="link link-dark" href="#">
+													<img width="15px" loading="lazy" src="/static/imgs/heart.svg" alt="لایک">
+													<span class="text-danger" style="font-size: 12px;">2</span>
+												</a>
+											</li>
+											<li class="mx-2">
+												<button class="btn btn-outline-primary btn-sm">پاسخ</button>
+											</li>
+										</ul>
+									</div>
+									<hr class="w-75 mx-auto border border-secondary">
+									<p class="mb-0 p-2"><%= comment.comment %></p>
+								</div>
+								<!-- children start -->
+								<% if (comment.comments.length > 0) { %>
+										<% comment.comments.forEach(comment => { %>
+											<li class="d-flex flex-column flex-lg-row justify-content-center align-items-center ms-auto mt-4 ms-auto reply">
+												<div class="comment-body rounded p-4 w-100 ms-3">
+													<div class="d-flex align-items-center justify-content-between">
+														<img class="rounded-circle mb-2 mb-lg-0 " loading="lazy" width="35px" height="35px" src="<%= comment.user.photo ?? '/static/imgs/avatar.png' %>" alt="کاربر">
+														<div class="d-flex flex-column ms-3 me-auto">
+															<p class="mb-0 fw-bold text-secondary"><%= comment.user.name %></p>
+															<!-- <p class="mb-0" style="font-size: 13px;"  class="form-text"><%= comment.createdAt %></p> -->
+														</div>
+														<ul style="list-style: none" class="d-flex mb-0 d-inline-block align-items-center">
+															<li class="mx-2">
+																<a class="link link-dark" href="#">
+																	<img width="15px" loading="lazy" src="/static/imgs/heart.svg" alt="لایک">
+																	<span class="text-danger" style="font-size: 12px;">2</span>
+																</a>
+															</li>
+														</ul>
+													</div>
+													<hr class="w-75 mx-auto border border-secondary">
+													<p class="mb-0 p-2"><%= comment.comment %></p>
+												</div>
+											</li>
+										<% }) %>
+								<% } %>
+								<!-- children end -->
+							</li>
+						<% }) %>
+					<% } %>
 				</ul>
 			</div>
-			<hr class="w-75 mx-auto border border-secondary">
-			<p class="mb-0 p-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium voluptates libero illo officiis cupiditate distinctio explicabo deserunt culpa, fugiat quam consequuntur porro, harum dolorum, doloribus iure. Totam, autem molestiae hic aut nisi enim rerum reiciendis minus ipsa maxime quas delectus nesciunt impedit iste a dicta sapiente perspiciatis nulla illo! Laudantium!</p>
-		</div>
-		<li class="d-flex flex-column flex-lg-row justify-content-center align-items-center ms-auto mt-4 ms-auto reply">
-			<div class="comment-body rounded p-4 w-100 ms-3">
-				<div class="d-flex align-items-center justify-content-between">
-					<img class="rounded-circle mb-2 mb-lg-0 " loading="lazy" width="35px" height="35px" src="/static/imgs/avatar.png" alt="کاربر">
-					<div class="d-flex flex-column ms-3 me-auto">
-						<p class="mb-0 fw-bold text-secondary">علی نظری</p>
-						<p class="mb-0" style="font-size: 13px;"  class="form-text">5 روز پیش</p>
-					</div>
-					<ul style="list-style: none" class="d-flex mb-0 d-inline-block align-items-center">
-						<li class="mx-2">
-							<a class="link link-dark" href="#">
-								<img loading="lazy" src="/static/imgs/heart.svg" alt="لایک">
-								<span>2</span>
-							</a>
-						</li>
-						<li class="mx-2">
-							<button class="btn btn-outline-primary btn-sm">پاسخ</button>
-						</li>
-					</ul>
-				</div>
-				<hr class="w-75 mx-auto border border-secondary">
-				<p class="mb-0 p-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium voluptates libero illo officiis cupiditate distinctio explicabo deserunt culpa, fugiat quam consequuntur porro, harum dolorum, doloribus iure. Totam, autem molestiae hic aut nisi enim rerum reiciendis minus ipsa maxime quas delectus nesciunt impedit iste a dicta sapiente perspiciatis nulla illo! Laudantium!</p>
-			</div>
-		</li>
-	</li>
-</ul>
+			<!-- comments end -->

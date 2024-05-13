@@ -1,0 +1,55 @@
+
+
+<div class="container">
+	<!-- course header -->
+	<div class="row w-100">
+		<div class="col-12 col-lg-6"><h3>نظرات</h3><p class="admin_sub_heading mt-3">مجموع :  <span><%= comments.totalDocs %></span></p></div>
+	</div>
+	<!-- course table -->
+	<table class="mt-5 w-100">
+		<thead>
+			<tr class="text-center">
+				<th>نظر</th>
+				<th class="d-none d-sm-table-cell">ارسال  کننده</th>
+				<th class="d-none d-lg-table-cell">وضعیت</th>
+				<th>برای</th>
+				<th>تنظیمات</th>
+			</tr>
+		</thead>
+		<tbody class="table-group-divider">
+			<% comments.docs.forEach(comment => { %>
+				<tr class="text-center">
+					<td>
+						<p><%= comment.comment %></p>
+					</td>
+					<td class="d-none d-sm-table-cell">
+						<img width="25px" class="img-fluid ms-2 rounded-circle" src="<%= comment.user.photo ?? '/static/imgs/avatar.png'%>" alt="">
+						<%= comment.user.name %>
+					</td>
+					<td class="<%= comment.isApproved ? '' : 'text-warning'  %>"><%= comment.isApproved ? 'تایید شده' : 'نیاز به برسی'  %></td>
+					<td>
+						<% if ('course' in comment) { %>
+
+							<p><span class="text-primary fw-bold">دوره: </span><span><%= comment.course.title %></span></p>
+							<% } else { %>
+							<p><span class="text-primary fw-bold">جلسه: </span><span><%= comment.episode.title %></span></p>
+						<% } %>
+					</td>
+					<td>
+						<div class="d-flex flex-column flex-lg-row justify-content-center">
+							<a href="/admin/comments/<%= comment?._id %>/edit" class="btn btn-primary rounded ms-1 btn-sm">ویرایش</a>
+							<a href="/admin/comments/<%= comment?._id %>/delete" class="btn btn-outline-danger rounded ms-1 btn-sm">حذف</a>
+						</div>
+					</td>
+				</tr>
+			<% }) %>
+		</tbody>
+	</table>
+	<div class="d-flex justify-content-center">
+		<!-- pagination -->
+		<%- include('../../components/pagination.ejs' , {pagination : comments}) %>
+		<!-- pagination -->
+	</div>
+</div>
+
+

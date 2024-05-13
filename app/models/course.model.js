@@ -30,6 +30,12 @@ courseSchema.virtual('episodes', {
 	foreignField: 'course',
 });
 
+courseSchema.virtual('comments', {
+	ref: 'comment',
+	localField: '_id',
+	foreignField: 'course',
+});
+
 courseSchema.plugin(mongoosePaginate);
 
 const Course = model('course', courseSchema);

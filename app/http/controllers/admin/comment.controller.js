@@ -1,3 +1,7 @@
+// const path = require('path');
+
+// const sendmail = require('../../../config/mail/mailer');
+// const mailTemplate = require('../../../config/mail/approvedCommentMail.template');
 const Controller = require('app/http/controllers/controller');
 const Comment = require('../../../models/comment.model');
 
@@ -8,13 +12,40 @@ class CommentController extends Controller {
 	async edit(req, res, next) {
 		try {
 			const { id } = req.params;
-			const comment = await Comment.findById(id);
+			const comment = await Comment.findById(id).populate([{ path: 'user', select: 'email' }]);
 			if (!comment)
 				return this.flashAndRedirect(req, res, 'error', 'دیدگاه با این شناسه یافت نشد', req.headers.referer);
 			const { isApproved } = req.body;
 			comment.isApproved = isApproved == '1' ? true : false;
 			await comment.save();
-			return this.flashAndRedirect(req, res, 'success', 'وضعیت دیدگاه با موفقیت تغییر کرد', req.headers.referer);
+			if (comment.isApproved == false) {
+				return this.flashAndRedirect(
+					req,
+					res,
+					'success',
+					'دیدگاه از سایت پنهان شد و در مرحله برسی قرار گرفت',
+					req.headers.referer
+				);
+			}
+			// sendmail(
+			// 	{
+			// 		from: 'backendwithali@gmail.com',
+			// 		to: comment.user.email,
+			// 		subject: 'ثبت دیدگاه',
+			// 		html: mailTemplate(''),
+			// 		attachments: [
+			// 			{
+			// 				filename: 'logoMail.png',
+			// 				path: path.join(process.cwd(), 'public', 'imgs', 'logoMail.png'),
+			// 				cid: 'logo',
+			// 			},
+			// 		],
+			// 	},
+			// 	() => {
+			// 		return this.flashAndRedirect(req, res, 'success', 'دیدگاه در سایت قرار گرفت', req.headers.referer);
+			// 	}
+			// );
+			return this.flashAndRedirect(req, res, 'success', 'دیدگاه در سایت قرار داده شد.', req.headers.referer);
 		} catch (error) {
 			next(error);
 		}

@@ -48,8 +48,8 @@
 		<div class="col-12 col-lg-6">
 			<h4 class="mt-4 mt-lg-0">متن پیام</h4>
 			<textarea readonly disabled class="w-100 p-4 rounded mt-2"><%= comment.comment %></textarea>
-			<p class="mb-0 fw-bold">ارسال شده در تاریخ :</p>
-			<p class="mt-2 mb-0"><%= comment.createdAt %></p>
+			<p class="mb-0 fw-bold mt-3">ارسال شده در تاریخ :</p>
+			<p class="mt-2 mb-0"><%= date(comment.createdAt).format('jD jMMMM jYYYY') %></p>
 			<h4 class="mt-4">وضعیت دیدگاه</h4>
 			<p class="<%= comment.isApproved ? '' : 'text-warning'  %>"><%= comment.isApproved ? 'تایید شده' : 'نیاز به برسی'  %></p>
 		</div>

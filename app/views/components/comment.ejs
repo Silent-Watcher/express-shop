@@ -57,7 +57,7 @@
 										<img class="rounded-circle mb-2 mb-lg-0 img-fluid" width="35px" height="35px" loading="lazy" src="<%= comment.user.photo ?? '/static/imgs/avatar.png' %>" alt="کاربر">
 										<div class="d-flex flex-column ms-3 me-auto">
 											<p class="mb-0 fw-bold text-secondary"><%= comment.user.name %></p>
-											<!-- <p class="mb-0" style="font-size: 13px;"  class="form-text"><%= comment.createdAt %></p> -->
+											<p class="mb-0 mt-1" style="font-size: 11px;"  class="form-text"><span class="fw-bold"><%= date(comment.createdAt).fromNow() %></span> </p>
 										</div>
 
 										<ul style="list-style: none" class="d-flex mb-0 d-inline-block align-items-center justify-content-center">
@@ -85,7 +85,7 @@
 														<img class="rounded-circle mb-2 mb-lg-0 " loading="lazy" width="35px" height="35px" src="<%= comment.user.photo ?? '/static/imgs/avatar.png' %>" alt="کاربر">
 														<div class="d-flex flex-column ms-3 me-auto">
 															<p class="mb-0 fw-bold text-secondary"><%= comment.user.name %></p>
-															<!-- <p class="mb-0" style="font-size: 13px;"  class="form-text"><%= comment.createdAt %></p> -->
+															<p class="mb-0 mt-1" style="font-size: 11px;"  class="form-text"><span class="fw-bold"><%= date(comment.createdAt).fromNow() %></span> </p>
 														</div>
 														<ul style="list-style: none" class="d-flex mb-0 d-inline-block align-items-center">
 															<li class="mx-2">

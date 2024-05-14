@@ -6,6 +6,7 @@ const courseRouter = require('./course');
 const episodeRouter = require('./episode');
 const { redirectIfAuthenticate, isUserAuthenticate, checkUserIsAdmin } = require('app/http/guards/auth.guard');
 const { PORT } = require('app/common/globals');
+const date = require('../../helpers/date/convertToJalali');
 
 // main page routes
 router.use(
@@ -19,6 +20,7 @@ router.use(
 		res.locals.breadcrumbs = req.breadcrumbs;
 		res.locals.url = `${req.protocol}://${req.hostname}:${PORT}${req.url}`;
 		res.locals.title = 'فروشگاه عطن';
+		res.locals.date = date;
 		next();
 	},
 	homeRouter

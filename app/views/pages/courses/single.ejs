@@ -63,6 +63,14 @@
 					<% } %>
 				</p>
 			</div>
+			<!-- course header meta start -->
+			<div class="row mt-4">
+				<p class="col-6">
+						<img class="img-fluid" width="32px" loading="lazy" src="/static/imgs/pencil.svg" alt="مداد">
+						<span class="ms-2" style="font-size: 13px;">آخرین به روز رسانی : <span class="fw-bold"><%= date(course.updatedAt).fromNow() %></span></span>
+				</p>
+			</div>
+			<!-- course header meta end -->
 		</section>
 		<section class="col-12 col-lg-6 order-first order-lg-last">
 			<img class="img-fluid rounded" loading="lazy" src="<%= course.thumbnail.path %>" alt="<%= course.title %>" />

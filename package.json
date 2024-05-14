@@ -37,6 +37,7 @@
 		"i18next-http-middleware": "^3.5.0",
 		"method-override": "^3.0.0",
 		"mkdirp": "^3.0.1",
+		"moment-jalaali": "^0.10.0",
 		"mongoose": "^8.2.4",
 		"mongoose-paginate-v2": "^1.8.0",
 		"multer": "1.4.5-lts.1",

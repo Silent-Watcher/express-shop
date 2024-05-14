@@ -19,13 +19,6 @@ closeNewReplySectionBtn.addEventListener('click', () => {
 	newReplySection.hidden = true;
 });
 
-// replyCommentCTAs.foreEach(replyCommentCTA => {
-// 	console.log('replyCommentCTA: ', replyCommentCTA);
-// 	replyCommentCTA.addEventListener('click', () => {
-// 		if (newReplySection.hidden) newReplySection.hidden = false;
-// 	});
-// });
-
 replyCommentCTAs.forEach(replyCommentCTA => {
 	replyCommentCTA.addEventListener('click', () => {
 		if (newReplySection.hidden) newReplySection.hidden = false;

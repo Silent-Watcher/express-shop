@@ -16,7 +16,7 @@ class CourseController extends Controller {
 			const course = await Course.findOneAndUpdate(
 				{ slug: courseSlug },
 				{ $inc: { viewCount: 1 } },
-				{ projection: { images: 0, slug: 0, updatedAt: 0, __v: 0 } }
+				{ projection: { images: 0, slug: 0, __v: 0 } }
 			)
 				.populate([
 					{ path: 'episodes' },

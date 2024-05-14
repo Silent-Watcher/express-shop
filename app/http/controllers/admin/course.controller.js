@@ -131,7 +131,7 @@ class CourseController extends Controller {
 		try {
 			let page = req.query.page ?? 1;
 			if (isNaN(page)) {
-				req.flash('شماره صفحه نامعتبر است');
+				req.flash('error', 'شماره صفحه نامعتبر است');
 				return res.redirect('/admin/courses/');
 			}
 			const title = 'پنل مدیریت | دوره ها';

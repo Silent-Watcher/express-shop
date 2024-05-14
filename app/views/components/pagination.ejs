@@ -2,7 +2,7 @@
 	<% if (pagination.totalPages > 1) { %>
 			<ul class="pagination pagination-sm justify-content-center mt-3">
 				<% if (pagination.page > 1) { %>
-						<li class="page-item"><a class="page-link" href="?page=1"><i class="zmdi zmdi-chevron-right"></i></a></li>
+						<li class="page-item"><a class="page-link" href="?page=1"> < </a></li>
 				<% } %>
 				<% let i = 1;
 				if (pagination.page > 5) {
@@ -22,7 +22,7 @@
 					<% break; } %>
 				<% } %>
 				<% if (pagination.page != pagination.totalPages) { %>
-						<li class="page-item"><a class="page-link" href="?page=<%= pagination.totalPages %>"><i class="zmdi zmdi-chevron-left"></i></a></li>
+						<li class="page-item"><a class="page-link" href="?page=<%= pagination.totalPages %>"> > </a></li>
 				<% } %>
 			</ul>
 	<% } %>

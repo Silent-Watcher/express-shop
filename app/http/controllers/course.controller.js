@@ -2,9 +2,21 @@ const Controller = require('app/http/controllers/controller');
 const Course = require('../../models/course.model');
 class CourseController extends Controller {
 	//
-	getCoursesPage(req, res, next) {
+	async getCoursesPage(req, res, next) {
 		try {
-			res.render('pages/courses/index.ejs');
+			const title = 'فروشگاه عطن | دوره ها';
+			const page = req.query.page ?? 1;
+			if (isNaN(page)) return this.flashAndRedirect(req, res, 'error', 'شماره صفحه نامعتبر است !', req.headers.referer);
+			const courses = await Course.paginate(
+				{},
+				{
+					limit: 4,
+					page,
+					sort: { createdAt: 'desc' },
+					lean: true,
+				}
+			);
+			return res.render('pages/courses/index.ejs', { courses, title });
 		} catch (error) {
 			next(error);
 		}

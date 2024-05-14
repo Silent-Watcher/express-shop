@@ -1,5 +1,5 @@
 const Controller = require('app/http/controllers/controller');
-const Course = require('app/models/course.model');
+const Course = require('../../models/course.model');
 class CourseController extends Controller {
 	//
 	getCoursesPage(req, res, next) {
@@ -13,7 +13,11 @@ class CourseController extends Controller {
 	async getSingleCoursePage(req, res, next) {
 		try {
 			const { courseSlug } = req.params;
-			const course = await Course.findOne({ slug: courseSlug }, { images: 0, slug: 0, updatedAt: 0, __v: 0 })
+			const course = await Course.findOneAndUpdate(
+				{ slug: courseSlug },
+				{ $inc: { viewCount: 1 } },
+				{ projection: { images: 0, slug: 0, updatedAt: 0, __v: 0 } }
+			)
 				.populate([
 					{ path: 'episodes' },
 					{ path: 'user' },

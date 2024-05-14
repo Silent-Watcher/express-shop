@@ -36,6 +36,11 @@ courseSchema.virtual('comments', {
 	foreignField: 'course',
 });
 
+courseSchema.methods.inc = async function (field, number = 1) {
+	this[field] += number;
+	await this.save();
+};
+
 courseSchema.plugin(mongoosePaginate);
 
 const Course = model('course', courseSchema);

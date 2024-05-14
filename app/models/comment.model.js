@@ -19,6 +19,19 @@ commentSchema.virtual('comments', {
 	foreignField: 'parent',
 });
 
+commentSchema.virtual('belongsTo', {
+	ref: doc => {
+		if (doc?.course) return 'course';
+		else if (doc?.episode) return 'episode';
+	},
+	localField: doc => {
+		if (doc?.course) return 'course';
+		else if (doc?.episode) return 'episode';
+	},
+	foreignField: '_id',
+	justOne: true,
+});
+
 commentSchema.plugin(mongoosePaginate);
 
 const Comment = model('comment', commentSchema);

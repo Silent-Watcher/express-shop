@@ -81,7 +81,13 @@
 			<li class="mx-2">
 				<a class="link link-dark" href="#">
 					<img loading="lazy" src="/static/imgs/comment.svg" alt="کامنت">
-					<span><%= course.comments.length %></span>
+					<span class="number" data-value="<%= course.commentCount %>"></span>
+				</a>
+			</li>
+			<li class="mx-2">
+				<a class="link link-dark d-inline-flex align-items-center" href="#">
+					<img width="25px" class="img-fluid me-2" loading="lazy" src="/static/imgs/eye.svg" alt="بازدید">
+					<span class="number" data-value="<%= course.viewCount %>"></span>
 				</a>
 			</li>
 			<p class="ms-auto d-flex align-items-center">
@@ -164,7 +170,7 @@
 											<td>
 												<a href="#" class="d-flex align-items-center justify-content-center btn">
 													<span class="me-2">مشاهده</span>
-													<img loading="lazy" src="/static/imgs/eye.svg" alt="ساعت">
+													<img width="16px" loading="lazy" src="/static/imgs/eye.svg" alt="ساعت">
 												</a>
 											</td>
 										</tr>
@@ -185,7 +191,7 @@
 									<td>
 										<a href="#" class="d-flex align-items-center justify-content-center btn">
 											<span class="me-2">مشاهده</span>
-											<img loading="lazy" src="/static/imgs/eye.svg" alt="ساعت">
+											<img width="16px" loading="lazy" src="/static/imgs/eye.svg" alt="ساعت">
 										</a>
 									</td>
 								</tr>
@@ -227,7 +233,7 @@
 						<div class="meta-box rounded bg-secondary-subtle d-flex flex-column justify-content-center align-items-center p-3">
 							<img width="25px" src="/static/imgs/episodes.svg" alt="جلسات">
 							<p class="mb-0 fs-14px mt-2">تعداد جلسات</p>
-							<p class="mb-0 mt-1 fs-14px fw-bold number"><%= course.episodes.length %></p>
+							<p class="mb-0 mt-1 fs-14px fw-bold number" data-value="<%= course.episodes.length %>"></p>
 						</div>
 						<div class="meta-box rounded bg-secondary-subtle d-flex flex-column justify-content-center align-items-center p-3">
 							<img width="25px" src="/static/imgs/badge.svg" alt="مدال">

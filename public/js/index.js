@@ -20,7 +20,9 @@ function replaceEnglishWithPersianNumbers(inputString) {
 
 const coursePrices = Array.from(document.querySelectorAll('.course-price'));
 const courseTimes = Array.from(document.querySelectorAll('.course-time'));
-const numbers = Array.from(document.querySelectorAll('.number'));
+const numbers = document.querySelectorAll('.number');
+console.log('numbers: ', numbers);
+
 window.addEventListener('load', () => {
 	coursePrices.forEach(coursePrice => {
 		let price = coursePrice.dataset.price;
@@ -31,9 +33,11 @@ window.addEventListener('load', () => {
 		let time = courseTime.dataset.time;
 		courseTime.innerHTML = replaceEnglishWithPersianNumbers(time);
 	});
-	numbers.forEach(number => {
-		number.innerHTML = replaceEnglishWithPersianNumbers(number.innerHTML);
-	});
+});
+
+numbers.forEach(number => {
+	let value = number.dataset.value;
+	number.innerHTML = replaceEnglishWithPersianNumbers(value);
 });
 
 // eslint-disable-next-line no-undef

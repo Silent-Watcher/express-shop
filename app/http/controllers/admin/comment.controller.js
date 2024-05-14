@@ -12,13 +12,19 @@ class CommentController extends Controller {
 	async edit(req, res, next) {
 		try {
 			const { id } = req.params;
-			const comment = await Comment.findById(id).populate([{ path: 'user', select: 'email' }]);
+			const comment = await Comment.findById(id, { isApproved: 1, _id: 1, course: 1, episode: 1 })
+				.populate([
+					// { path: 'user', select: 'email' },
+					{ path: 'belongsTo', select: 'commentCount' },
+				])
+				.exec();
 			if (!comment)
 				return this.flashAndRedirect(req, res, 'error', 'دیدگاه با این شناسه یافت نشد', req.headers.referer);
 			const { isApproved } = req.body;
 			comment.isApproved = isApproved == '1' ? true : false;
 			await comment.save();
 			if (comment.isApproved == false) {
+				comment.belongsTo.inc('commentCount', -1);
 				return this.flashAndRedirect(
 					req,
 					res,
@@ -45,6 +51,7 @@ class CommentController extends Controller {
 			// 		return this.flashAndRedirect(req, res, 'success', 'دیدگاه در سایت قرار گرفت', req.headers.referer);
 			// 	}
 			// );
+			comment.belongsTo.inc('commentCount');
 			return this.flashAndRedirect(req, res, 'success', 'دیدگاه در سایت قرار داده شد.', req.headers.referer);
 		} catch (error) {
 			next(error);
@@ -53,10 +60,26 @@ class CommentController extends Controller {
 	async delete(req, res, next) {
 		try {
 			const { id } = req.params;
-			const comment = await Comment.findById(id).lean();
+			const comment = await Comment.findById(id).populate(['comments', { path: 'belongsTo' }]);
 			if (!comment) return this.flashAndRedirect(req, res, 'error', 'کامنت با این شناسه یافت نشد');
-			let result = await Comment.findByIdAndDelete(id);
+
+			// remove sub comments if there are any sub comments
+			let SubCommentsCount = comment?.comments?.length ?? 0;
+			let subCommentsRemovedCount = 0;
+			if (SubCommentsCount) {
+				comment.comments.forEach(async subComment => {
+					let course = await Comment.findByIdAndDelete(subComment._id).lean();
+					if (course) subCommentsRemovedCount += 1;
+				});
+			}
+
+			// remove the main comment
+			let result = await Comment.findByIdAndDelete(comment._id);
 			if (!result) return this.flashAndRedirect(req, res, 'error', 'خطایی در حذف نظر رخ داد. لطفا مجدد تلاش کنید');
+
+			// update the course comment count value
+			let totalCommentsRemoved = subCommentsRemovedCount + 1;
+			await comment.belongsTo.inc('commentCount', -1 * totalCommentsRemoved);
 			return this.flashAndRedirect(req, res, 'success', `نظر با آیدی ${id} با موفقیت حذف شد`, '/admin/comments');
 		} catch (error) {
 			next(error);

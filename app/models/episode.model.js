@@ -33,6 +33,12 @@ episodeSchema.methods.download = function (isAuthenticated, canUse) {
 
 	return isLinkActive ? `episodes/download/${this._id}?mac=${hash}&t=${now}` : '#';
 };
+
+episodeSchema.methods.inc = async function (field, number = 1) {
+	this[field] += parseInt(number);
+	await this.save();
+};
+
 const Episode = model('episode', episodeSchema);
 
 module.exports = Episode;

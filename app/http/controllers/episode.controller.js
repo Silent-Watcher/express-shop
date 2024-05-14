@@ -18,7 +18,10 @@ class EpisodeController extends Controller {
 			if (!episode) throw { status: 404, message: 'جلسه با این شناسه یافت نشد' };
 			let videoPath = path.join(process.cwd(), 'public', episode.url);
 			if (!fs.existsSync(videoPath)) throw { status: 400, message: 'چنین فایلی برای دانلود وجود ندارد' };
-			if (this.checkIfDownloadLinkIsValid(req, episode)) res.download(videoPath);
+			if (this.checkIfDownloadLinkIsValid(req, episode)) {
+				await episode.inc('downloadCount');
+				res.download(videoPath);
+			}
 		} catch (error) {
 			next(error);
 		}

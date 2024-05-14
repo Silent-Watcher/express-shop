@@ -4,7 +4,6 @@ const closeNewCommentSectionBtn = document.querySelector('#closeNewCommentSectio
 const parentCommentIdInput = document.querySelector('#parentCommentIdInput');
 
 const replyCommentCTAs = document.querySelectorAll('.replyCommentCTA');
-console.log('replyCommentCTAs: ', replyCommentCTAs);
 const newReplySection = document.querySelector('#newReplySection');
 const closeNewReplySectionBtn = document.querySelector('#closeNewReplySectionBtn');
 

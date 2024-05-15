@@ -1,12 +1,4 @@
 'use strict';
-// modal close button
-const closeButton = document.querySelector('.btn-close');
-if (closeButton != null) {
-	closeButton.addEventListener('click', e => {
-		let parent = e.target.parentElement;
-		parent.remove();
-	});
-}
 
 function replaceEnglishWithPersianNumbers(inputString) {
 	const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
@@ -18,32 +10,28 @@ function replaceEnglishWithPersianNumbers(inputString) {
 	});
 }
 
-const coursePrices = Array.from(document.querySelectorAll('.course-price'));
-const courseTimes = Array.from(document.querySelectorAll('.course-time'));
-const numbers = document.querySelectorAll('.number');
-
 window.addEventListener('load', () => {
-	coursePrices.forEach(coursePrice => {
-		let price = coursePrice.dataset.price;
-		price = price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-		coursePrice.innerHTML = replaceEnglishWithPersianNumbers(price);
+	// convert numbers to persian format
+	const numbers = document.querySelectorAll('.number');
+	numbers.forEach(number => {
+		let value = number.dataset.value;
+		number.innerHTML = replaceEnglishWithPersianNumbers(value);
 	});
-	courseTimes.forEach(courseTime => {
-		let time = courseTime.dataset.time;
-		courseTime.innerHTML = replaceEnglishWithPersianNumbers(time);
+	// main page slider
+	// eslint-disable-next-line no-undef
+	new Swiper('.swiper', {
+		direction: 'vertical',
+		loop: true,
+		pagination: {
+			el: '.swiper-pagination',
+		},
 	});
-});
-
-numbers.forEach(number => {
-	let value = number.dataset.value;
-	number.innerHTML = replaceEnglishWithPersianNumbers(value);
-});
-
-// eslint-disable-next-line no-undef
-new Swiper('.swiper', {
-	direction: 'vertical',
-	loop: true,
-	pagination: {
-		el: '.swiper-pagination',
-	},
+	// modal close button
+	const closeButton = document.querySelector('.btn-close');
+	if (closeButton != null) {
+		closeButton.addEventListener('click', e => {
+			let parent = e.target.parentElement;
+			parent.remove();
+		});
+	}
 });

@@ -1,5 +1,6 @@
 const methodOverride = require('method-override');
 
+const favicon = require('serve-favicon');
 const autoBind = require('auto-bind');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
@@ -77,6 +78,7 @@ class Application {
 		this.#app.use(methodOverride('_method'));
 		this.#app.use('/static', express.static(STATIC_FILES_PATH));
 		this.#app.use(addBreadcrumbs);
+		this.#app.use(favicon(path.join(STATIC_FILES_PATH, 'favicon.ico')));
 		// this.#app.use(
 		// 	helmet({
 		// 		referrerPolicy: {

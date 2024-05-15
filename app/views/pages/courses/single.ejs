@@ -45,7 +45,7 @@
 							<% if (canUse) { %>
 
 							<% } else { %>
-								<span class="fs-1 fw-bold course-price me-2" data-price="<%= course.price %>"></span>
+								<span class="fs-1 fw-bold number me-2" data-value="<%= course.price %>"></span>
 								<img loading="lazy" src="/static/imgs/toman-black.svg" width="30" height="32" alt="تومان">
 							<% }  %>
 						<% } else if (course.type == 'free') { %>

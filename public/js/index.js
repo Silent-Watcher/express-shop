@@ -56,3 +56,14 @@ function scrollToTop() {
 }
 
 scrollToTopBtn.addEventListener('click', scrollToTop);
+
+window.addEventListener('scroll', function () {
+	const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+	const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+	const clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
+
+	const scrollPercentage = (scrollTop / (scrollHeight - clientHeight)) * 100;
+
+	const progress = document.querySelector('.progress');
+	progress.style.borderImage = `conic-gradient(#007bff ${scrollPercentage}%, transparent 0) 1`;
+});

@@ -129,6 +129,17 @@ footer ul li {
 	color: #007bff;
 	border: none;
 	border-radius: 50%;
-	padding: 15px;
 	cursor: pointer;
+}
+
+#scrollToTopBtn .progress {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	border: 2px solid transparent;
+	border-top-color: #007bff;
+	background-color: transparent;
 }

@@ -27,7 +27,7 @@
 						<img class="img-fluid" width="50px" height="25px" style="border-radius: 10px;"  src="<%= course?.thumbnail?.path ?? '/static/imgs/defaultImage.avif' %>" alt="">
 					</td>
 					<td>
-						<a href="admin/courses/<%= course.slug %>"><%= course.title %></a>
+						<a href="/courses/<%= course.slug %>"><%= course.title %></a>
 					</td>
 					<td class="d-none d-sm-table-cell"><%= course.commentCount %></td>
 					<td class="d-none d-lg-table-cell "><%= course.time %></td>

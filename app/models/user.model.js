@@ -9,6 +9,9 @@ const userSchema = new Schema(
 		photo: { type: String, required: false },
 		bio: { type: String, required: false },
 		rememberToken: { type: String, required: false, default: null },
+		likedCourses: { type: [Schema.Types.ObjectId], ref: 'course' },
+		likedComments: { type: [Schema.Types.ObjectId], ref: 'comment' },
+		likedEpisodes: { type: [Schema.Types.ObjectId], ref: 'episode' },
 	},
 	{ timestamps: true, toJSON: { virtuals: true } }
 );

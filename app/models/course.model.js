@@ -17,6 +17,7 @@ const courseSchema = new Schema(
 		tags: { type: String, required: false },
 		viewCount: { type: Number, default: 0 },
 		commentCount: { type: Number, default: 0 },
+		likeCount: { type: Number, default: 0 },
 		time: { type: String, required: true, default: '00:00:00' },
 		images: { type: [imageSchema], required: false, default: [] },
 		thumbnail: { type: imageSchema, required: false },
@@ -39,6 +40,11 @@ courseSchema.virtual('comments', {
 courseSchema.methods.inc = async function (field, number = 1) {
 	this[field] += number;
 	await this.save();
+};
+
+courseSchema.methods.isLiked = function (user) {
+	const isLiked = user.likedCourses.indexOf(this._id) == -1 ? false : true;
+	return isLiked;
 };
 
 courseSchema.plugin(mongoosePaginate);

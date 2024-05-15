@@ -1,11 +1,3 @@
-<meta property="og:title" content="<%= course.title %>" />
-<meta property="og:description" content="<%= course.description.substr(0 ,100) %>" />
-<meta property="og:image" content="<%= course.thumbnail.path %>" />
-<meta property="og:url" content="<%= url %>" />
-<meta property="og:locale" content="fa_IR" />
-
-
-
 <main class="container mt-5">
 	<div class="row"><%- include('../../components/breadCrumbs.ejs') %></div>
 
@@ -81,22 +73,18 @@
 		<hr class="w-75 mx-auto border border-secondary" />
 		<ul style="list-style: none" class="d-flex mb-0 d-inline-block">
 			<li class="mx-2">
-				<a class="link link-dark" href="#">
-					<img loading="lazy" src="/static/imgs/heart.svg" alt="لایک">
-					<span>2</span>
+				<a id="courseLikeBtn" class="link <%= course.isLiked(user) ? 'link-danger' : 'link-dark'  %>  d-flex align-items-center" href="#">
+					<i class='bx bxs-heart fs-4 me-1'></i>
+					<span id="courseLikes" class="number" data-value="<%= course.likeCount %>"></span>
 				</a>
 			</li>
 			<li class="mx-2">
-				<a class="link link-dark" href="#">
-					<img loading="lazy" src="/static/imgs/comment.svg" alt="کامنت">
-					<span class="number" data-value="<%= course.commentCount %>"></span>
-				</a>
+				<img loading="lazy" src="/static/imgs/comment.svg" alt="کامنت">
+				<span class="number" data-value="<%= course.commentCount %>"></span>
 			</li>
 			<li class="mx-2">
-				<a class="link link-dark d-inline-flex align-items-center" href="#">
-					<img width="25px" class="img-fluid me-2" loading="lazy" src="/static/imgs/eye.svg" alt="بازدید">
+					<img width="25px" class="img-fluid me-1" loading="lazy" src="/static/imgs/eye.svg" alt="بازدید">
 					<span class="number" data-value="<%= course.viewCount %>"></span>
-				</a>
 			</li>
 			<p class="ms-auto d-flex align-items-center">
 				<span class="me-2">اشتراک گذاری: </span>
@@ -286,7 +274,7 @@
 	</div>
 </div>
 <!-- course detail section end -->
+<div id="pageData" hidden class="d-none" data-courseId ="<%= course._id %>"></div>
 
-
-<script src="/static/js/tags.js"></script>
+<script src="/static/js/singleCourse.js"></script>
 

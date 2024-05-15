@@ -1,5 +1,6 @@
 const Controller = require('app/http/controllers/controller');
 const Course = require('../../models/course.model');
+const User = require('../../models/user.model');
 class CourseController extends Controller {
 	//
 	async getCoursesPage(req, res, next) {
@@ -10,7 +11,7 @@ class CourseController extends Controller {
 			const courses = await Course.paginate(
 				{},
 				{
-					limit: 4,
+					limit: 6,
 					page,
 					sort: { createdAt: 'desc' },
 					lean: true,
@@ -50,7 +51,6 @@ class CourseController extends Controller {
 			// return res.json(course);
 			const title = course.title;
 			const canUse = await this.canUserUse(req, course);
-
 			res.render('pages/courses/single', { title, course, canUse });
 		} catch (error) {
 			next(error);
@@ -73,6 +73,35 @@ class CourseController extends Controller {
 			}
 		}
 		return canUse;
+	}
+	//
+	async like(req, res, next) {
+		try {
+			const { courseId } = req.params;
+			const course = await Course.findById(courseId, { likeCount: 1, _id: 1 });
+			if (!course) res.json({ status: 400, message: 'شناسه دوره نامعتبر است' });
+			const user = await User.findById(req.user.id);
+
+			const likedIndex = user.likedCourses.indexOf(courseId);
+
+			if (likedIndex == -1) {
+				// User has not liked the course, add like
+				user.likedCourses.push(courseId);
+				await course.inc('likeCount', 1);
+			} else {
+				// User has already liked the course, remove like
+				user.likedCourses.splice(likedIndex, 1);
+				await course.inc('likeCount', -1);
+			}
+			await user.save();
+			return res.json({
+				status: res.statusCode,
+				likeStatus: likedIndex == -1 ? 'liked' : 'unLiked',
+				likesCount: course.likeCount,
+			});
+		} catch (error) {
+			next(error);
+		}
 	}
 }
 

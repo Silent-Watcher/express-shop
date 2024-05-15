@@ -21,7 +21,6 @@ function replaceEnglishWithPersianNumbers(inputString) {
 const coursePrices = Array.from(document.querySelectorAll('.course-price'));
 const courseTimes = Array.from(document.querySelectorAll('.course-time'));
 const numbers = document.querySelectorAll('.number');
-console.log('numbers: ', numbers);
 
 window.addEventListener('load', () => {
 	coursePrices.forEach(coursePrice => {

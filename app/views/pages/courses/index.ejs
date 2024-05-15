@@ -11,8 +11,13 @@
 		<!-- search box start -->
 		<section class="d-flex col-12 col-lg-8 mt-4">
 			<search class="w-100">
-				<form class="d-flex justify-content-center align-items-center text-center position-relative" role="search" method="get">
-					<input class="form-control me-2 w-100 p-3" type="text" placeholder="دنبال چی میگردی ؟ ..." name="s" >
+				<form class="d-flex justify-content-center align-items-center text-center position-relative" id="searchCourseForm" role="search" method="get">
+					<div class="d-flex flex-column w-100">
+						<input class="form-control me-2 w-100 p-3" type="text" placeholder="دنبال چی میگردی ؟ ..." name="s" >
+						<% if (searchedValue.length > 0) { %>
+							<p class="form-text mb-0 text-start fs-14px mt-2 d-flex align-items-center" ><span>عبارت جست و جو شده : </span><span class="fw-bold"><%= searchedValue %></span> <a class="badge rounded-pill text-bg-info text-white ms-2" href="/courses?<%= sort ? 'sort=' + sort : '' %><%= type ? '&type=' + type :'' %>">حذف</a></p>
+						<% } %>
+					</div>
 					<button style="left: 6px;top: 10px;" class="btn btn-sm position-absolute" title="جست و جو" type="submit"><i class='bx bx-search-alt fs-2' style='color:#2f2f2f'></i></button>
 				</form>
 			</search>
@@ -31,42 +36,46 @@
 					<button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
 				</div>
 				<div class="offcanvas-body d-block">
-					<!-- filter: course type start -->
-					<section class="bg-secondary-subtle p-4 rounded">
-						<h3 class="fs-5">نوع دوره </h3>
-						<hr>
-						<select class="form-select" name="type" id="">
-							<option selected value="all">همه دوره ها</option>
-							<option value="paid">نقدی</option>
-							<option value="free">رایگان</option>
-							<option value="vip">اعضای ویژه</option>
-						</select>
-					</section>
-					<!-- filter: course type end -->
-					<!-- sort: start -->
-					<section class="bg-secondary-subtle p-4 rounded mt-4">
-						<h3 class="fs-5">مرتب سازی بر اساس</h3>
-						<hr>
-						<div class="form-check">
-							<input class="form-check-input" type="radio" name="oldest" id="oldest">
-							<label class="form-check-label" for="oldest">
-							  قدیمی ترین
-							</label>
-						  </div>
-						  <div class="form-check">
-							<input class="form-check-input" type="radio" name="newest" id="newest" checked>
-							<label class="form-check-label" for="newest">
-							  جدید ترین
-							</label>
-						  </div>
-					</section>
-					<!-- sort: end -->
-					<!-- category : start -->
-					<section class="bg-secondary-subtle p-4 rounded mt-4">
-						<h3 class="fs-5">دسته بندی ها</h3>
-						<hr>
-					</section>
-					<!-- category : end -->
+					<form action="" method="get">
+						<input hidden name="s" type="text" value="<%= searchedValue %>">
+						<!-- filter: course type start -->
+						<section class="bg-secondary-subtle p-4 rounded">
+							<h3 class="fs-5">نوع دوره </h3>
+							<hr>
+							<select class="form-select" name="type" id="">
+								<option <%= type =='all' ? 'selected' : ''%> value="all">همه دوره ها</option>
+								<option <%= type =='paid' ? 'selected' : ''%> value="paid">نقدی</option>
+								<option <%= type =='free' ? 'selected' : ''%> value="free">رایگان</option>
+								<option <%= type =='vip' ? 'selected' : ''%> value="vip">اعضای ویژه</option>
+							</select>
+						</section>
+						<!-- filter: course type end -->
+						<!-- sort: start -->
+						<section class="bg-secondary-subtle p-4 rounded mt-4">
+							<h3 class="fs-5">مرتب سازی بر اساس</h3>
+							<hr>
+							<div class="form-check">
+								<input class="form-check-input" type="radio" value="oldest" name="sort" id="oldest" <%= sort == 'oldest' ? 'checked' : ''%>
+								<label class="form-check-label" for="oldest">
+									قدیمی ترین
+								</label>
+								</div>
+								<div class="form-check">
+								<input class="form-check-input" type="radio" value="newest" name="sort" id="newest" <%= sort == 'newest' ? 'checked' : '' %>>
+								<label class="form-check-label" for="newest">
+									جدید ترین
+								</label>
+								</div>
+						</section>
+						<!-- sort: end -->
+						<!-- category : start -->
+						<section class="bg-secondary-subtle p-4 rounded mt-4">
+							<h3 class="fs-5">دسته بندی ها</h3>
+							<hr>
+						</section>
+						<!-- category : end -->
+						<div class="d-grid"><button type="submit" class="btn btn-warning d-block mt-3">اعمال</button></div>
+					</form>
 					<!-- certificate start -->
 					<section class="bg-secondary-subtle p-4 rounded mt-4 d-flex flex-column justify-content-center align-items-center">
 						<img src="/static/imgs/course-certificate.png" alt="مدرک">
@@ -89,9 +98,13 @@
 		</section>
 		<section class="col-12 col-lg-8">
 			<div class="row d-flex flex-wrap justify-content-center" style="gap: 16px;">
-				<% courses.docs.forEach(course => { %>
-					<%- include('../../components/courseCard.ejs' , {course:course}) %>
-				<% }) %>
+				<% if (courses.docs.length > 0) { %>
+					<% courses.docs.forEach(course => { %>
+						<%- include('../../components/courseCard.ejs' , {course:course}) %>
+					<% }) %>
+				<% } else { %>
+					<p class="mb-0 text-center">دوره ای یافت نشد ! 😣 </p>
+				<% }  %>
 			</div>
 			<div class="d-flex justify-content-center mt-4">
 				<!-- pagination -->
@@ -102,6 +115,8 @@
 	</div>
 	<!-- courses list & filters end -->
 </main>
+
+<!-- <script src="/static/js/course.js"></script> -->
 
 
 

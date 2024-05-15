@@ -8,16 +8,22 @@ class CourseController extends Controller {
 			const title = 'فروشگاه عطن | دوره ها';
 			const page = req.query.page ?? 1;
 			if (isNaN(page)) return this.flashAndRedirect(req, res, 'error', 'شماره صفحه نامعتبر است !', req.headers.referer);
+			const { s: search = null, type = 'paid', sort = 'newest' } = req.query;
+			let query = {};
+
+			if (search) query.title = new RegExp(search, 'gi');
+			if (type != 'all') query.type = type;
+
 			const courses = await Course.paginate(
-				{},
+				{ ...query },
 				{
 					limit: 6,
 					page,
-					sort: { createdAt: 'desc' },
+					sort: { createdAt: sort == 'newest' ? 'desc' : 'asc' },
 					lean: true,
 				}
 			);
-			return res.render('pages/courses/index.ejs', { courses, title });
+			return res.render('pages/courses/index.ejs', { courses, title, searchedValue: search, sort, type });
 		} catch (error) {
 			next(error);
 		}

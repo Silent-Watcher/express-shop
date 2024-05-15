@@ -77,6 +77,7 @@ class Application {
 		this.#app.set('layout extractMetas', true);
 		this.#app.use(methodOverride('_method'));
 		this.#app.use('/static', express.static(STATIC_FILES_PATH));
+		this.#app.use('/robots.txt', express.static(path.join(STATIC_FILES_PATH, 'robots.txt')));
 		this.#app.use(addBreadcrumbs);
 		this.#app.use(favicon(path.join(STATIC_FILES_PATH, 'favicon.ico')));
 		// this.#app.use(

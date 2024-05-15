@@ -1,0 +1,14 @@
+User-agent: *
+
+Crawl-delay: 3
+Disallow: *?s=*
+Disallow: *&type=*
+Disallow: *&sort=*
+Disallow: */admin/$
+Disallow: */docs/pages/$
+Disallow: *?page=*
+Disallow: *.pdf
+
+
+
+# TODO: add rss section

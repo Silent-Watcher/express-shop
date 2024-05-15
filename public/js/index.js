@@ -11,8 +11,10 @@ function replaceEnglishWithPersianNumbers(inputString) {
 }
 
 window.addEventListener('load', () => {
-	// convert numbers to persian format
 	const numbers = document.querySelectorAll('.number');
+	const closeButton = document.querySelector('.btn-close');
+
+	// convert numbers to persian format
 	numbers.forEach(number => {
 		let value = number.dataset.value;
 		number.innerHTML = replaceEnglishWithPersianNumbers(value);
@@ -27,7 +29,6 @@ window.addEventListener('load', () => {
 		},
 	});
 	// modal close button
-	const closeButton = document.querySelector('.btn-close');
 	if (closeButton != null) {
 		closeButton.addEventListener('click', e => {
 			let parent = e.target.parentElement;
@@ -35,3 +36,23 @@ window.addEventListener('load', () => {
 		});
 	}
 });
+
+// scroll to top
+const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+window.onscroll = function () {
+	if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+		scrollToTopBtn.style.right = '20px';
+		scrollToTopBtn.style.bottom = '20px';
+	} else {
+		scrollToTopBtn.style.right = '-100px';
+		scrollToTopBtn.style.bottom = '-100px';
+	}
+};
+
+function scrollToTop() {
+	document.body.scrollTop = 0; // For Safari
+	document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+}
+
+scrollToTopBtn.addEventListener('click', scrollToTop);

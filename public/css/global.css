@@ -1,7 +1,9 @@
 * {
 	font-family: Vazirmatn, sans-serif;
+	scroll-behavior: smooth;
 }
-body{
+
+body {
 	overflow-x: hidden;
 }
 ::-webkit-input-placeholder {
@@ -116,4 +118,17 @@ footer ul li {
 
 .fs-14px {
 	font-size: 14px;
+}
+
+#scrollToTopBtn {
+	position: fixed;
+	bottom: -100px;
+	right: -100px;
+	transition: all 0.3s ease;
+	background-color: transparent;
+	color: #007bff;
+	border: none;
+	border-radius: 50%;
+	padding: 15px;
+	cursor: pointer;
 }

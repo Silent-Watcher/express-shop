@@ -73,10 +73,17 @@
 		<hr class="w-75 mx-auto border border-secondary" />
 		<ul style="list-style: none" class="d-flex mb-0 d-inline-block">
 			<li class="mx-2">
-				<a id="courseLikeBtn" class="link <%= course.isLiked(user) ? 'link-danger' : 'link-dark'  %>  d-flex align-items-center" href="#">
-					<i class='bx bxs-heart fs-4 me-1'></i>
-					<span id="courseLikes" class="number" data-value="<%= course.likeCount %>"></span>
-				</a>
+				<% if (isAuthenticated) { %>
+					<a id="courseLikeBtn" class="link <%= course.isLiked(user) ? 'link-danger' : 'link-dark'  %>  d-flex align-items-center" href="#">
+						<i class='bx bxs-heart fs-4 me-1'></i>
+						<span id="courseLikes" class="number" data-value="<%= course.likeCount %>"></span>
+					</a>
+				<% } else { %>
+						<div class="d-flex align-items-center">
+							<i class='bx bxs-heart fs-4 me-1 text-dark'></i>
+							<span id="courseLikes" class="number" data-value="<%= course.likeCount %>"></span>
+						</div>
+				<% } %>
 			</li>
 			<li class="mx-2">
 				<img loading="lazy" src="/static/imgs/comment.svg" alt="کامنت">

@@ -48,10 +48,10 @@
 						</form>
 					</div>
 					<!-- reply box end -->
-				<ul class="comments-wrap mt-4">
+				<ul class="comments-wrap mt-4 d-flex flex-column align-items-center" >
 					<% if (subject.comments.length > 0) { %>
 						<% subject.comments.forEach(comment => { %>
-							<li class="comment d-flex flex-column align-items-center mt-4">
+							<li class="comment d-flex flex-column align-items-center mt-4 w-100">
 								<div class="comment-body rounded p-4 w-100 ms-3">
 									<div class="d-flex align-items-center">
 										<img class="rounded-circle mb-2 mb-lg-0 img-fluid" width="35px" height="35px" loading="lazy" src="<%= comment.user.photo ?? '/static/imgs/avatar.png' %>" alt="کاربر">
@@ -61,14 +61,17 @@
 										</div>
 
 										<ul style="list-style: none" class="d-flex mb-0 d-inline-block align-items-center justify-content-center">
-											<li class="mx-2">
+											<!-- <li class="mx-2">
 												<a class="link link-dark" href="#">
 													<img width="15px" loading="lazy" src="/static/imgs/heart.svg" alt="لایک">
 													<span class="text-danger" style="font-size: 12px;">2</span>
 												</a>
-											</li>
+											</li> -->
 											<li class="mx-2">
-												<button data-commentId="<%= comment._id %>"  class="replyCommentCTA btn btn-outline-primary btn-sm">پاسخ</button>
+												<button data-commentId="<%= comment._id %>"  class="replyCommentCTA btn btn-outline-primary btn-sm d-inline-flex align-items-center">
+													<i class='bx bx-reply fs-5'></i>
+												<span>پاسخ</span>
+												</button>
 											</li>
 										</ul>
 									</div>
@@ -88,12 +91,12 @@
 															<p class="mb-0 mt-1" style="font-size: 11px;"  class="form-text"><span class="fw-bold"><%= date(comment.createdAt).fromNow() %></span> </p>
 														</div>
 														<ul style="list-style: none" class="d-flex mb-0 d-inline-block align-items-center">
-															<li class="mx-2">
+															<!-- <li class="mx-2">
 																<a class="link link-dark" href="#">
 																	<img width="15px" loading="lazy" src="/static/imgs/heart.svg" alt="لایک">
 																	<span class="text-danger" style="font-size: 12px;">2</span>
 																</a>
-															</li>
+															</li> -->
 														</ul>
 													</div>
 													<hr class="w-75 mx-auto border border-secondary">
@@ -105,7 +108,10 @@
 								<!-- children end -->
 							</li>
 						<% }) %>
-					<% } %>
+					<% } else { %>
+							<img src="/static/imgs/noComment.svg" alt="بدون دیدگاه">
+							<p class="mb-0 mt-2">هنوز دیدگاهی برای این دوره قرار نگرفته است</p>
+					<% }  %>
 				</ul>
 			</div>
 			<!-- comments end -->

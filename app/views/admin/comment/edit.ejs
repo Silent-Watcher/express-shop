@@ -37,7 +37,7 @@
 					<h4 class="mb-2 mt-2 fw-bold">ارسال شده برای دوره</h4>
 					<div class="d-flex align-items-center">
 						<img class="rounded-pill ms-3" width="50px" src="<%= comment.course.thumbnail.path %>" alt="">
-						<p><span class="fw-bold">نام دوره : </span> <%= comment.course.title %></p>
+						<p><span class="fw-bold">نام دوره : </span> <a href="/courses/<%= comment.course.slug %>"><%= comment.course.title %></a></p>
 					</div>
 					<% } else if ('episode' in comment) { %>
 						<h4 class="mb-2 mt-2 fw-bold">ارسال شده برای جلسه</h4>

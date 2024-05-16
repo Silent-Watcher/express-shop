@@ -52,6 +52,7 @@ class CommentController extends Controller {
 			// 	}
 			// );
 			comment.belongsTo.inc('commentCount');
+
 			return this.flashAndRedirect(req, res, 'success', 'دیدگاه در سایت قرار داده شد.', req.headers.referer);
 		} catch (error) {
 			next(error);
@@ -118,7 +119,7 @@ class CommentController extends Controller {
 			const comment = await Comment.findById(id)
 				.lean()
 				.populate([
-					{ path: 'course', select: 'title thumbnail' },
+					{ path: 'course', select: 'title thumbnail slug' },
 					'episode',
 					{ path: 'user', select: 'name photo email' },
 				]);

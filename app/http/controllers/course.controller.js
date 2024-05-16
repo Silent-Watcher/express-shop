@@ -1,6 +1,9 @@
+const httpStatus = require('http-status');
+
 const Controller = require('app/http/controllers/controller');
 const Course = require('../../models/course.model');
 const User = require('../../models/user.model');
+const Rating = require('../../models/rating.model');
 class CourseController extends Controller {
 	//
 	async getCoursesPage(req, res, next) {
@@ -39,6 +42,7 @@ class CourseController extends Controller {
 			)
 				.populate([
 					{ path: 'episodes' },
+					{ path: 'ratings', select: 'user value' },
 					{ path: 'user' },
 					{
 						path: 'comments',
@@ -57,7 +61,9 @@ class CourseController extends Controller {
 			// return res.json(course);
 			const title = course.title;
 			const canUse = await this.canUserUse(req, course);
-			res.render('pages/courses/single', { title, course, canUse });
+			const canRate = await this.canUserRate(req, course);
+			const rateInfo = { total: course.ratings.length, score: course.score };
+			res.render('pages/courses/single', { title, course, canUse, canRate, rateInfo });
 		} catch (error) {
 			next(error);
 		}
@@ -79,6 +85,18 @@ class CourseController extends Controller {
 			}
 		}
 		return canUse;
+	}
+	//
+	async canUserRate(req, course) {
+		let canRate = false;
+		if (this.canUserUse(req, course)) {
+			if (course.ratings.length <= 0) return (canRate = true);
+			course.ratings.forEach(rating => {
+				if (rating.user.equals(req.user._id)) return (canRate = false);
+				else return (canRate = true);
+			});
+		}
+		return canRate;
 	}
 	//
 	async like(req, res, next) {
@@ -109,6 +127,27 @@ class CourseController extends Controller {
 			next(error);
 		}
 	}
+	//
+	async rate(req, res, next) {
+		try {
+			const { courseId } = req.params;
+			const course = await Course.findById(courseId).populate({ path: 'ratings' });
+			if (!course) res.json({ status: 400, message: 'شناسه دوره نامعتبر است' });
+			const { value } = req.body;
+			const user = await User.findById(req.user.id);
+			const rate = await Rating.create({ user, course, value });
+			if (!rate) return res.json({ status: httpStatus.BAD_REQUEST, message: 'خطا در ثبت امتیاز. لطفا مجدد تلاش کنید' });
+			await course.updateScore(value, course.ratings.length);
+			return res.json({
+				status: httpStatus.OK,
+				score: course.score,
+				totalRates: course.ratings.length == 0 ? 1 : course.ratings.length,
+			});
+		} catch (error) {
+			next(error);
+		}
+	}
+	//
 }
 
 module.exports = new CourseController();

@@ -1,33 +1,80 @@
 <link rel="stylesheet" href="/static/css/rating.css" />
-<form class="rating">
-	<label>
-		<input type="radio" name="stars" value="1" />
-		<span class="icon"><i class="bx bxs-star" ></i></span>
-	</label>
-	<label>
-		<input type="radio" name="stars" value="2" />
-		<span class="icon"><i class="bx bxs-star" ></i></span>
-		<span class="icon"><i class="bx bxs-star" ></i></span>
-	</label>
-	<label>
-		<input type="radio" name="stars" value="3" />
-		<span class="icon"><i class="bx bxs-star" ></i></span>
-		<span class="icon"><i class="bx bxs-star" ></i></span>
-		<span class="icon"><i class="bx bxs-star" ></i></span>
-	</label>
-	<label>
-		<input type="radio" name="stars" value="4" />
-		<span class="icon"><i class="bx bxs-star" ></i></span>
-		<span class="icon"><i class="bx bxs-star" ></i></span>
-		<span class="icon"><i class="bx bxs-star" ></i></span>
-		<span class="icon"><i class="bx bxs-star" ></i></span>
-	</label>
-	<label>
-		<input type="radio" name="stars" value="5" />
-		<span class="icon"><i class="bx bxs-star" ></i></span>
-		<span class="icon"><i class="bx bxs-star" ></i></span>
-		<span class="icon"><i class="bx bxs-star" ></i></span>
-		<span class="icon"><i class="bx bxs-star" ></i></span>
-		<span class="icon"><i class="bx bxs-star" ></i></span>
-	</label>
+<% if (canRate) { %>
+<form action="" class="rating">
+		<label>
+			<input class="startInput" type="radio"  value="1" <%= score == 1 ? 'checked' : '' %> />
+			<span class="icon"><i class="bx bxs-star" ></i></span>
+		</label>
+		<label>
+			<input class="startInput" type="radio"  value="2" <%= score == 2 ? 'checked' : '' %> />
+			<span class="icon"><i class="bx bxs-star" ></i></span>
+			<span class="icon"><i class="bx bxs-star" ></i></span>
+		</label>
+		<label>
+			<input class="startInput" type="radio"  value="3" <%= score == 3 ? 'checked' : '' %> />
+			<span class="icon"><i class="bx bxs-star" ></i></span>
+			<span class="icon"><i class="bx bxs-star" ></i></span>
+			<span class="icon"><i class="bx bxs-star" ></i></span>
+		</label>
+		<label>
+			<input class="startInput" type="radio"  value="4" <%= score == 4 ? 'checked' : '' %> />
+			<span class="icon"><i class="bx bxs-star" ></i></span>
+			<span class="icon"><i class="bx bxs-star" ></i></span>
+			<span class="icon"><i class="bx bxs-star" ></i></span>
+			<span class="icon"><i class="bx bxs-star" ></i></span>
+		</label>
+		<label>
+			<input class="startInput" type="radio"  value="5" <%= score == 5 ? 'checked' : '' %> />
+			<span class="icon"><i class="bx bxs-star" ></i></span>
+			<span class="icon"><i class="bx bxs-star" ></i></span>
+			<span class="icon"><i class="bx bxs-star" ></i></span>
+			<span class="icon"><i class="bx bxs-star" ></i></span>
+			<span class="icon"><i class="bx bxs-star" ></i></span>
+		</label>
 </form>
+<% } else { %>
+	<div class="d-flex" dir="ltr"  style="font-size: 20px; color: #6c757d;">
+		<% if ( score == 1) { %>
+			<div class="d-flex" style="color: #e9cb35;">
+				<span ><i class="bx bxs-star" ></i></span>
+			</div>
+			<span ><i class="bx bxs-star" ></i></span>
+			<span ><i class="bx bxs-star" ></i></span>
+			<span ><i class="bx bxs-star" ></i></span>
+			<span ><i class="bx bxs-star" ></i></span>
+		<% } else if ( score == 2) { %>
+				<div class="d-flex" style="color: #e9cb35;">
+					<span><i class="bx bxs-star" ></i></span>
+					<span><i class="bx bxs-star" ></i></span>
+				</div>
+				<span ><i class="bx bxs-star" ></i></span>
+				<span ><i class="bx bxs-star" ></i></span>
+				<span ><i class="bx bxs-star" ></i></span>
+			<% } else if ( score == 3) {  %>
+				<div class="d-flex" style="color: #e9cb35;">
+					<span><i class="bx bxs-star" ></i></span>
+					<span><i class="bx bxs-star" ></i></span>
+					<span><i class="bx bxs-star" ></i></span>
+				</div>
+				<span ><i class="bx bxs-star" ></i></span>
+				<span ><i class="bx bxs-star" ></i></span>
+				<% } else if ( score == 4) {  %>
+					<div class="d-flex" style="color: #e9cb35;">
+						<span><i class="bx bxs-star" ></i></span>
+						<span><i class="bx bxs-star" ></i></span>
+						<span><i class="bx bxs-star" ></i></span>
+						<span><i class="bx bxs-star" ></i></span>
+					</div>
+					<span ><i class="bx bxs-star" ></i></span>
+		<% } else if ( score == 5) {   %>
+					<div class="d-flex" style="color: #e9cb35;">
+						<span><i class="bx bxs-star" ></i></span>
+						<span><i class="bx bxs-star" ></i></span>
+						<span><i class="bx bxs-star" ></i></span>
+						<span><i class="bx bxs-star" ></i></span>
+						<span><i class="bx bxs-star" ></i></span>
+					</div>
+		<% } %>
+	</div>
+<% }  %>
+

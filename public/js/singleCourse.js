@@ -2,6 +2,8 @@
 const courseLikeBtn = document.querySelector('#courseLikeBtn');
 const pageData = document.querySelector('#pageData');
 const courseLikes = document.querySelector('#courseLikes');
+const startInputs = document.querySelectorAll('.startInput');
+let canUserRate = document.querySelector('#courseData').dataset.canrate;
 
 function loadAndDisplayCourseTags() {
 	const tagsWrap = document.querySelector('#courseTagsWrap');
@@ -53,11 +55,50 @@ async function likeCourse(courseId) {
 	}
 }
 
+async function rateCourse(courseId, value) {
+	try {
+		const response = await fetch(`/courses/${courseId}/rate`, {
+			method: 'POST',
+
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ value }),
+		});
+
+		return response;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
 window.addEventListener('load', () => {
 	// load and display course tags
 	loadAndDisplayCourseTags();
 	// like a single course
-	courseLikeBtn.addEventListener('click', () => {
-		likeCourse(pageData.dataset.courseid);
+	courseLikeBtn.addEventListener('click', async () => {
+		await likeCourse(pageData.dataset.courseid);
+	});
+	// rate a single courses page
+	// rating.addEventListener('submit', e => {
+	// 	e.preventDefault();
+	// 	console.log(e);
+	// });
+	startInputs.forEach(startInput => {
+		startInput.addEventListener('change', async event => {
+			if (canUserRate == 'true') {
+				let response = await rateCourse(pageData.dataset.courseid, event.target.value);
+				if (response.ok) {
+					canUserRate = false;
+					const data = await response.json();
+					document.querySelector('#ratesCount').innerHTML = data.totalRates;
+					document.querySelector('#courseScore').innerHTML = data.score;
+					alert('امتیاز شما با موفقیت ثبت شد');
+					return data;
+				} else alert('خطا در به روز رسانی دوره ');
+			} else {
+				alert('شما قبلا به این دوره امتیاز داده اید');
+			}
+		});
 	});
 });

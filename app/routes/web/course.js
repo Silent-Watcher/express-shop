@@ -26,4 +26,17 @@ router.post(
 	courseController.like
 );
 //
+// rate a single course
+router.post(
+	'/:courseId/rate',
+	isUserAuthenticate,
+	param('courseId').isMongoId(),
+	checkDataValidation,
+	(req, res, next) => {
+		res.locals.user = req.user;
+		next();
+	},
+	courseController.rate
+);
+//
 module.exports = router;

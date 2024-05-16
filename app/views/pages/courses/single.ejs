@@ -223,8 +223,8 @@
 					<section class="d-flex px-5 pb-3 pt-4 justify-content-between align-items-center">
 						<span>تکمیل ضبط</span>
 						<div class="score d-flex flex-column">
-							<%- include('../../components/rating.ejs') %>
-							<p class="mb-0 text-center mt-1" style="font-size: 14px;">4.67 از 9 رای</p>
+							<%- include('../../components/rating.ejs' , {canRate , score: course.score}) %>
+							<p class="mb-0 text-center mt-1" style="font-size: 14px;"><span id="courseScore" class="number" data-value="<%= rateInfo.score%>"></span> از <span id="ratesCount" class="number" data-value="<%= rateInfo.total %>"></span> رای</p>
 						</div>
 					</section>
 				</div>
@@ -285,6 +285,7 @@
 </div>
 <!-- course detail section end -->
 <div id="pageData" hidden class="d-none" data-courseId ="<%= course._id %>"></div>
+<div id="courseData" hidden class="d-none" data-canRate ="<%= canRate %>" ></div>
 
 <script src="/static/js/singleCourse.js"></script>
 

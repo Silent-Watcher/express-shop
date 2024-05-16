@@ -10,14 +10,18 @@ const userSchema = new Schema(
 		bio: { type: String, required: false },
 		rememberToken: { type: String, required: false, default: null },
 		likedCourses: { type: [Schema.Types.ObjectId], ref: 'course' },
-		likedComments: { type: [Schema.Types.ObjectId], ref: 'comment' },
-		likedEpisodes: { type: [Schema.Types.ObjectId], ref: 'episode' },
 	},
 	{ timestamps: true, toJSON: { virtuals: true } }
 );
 
 userSchema.virtual('courses', {
 	ref: 'course',
+	localField: '_id',
+	foreignField: 'user',
+});
+
+userSchema.virtual('ratedCourses', {
+	ref: 'rating',
 	localField: '_id',
 	foreignField: 'user',
 });

@@ -137,11 +137,11 @@ class CourseController extends Controller {
 			const user = await User.findById(req.user.id);
 			const rate = await Rating.create({ user, course, value });
 			if (!rate) return res.json({ status: httpStatus.BAD_REQUEST, message: 'خطا در ثبت امتیاز. لطفا مجدد تلاش کنید' });
-			await course.updateScore(value, course.ratings.length);
+			await course.updateScore(value, course.ratings.length + 1);
 			return res.json({
 				status: httpStatus.OK,
 				score: course.score,
-				totalRates: course.ratings.length == 0 ? 1 : course.ratings.length,
+				totalRates: course.ratings.length + 1,
 			});
 		} catch (error) {
 			next(error);

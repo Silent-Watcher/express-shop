@@ -58,7 +58,7 @@ courseSchema.methods.updateScore = async function (newScore, ratesCount) {
 	if (ratesCount == 0) {
 		ratesCount = 1;
 	}
-	this.score = (this.score + newScore) / ratesCount;
+	this.score = Math.floor((this.score + parseInt(newScore)) / ratesCount);
 	await this.save();
 };
 

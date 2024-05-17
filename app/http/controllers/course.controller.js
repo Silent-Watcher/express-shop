@@ -132,7 +132,9 @@ class CourseController extends Controller {
 		try {
 			const { courseId } = req.params;
 			const course = await Course.findById(courseId).populate({ path: 'ratings' });
-			if (!course) res.json({ status: 400, message: 'شناسه دوره نامعتبر است' });
+			const canRate = await this.canUserRate(req, course);
+			if (!canRate) return res.json({ status: httpStatus.BAD_REQUEST });
+			if (!course) return res.json({ status: 400, message: 'شناسه دوره نامعتبر است' });
 			const { value } = req.body;
 			const user = await User.findById(req.user.id);
 			const rate = await Rating.create({ user, course, value });

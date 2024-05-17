@@ -30,9 +30,9 @@
 					<td>
 						<% if ('course' in comment) { %>
 
-							<p><span class="text-primary fw-bold">دوره: </span><span><%= comment.course.title %></span></p>
+							<p><span class="text-primary fw-bold">دوره: </span><span><%= comment?.course?.title ?? '' %></span></p>
 							<% } else { %>
-							<p><span class="text-primary fw-bold">جلسه: </span><span><%= comment.episode.title %></span></p>
+							<p><span class="text-primary fw-bold">جلسه: </span><span><%= comment?.episode?.title ?? '' %></span></p>
 						<% } %>
 					</td>
 					<td>

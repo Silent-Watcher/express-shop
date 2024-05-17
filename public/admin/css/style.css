@@ -7,7 +7,6 @@
     08. Side Header CSS
         - Custom Side Header Color CSS
         - RTL Side Header CSS
-    20. Footer CSS
     21. Dark Skin (Dark Version) CSS
     22. RTL Version CSS */
 
@@ -2129,17 +2128,7 @@ body.side-header-light .side-header-sub-menu li:hover > a {
 	color: #428bfa;
 }
 
-/*----------------------------------------*/
-/*  20. Footer CSS
-/*----------------------------------------*/
-.footer-section {
-	background-color: #fafafa;
-	z-index: 999;
-	-webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-	padding: 20px 0;
-	margin-top: auto;
-}
+
 
 /*Dark & RTL Version Style*/
 /*----------------------------------------*/

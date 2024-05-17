@@ -86,7 +86,7 @@ window.addEventListener('load', () => {
 	// });
 	startInputs.forEach(startInput => {
 		startInput.addEventListener('change', async event => {
-			if (canUserRate == 'true') {
+			if (canUserRate) {
 				let response = await rateCourse(pageData.dataset.courseid, event.target.value);
 				if (response.ok) {
 					canUserRate = false;

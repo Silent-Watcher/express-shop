@@ -1,0 +1,46 @@
+<div class="container">
+	<!-- course header -->
+	<div class="row w-100">
+		<div class="col-12 col-lg-6 d-flex align-items-center w-100">
+			<div class="d-flex-flex-column">
+				<h3>دسته بندی ها</h3>
+				<p class="admin_sub_heading mt-3">مجموع :  <span><%= categories.totalDocs %></span></p>
+			</div>
+			<a href="/admin/categories/create" class="btn btn-primary me-auto ">ایجاد دسته بندی</a>
+		</div>
+	</div>
+	<!-- course table -->
+	<table class="mt-5 w-100">
+		<thead>
+			<tr class="text-center">
+				<th>دسته بندی</th>
+				<th class="d-none d-sm-table-cell">زیر مجموعه</th>
+			</tr>
+		</thead>
+		<tbody class="table-group-divider">
+			<% categories.docs.forEach(category => { %>
+				<tr class="text-center">
+					<td>
+						<p><%= category.name %></p>
+					</td>
+					<td class="d-none d-sm-table-cell">
+						<%= category.parent?.name ?? '-' %>
+					</td>
+					<td>
+						<div class="d-flex flex-column flex-lg-row justify-content-center">
+							<a href="/admin/categories/<%= category?._id %>/edit" class="btn btn-primary rounded ms-1 btn-sm">ویرایش</a>
+							<a href="/admin/categories/<%= category?._id %>/delete" class="btn btn-outline-danger rounded ms-1 btn-sm">حذف</a>
+						</div>
+					</td>
+				</tr>
+			<% }) %>
+		</tbody>
+	</table>
+	<div class="d-flex justify-content-center">
+		<!-- pagination -->
+		<%- include('../../components/pagination.ejs' , {pagination : categories}) %>
+		<!-- pagination -->
+	</div>
+</div>
+
+

@@ -108,7 +108,8 @@ class CourseController extends Controller {
 			const foundedCourse = await Course.findOne({
 				$and: [{ title: course }, { _id: id }],
 			})
-				.populate('episodes')
+				.populate(['episodes', 'comments', 'ratings'])
+				.populate('comments')
 				.exec();
 			if (!foundedCourse) {
 				return this.flashAndRedirect(req, res, 'error', `دوره یافت نشد`, `/admin/courses/${req.body.courseId}/delete`);
@@ -117,6 +118,10 @@ class CourseController extends Controller {
 				await imageHelper.removeImages(foundedCourse.images);
 				// remove course episodes
 				foundedCourse.episodes.forEach(async episode => await episode.deleteOne());
+				// remove course comments
+				foundedCourse.comments.forEach(async comment => await comment.deleteOne());
+				// remove course ratings
+				foundedCourse.ratings.forEach(async rating => await rating.deleteOne());
 				// remove Course
 				await foundedCourse.deleteOne();
 				req.flash('success', 'دوره با موفقیت حذف شد');

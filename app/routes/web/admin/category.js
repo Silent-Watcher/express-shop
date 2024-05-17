@@ -22,4 +22,7 @@ router.all(
 router.get('/:id/edit', categoryController.getEditPage);
 router.put('/:id/edit', categoryController.edit);
 
+router.get('/:id/delete', categoryController.getDeletePage);
+router.delete('/:id/delete', categoryController.delete);
+
 module.exports = router;

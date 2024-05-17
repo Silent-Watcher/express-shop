@@ -9,6 +9,12 @@ const categorySchema = new Schema(
 	{ timestamps: true, toJSON: { virtuals: true } }
 );
 
+categorySchema.virtual('children', {
+	ref: 'category',
+	localField: '_id',
+	foreignField: 'parent',
+});
+
 categorySchema.plugin(mongoosePaginate);
 
 const Category = model('category', categorySchema);

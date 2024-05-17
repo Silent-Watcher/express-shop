@@ -33,6 +33,28 @@ class CategoryController extends Controller {
 			next(error);
 		}
 	}
+	//
+	async delete(req, res, next) {
+		try {
+			const { id } = req.params;
+			const foundedCategory = await Category.findById(id).populate('children');
+			if (!foundedCategory)
+				return this.flashAndRedirect(req, res, 'error', 'خطا در به روز رسانی دسته بندی', req.headers.referer);
+			// remove sub categories
+			foundedCategory.children.forEach(async child => await child.deleteOne());
+			// remove main category
+			await foundedCategory.deleteOne();
+			return this.flashAndRedirect(
+				req,
+				res,
+				'success',
+				`دسته ${foundedCategory.name} با موفقیت حذف شد`,
+				'/admin/categories'
+			);
+		} catch (error) {
+			next(error);
+		}
+	}
 	// get index page for categories section in admin panel
 	async getIndexPage(req, res, next) {
 		try {
@@ -77,6 +99,18 @@ class CategoryController extends Controller {
 			const parents = await Category.find({ parent: null }).lean();
 			const title = 'پنل مدیریت | ویرایش دسته بندی';
 			res.render('admin/category/edit', { title, category, parents });
+		} catch (error) {
+			next(error);
+		}
+	}
+	//
+	async getDeletePage(req, res, next) {
+		try {
+			const title = 'پنل مدیریت | حذف دسته بندی';
+			const { id } = req.params;
+			const foundedCategory = await Category.findById(id);
+			if (!foundedCategory) return this.flashAndRedirect(req, res, 'error', 'شناسه دوره نامعتبر است');
+			res.render('admin/category/delete', { title, category: foundedCategory });
 		} catch (error) {
 			next(error);
 		}

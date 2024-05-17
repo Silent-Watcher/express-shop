@@ -28,11 +28,13 @@
 				<!-- parent -->
 				<div class="col-12 mb-20">
 					<label class="my-2" for="newCategoryParent">زیر مجموعه</label>
-					<% if (category.parent) { %>
-							
-					<% } else { %>
-
-					<% } %>
+					<select class="form-control" name="parent" id="newCategoryParent" required>
+						<% if (parents.length > 0) { %>
+							<% parents.forEach(parent => { %>
+								<option <%= category.parent._id.toString() == parent._id.toString() ? 'selected' : '' %> value="<%= parent._id %>"><%= parent.name %></option>
+							<% }) %>
+						<% } %>
+					</select>
 				</div>
 				<!--  -->
 				<div class="d-grid">

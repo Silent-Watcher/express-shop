@@ -6,16 +6,29 @@ class CategoryController extends Controller {
 	constructor() {
 		super();
 	}
-	// create a new
+	// create a new category
 	async create(req, res, next) {
 		try {
 			const { name, parent } = req.body;
 			const foundedCategory = await Category.find({ name }, { _id: 1 }).lean();
-			if (foundedCategory)
+			if (foundedCategory == [])
 				return this.flashAndRedirect(req, res, 'error', 'چنین دسته بندی قبلا تعریف شده است', req.headers.referer);
 			const result = await Category.create({ name, parent: parent == 'null' ? null : parent });
 			if (!result) return this.flashAndRedirect(req, res, 'error', 'خطا در ایجاد دسته بندی', req.headers.referer);
 			return this.flashAndRedirect(req, res, 'success', 'دسته بندی با موفقیت ایجاد شد', '/admin/categories');
+		} catch (error) {
+			next(error);
+		}
+	}
+	// edit an existing category
+	async edit(req, res, next) {
+		try {
+			const { name, parent } = req.body;
+			const { id } = req.params;
+			const foundedCategory = await Category.findByIdAndUpdate(id, { $set: { name, parent } });
+			if (!foundedCategory)
+				return this.flashAndRedirect(req, res, 'error', 'خطا در به روز رسانی دسته بندی', req.headers.referer);
+			return this.flashAndRedirect(req, res, 'success', 'با موفقیت به روز رسانی شد', '/admin/categories');
 		} catch (error) {
 			next(error);
 		}

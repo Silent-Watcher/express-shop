@@ -1,3 +1,4 @@
+const getOldData = require('../../../http/middlewares/getOldData');
 const checkDataValidation = require('../../../http/middlewares/validation.middleware');
 const { param } = require('express-validator');
 const categoryController = require('../../../http/controllers/admin/category.controller');
@@ -7,7 +8,7 @@ const router = require('express').Router();
 router.get('/', categoryController.getIndexPage);
 
 router.get('/create', categoryController.getCreatePage);
-router.post('/create', categoryController.create);
+router.post('/create', getOldData, categoryController.create);
 
 router.all(
 	'/:id/',
@@ -19,5 +20,6 @@ router.all(
 );
 
 router.get('/:id/edit', categoryController.getEditPage);
+router.put('/:id/edit', categoryController.edit);
 
 module.exports = router;

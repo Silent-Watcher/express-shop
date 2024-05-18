@@ -15,6 +15,7 @@ const courseSchema = new Schema(
 		description: { type: String, required: false },
 		price: { type: Number, required: true, default: 0 },
 		tags: { type: String, required: false },
+		categories: [{ type: Schema.Types.ObjectId, ref: 'category' }],
 		viewCount: { type: Number, default: 0 },
 		commentCount: { type: Number, default: 0 },
 		likeCount: { type: Number, default: 0 },

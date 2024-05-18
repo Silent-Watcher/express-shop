@@ -4,6 +4,7 @@ const Controller = require('app/http/controllers/controller');
 const Course = require('../../models/course.model');
 const User = require('../../models/user.model');
 const Rating = require('../../models/rating.model');
+
 class CourseController extends Controller {
 	//
 	async getCoursesPage(req, res, next) {
@@ -38,12 +39,17 @@ class CourseController extends Controller {
 			const course = await Course.findOneAndUpdate(
 				{ slug: courseSlug },
 				{ $inc: { viewCount: 1 } },
-				{ projection: { images: 0, slug: 0, __v: 0 } }
+				{ projection: { images: 0, slug: 0, __v: 0, thumbnail: { path: 1 } } }
 			)
 				.populate([
 					{ path: 'episodes' },
 					{ path: 'ratings', select: 'user value' },
-					{ path: 'user' },
+					{
+						path: 'categories',
+						populate: [{ path: 'children', select: 'name' }, { path: 'parent' }],
+						select: 'name children',
+					},
+					{ path: 'user', select: 'photo bio name' },
 					{
 						path: 'comments',
 						match: { parent: null, isApproved: true },
@@ -58,11 +64,11 @@ class CourseController extends Controller {
 					},
 				])
 				.exec();
-			// return res.json(course);
 			const title = course.title;
 			const canUse = await this.canUserUse(req, course);
 			const canRate = await this.canUserRate(req, course);
 			const rateInfo = { total: course.ratings.length, score: course.score };
+			// return res.json(course)
 			res.render('pages/courses/single', { title, course, canUse, canRate, rateInfo });
 		} catch (error) {
 			next(error);

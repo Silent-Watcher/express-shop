@@ -1,4 +1,7 @@
+
+
 <link rel="stylesheet" href="/static/admin/course/css/create.css" />
+
 <div class="container">
 	<!-- course header -->
 	<div class="row w-100">
@@ -33,6 +36,17 @@
 						<option value="free" <%- course.type == 'free' ? 'selected' : '' %>>رایگان</option>
 					</select>
 				</div>
+				<% if (categories.length > 0) { %>
+					<!-- categories -->
+					<div class="col-12 mb-20">
+						<label class="my-2 user-select-none" for="newCourseCategories">دسته بندی دوره</label>
+						<% if (course.categories.length > 0) { %>
+							<%- include('../../components/multiSelectInput.ejs' , {labelId: 'newCourseCategories' , options: categories , courseCategories : course.categories})  %>
+						<% } else { %>
+							<%- include('../../components/multiSelectInput.ejs' , {labelId: 'newCourseCategories' , options: categories , courseCategories : []})  %>
+						<% } %>
+					</div>
+				<% } %>
 				<!-- slug -->
 				<div class="col-12 mb-20">
 					<label class="mb-2 mt-4 user-select-none" for="newCourseSlug"> slug</label>

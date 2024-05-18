@@ -36,8 +36,22 @@
 					<% } %>
 					<option  value="null" selected>دسته اصلی</option>
 					</select>
-
 				</div>
+						<!-- slug -->
+						<div class="col-12 mb-20">
+							<label class="mb-2 mt-4" for="newCategorySlug"> slug</label>
+							<input
+								autofocus
+								type="text"
+								id="newCategorySlug"
+								class="form-control"
+								name="slug"
+								required
+								value="<%- old?.slug ?? '' %>"
+							/>
+							<p dir="ltr" class="form-text text-secondary text-start" id="categorySlugPreview"><span> www.yourSite.com/courses?category=</span><span id="categorySlugPreviewValue"></span></p>
+						</div>
+
 				<!--  -->
 				<div class="d-grid">
 					<button class="btn btn-primary">ایجاد دسته بندی</button>
@@ -47,4 +61,11 @@
 	<!-- create a new course form end -->
 </div>
 
-<script src="/static/admin/course/js/course.js"></script>
+<script>
+	const newCategorySlug = document.querySelector('#newCategorySlug');
+	const categorySlugPreviewValue = document.querySelector('#categorySlugPreviewValue');
+	newCategorySlug.addEventListener('input', () => {
+		let { value } = event.target;
+		categorySlugPreviewValue.innerText = value;
+	})
+</script>

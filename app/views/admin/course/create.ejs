@@ -32,6 +32,13 @@
 						<option value="free" <%- old?.type == 'free' ? 'selected' : '' %>>رایگان</option>
 					</select>
 				</div>
+				<% if (categories.length > 0) { %>
+					<!-- category -->
+					<div class="col-12 mb-20">
+						<label class="my-2" for="newCourseCategory">دسته بندی دوره</label>
+						<%- include('../../components/multiSelectInput.ejs' , {labelId: 'newCourseCategory' , options: categories , courseCategories : []})  %>
+					</div>
+				<% } %>
 				<!-- slug -->
 				<div class="col-12 mb-20">
 					<label class="mb-2 mt-4" for="newCourseSlug"> slug</label>
@@ -46,7 +53,7 @@
 					/>
 					<p dir="ltr" class="form-text text-secondary" id="courseSlugPreview"><span> www.yourSite.com/</span><span id="courseSlugPreviewValue"></span></p>
 				</div>
-				
+
 				<!-- image  -->
 				<div class="col-12 mb-20">
 					<label class="my-2">تصویر دوره</label>

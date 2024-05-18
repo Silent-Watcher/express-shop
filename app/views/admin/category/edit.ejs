@@ -25,11 +25,24 @@
 						value="<%- old?.title ?? category.name %>"
 					/>
 				</div>
+										<!-- slug -->
+										<div class="col-12 mb-20">
+											<label class="mb-2 mt-4" for="CategorySlug"> slug</label>
+											<input
+												autofocus
+												type="text"
+												id="CategorySlug"
+												class="form-control"
+												name="slug"
+												required
+												value="<%- old?.slug ?? category.slug %>"
+											/>
+											<p dir="ltr" class="form-text text-secondary text-start" id="categorySlugPreview"><span> www.yourSite.com/courses?category=</span><span id="categorySlugPreviewValue"><%= category.slug %></span></p>
+										</div>
 				<!-- parent -->
 				<div class="col-12 mb-20">
 					<label class="my-2" for="newCategoryParent">زیر مجموعه</label>
 					<% if (category.parent) { %>
-						<p>asdad</p>
 					<% } else { %>
 						<select class="form-control" name="parent" id="newCategoryParent" required>
 							<% if (parents.length > 0) { %>
@@ -49,4 +62,11 @@
 	<!-- create a new course form end -->
 </div>
 
-<script src="/static/admin/course/js/course.js"></script>
+<script>
+	const CategorySlug = document.querySelector('#CategorySlug');
+	const categorySlugPreviewValue = document.querySelector('#categorySlugPreviewValue');
+	CategorySlug.addEventListener('input', () => {
+		let { value } = event.target;
+		categorySlugPreviewValue.innerText = value;
+	})
+</script>

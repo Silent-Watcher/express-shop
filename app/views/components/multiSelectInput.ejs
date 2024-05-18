@@ -1,0 +1,27 @@
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"
+/>
+
+<link rel="stylesheet" href="/static/components/multiSelectInput/multiSelect.css">
+
+<select class="multiSelectInput" name="categories" id="<%= labelId %>" multiple>
+	<% if (options.length > 0) { %>
+		<% options.forEach(option => { %>
+				<% if (courseCategories.length > 0) { %>
+					<% courseCategories.forEach(courseCategory => { %>
+							<% if (courseCategory.toString() == option._id.toString()) { %>
+								<option selected value="<%= option._id  %>"><%= option.name %></option>
+								<% } else { %>
+									<option value="<%= option._id  %>"><%= option.name %></option>
+							<% } %>
+					<% }) %>
+				<% } else { %>
+					<option value="<%= option._id  %>"><%= option.name %></option>
+				<% } %>
+		<% }) %>
+	<% } %>
+</select>
+
+<script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
+<script src="/static/components/multiSelectInput/multiSelect.js"></script>

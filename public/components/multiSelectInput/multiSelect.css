@@ -1,0 +1,37 @@
+
+.choices__inner{
+	border-radius: 5px;
+}
+body.skin-dark .choices__inner,
+body.skin-dark .choices__input {
+	background-color: #161824;
+	border-color: transparent;
+	color: #8b8d9b;
+}
+
+.choices__inner,
+.choices__input {
+	background-color: #fff;
+}
+
+
+body.skin-dark .choices__list {
+	background-color: #171c35;
+	border-color: transparent;
+	color: #8b8d9b;
+}
+
+body.skin-dark .choices__list--multiple .choices__item {
+	background-color: #171c35;
+}
+.choices__list--multiple .choices__item {
+	border-radius: 3px;
+	vertical-align: initial;
+}
+
+.choices[data-type*='select-multiple'] .choices__button,
+.choices[data-type*='text'] .choices__button {
+	border-left: 0;
+	float: right;
+	margin-top: 2px;
+}

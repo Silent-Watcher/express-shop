@@ -5,6 +5,7 @@ const categorySchema = new Schema(
 	{
 		name: { type: String, required: true, unique: true },
 		parent: { type: Schema.Types.ObjectId, ref: 'category', required: false, default: null },
+		slug: { type: String, required: true },
 	},
 	{ timestamps: true, toJSON: { virtuals: true } }
 );

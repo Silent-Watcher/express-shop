@@ -76,22 +76,22 @@
 				<% if (isAuthenticated) { %>
 					<a id="courseLikeBtn" class="link <%= course.isLiked(user) ? 'link-danger' : 'link-dark'  %>  d-flex align-items-center" href="#">
 						<i class='bx bxs-heart fs-4 me-1'></i>
-						<span id="courseLikes" class="number" data-value="<%= course.likeCount %>"></span>
+						<span id="courseLikes" class="number" data-value="<%= course.likeCount ?? 0 %>"></span>
 					</a>
 				<% } else { %>
 						<div class="d-flex align-items-center">
 							<i class='bx bxs-heart fs-4 me-1 text-dark'></i>
-							<span id="courseLikes" class="number" data-value="<%= course.likeCount %>"></span>
+							<span id="courseLikes" class="number" data-value="<%= course.likeCount ?? 0 %>"></span>
 						</div>
 				<% } %>
 			</li>
 			<li class="mx-2">
 				<img loading="lazy" src="/static/imgs/comment.svg" alt="کامنت">
-				<span class="number" data-value="<%= course.commentCount %>"></span>
+				<span class="number" data-value="<%= course.commentCount ?? 0 %>"></span>
 			</li>
 			<li class="mx-2">
 					<img width="25px" class="img-fluid me-1" loading="lazy" src="/static/imgs/eye.svg" alt="بازدید">
-					<span class="number" data-value="<%= course.viewCount %>"></span>
+					<span class="number" data-value="<%= course.viewCount ?? 0 %>"></span>
 			</li>
 			<p class="ms-auto d-flex align-items-center">
 				<span class="me-2">اشتراک گذاری: </span>
@@ -224,7 +224,7 @@
 						<span>تکمیل ضبط</span>
 						<div class="score d-flex flex-column">
 							<%- include('../../components/rating.ejs' , {canRate , score: course.score}) %>
-							<p class="mb-0 text-center mt-1" style="font-size: 14px;"><span id="courseScore" class="number" data-value="<%= rateInfo.score%>"></span> از <span id="ratesCount" class="number" data-value="<%= rateInfo.total %>"></span> رای</p>
+							<p class="mb-0 text-center mt-1" style="font-size: 14px;"><span id="courseScore" class="number" data-value="<%= rateInfo.score  ?? 0%>"></span> از <span id="ratesCount" class="number" data-value="<%= rateInfo.total ?? 0 %>"></span> رای</p>
 						</div>
 					</section>
 				</div>
@@ -234,7 +234,7 @@
 						<div class="meta-box rounded bg-secondary-subtle d-flex flex-column justify-content-center align-items-center p-3">
 							<img width="25px" src="/static/imgs/clock.svg" alt="ساعت">
 							<p class="mb-0 fs-14px mt-2">مدت دوره</p>
-							<p data-value="<%= course.time %>" class="mb-0 mt-1 fs-14px fw-bold number"></p>
+							<p data-value="<%= course?.time ?? '00:00:00' %>" class="mb-0 mt-1 fs-14px fw-bold number"></p>
 						</div>
 						<div class="meta-box rounded bg-secondary-subtle d-flex flex-column justify-content-center align-items-center p-3">
 							<img width="25px" src="/static/imgs/episodes.svg" alt="جلسات">
@@ -269,11 +269,29 @@
 				<!-- course tags start -->
 				<div class="row mt-4">
 					<div class="d-flex flex-column justify-content-center align-items-center bg-secondary-subtle rounded p-4" >
-						<p class="mb-3 fw-bold">برچسب های دوره</p>
-						<% if (course.tags.length > 0) { %>
-							<div class="d-flex justify-content-center align-items-center" id="courseTagsWrap" data-tags="<%= course.tags %>"></div>
+						<p class="mb-0 fw-bold">برچسب های دوره</p>
+						<hr class="w-75">
+						<% if (course?.tags?.length > 0) { %>
+							<div class="d-flex justify-content-center align-items-center w-100" id="courseTagsWrap" data-tags="<%= course.tags %>"></div>
 						<% } else { %>
-							<p>برچسبی برای این دوره ثبت نشده است</p>
+							<p class="mb-0">برچسبی برای این دوره ثبت نشده است</p>
+						<% }%>
+					</div>
+					<div class="mt-4 d-flex flex-column justify-content-center align-items-center bg-secondary-subtle rounded p-4" >
+						<p class="mb-0 fw-bold">دسته بندی</p>
+						<hr class="w-75">
+						<% if (course?.categories?.length > 0) { %>
+							<div class="d-flex flex-column flex-wrap justify-content-around align-items-center w-100">
+								<% course?.categories?.forEach(category => { %>
+									<% if (category.parent) { %>
+											<p><%= category.name %></p>
+									<% } else {%>
+											<p><%= category.name %></p>
+									<% }%>
+								<% }) %>
+							</div>
+						<% } else { %>
+							<p>دسته بندی برای این دوره ثبت نشده است</p>
 						<% }%>
 					</div>
 				</div>

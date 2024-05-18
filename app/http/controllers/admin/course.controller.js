@@ -3,6 +3,7 @@ const Controller = require('app/http/controllers/controller');
 const Course = require('app/models/course.model');
 const { DEFAULT_THUMBNAIL } = require('app/common/globals');
 const imageHelper = require('app/helpers/image.helper');
+const Category = require('../../../models/category.model');
 
 class CourseController extends Controller {
 	constructor() {
@@ -150,16 +151,19 @@ class CourseController extends Controller {
 					populate: [{ path: 'user', select: 'name' }],
 				}
 			);
+
 			return res.render('admin/course/index', { title, courses });
 		} catch (error) {
 			next({ status: 500, message: `something went wrong !`, stack: error.stack });
 		}
 	}
 	//
-	getCreateCoursePage(req, res, next) {
+	async getCreateCoursePage(req, res, next) {
 		try {
 			const title = 'پنل مدیریت | ایجاد دوره';
-			res.render('admin/course/create', { title });
+			let categories = await Category.find({}, { name: 1, _id: 1 }).lean();
+			// return res.json(categories);
+			res.render('admin/course/create', { title, categories });
 		} catch (error) {
 			next(error);
 		}
@@ -172,7 +176,8 @@ class CourseController extends Controller {
 			if (!course) {
 				return this.flashAndRedirect(req, res, 'error', 'آیدی دوره نامعتبر است', '/admin/courses');
 			}
-			res.render('admin/course/edit', { title, course });
+			let categories = await Category.find({}, { name: 1, _id: 1 }).lean();
+			res.render('admin/course/edit', { title, course, categories });
 		} catch (error) {
 			next(error);
 		}

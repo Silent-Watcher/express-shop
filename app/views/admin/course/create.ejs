@@ -9,7 +9,7 @@
 	</div>
 	<!-- create a new course form start -->
 	<div class="row w-100">
-		<form method="POST" enctype="multipart/form-data" action="/admin/courses/create" class="col-12 col-lg-8 offset-lg-2">
+		<form method="POST" enctype="multipart/form-data" action="/admin/courses/create" class="col-12 col-lg-8 offset-lg-2 w-100">
 			<div class="row mbn-20">
 				<!-- title  -->
 				<div class="col-12 mb-20">
@@ -72,9 +72,14 @@
 				<!-- desc -->
 				<div class="col-12 mb-20">
 					<label class="my-2" for="newCourseDesc">توضیحات دوره</label>
-					<textarea name="description" rows="4" id="newCourseDesc" class="form-control p-2">
-<%- old?.description ?? ''%></textarea
+					<textarea placeholder="یه توضیح کوتاه در رابطه با دوره بنویسید" name="description" rows="4" id="newCourseDesc" class="form-control p-2">
+						<%- old?.description ?? ''%></textarea
 					>
+				</div>
+				<!-- course body -->
+				<div class="col-12 mb-20">
+					<label class="my-2" for="newCourseBody">بدنه دوره</label>
+					<%- include('../../components/editor.ejs' , {id : 'newCourseBody' , body: course?.body ?? ''}) %>
 				</div>
 				<!-- price  -->
 				<div class="col-12 mb-20">
@@ -110,4 +115,6 @@
 	<!-- create a new course form end -->
 </div>
 
+
 <script src="/static/admin/course/js/course.js"></script>
+

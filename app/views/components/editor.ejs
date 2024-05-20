@@ -1,0 +1,11 @@
+<textarea name="body" id="<%= id %>" class="editor"><%- body %></textarea>
+
+<script src="//cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
+<script>
+	let editorId = document.querySelector('.editor').id;
+	CKEDITOR.replace(editorId, {
+		language : 'fa',
+		uiColor: '#202334',
+		filebrowserUploadUrl:  '/admin/upload-image',
+	});
+</script>

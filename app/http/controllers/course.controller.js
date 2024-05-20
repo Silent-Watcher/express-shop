@@ -39,7 +39,7 @@ class CourseController extends Controller {
 			const course = await Course.findOneAndUpdate(
 				{ slug: courseSlug },
 				{ $inc: { viewCount: 1 } },
-				{ projection: { images: 0, slug: 0, __v: 0, thumbnail: { path: 1 } } }
+				{ projection: { images: 0, slug: 0, __v: 0 } }
 			)
 				.populate([
 					{ path: 'episodes' },
@@ -68,7 +68,7 @@ class CourseController extends Controller {
 			const canUse = await this.canUserUse(req, course);
 			const canRate = await this.canUserRate(req, course);
 			const rateInfo = { total: course.ratings.length, score: course.score };
-			// return res.json(course)
+			// return res.json(course);
 			res.render('pages/courses/single', { title, course, canUse, canRate, rateInfo });
 		} catch (error) {
 			next(error);

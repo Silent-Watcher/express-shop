@@ -12,7 +12,7 @@ class CourseController extends Controller {
 	//
 	async create(req, res, next) {
 		try {
-			const { title, type, slug, description, price, tags } = req.body;
+			const { title, type, slug, description, price, tags, body } = req.body;
 			const image = req?.file;
 			let imageAddrs = [];
 			if (image) imageAddrs = Object.values(imageHelper.resizeImage(image.path));
@@ -21,6 +21,7 @@ class CourseController extends Controller {
 				type,
 				slug: slugify(slug, { lower: true, replacement: '-' }),
 				description,
+				body,
 				user: req.user._id,
 				images: imageAddrs ?? [],
 				thumbnail: imageAddrs.find(imageAddr => imageAddr.size == 'original') ?? DEFAULT_THUMBNAIL,
@@ -151,7 +152,6 @@ class CourseController extends Controller {
 					populate: [{ path: 'user', select: 'name' }],
 				}
 			);
-
 			return res.render('admin/course/index', { title, courses });
 		} catch (error) {
 			next({ status: 500, message: `something went wrong !`, stack: error.stack });

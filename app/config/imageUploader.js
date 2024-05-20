@@ -31,4 +31,4 @@ const courseImagesStorage = multer.diskStorage({
 
 const uploadCourseImage = multer({ storage: courseImagesStorage });
 
-module.exports = { uploadCourseImage };
+module.exports = uploadCourseImage;

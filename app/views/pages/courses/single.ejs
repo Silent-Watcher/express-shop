@@ -4,8 +4,8 @@
 	<!-- course single header start -->
 	<div class="row bg-secondary-subtle p-4 rounded-top">
 		<section class="col-12 col-lg-6 d-flex flex-column justify-content-center">
-			<h1 class="fw-bold mt-4 mt-lg-0"><%= course.title %></h1>
-			<p class="mb-0"><%= course.description %></p>
+			<h1 class="fw-bold mt-4 mt-lg-0"><%= course?.title %></h1>
+			<p class="mb-0 w-75 mx-auto mt-3"><%= course?.description %></p>
 			<div class="d-flex w-75 mt-4">
 				<div class="d-flex flex-column align-items-start">
 					<% if (isAuthenticated) { %>
@@ -106,8 +106,12 @@
 	<div class="row g-5">
 		<!-- course main section start -->
 		<section class="col-12 col-lg-8">
-			<!-- warranty start -->
+			<!-- course body -->
 			<div class="row bg-secondary-subtle rounded p-5 pb-2">
+				<%- course.body %>
+			</div>
+			<!-- warranty start -->
+			<div class="row bg-secondary-subtle rounded p-5 pb-2 mt-4">
 				<h2 class="fw-bold fs-4">گارانتی بازگشت وجه</h2>
 				<div class="d-flex my-3">
 					<div class="flex flex-column">

@@ -13,6 +13,7 @@ const courseSchema = new Schema(
 		slug: { type: String, required: true, unique: true },
 		type: { type: String, enum: ['free', 'paid'], required: true, default: 'free' },
 		description: { type: String, required: false },
+		body: { type: String, required: false },
 		price: { type: Number, required: true, default: 0 },
 		tags: { type: String, required: false },
 		categories: [{ type: Schema.Types.ObjectId, ref: 'category' }],

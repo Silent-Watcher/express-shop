@@ -4,7 +4,7 @@ const { validateCreateCourseData, validateEditCourseData } = require('app/valida
 const checkDataValidation = require('app/http/middlewares/validation.middleware');
 const getOldData = require('app/http/middlewares/getOldData');
 const { param, body } = require('express-validator');
-const { uploadCourseImage } = require('app/config/imageUploader');
+const uploadImage = require('app/config/imageUploader');
 const validateImageSize = require('../../../validators/imageSize.validator');
 
 // ========== COURSES PATHS ================
@@ -14,7 +14,7 @@ router.get('/', checkDataValidation, courseController.getIndexPage);
 router.get('/create', courseController.getCreateCoursePage);
 router.post(
 	'/create',
-	uploadCourseImage.single('image'),
+	uploadImage.single('image'),
 	validateImageSize,
 	getOldData,
 	validateCreateCourseData(),
@@ -30,7 +30,7 @@ router.get(
 );
 router.put(
 	'/:id/edit',
-	uploadCourseImage.single('image'),
+	uploadImage.single('image'),
 	validateImageSize,
 	getOldData,
 	validateEditCourseData(),

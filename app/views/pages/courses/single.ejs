@@ -19,11 +19,13 @@
 									<span class="ms-2">مشاهده دوره</span>
 								</button>
 							<% } else { %>
-								<button type="button" class="btn btn-primary rounded d-inline-flex align-items-center">
-									<!-- icon -->
-									<img loading="lazy" class="me-2 mb-1" src="/static/imgs/eduIcon.svg" alt="کلاه فارغ التحصیلی">
-									<span>خرید نقدی دوره</span>
-								</button>
+								<form action="/courses/payment" method="POST">
+									<input type="hidden" name="course" value="<%= course._id %>">
+									<button type="submit" class="btn btn-primary rounded d-inline-flex align-items-center">
+										<img loading="lazy" class="me-2 mb-1" src="/static/imgs/eduIcon.svg" alt="کلاه فارغ التحصیلی">
+										<span>خرید نقدی دوره</span>
+									</button>
+								</form>
 								<p class="d-flex align-items-center mb-2 mt-1">
 									<img loading="lazy" src="/static/imgs/star.svg" alt="ستاره">
 									<span class="text-secondary ms-2 fw-bold" style="font-size: 12px"> رایگان برای اعضای ویژه</span>

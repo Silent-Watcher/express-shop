@@ -3,7 +3,7 @@
 		<div class="col-12 col-lg-10 offset-lg-1 mt-2 mt-lg-5">
 			<!-- navbar start -->
 			<nav class="navbar navbar-expand-lg sticky-top">
-				<div class="container-fluid align-items-center">
+				<div class="container-fluid align-items-center d-flex">
 					<a class="navbar-brand" href="/">فروشگاه عطن</a>
 					<button
 						class="navbar-toggler"
@@ -54,126 +54,133 @@
 								</ul>
 							</li>
 						</ul>
-						<!-- cart  start-->
-						<div class="btn-group">
-								<button class="position-relative me-5 cart-button" data-bs-toggle="dropdown"  aria-expanded="false">
-									<svg width="22" height="22" viewBox="0 0 22 22" fill="#454545" xmlns="http://www.w3.org/2000/svg">
-										<path class="fill-current text-biscay-700 dark:text-gray-900 dark:group-hover:text-dark-920 group-hover:text-biscay-300" fill-rule="evenodd" clip-rule="evenodd" d="M19.1705 14.9551L18.4657 9.27669C18.0363 7.25046 16.8211 6.41663 15.6626 6.41663H6.35407C5.17937 6.41663 3.92365 7.1921 3.55909 9.27669L2.84616 14.9551C2.26286 19.1243 4.40973 20.1666 7.21282 20.1666H14.8119C17.6069 20.1666 19.689 18.6574 19.1705 14.9551ZM8.33901 11.1362C7.89158 11.1362 7.52887 10.7629 7.52887 10.3024C7.52887 9.84187 7.89158 9.46855 8.33901 9.46855C8.78644 9.46855 9.14915 9.84187 9.14915 10.3024C9.14915 10.7629 8.78644 11.1362 8.33901 11.1362ZM12.8353 10.3024C12.8353 10.7629 13.198 11.1362 13.6454 11.1362C14.0928 11.1362 14.4555 10.7629 14.4555 10.3024C14.4555 9.84187 14.0928 9.46855 13.6454 9.46855C13.198 9.46855 12.8353 9.84187 12.8353 10.3024Z"></path>
-										<path class="fill-current text-biscay-700 dark:text-gray-900 dark:group-hover:text-dark-920 group-hover:text-biscay-300" opacity="0.4" d="M15.5594 6.20972C15.5623 6.28082 15.5486 6.35162 15.5195 6.41658H14.2021C14.1766 6.35053 14.1631 6.28049 14.1622 6.20972C14.1622 4.45201 12.7324 3.0271 10.9686 3.0271C9.20486 3.0271 7.77504 4.45201 7.77504 6.20972C7.78713 6.27815 7.78713 6.34815 7.77504 6.41658H6.42575C6.41367 6.34815 6.41367 6.27815 6.42575 6.20972C6.52827 3.76367 8.54793 1.83325 11.0046 1.83325C13.4612 1.83325 15.4808 3.76367 15.5834 6.20972H15.5594Z"></path>
-								</svg>
-								<!-- badge -->
-								<!-- <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger">
-									2
-									<span class="visually-hidden">unread messages</span>
-								</span> -->
-							</button>
-							<ul class="dropdown-menu dropdown-center dropdown-menu-lg-end p-4" style="width: 450px;">
-								<section>
-									<div class="d-flex justify-content-between align-items-center">
-										<p class="mb-0"><span class="me-2">0</span><span>مورد</span></p>
-										<a style="font-size: 14px;" href="#">مشاهده سبد خرید</a>
-									</div>
-									<hr class="w-75 mx-auto">
-									<div class="cart-prodcuts d-flex flex-column">
-										<!-- cart product item start -->
-										<!-- <div class="cart-product d-flex justify-content-evenly align-items-center border-bottom pb-2 mb-3">
-											<a href="#" class="link link-dark">
-												<img class="rounded-circle" width="50px" height="50px" src="/static/imgs/ali.jpg" alt="">
-											</a>
-											<div>
-												<a class="link link-dark" href="#"><p class="mb-0 fw-bold" >دوره متخصص node js</p></a>
-												<p class="mb-0 text-secondary mt-1">10000 تومان</p>
-											</div>
-											<button type="button" class="btn d-inline-flex justify-content-center align-items-center">
-												<i class='bx bxs-trash-alt text-danger'></i>
-											</button>
-										</div> -->
-										<!-- cart product item start -->
-										<p class="mb-0 text-secondary text-center">هنوز محصولی به سبد خرید اضافه نشده است</p>
-										<button class="btn btn-outline-primary align-self-center mt-4">مشاهده دوره های آموزشی</button>
-									</div>
-								</section>
-							</ul>
-						</div>
-						<!-- cart  end-->
+
 						<% if (user) { %>
 							<% if (user.admin) { %>
-								<a class="btn btn-outline-primary btn-sm me-lg-4 mb-3 mb-lg-0" href="/admin" target="_blank">پنل مدیریت</a>
-							<% } %>
-						<div class="dropdown dropcenter">
-							<section
-								class="rounded-circle"
-								data-bs-toggle="dropdown"
-								aria-expanded="false"
-							>
-							<% if (user.photo) { %>
-								<img
-								class="avatar img-fluid rounded-circle"
-								src="<%= user.photo %>"
-								alt="avatar"
-							/>
-							<% } else {%>
-								<img
-								width="30px"
-								height="30px"
-								style="cursor: pointer;"
-								class="img-fluid rounded-circle"
-								src="/static/imgs/avatar.png"
-								alt="avatar"
-							/>
-							<% }  %>
-							</section>
-							<ul class="dropdown-menu dropdown-menu-lg-end p-4">
-								<div class="d-flex justify-content-around align-items-center">
-									<a href="#">
-										<% if (user.photo) { %>
-											<img
-											class="avatar img-fluid rounded-circle"
-											src="<%= user.photo %>"
-											alt="avatar"
-										/>
-										<% } else {%>
-											<img
-											width="30px"
-											height="30px"
-											style="cursor: pointer;"
-											class="img-fluid rounded-circle"
-											src="/static/imgs/avatar.png"
-											alt="avatar"
-										/>
-										<% }  %>
-									</a>
-									<div>
-										<a class="link-dark" href="#"
-											><p class="mb-0">
-												<%= user.name ??
-												user.email.slice(0,user.email.indexOf('@')) + '@' %>
-											</p></a
-										>
-										<a class="icon-link icon-link-hover text-14" href="#">
-											مشاهده پنل کاربری
-											<i class="bx bx-left-arrow-alt"></i>
-										</a>
-									</div>
+								<div class="order-first mt-3 mt-lg-0">
+									<a class="btn btn-outline-primary btn-sm me-lg-4 mb-3 mb-lg-0 d-inline-block" href="/admin" target="_blank">پنل مدیریت</a>
 								</div>
-								<li><hr class="dropdown-divider" /></li>
-								<li>
-									<a
-										class="dropdown-item d-inline-flex align-items-center"
-										href="#"
-										><i class="bx bx-video text-secondary"></i
-										><span class="ms-2">دوره ها</span></a
-									>
-								</li>
-								<li>
-									<a
-										class="dropdown-item d-inline-flex align-items-center"
-										href="/logout"
-										><i class="bx bx-log-out text-secondary"></i>
-										<span class="ms-2">خروج از حساب کاربری</span></a
-									>
-								</li>
-							</ul>
+							<% } %>
+						<div class="d-flex mt-3 mt-lg-0">
+							<!-- cart  start-->
+						<div class="btn-group order-last order-lg-first ms-3 ms-lg-0">
+							<button class="position-relative me-lg-5 cart-button" data-bs-toggle="dropdown"  aria-expanded="false">
+								<svg width="22" height="22" viewBox="0 0 22 22" fill="#454545" xmlns="http://www.w3.org/2000/svg">
+									<path class="fill-current text-biscay-700 dark:text-gray-900 dark:group-hover:text-dark-920 group-hover:text-biscay-300" fill-rule="evenodd" clip-rule="evenodd" d="M19.1705 14.9551L18.4657 9.27669C18.0363 7.25046 16.8211 6.41663 15.6626 6.41663H6.35407C5.17937 6.41663 3.92365 7.1921 3.55909 9.27669L2.84616 14.9551C2.26286 19.1243 4.40973 20.1666 7.21282 20.1666H14.8119C17.6069 20.1666 19.689 18.6574 19.1705 14.9551ZM8.33901 11.1362C7.89158 11.1362 7.52887 10.7629 7.52887 10.3024C7.52887 9.84187 7.89158 9.46855 8.33901 9.46855C8.78644 9.46855 9.14915 9.84187 9.14915 10.3024C9.14915 10.7629 8.78644 11.1362 8.33901 11.1362ZM12.8353 10.3024C12.8353 10.7629 13.198 11.1362 13.6454 11.1362C14.0928 11.1362 14.4555 10.7629 14.4555 10.3024C14.4555 9.84187 14.0928 9.46855 13.6454 9.46855C13.198 9.46855 12.8353 9.84187 12.8353 10.3024Z"></path>
+									<path class="fill-current text-biscay-700 dark:text-gray-900 dark:group-hover:text-dark-920 group-hover:text-biscay-300" opacity="0.4" d="M15.5594 6.20972C15.5623 6.28082 15.5486 6.35162 15.5195 6.41658H14.2021C14.1766 6.35053 14.1631 6.28049 14.1622 6.20972C14.1622 4.45201 12.7324 3.0271 10.9686 3.0271C9.20486 3.0271 7.77504 4.45201 7.77504 6.20972C7.78713 6.27815 7.78713 6.34815 7.77504 6.41658H6.42575C6.41367 6.34815 6.41367 6.27815 6.42575 6.20972C6.52827 3.76367 8.54793 1.83325 11.0046 1.83325C13.4612 1.83325 15.4808 3.76367 15.5834 6.20972H15.5594Z"></path>
+							</svg>
+							<!-- badge -->
+							<!-- <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger">
+								2
+								<span class="visually-hidden">unread messages</span>
+							</span> -->
+						</button>
+						<ul class="dropdown-menu dropdown-center dropdown-menu-lg-end p-4" style="width: 450px;">
+							<section>
+								<div class="d-flex justify-content-between align-items-center">
+									<p class="mb-0"><span class="me-2">0</span><span>مورد</span></p>
+									<a style="font-size: 14px;" href="#">مشاهده سبد خرید</a>
+								</div>
+								<hr class="w-75 mx-auto">
+								<div class="cart-prodcuts d-flex flex-column">
+									<!-- cart product item start -->
+									<!-- <div class="cart-product d-flex justify-content-evenly align-items-center border-bottom pb-2 mb-3">
+										<a href="#" class="link link-dark">
+											<img class="rounded-circle" width="50px" height="50px" src="/static/imgs/ali.jpg" alt="">
+										</a>
+										<div>
+											<a class="link link-dark" href="#"><p class="mb-0 fw-bold" >دوره متخصص node js</p></a>
+											<p class="mb-0 text-secondary mt-1">10000 تومان</p>
+										</div>
+										<button type="button" class="btn d-inline-flex justify-content-center align-items-center">
+											<i class='bx bxs-trash-alt text-danger'></i>
+										</button>
+									</div> -->
+									<!-- cart product item start -->
+									<p class="mb-0 text-secondary text-center">هنوز محصولی به سبد خرید اضافه نشده است</p>
+									<button class="btn btn-outline-primary align-self-center mt-4">مشاهده دوره های آموزشی</button>
+								</div>
+							</section>
+						</ul>
+					</div>
+					<!-- cart  end-->
+							<!-- user navigation button start -->
+							<div class="dropdown dropcenter">
+								<section
+									class="rounded-circle"
+									data-bs-toggle="dropdown"
+									aria-expanded="false"
+								>
+								<% if (user.photo) { %>
+									<img
+									class="avatar img-fluid rounded-circle"
+									src="<%= user.photo %>"
+									alt="avatar"
+								/>
+								<% } else {%>
+									<img
+									width="30px"
+									height="30px"
+									style="cursor: pointer;"
+									class="img-fluid rounded-circle"
+									src="/static/imgs/avatar.png"
+									alt="avatar"
+								/>
+								<% }  %>
+								</section>
+								<ul class="dropdown-menu dropdown-menu-lg-end p-4">
+									<div class="d-flex justify-content-around align-items-center">
+										<a href="#">
+											<% if (user.photo) { %>
+												<img
+												class="avatar img-fluid rounded-circle"
+												src="<%= user.photo %>"
+												alt="avatar"
+											/>
+											<% } else {%>
+												<img
+												width="30px"
+												height="30px"
+												style="cursor: pointer;"
+												class="img-fluid rounded-circle"
+												src="/static/imgs/avatar.png"
+												alt="avatar"
+											/>
+											<% }  %>
+										</a>
+										<div>
+											<a class="link-dark" href="#"
+												><p class="mb-0">
+													<%= user.name ??
+													user.email.slice(0,user.email.indexOf('@')) + '@' %>
+												</p></a
+											>
+											<a class="icon-link icon-link-hover text-14" href="#">
+												مشاهده پنل کاربری
+												<i class="bx bx-left-arrow-alt"></i>
+											</a>
+										</div>
+									</div>
+									<li><hr class="dropdown-divider" /></li>
+									<li>
+										<a
+											class="dropdown-item d-inline-flex align-items-center"
+											href="#"
+											><i class="bx bx-video text-secondary"></i
+											><span class="ms-2">دوره ها</span></a
+										>
+									</li>
+									<li>
+										<a
+											class="dropdown-item d-inline-flex align-items-center"
+											href="/logout"
+											><i class="bx bx-log-out text-secondary"></i>
+											<span class="ms-2">خروج از حساب کاربری</span></a
+										>
+									</li>
+								</ul>
+							</div>
+							<!-- user navigation button end -->
 						</div>
 						<% } else { %>
 						<ul class="nav navbar-navnavbar-right">

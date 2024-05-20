@@ -14,8 +14,8 @@
 				<form class="d-flex justify-content-center align-items-center text-center position-relative" id="searchCourseForm" role="search" method="get">
 					<div class="d-flex flex-column w-100">
 						<input class="form-control me-2 w-100 p-3" type="text" placeholder="دنبال چی میگردی ؟ ..." name="s" >
-						<% if (searchedValue.length > 0) { %>
-							<p class="form-text mb-0 text-start fs-14px mt-2 d-flex align-items-center" ><span>عبارت جست و جو شده : </span><span class="fw-bold"><%= searchedValue %></span> <a class="badge rounded-pill text-bg-info text-white ms-2" href="/courses?<%= sort ? 'sort=' + sort : '' %><%= type ? '&type=' + type :'' %>">حذف</a></p>
+						<% if (query.s?.length > 0) { %>
+							<p class="form-text mb-0 text-start fs-14px mt-2 d-flex align-items-center" ><span>عبارت جست و جو شده : </span><span class="fw-bold"><%= query.s %></span> <a class="badge rounded-pill text-bg-info text-white ms-2" href="/courses?<%= query.sort ? 'sort=' + query.sort : '' %><%= query.type ? '&type=' + query.type :'' %>">حذف</a></p>
 						<% } %>
 					</div>
 					<button style="left: 6px;top: 10px;" class="btn btn-sm position-absolute" title="جست و جو" type="submit"><i class='bx bx-search-alt fs-2' style='color:#2f2f2f'></i></button>
@@ -37,16 +37,16 @@
 				</div>
 				<div class="offcanvas-body d-block">
 					<form action="" method="get">
-						<input hidden name="s" type="text" value="<%= searchedValue %>">
+						<input hidden name="s" type="text" value="<%= query.s %>">
 						<!-- filter: course type start -->
 						<section class="bg-secondary-subtle p-4 rounded">
 							<h3 class="fs-5">نوع دوره </h3>
 							<hr>
 							<select class="form-select" name="type" id="">
-								<option <%= type =='all' ? 'selected' : ''%> value="all">همه دوره ها</option>
-								<option <%= type =='paid' ? 'selected' : ''%> value="paid">نقدی</option>
-								<option <%= type =='free' ? 'selected' : ''%> value="free">رایگان</option>
-								<option <%= type =='vip' ? 'selected' : ''%> value="vip">اعضای ویژه</option>
+								<option <%= query.type =='all' ? 'selected' : ''%> value="all">همه دوره ها</option>
+								<option <%= query.type =='paid' ? 'selected' : ''%> value="paid">نقدی</option>
+								<option <%= query.type =='free' ? 'selected' : ''%> value="free">رایگان</option>
+								<option <%= query.type =='vip' ? 'selected' : ''%> value="vip">اعضای ویژه</option>
 							</select>
 						</section>
 						<!-- filter: course type end -->
@@ -55,13 +55,13 @@
 							<h3 class="fs-5">مرتب سازی بر اساس</h3>
 							<hr>
 							<div class="form-check">
-								<input class="form-check-input" type="radio" value="oldest" name="sort" id="oldest" <%= sort == 'oldest' ? 'checked' : ''%>
+								<input class="form-check-input" type="radio" value="oldest" name="sort" id="oldest" <%= query.sort == 'oldest' ? 'checked' : ''%>>
 								<label style="cursor: pointer;" class="form-check-label" for="oldest">
 									قدیمی ترین
 								</label>
 								</div>
 								<div class="form-check">
-								<input class="form-check-input" type="radio" value="newest" name="sort" id="newest" <%= sort == 'newest' ? 'checked' : '' %>>
+								<input class="form-check-input" type="radio" value="newest" name="sort" id="newest" <%= query.sort == 'newest' ? 'checked' : '' %>>
 								<label style="cursor: pointer;" class="form-check-label" for="newest">
 									جدید ترین
 								</label>
@@ -72,6 +72,16 @@
 						<section class="bg-secondary-subtle p-4 rounded mt-4">
 							<h3 class="fs-5">دسته بندی ها</h3>
 							<hr>
+							<% if (categories.length) { %>
+								<select class="form-select" name="category">
+									<option value="all">همه دسته بندی ها</option>
+									<% categories.forEach(cat => { %>
+										<option <%= cat.slug == query.category ? 'selected' : '' %> value="<%= cat.slug %>"><%= cat.name %></option>
+									<% }) %>
+								</select>
+							<% } else { %>
+								<p class="mb-0"> دسته بندی ثبت نشده است</p>
+							<% } %>
 						</section>
 						<!-- category : end -->
 						<div class="d-grid"><button type="submit" class="btn btn-warning d-block mt-3">اعمال</button></div>

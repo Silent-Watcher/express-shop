@@ -1,11 +1,21 @@
-const { param, query } = require('express-validator');
+const { param } = require('express-validator');
 const courseController = require('../../http/controllers/course.controller');
 const checkDataValidation = require('app/http/middlewares/validation.middleware');
 const { isUserAuthenticate } = require('app/http/guards/auth.guard');
+const { validateCourseQueries } = require('../../validators/course.validator');
 
 const router = require('express').Router();
 // courses page
-router.get('/', query('s').escape(), courseController.getCoursesPage);
+router.get(
+	'/',
+	validateCourseQueries(),
+	checkDataValidation,
+	(req, res, next) => {
+		res.locals.query = req.query;
+		next();
+	},
+	courseController.getCoursesPage
+);
 // single course page
 router.get(
 	'/:courseSlug',

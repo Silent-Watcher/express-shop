@@ -4,6 +4,7 @@ const Controller = require('app/http/controllers/controller');
 const Course = require('../../models/course.model');
 const User = require('../../models/user.model');
 const Rating = require('../../models/rating.model');
+const Category = require('../../models/category.model');
 
 class CourseController extends Controller {
 	//
@@ -12,11 +13,17 @@ class CourseController extends Controller {
 			const title = 'فروشگاه عطن | دوره ها';
 			const page = req.query.page ?? 1;
 			if (isNaN(page)) return this.flashAndRedirect(req, res, 'error', 'شماره صفحه نامعتبر است !', req.headers.referer);
-			const { s: search = null, type = 'paid', sort = 'newest' } = req.query;
+			const { s: search = null, type = 'paid', sort = 'newest', category } = req.query;
 			let query = {};
 
 			if (search) query.title = new RegExp(search, 'gi');
 			if (type != 'all') query.type = type;
+			if (category && category != 'all') {
+				const categoryData = await Category.findOne({ slug: category }, { _id: 1 }).lean();
+				if (!categoryData)
+					return this.flashAndRedirect(req, res, 'error', 'دسته بندی با این slug یافت نشد', req.headers.referer);
+				query.categories = { $in: [categoryData._id] };
+			}
 
 			const courses = await Course.paginate(
 				{ ...query },
@@ -27,7 +34,12 @@ class CourseController extends Controller {
 					lean: true,
 				}
 			);
-			return res.render('pages/courses/index.ejs', { courses, title, searchedValue: search, sort, type });
+			const categories = await Category.find({}).lean();
+			return res.render('pages/courses/index.ejs', {
+				courses,
+				title,
+				categories,
+			});
 		} catch (error) {
 			next(error);
 		}
@@ -46,8 +58,8 @@ class CourseController extends Controller {
 					{ path: 'ratings', select: 'user value' },
 					{
 						path: 'categories',
-						populate: [{ path: 'children', select: 'name' }, { path: 'parent' }],
-						select: 'name children',
+						populate: [{ path: 'children', select: 'name slug' }, { path: 'parent' }],
+						select: 'name children slug',
 					},
 					{ path: 'user', select: 'photo bio name' },
 					{

@@ -285,12 +285,15 @@
 						<p class="mb-0 fw-bold">دسته بندی</p>
 						<hr class="w-75">
 						<% if (course?.categories?.length > 0) { %>
-							<div class="d-flex flex-column flex-wrap justify-content-around align-items-center w-100">
+							<div class="d-flex flex-column flex-wrap justify-content-around align-items-start w-100">
 								<% course?.categories?.forEach(category => { %>
 									<% if (category.parent) { %>
-											<p><%= category.name %></p>
+											<p class="mb-2"><%= category.parent.name %></p>
+											<ul>
+												<li class="pe-2"><a class="link link-dark" href="/courses?category=<%= category.slug %>"><%= category.name %></a></li>
+											</ul>
 									<% } else {%>
-											<p><%= category.name %></p>
+											<p><a class="link link-dark" href="/courses?category=<%= category.slug %>"><%= category.name %></a></p>
 									<% }%>
 								<% }) %>
 							</div>

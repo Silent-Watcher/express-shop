@@ -80,10 +80,6 @@ window.addEventListener('load', () => {
 		await likeCourse(pageData.dataset.courseid);
 	});
 	// rate a single courses page
-	// rating.addEventListener('submit', e => {
-	// 	e.preventDefault();
-	// 	console.log(e);
-	// });
 	startInputs.forEach(startInput => {
 		startInput.addEventListener('change', async event => {
 			if (canUserRate) {
@@ -100,5 +96,22 @@ window.addEventListener('load', () => {
 				alert('شما قبلا به این دوره امتیاز داده اید');
 			}
 		});
+	});
+	// add product to cart
+
+	const courseId = document.querySelector('#pageData').dataset.courseid;
+	const addToCartBtn = document.querySelector('#addToCartBtn');
+	addToCartBtn.addEventListener('click', async () => {
+		// send ajax request to the server
+		const response = await fetch('/cart/add-post', {
+			method: 'post',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ courseId }),
+		});
+		if (!response.ok) return alert('مشکلی در افزودن محصول به سبد خرید رخ داد !');
+		alert('محصول شما با موفقیت به سبد خرید اضافه شد');
+		window.location.reload();
 	});
 });

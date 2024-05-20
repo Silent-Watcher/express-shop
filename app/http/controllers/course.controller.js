@@ -80,8 +80,13 @@ class CourseController extends Controller {
 			const canUse = await this.canUserUse(req, course);
 			const canRate = await this.canUserRate(req, course);
 			const rateInfo = { total: course.ratings.length, score: course.score };
-			// return res.json(course);
-			res.render('pages/courses/single', { title, course, canUse, canRate, rateInfo });
+			const user = await User.findById(req.user.id, { cartItems: 1 }).lean();
+			let isCourseAddedToCart = false;
+			user.cartItems.forEach(item => {
+				if (item._id.toString() == course._id.toString()) isCourseAddedToCart = true;
+			});
+			console.log('isCourseAddedToCart: ', isCourseAddedToCart);
+			res.render('pages/courses/single', { title, course, canUse, canRate, rateInfo, isCourseAddedToCart });
 		} catch (error) {
 			next(error);
 		}

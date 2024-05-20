@@ -1,8 +1,12 @@
+const httpErrors = require('http-errors');
+
 const homeService = require('app/http/services/home.service');
 const Controller = require('app/http/controllers/controller');
 const Course = require('app/models/course.model');
+const User = require('../../models/user.model');
 const recaptcha = require('app/config/recaptcha');
 const Comment = require('../../models/comment.model');
+const httpStatus = require('http-status');
 class HomeController extends Controller {
 	#service;
 	constructor() {
@@ -61,6 +65,32 @@ class HomeController extends Controller {
 				'دیدگاه با موفقیت ارسال شد. بعد از تایید دیدگاه شما در سایت به نمایش  در میاید',
 				req.headers.referer
 			);
+		} catch (error) {
+			next(error);
+		}
+	}
+	//
+	getCartPage(req, res, next) {
+		try {
+			res.render('pages/cart');
+		} catch (error) {
+			next(error);
+		}
+	}
+	//
+	async addProductToCart(req, res, next) {
+		try {
+			const { courseId } = req.body;
+			const foundedCourse = await Course.findById(courseId, { id: 1 }).lean();
+			if (!foundedCourse) throw new httpErrors.BadRequest('شناسه دوره نامعتبر است');
+			const user = await User.findById(req.user._id);
+			if (!user) throw new httpErrors.BadRequest('کاربر یافت نشد !');
+			if (user.cartItems.indexOf(foundedCourse._id) == -1) {
+				user.cartItems.push(foundedCourse._id);
+				await user.save();
+				return res.json({ status: res.statusCode });
+			}
+			return res.json({ status: httpStatus.BadRequest });
 		} catch (error) {
 			next(error);
 		}

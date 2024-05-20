@@ -10,6 +10,7 @@ const userSchema = new Schema(
 		bio: { type: String, required: false },
 		rememberToken: { type: String, required: false, default: null },
 		likedCourses: { type: [Schema.Types.ObjectId], ref: 'course' },
+		cartItems: { type: [Schema.Types.ObjectId], ref: 'course' },
 	},
 	{ timestamps: true, toJSON: { virtuals: true } }
 );

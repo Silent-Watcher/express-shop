@@ -12,6 +12,9 @@ router.get('/logout', isUserAuthenticate, authController.logout);
 router.get('/contact-us', homeController.getContactUsPage);
 router.get('/about-us', homeController.getAboutUsPage);
 
+router.get('/cart', isUserAuthenticate, homeController.getCartPage);
+router.post('/cart/add-post', isUserAuthenticate, homeController.addProductToCart);
+
 router.post('/comment', isUserAuthenticate, validateComment(), checkDataValidation, homeController.comment);
 
 module.exports = router;

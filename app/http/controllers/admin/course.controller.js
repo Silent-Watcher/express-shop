@@ -124,6 +124,7 @@ class CourseController extends Controller {
 				foundedCourse.comments.forEach(async comment => await comment.deleteOne());
 				// remove course ratings
 				foundedCourse.ratings.forEach(async rating => await rating.deleteOne());
+				// TODO: remove course id from the current user cart
 				// remove Course
 				await foundedCourse.deleteOne();
 				req.flash('success', 'دوره با موفقیت حذف شد');

@@ -70,36 +70,49 @@
 									<path class="fill-current text-biscay-700 dark:text-gray-900 dark:group-hover:text-dark-920 group-hover:text-biscay-300" opacity="0.4" d="M15.5594 6.20972C15.5623 6.28082 15.5486 6.35162 15.5195 6.41658H14.2021C14.1766 6.35053 14.1631 6.28049 14.1622 6.20972C14.1622 4.45201 12.7324 3.0271 10.9686 3.0271C9.20486 3.0271 7.77504 4.45201 7.77504 6.20972C7.78713 6.27815 7.78713 6.34815 7.77504 6.41658H6.42575C6.41367 6.34815 6.41367 6.27815 6.42575 6.20972C6.52827 3.76367 8.54793 1.83325 11.0046 1.83325C13.4612 1.83325 15.4808 3.76367 15.5834 6.20972H15.5594Z"></path>
 							</svg>
 							<!-- badge -->
-							<!-- <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger">
-								2
-								<span class="visually-hidden">unread messages</span>
-							</span> -->
+							<% if (user.cartItems.length > 0) { %>
+								<span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger" >
+									<%= user.cartItems.length %>
+									<span class="visually-hidden">unread messages</span>
+								</span>
+							<% } %>
 						</button>
 						<ul class="dropdown-menu dropdown-center dropdown-menu-lg-end p-4" style="width: 450px;">
 							<section>
 								<div class="d-flex justify-content-between align-items-center">
-									<p class="mb-0"><span class="me-2">0</span><span>مورد</span></p>
-									<a style="font-size: 14px;" href="#">مشاهده سبد خرید</a>
+									<p class="mb-0"><span class="me-2 itemsCount"><%= user.cartItems.length > 0  ? user.cartItems.length : 0  %></span><span>مورد</span></p>
+									<a style="font-size: 14px;" href="/cart">مشاهده سبد خرید</a>
 								</div>
 								<hr class="w-75 mx-auto">
-								<div class="cart-prodcuts d-flex flex-column">
+								<% if (user.cartItems.length > 0) { %>
+									<div class="cart-prodcuts d-flex flex-column">
+									<% user.cartItems.forEach(item => { %>
 									<!-- cart product item start -->
-									<!-- <div class="cart-product d-flex justify-content-evenly align-items-center border-bottom pb-2 mb-3">
-										<a href="#" class="link link-dark">
-											<img class="rounded-circle" width="50px" height="50px" src="/static/imgs/ali.jpg" alt="">
+									<div class="cart-product d-flex justify-content-evenly align-items-center border-bottom pb-2 mb-3">
+										<a href="/courses/<%= item.slug %>" class="link link-dark">
+											<img class="rounded-circle" width="50px" height="50px" src="<%= item?.thumbnail?.path ?? ''%>" alt="<%= item.title %>">
 										</a>
 										<div>
-											<a class="link link-dark" href="#"><p class="mb-0 fw-bold" >دوره متخصص node js</p></a>
-											<p class="mb-0 text-secondary mt-1">10000 تومان</p>
+											<a class="link link-dark" href="#"><p class="mb-0 fw-bold" ><%= item.title %></p></a>
+											<p class="mb-0 text-secondary mt-1 d-flex align-items-center">
+												<span class="me-2 price"><%= item.price %></span>
+												<img width="16px" src="/static/imgs/toman-black.svg" alt="تومان" />
+											</p>
 										</div>
-										<button type="button" class="btn d-inline-flex justify-content-center align-items-center">
+										<button data-courseId="<%= item._id %>" type="button" class="btn d-inline-flex justify-content-center align-items-center">
 											<i class='bx bxs-trash-alt text-danger'></i>
 										</button>
-									</div> -->
+									</div>
 									<!-- cart product item start -->
-									<p class="mb-0 text-secondary text-center">هنوز محصولی به سبد خرید اضافه نشده است</p>
-									<button class="btn btn-outline-primary align-self-center mt-4">مشاهده دوره های آموزشی</button>
+									<% }) %>
 								</div>
+								<% } else { %>
+									<div class="emptyCartInfo">
+										<p class="mb-0 text-secondary text-center">هنوز محصولی به سبد خرید اضافه نشده است</p>
+										<a class="btn btn-outline-primary align-self-center mt-4 d-block" href="/courses">مشاهده دوره های آموزشی</a>
+									</div>
+								<% }  %>
+
 							</section>
 						</ul>
 					</div>
@@ -201,3 +214,5 @@
 		</div>
 	</div>
 </div>
+
+<script src="/static/js/header.js"></script>

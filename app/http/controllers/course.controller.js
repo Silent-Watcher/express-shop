@@ -85,7 +85,6 @@ class CourseController extends Controller {
 			user.cartItems.forEach(item => {
 				if (item._id.toString() == course._id.toString()) isCourseAddedToCart = true;
 			});
-			console.log('isCourseAddedToCart: ', isCourseAddedToCart);
 			res.render('pages/courses/single', { title, course, canUse, canRate, rateInfo, isCourseAddedToCart });
 		} catch (error) {
 			next(error);

@@ -1,22 +1,88 @@
-<div class="container mt-5">
+<div class="container-fluid mt-5">
 	<div class="row">
 		<main class="d-flex flex-column align-items-center justify-content-center">
-			<h1 class="mb-2 text-secondary fs-4 mt-3">سبد خرید شما خالی است!</h1>
-			<img class="img-fluid " src="/static/imgs/emptyCart.svg" alt="سبد خرید خالی" />
-			<a class="btn btn-primary mt-4" href="/courses"
-				><span class="me-2">شروع یادگیری برنامه نویسی</span>
-				<svg width="23" height="15" viewBox="0 0 23 15" fill="#fff" xmlns="http://www.w3.org/2000/svg">
-					<path
-						class="fill-current transition duration-200 text-dark-550 dark:group-hover:text-gray-20 dark:text-white group-hover:text-dark-700"
-						opacity="0.4"
-						d="M16.5073 5.95329L21.0752 5.54932C22.1003 5.54932 22.9315 6.38856 22.9315 7.42367C22.9315 8.45878 22.1003 9.29802 21.0752 9.29802L16.5073 8.89404C15.7031 8.89404 15.0511 8.23571 15.0511 7.42367C15.0511 6.61027 15.7031 5.95329 16.5073 5.95329"
-					></path>
-					<path
-						class="fill-current transition duration-200 text-dark-550 dark:group-hover:text-gray-20 dark:text-white group-hover:text-dark-700"
-						d="M1.16786 6.02753C1.23926 5.95544 1.50598 5.65076 1.75653 5.39776C3.21811 3.81313 7.03437 1.22195 9.03073 0.428959C9.33382 0.302461 10.1003 0.0331419 10.5112 0.0140991C10.9032 0.0140991 11.2776 0.105232 11.6346 0.284778C12.0805 0.536415 12.4361 0.933592 12.6328 1.4015C12.7581 1.72523 12.9548 2.69777 12.9548 2.71545C13.1501 3.77776 13.2565 5.50521 13.2565 7.41493C13.2565 9.23215 13.1501 10.8889 12.9898 11.9689C12.9723 11.9879 12.7756 13.1944 12.5614 13.6079C12.1694 14.3642 11.4029 14.8321 10.5826 14.8321H10.5112C9.97638 14.8144 8.85292 14.3451 8.85292 14.3288C6.96297 13.5358 3.23697 11.0698 1.73902 9.43074C1.73902 9.43074 1.31604 9.00908 1.13284 8.74656C0.84726 8.36843 0.70447 7.90052 0.70447 7.43261C0.70447 6.9103 0.864772 6.42471 1.16786 6.02753"
-					></path>
-				</svg> </a
-			>
+			<% if (user.cartItems.length) { %>
+				<div class="row w-75 mx-auto">
+					<section class="col-12 col-lg-8">
+						<% user.cartItems.forEach(item => { %>
+							<div class="course-card d-flex justify-content-around align-items-center w-100 bg-secondary-subtle p-4 rounded mb-4">
+								<img class="img-fluid rounded" width="100px" src="<%= item?.thumbnail?.path ?? '/static/imgs/defaultImage.avif' %>" alt="<%= item.title %>">
+								<div class="d-flex text-center flex-column me-auto ms-3">
+									<p class="mb-2"><%= item.title %></p>
+									<p class="mb-0"><span class="me-2 number" data-value="<%= item.price %>"></span><img class="img-fluid" width="16px" loading="lazy" src="/static/imgs/toman-black.svg" alt="تومان"></p>
+								</div>
+								<button class="delete-course btn btn-outline-danger">حذف</button>
+							</div>
+						<% }) %>
+					</section>
+					<section class="col-12 col-lg-4 text-center bg-secondary-subtle p-4 rounded">
+						<h1 class="text-center fs-4 fw-bold">اطلاعات پرداخت</h1>
+						<hr class="w-75 mx-auto">
+						<p class="text-start mb-1">کد تخفیف</p>
+						<div class="position-relative">
+							<input class="form-control h-100" type="text" placeholder="کد تخفیف را وارد کنید">
+							<button type="button" class="btn btn-secondary btn-sm fs-14px position-absolute top-50 end-0 h-100 translate-middle-y">اعمال کد</button>
+						</div>
+						<hr class="w-75 mx-auto mt-4">
+						<!-- meta price info -->
+						<section class="d-flex flex-column w-100">
+							<!-- total start -->
+							<div class="d-flex w-100">
+								<p class="mb-0 fw-bold">جمع کل</p>
+								<div class="d-flex align-items-center ms-auto">
+									<p class="mb-0 me-1">1000000</p>
+									<img class="img-fluid" width="16px" loading="lazy" src="/static/imgs/toman-black.svg" alt="تومان">
+								</div>
+							</div>
+							<!-- total start -->
+							<!-- discount start -->
+							<div class="d-flex w-100 mt-3">
+								<p class="mb-0 fw-bold text-secondary">تخفیف</p>
+								<div class="d-flex align-items-center ms-auto text-danger">
+									<p class="mb-0 me-1">0</p>
+									<img class="img-fluid" width="16px" loading="lazy" src="/static/imgs/toman-red.svg" alt="تومان">
+								</div>
+							</div>
+							<!-- discount end -->
+						</section>
+						<!-- meta price info -->
+						<hr class="w-75 mx-auto mt-4">
+						<section class="d-flex w-100">
+							<p class="mb-0 fw-bold fs-6">مبلغ قابل پرداخت</p>
+							<div class="d-flex align-items-center ms-auto">
+								<p class="mb-0 me-1">1000000</p>
+								<img class="img-fluid" width="16px" loading="lazy" src="/static/imgs/toman-black.svg" alt="تومان">
+							</div>
+						</section>
+						<form action="/cart/payment" method="post" class="mt-5">
+							<button type="submit" class="btn btn-info text-white fw-bold fs-5 ">
+									تکمیل فرآیند خرید
+									<svg width="23" height="15" viewBox="0 0 23 15" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+									<path class="fill-current transition duration-200 text-dark-550 dark:group-hover:text-gray-20 dark:text-white group-hover:text-dark-700" opacity="0.4" d="M16.5073 5.95329L21.0752 5.54932C22.1003 5.54932 22.9315 6.38856 22.9315 7.42367C22.9315 8.45878 22.1003 9.29802 21.0752 9.29802L16.5073 8.89404C15.7031 8.89404 15.0511 8.23571 15.0511 7.42367C15.0511 6.61027 15.7031 5.95329 16.5073 5.95329"></path>
+									<path class="fill-current transition duration-200 text-dark-550 dark:group-hover:text-gray-20 dark:text-white group-hover:text-dark-700" d="M1.16786 6.02753C1.23926 5.95544 1.50598 5.65076 1.75653 5.39776C3.21811 3.81313 7.03437 1.22195 9.03073 0.428959C9.33382 0.302461 10.1003 0.0331419 10.5112 0.0140991C10.9032 0.0140991 11.2776 0.105232 11.6346 0.284778C12.0805 0.536415 12.4361 0.933592 12.6328 1.4015C12.7581 1.72523 12.9548 2.69777 12.9548 2.71545C13.1501 3.77776 13.2565 5.50521 13.2565 7.41493C13.2565 9.23215 13.1501 10.8889 12.9898 11.9689C12.9723 11.9879 12.7756 13.1944 12.5614 13.6079C12.1694 14.3642 11.4029 14.8321 10.5826 14.8321H10.5112C9.97638 14.8144 8.85292 14.3451 8.85292 14.3288C6.96297 13.5358 3.23697 11.0698 1.73902 9.43074C1.73902 9.43074 1.31604 9.00908 1.13284 8.74656C0.84726 8.36843 0.70447 7.90052 0.70447 7.43261C0.70447 6.9103 0.864772 6.42471 1.16786 6.02753"></path>
+									</svg>
+							</button>
+						</form>
+					</section>
+				</div>
+			<% } else { %>
+					<h1 class="mb-2 text-secondary fs-4 mt-3">سبد خرید شما خالی است!</h1>
+					<img class="img-fluid " src="/static/imgs/emptyCart.svg" alt="سبد خرید خالی" />
+					<a class="btn btn-primary mt-4" href="/courses"
+						><span class="me-2">شروع یادگیری برنامه نویسی</span>
+						<svg width="23" height="15" viewBox="0 0 23 15" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+							<path
+								class="fill-current transition duration-200 text-dark-550 dark:group-hover:text-gray-20 dark:text-white group-hover:text-dark-700"
+							opacity="0.4"
+								d="M16.5073 5.95329L21.0752 5.54932C22.1003 5.54932 22.9315 6.38856 22.9315 7.42367C22.9315 8.45878 22.1003 9.29802 21.0752 9.29802L16.5073 8.89404C15.7031 8.89404 15.0511 8.23571 15.0511 7.42367C15.0511 6.61027 15.7031 5.95329 16.5073 5.95329"
+							></path>
+							<path
+								class="fill-current transition duration-200 text-dark-550 dark:group-hover:text-gray-20 dark:text-white group-hover:text-dark-700"
+								d="M1.16786 6.02753C1.23926 5.95544 1.50598 5.65076 1.75653 5.39776C3.21811 3.81313 7.03437 1.22195 9.03073 0.428959C9.33382 0.302461 10.1003 0.0331419 10.5112 0.0140991C10.9032 0.0140991 11.2776 0.105232 11.6346 0.284778C12.0805 0.536415 12.4361 0.933592 12.6328 1.4015C12.7581 1.72523 12.9548 2.69777 12.9548 2.71545C13.1501 3.77776 13.2565 5.50521 13.2565 7.41493C13.2565 9.23215 13.1501 10.8889 12.9898 11.9689C12.9723 11.9879 12.7756 13.1944 12.5614 13.6079C12.1694 14.3642 11.4029 14.8321 10.5826 14.8321H10.5112C9.97638 14.8144 8.85292 14.3451 8.85292 14.3288C6.96297 13.5358 3.23697 11.0698 1.73902 9.43074C1.73902 9.43074 1.31604 9.00908 1.13284 8.74656C0.84726 8.36843 0.70447 7.90052 0.70447 7.43261C0.70447 6.9103 0.864772 6.42471 1.16786 6.02753"
+							></path>
+						</svg> </a
+					>
+			<% } %>
 		</main>
 	</div>
 </div>

@@ -112,6 +112,7 @@ class CourseController extends Controller {
 			})
 				.populate(['episodes', 'comments', 'ratings'])
 				.populate('comments')
+				.populate([{ path: 'likedBy', select: '_id' }])
 				.exec();
 			if (!foundedCourse) {
 				return this.flashAndRedirect(req, res, 'error', `دوره یافت نشد`, `/admin/courses/${req.body.courseId}/delete`);
@@ -125,7 +126,11 @@ class CourseController extends Controller {
 				// remove course ratings
 				foundedCourse.ratings.forEach(async rating => await rating.deleteOne());
 				// TODO: remove course id from the current user cart
-				// TODO : remove course id from the current user liked courses
+				// remove course id from the current user liked courses
+				foundedCourse.likedBy.forEach(async user => {
+					user.likedCourses = user.likedCourses.filter(id => id.toString() != foundedCourse._id.toString());
+					await user.save();
+				});
 				// remove Course
 				await foundedCourse.deleteOne();
 				req.flash('success', 'دوره با موفقیت حذف شد');

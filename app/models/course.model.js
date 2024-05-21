@@ -46,6 +46,12 @@ courseSchema.virtual('ratings', {
 	foreignField: 'course',
 });
 
+courseSchema.virtual('likedBy', {
+	ref: 'user',
+	localField: '_id',
+	foreignField: 'likedCourses',
+});
+
 courseSchema.methods.inc = async function (field, number = 1) {
 	this[field] += number;
 	await this.save();

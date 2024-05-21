@@ -23,10 +23,26 @@ router.use(
 		res.locals.title = 'فروشگاه عطن';
 		res.locals.date = date;
 		if (req.isAuthenticated()) {
-			let user = await User.findById(req.user._id, { password: 0, rememberToken: 0 }).populate({
-				path: 'cartItems',
-				select: 'title price slug thumbnail _id',
-			});
+			let user = await User.findById(req.user._id, {
+				cartItems: 1,
+				name: 1,
+				email: 1,
+				photo: 1,
+				admin: 1,
+				likedCourses: 1,
+			})
+				.lean()
+				.populate({
+					path: 'cartItems',
+					select: 'title price slug thumbnail _id',
+				});
+			let totalCost = 0;
+			if (user?.cartItems.length > 0) {
+				user.cartItems.forEach(item => {
+					totalCost += item.price;
+				});
+			}
+			res.locals.totalCost = totalCost;
 			res.locals.user = user;
 		}
 		next();

@@ -88,7 +88,7 @@
 								<div class="cart-prodcuts d-flex flex-column">
 									<% user.cartItems.forEach(item => { %>
 									<!-- cart product item start -->
-									<div class="cart-product d-flex justify-content-evenly align-items-center border-bottom pb-2 mb-3">
+									<div class="dropdown-item-text cart-product d-flex justify-content-evenly align-items-center border-bottom pb-2 mb-3 ">
 										<a href="/courses/<%= item.slug %>" class="link link-dark">
 											<img class="rounded" width="70px" src="<%= item?.thumbnail?.path ?? ''%>" alt="<%= item.title %>">
 										</a>
@@ -99,8 +99,8 @@
 												<img width="16px" src="/static/imgs/toman-black.svg" alt="تومان" />
 											</p>
 										</div>
-										<button data-courseId="<%= item._id %>" type="button" class="btn d-inline-flex justify-content-center align-items-center ms-auto">
-											<i class='bx bxs-trash-alt text-danger'></i>
+										<button data-courseId="<%= item._id %>" type="button" class="btn d-inline-flex justify-content-center align-items-center ms-auto ">
+											<i class='bx bxs-trash-alt text-danger user-select-none removeCourseFromCartBtn'></i>
 										</button>
 									</div>
 									<!-- cart product item start -->

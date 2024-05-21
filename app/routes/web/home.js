@@ -13,7 +13,8 @@ router.get('/contact-us', homeController.getContactUsPage);
 router.get('/about-us', homeController.getAboutUsPage);
 
 router.get('/cart', isUserAuthenticate, homeController.getCartPage);
-router.post('/cart/add-post', isUserAuthenticate, homeController.addProductToCart);
+router.post('/cart/add-item', isUserAuthenticate, homeController.addProductToCart);
+router.delete('/cart/remove-item', isUserAuthenticate, homeController.removeProductFromCart);
 
 router.post('/comment', isUserAuthenticate, validateComment(), checkDataValidation, homeController.comment);
 

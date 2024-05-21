@@ -11,12 +11,12 @@
 									<p class="mb-2"><%= item.title %></p>
 									<p class="mb-0"><span class="me-2 number" data-value="<%= item.price %>"></span><img class="img-fluid" width="16px" loading="lazy" src="/static/imgs/toman-black.svg" alt="تومان"></p>
 								</div>
-								<button class="delete-course btn btn-outline-danger">حذف</button>
+								<button class="btn" data-courseId="<%= item._id %>"><i class="bx bxs-trash-alt text-danger fs-5 delete-course"></i></button>
 							</div>
 						<% }) %>
 					</section>
 					<section class="col-12 col-lg-4 text-center bg-secondary-subtle p-4 rounded">
-						<h1 class="text-center fs-4 fw-bold">اطلاعات پرداخت</h1>
+						<h1 class="text-center fs-4 fw-bold">اطلاعات پرداخت 🛒</h1>
 						<hr class="w-75 mx-auto">
 						<p class="text-start mb-1">کد تخفیف</p>
 						<div class="position-relative">

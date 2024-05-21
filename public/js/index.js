@@ -68,3 +68,31 @@ window.addEventListener('scroll', function () {
 	const progress = document.querySelector('.progress');
 	progress.style.borderImage = `conic-gradient(#007bff ${scrollPercentage}%, transparent 0) 1`;
 });
+
+// remove product item from cart
+const removeCourseFromCartBtns = document.querySelectorAll('.removeCourseFromCartBtn');
+const removeCourseBtns = document.querySelectorAll('.delete-course');
+
+removeCourseBtns.forEach(btn => {
+	btn.addEventListener('click', deleteCourseFromCart);
+});
+removeCourseFromCartBtns.forEach(btn => {
+	btn.addEventListener('click', deleteCourseFromCart);
+});
+
+async function deleteCourseFromCart(e) {
+	const courseId = e.target.parentElement.dataset.courseid;
+	const cartItem = e.target.parentElement.parentElement;
+	// send ajax request to the server
+	const response = await fetch('/cart/remove-item', {
+		method: 'delete',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ courseId }),
+	});
+	if (!response.ok) return alert('حذف محصول با موفقیت انجام نشد');
+	alert('محصول با موفقیت از سبد خرید حذف شد');
+	cartItem.remove();
+	window.location.reload();
+}

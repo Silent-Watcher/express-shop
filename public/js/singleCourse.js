@@ -103,7 +103,7 @@ window.addEventListener('load', () => {
 	const addToCartBtn = document.querySelector('#addToCartBtn');
 	addToCartBtn.addEventListener('click', async () => {
 		// send ajax request to the server
-		const response = await fetch('/cart/add-post', {
+		const response = await fetch('/cart/add-item', {
 			method: 'post',
 			headers: {
 				'Content-Type': 'application/json',

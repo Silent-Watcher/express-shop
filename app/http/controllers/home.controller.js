@@ -70,9 +70,17 @@ class HomeController extends Controller {
 		}
 	}
 	//
-	getCartPage(req, res, next) {
+	async getCartPage(req, res, next) {
 		try {
-			res.render('pages/cart');
+			const user = await User.findById(req.user.id, { cartItems: 1 })
+				.lean()
+				.populate([{ path: 'cartItems', select: 'price' }]);
+			let totalCost = 0;
+			user.cartItems.forEach(item => {
+				totalCost += item.price;
+			});
+			req.user.totalCost = totalCost;
+			res.render('pages/cart', { totalCost });
 		} catch (error) {
 			next(error);
 		}

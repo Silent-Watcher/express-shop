@@ -81,30 +81,34 @@
 							<section>
 								<div class="d-flex justify-content-between align-items-center">
 									<p class="mb-0"><span class="me-2 itemsCount"><%= user.cartItems.length > 0  ? user.cartItems.length : 0  %></span><span>مورد</span></p>
-									<a style="font-size: 14px;" href="/cart">مشاهده سبد خرید</a>
+									<a class="fw-bold btn btn-outline-primary" style="font-size: 14px;" href="/cart">مشاهده سبد خرید</a>
 								</div>
 								<hr class="w-75 mx-auto">
 								<% if (user.cartItems.length > 0) { %>
-									<div class="cart-prodcuts d-flex flex-column">
+								<div class="cart-prodcuts d-flex flex-column">
 									<% user.cartItems.forEach(item => { %>
 									<!-- cart product item start -->
 									<div class="cart-product d-flex justify-content-evenly align-items-center border-bottom pb-2 mb-3">
 										<a href="/courses/<%= item.slug %>" class="link link-dark">
-											<img class="rounded-circle" width="50px" height="50px" src="<%= item?.thumbnail?.path ?? ''%>" alt="<%= item.title %>">
+											<img class="rounded" width="70px" src="<%= item?.thumbnail?.path ?? ''%>" alt="<%= item.title %>">
 										</a>
-										<div>
+										<div class="ms-3">
 											<a class="link link-dark" href="#"><p class="mb-0 fw-bold" ><%= item.title %></p></a>
 											<p class="mb-0 text-secondary mt-1 d-flex align-items-center">
-												<span class="me-2 price"><%= item.price %></span>
+												<span class="me-2 price number" data-value="<%= item.price %>"></span>
 												<img width="16px" src="/static/imgs/toman-black.svg" alt="تومان" />
 											</p>
 										</div>
-										<button data-courseId="<%= item._id %>" type="button" class="btn d-inline-flex justify-content-center align-items-center">
+										<button data-courseId="<%= item._id %>" type="button" class="btn d-inline-flex justify-content-center align-items-center ms-auto">
 											<i class='bx bxs-trash-alt text-danger'></i>
 										</button>
 									</div>
 									<!-- cart product item start -->
 									<% }) %>
+									<div class="d-flex align-items-center">
+										<p class="mb-0 fw-bold">جمع کل :</p>
+										<p class="mb-0 number fw-bold ms-auto" data-value="<%= totalCost %>"></p>
+									</div>
 								</div>
 								<% } else { %>
 									<div class="emptyCartInfo">

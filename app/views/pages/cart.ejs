@@ -30,7 +30,7 @@
 							<div class="d-flex w-100">
 								<p class="mb-0 fw-bold">جمع کل</p>
 								<div class="d-flex align-items-center ms-auto">
-									<p class="mb-0 me-1">1000000</p>
+									<p class="mb-0 me-1 number" data-value="<%= totalCost %>"></p>
 									<img class="img-fluid" width="16px" loading="lazy" src="/static/imgs/toman-black.svg" alt="تومان">
 								</div>
 							</div>
@@ -39,7 +39,7 @@
 							<div class="d-flex w-100 mt-3">
 								<p class="mb-0 fw-bold text-secondary">تخفیف</p>
 								<div class="d-flex align-items-center ms-auto text-danger">
-									<p class="mb-0 me-1">0</p>
+									<p class="mb-0 me-1 number" data-value="0"></p>
 									<img class="img-fluid" width="16px" loading="lazy" src="/static/imgs/toman-red.svg" alt="تومان">
 								</div>
 							</div>
@@ -50,8 +50,8 @@
 						<section class="d-flex w-100">
 							<p class="mb-0 fw-bold fs-6">مبلغ قابل پرداخت</p>
 							<div class="d-flex align-items-center ms-auto">
-								<p class="mb-0 me-1">1000000</p>
-								<img class="img-fluid" width="16px" loading="lazy" src="/static/imgs/toman-black.svg" alt="تومان">
+								<p class="mb-0 me-2 number fs-5 fw-bold" data-value="<%= totalCost %>"></p>
+								<img class="img-fluid" width="20px" loading="lazy" src="/static/imgs/toman-black.svg" alt="تومان">
 							</div>
 						</section>
 						<form action="/cart/payment" method="post" class="mt-5">

@@ -5,6 +5,7 @@ function replaceEnglishWithPersianNumbers(inputString) {
 
 	const englishNumbers = /[0-9]/g;
 
+	inputString = inputString.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 	return inputString.replace(englishNumbers, function (match) {
 		return persianNumbers[parseInt(match)];
 	});

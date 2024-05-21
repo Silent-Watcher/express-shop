@@ -18,6 +18,7 @@ router.use(
 		res.locals.isAuthenticated = req.isAuthenticated();
 		res.locals.errors = req.flash('error');
 		res.locals.success = req.flash('success');
+		res.locals.alert = req.flash('sweetalert');
 		res.locals.breadcrumbs = req.breadcrumbs;
 		res.locals.url = `${req.protocol}://${req.hostname}:${PORT}${req.url}`;
 		res.locals.title = 'فروشگاه عطن';

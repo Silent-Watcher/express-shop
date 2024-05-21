@@ -6,20 +6,20 @@
 
 		<!-- Primary Meta Tags -->
 		<title>فروشگاه عطن : مرجع آموزش های تخصصی در زمینه وب</title>
-		<meta name="title" content="فروشگاه عطن : مرجع آموزش های تخصصی در زمینه وب">
-		<meta name="description" content="برنامه نویسی رو از اینجا شروع کنیم..">
+		<meta name="title" content="فروشگاه عطن : مرجع آموزش های تخصصی در زمینه وب" />
+		<meta name="description" content="برنامه نویسی رو از اینجا شروع کنیم.." />
 		<!-- Open Graph / Facebook -->
-		<meta property="og:type" content="website">
-		<meta property="og:url" content="https://opengraphgenerator.com/">
-		<meta property="og:title" content="فروشگاه عطن : مرجع آموزش های تخصصی در زمینه وب">
-		<meta property="og:description" content="برنامه نویسی رو از اینجا شروع کنیم..">
-		<meta property="og:image" content="/static/meta.png">
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://opengraphgenerator.com/" />
+		<meta property="og:title" content="فروشگاه عطن : مرجع آموزش های تخصصی در زمینه وب" />
+		<meta property="og:description" content="برنامه نویسی رو از اینجا شروع کنیم.." />
+		<meta property="og:image" content="/static/meta.png" />
 		<!-- Twitter -->
-		<meta property="twitter:card" content="summary_large_image">
-		<meta property="twitter:url" content="https://opengraphgenerator.com/">
-		<meta property="twitter:title" content="فروشگاه عطن : مرجع آموزش های تخصصی در زمینه وب">
-		<meta property="twitter:description" content="برنامه نویسی رو از اینجا شروع کنیم..">
-		<meta property="twitter:image" content="/static/meta.png">
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content="https://opengraphgenerator.com/" />
+		<meta property="twitter:title" content="فروشگاه عطن : مرجع آموزش های تخصصی در زمینه وب" />
+		<meta property="twitter:description" content="برنامه نویسی رو از اینجا شروع کنیم.." />
+		<meta property="twitter:image" content="/static/meta.png" />
 
 		<%- meta %>
 		<!-- Swiper slider -->
@@ -36,6 +36,13 @@
 			href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css"
 			rel="stylesheet"
 			type="text/css"
+		/>
+		<!-- sweet alert 2 -->
+		<link
+			href="
+					https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css
+					"
+			rel="stylesheet"
 		/>
 		<!-- icons -->
 		<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
@@ -58,6 +65,11 @@
 		<!-- footer -->
 		<%- include('../components/footer.ejs') %>
 		<!-- footer -->
+		<!-- scroll to top button -->
+		<button id="scrollToTopBtn">
+			<div class="progress"><i class="bx bxs-chevron-up fs-1"></i></div>
+		</button>
+		<!-- scripts -->
 		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 		<!-- popper -->
 		<script
@@ -71,11 +83,35 @@
 			integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
 			crossorigin="anonymous"
 		></script>
+		<!-- sweet alert 2  -->
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
+		<!--  -->
+		<%
+				let sweetalert = alert;
+				if(alert.length > 0) {
+						let data = sweetalert[0];
+		%>
+					<script>
+					const Toast = Swal.mixin({
+						toast: true,
+						position: 'top-end',
+						showConfirmButton: false,
+						timer: 3000,
+						width : '50rem',
+						timerProgressBar: true,
+						didOpen: toast => {
+							toast.onmouseenter = Swal.stopTimer;
+							toast.onmouseleave = Swal.resumeTimer;
+						},
+					});
+					Toast.fire({
+						icon:'<%= data.icon %>',
+						title: '<%= data.title %>',
+					});
+				</script>
+		<% } %>
+
 		<%- script %>
 		<script async src="/static/js/index.js"></script>
-		<!-- <button id="scrollToTopBtn"><i class='bx bxs-chevron-up-circle fs-1'></i></button> -->
-		<button id="scrollToTopBtn">
-			<div class="progress"><i class='bx bxs-chevron-up fs-1'></i></div>
-		</button>
 	</body>
 </html>

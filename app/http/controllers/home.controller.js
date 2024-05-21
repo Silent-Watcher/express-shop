@@ -2,7 +2,7 @@ const httpErrors = require('http-errors');
 
 const homeService = require('app/http/services/home.service');
 const Controller = require('app/http/controllers/controller');
-const Course = require('app/models/course.model');
+const Course = require('../../models/course.model');
 const User = require('../../models/user.model');
 const recaptcha = require('app/config/recaptcha');
 const Comment = require('../../models/comment.model');
@@ -57,8 +57,8 @@ class HomeController extends Controller {
 	async comment(req, res, next) {
 		try {
 			const result = await Comment.create({ user: req.user._id, ...req.body });
-			if (!result) this.flashAndRedirect(req, res, 'error', 'خطایی در ثبت نظر رخ داده است.', req.headers.referer);
-			return this.flashAndRedirect(
+			if (!result) return this.alertAndRedirect(req, res, 'error', 'خطایی در ثبت نظر رخ داده است', req.headers.referer);
+			return this.alertAndRedirect(
 				req,
 				res,
 				'success',
@@ -109,6 +109,44 @@ class HomeController extends Controller {
 				return res.json({ status: res.statusCode });
 			}
 			return res.json({ status: httpStatus.BadRequest });
+		} catch (error) {
+			next(error);
+		}
+	}
+	//
+	payment(req, res, next) {
+		try {
+			const cartItems = req.user.cartItems;
+			if (cartItems.length > 0) {
+				// validations before start the payment operation
+				cartItems.forEach(async item => {
+					const foundedCourse = await Course.findById(item, { _id: 1, type: 1, price: 1, title: 1 }).lean();
+					if (!foundedCourse)
+						return this.flashAndRedirect(
+							req,
+							res,
+							'error',
+							'شناسه دوره های داخل سبد خرید نا معتبر است',
+							req.headers.referer
+						);
+					// check if the user has already bought this course or not
+					if (req.user.checkIfLearning(item)) {
+						return this.flashAndRedirect(
+							req,
+							res,
+							'error',
+							'شما قبلا این دوره را خریداری کرده اید',
+							req.headers.referer
+						);
+					}
+					// check if the course is vip with 0 price or just a free course
+					if ((item.type == 'vip' && item.price == 0) || item.type == 'free') {
+						return this.flashAndRedirect(req, res, 'error', `عملیات خرید برای دوره ${item.title} امکان پذیر نیست`);
+					}
+				});
+				// TODO: start the payment process
+			} else return this.flashAndRedirect(req, res, 'error', 'سبد خرید خالی میباشد', req.headers.referer);
+			return this.flashAndRedirect(req, res, 'error', 'خطا در سرور', req.headers.referer);
 		} catch (error) {
 			next(error);
 		}

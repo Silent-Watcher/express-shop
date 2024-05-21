@@ -1,9 +1,22 @@
+/* eslint-disable no-undef */
 'use strict';
 const courseLikeBtn = document.querySelector('#courseLikeBtn');
 const pageData = document.querySelector('#pageData');
 const courseLikes = document.querySelector('#courseLikes');
 const startInputs = document.querySelectorAll('.startInput');
 let canUserRate = document.querySelector('#courseData').dataset.canrate;
+
+const Toast = Swal.mixin({
+	toast: true,
+	position: 'top-end',
+	showConfirmButton: false,
+	timer: 3000,
+	timerProgressBar: true,
+	didOpen: toast => {
+		toast.onmouseenter = Swal.stopTimer;
+		toast.onmouseleave = Swal.resumeTimer;
+	},
+});
 
 function loadAndDisplayCourseTags() {
 	const tagsWrap = document.querySelector('#courseTagsWrap');
@@ -42,13 +55,15 @@ async function likeCourse(courseId) {
 
 		if (response.ok) {
 			const data = await response.json();
-			console.log('data: ', data);
 			const { likesCount, likeStatus } = data;
 			courseLikes.innerHTML = replaceEnglishWithPersianNumbers(likesCount.toString());
 			if (likeStatus == 'liked') courseLikeBtn.classList.replace('link-dark', 'link-danger');
 			else courseLikeBtn.classList.replace('link-danger', 'link-dark');
 		} else {
-			alert('خطا در به روز رسانی تعداد لایک ها');
+			Toast.fire({
+				icon: 'error',
+				title: 'خطا در به روز رسانی تعداد علاقه مندی ها',
+			});
 		}
 	} catch (error) {
 		console.error(error);
@@ -89,11 +104,22 @@ window.addEventListener('load', () => {
 					const data = await response.json();
 					document.querySelector('#ratesCount').innerHTML = data.totalRates;
 					document.querySelector('#courseScore').innerHTML = data.score;
-					alert('امتیاز شما با موفقیت ثبت شد');
+					Toast.fire({
+						icon: 'success',
+						title: 'امتیاز شما با موفقیت ثبت شد',
+					});
 					return data;
-				} else alert('خطا در به روز رسانی دوره ');
+				} else {
+					Toast.fire({
+						icon: 'error',
+						title: 'خطا در به روز رسانی دوره',
+					});
+				}
 			} else {
-				alert('شما قبلا به این دوره امتیاز داده اید');
+				Toast.fire({
+					icon: 'error',
+					title: 'شما قبلا به این دوره امتیاز داده اید',
+				});
 			}
 		});
 	});
@@ -110,8 +136,17 @@ window.addEventListener('load', () => {
 			},
 			body: JSON.stringify({ courseId }),
 		});
-		if (!response.ok) return alert('مشکلی در افزودن محصول به سبد خرید رخ داد !');
-		alert('محصول شما با موفقیت به سبد خرید اضافه شد');
-		window.location.reload();
+		if (!response.ok) {
+			return Toast.fire({
+				icon: 'error',
+				title: 'مشکلی در افزودن محصول به سبد خرید رخ داد',
+			});
+		}
+		Toast.fire({
+			icon: 'success',
+			title: 'محصول شما به موفقیت به سبد خرید اضافه شد',
+		}).then(() => {
+			window.location.reload();
+		});
 	});
 });

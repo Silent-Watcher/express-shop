@@ -1,4 +1,5 @@
 'use strict';
+/* eslint-disable no-undef */
 
 function replaceEnglishWithPersianNumbers(inputString) {
 	const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
@@ -81,6 +82,17 @@ removeCourseFromCartBtns.forEach(btn => {
 });
 
 async function deleteCourseFromCart(e) {
+	const Toast = Swal.mixin({
+		toast: true,
+		position: 'top-end',
+		showConfirmButton: false,
+		timer: 3000,
+		timerProgressBar: true,
+		didOpen: toast => {
+			toast.onmouseenter = Swal.stopTimer;
+			toast.onmouseleave = Swal.resumeTimer;
+		},
+	});
 	const courseId = e.target.parentElement.dataset.courseid;
 	const cartItem = e.target.parentElement.parentElement;
 	// send ajax request to the server
@@ -91,8 +103,17 @@ async function deleteCourseFromCart(e) {
 		},
 		body: JSON.stringify({ courseId }),
 	});
-	if (!response.ok) return alert('حذف محصول با موفقیت انجام نشد');
-	alert('محصول با موفقیت از سبد خرید حذف شد');
+	if (!response.ok) {
+		Toast.fire({
+			icon: 'error',
+			title: 'حذف محصول با موفقیت انجام نشد',
+		});
+	}
 	cartItem.remove();
-	window.location.reload();
+	Toast.fire({
+		icon: 'success',
+		title: 'محصول با موفقیت از سبد خرید حذف شد',
+	}).then(() => {
+		window.location.reload();
+	});
 }

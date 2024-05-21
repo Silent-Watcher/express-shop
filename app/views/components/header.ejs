@@ -93,7 +93,7 @@
 											<img class="rounded" width="70px" src="<%= item?.thumbnail?.path ?? ''%>" alt="<%= item.title %>">
 										</a>
 										<div class="ms-3">
-											<a class="link link-dark" href="#"><p class="mb-0 fw-bold" ><%= item.title %></p></a>
+											<a class="link link-dark" href="/courses/<%= item.slug %>"><p class="mb-0 fw-bold" ><%= item.title %></p></a>
 											<p class="mb-0 text-secondary mt-1 d-flex align-items-center">
 												<span class="me-2 price number" data-value="<%= item.price %>"></span>
 												<img width="16px" src="/static/imgs/toman-black.svg" alt="تومان" />

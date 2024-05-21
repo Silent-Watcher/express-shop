@@ -96,7 +96,7 @@ class CourseController extends Controller {
 			let isVip = req.user.isVip();
 			switch (course.type) {
 				case 'paid':
-					canUse = isVip ? true : await req.user.checkIfLearning(course);
+					canUse = isVip ? true : await req.user.checkIfLearning(course._id);
 					break;
 				case 'vip':
 					canUse = true;

@@ -25,6 +25,13 @@
     />
 
     <!-- Helper CSS -->
+			<!-- sweet alert 2 -->
+			<link
+			href="
+					https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css
+					"
+			rel="stylesheet"
+		/>
 
 		<%- style %>
     <!-- css file -->
@@ -300,6 +307,33 @@
     ></script>
     <!--Main JS-->
     <script src="/static/admin/js/admin.js"></script>
+		<!-- sweet alert 2  -->
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
+
+		<%
+				let sweetalert = alert;
+				if(alert.length > 0) {
+						let data = sweetalert[0];
+		%>
+					<script>
+					const Toast = Swal.mixin({
+						toast: true,
+						position: 'top-end',
+						showConfirmButton: false,
+						timer: 3000,
+						timerProgressBar: true,
+						didOpen: toast => {
+							toast.onmouseenter = Swal.stopTimer;
+							toast.onmouseleave = Swal.resumeTimer;
+						},
+					});
+					Toast.fire({
+						icon:'<%= data.icon %>',
+						title: '<%= data.title %>',
+					});
+				</script>
+		<% } %>
+
 		<%- script %>
   </body>
 </html>

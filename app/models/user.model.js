@@ -9,6 +9,7 @@ const userSchema = new Schema(
 		photo: { type: String, required: false },
 		bio: { type: String, required: false },
 		rememberToken: { type: String, required: false, default: null },
+		learning: { type: [Schema.Types.ObjectId], ref: 'course' },
 		likedCourses: { type: [Schema.Types.ObjectId], ref: 'course' },
 		cartItems: { type: [Schema.Types.ObjectId], ref: 'course' },
 	},
@@ -28,10 +29,10 @@ userSchema.virtual('ratedCourses', {
 });
 
 // eslint-disable-next-line no-unused-vars
-userSchema.methods.checkIfLearning = function (course) {
-	// TODO: check if a user buy a specific course
-	return false;
+userSchema.methods.checkIfLearning = function (courseId) {
+	return this.learning.indexOf(courseId) == -1 ? false : true;
 };
+
 userSchema.methods.isVip = function () {
 	// TODO: check if a user became a vip or not
 	return false;

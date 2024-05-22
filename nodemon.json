@@ -1,5 +1,5 @@
 {
-	"watch": ["./app/**", "server.js"],
+	"watch": ["./app/**", "server.js" , "./subdomains/**"],
 	"ext": "js,json",
 	"ignore": ["node_modules/", "dist/", "coverage"],
 	"restartable": "rs",

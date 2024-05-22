@@ -76,7 +76,7 @@ class CourseController extends Controller {
 					},
 				])
 				.exec();
-			const title = course.title;
+			const title = `فروشگاه عطن | ${course.title}`;
 			const canUse = await this.canUserUse(req, course);
 			const canRate = await this.canUserRate(req, course);
 			const rateInfo = { total: course.ratings.length, score: course.score };

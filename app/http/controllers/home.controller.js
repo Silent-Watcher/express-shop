@@ -1,3 +1,5 @@
+const ZarinpalCheckout = require('zarinpal-checkout');
+
 const httpErrors = require('http-errors');
 
 const homeService = require('app/http/services/home.service');
@@ -145,6 +147,23 @@ class HomeController extends Controller {
 					}
 				});
 				// TODO: start the payment process
+				let zarinpal = ZarinpalCheckout.create('xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', true);
+				zarinpal
+					.PaymentRequest({
+						Amount: res.locals.totalCost,
+						CallbackURL: 'http://localhost:3000/cart/payment/checker',
+						Description: 'Hello NodeJS API.',
+						Email: req.user.email,
+						Mobile: '09120000000',
+					})
+					.then(function (response) {
+						if (response.status == 100) {
+							res.redirect(response.url);
+						}
+					})
+					.catch(function (err) {
+						console.log(err);
+					});
 			} else return this.flashAndRedirect(req, res, 'error', 'سبد خرید خالی میباشد', req.headers.referer);
 			return this.flashAndRedirect(req, res, 'error', 'خطا در سرور', req.headers.referer);
 		} catch (error) {

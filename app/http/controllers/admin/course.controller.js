@@ -28,6 +28,7 @@ class CourseController extends Controller {
 				price,
 				tags,
 			});
+			// return this.alertAndRedirect(req, res, 'success', `دوره ${title} با موفقیت ایجاد شد`, '/admin/courses');
 			return this.flashAndRedirect(req, res, 'success', `دوره ${title} با موفقیت ایجاد شد`, '/admin/courses');
 		} catch (error) {
 			next({ status: 500, message: `something went wrong !`, stack: error.stack });

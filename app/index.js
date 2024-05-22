@@ -21,6 +21,8 @@ const i18next = require('i18next');
 const i18nextMiddleware = require('i18next-http-middleware');
 const Backend = require('i18next-fs-backend');
 const path = require('path');
+const vhost = require('vhost');
+const userDashboard = require('../subdomains/user/index');
 
 // const helmet = require('helmet');
 
@@ -33,7 +35,7 @@ class Application {
 	constructor(port) {
 		autoBind(this);
 		this.#port = port;
-
+		this.#app.use(vhost('user.localhost', userDashboard));
 		i18next
 			.use(Backend)
 			.use(i18nextMiddleware.LanguageDetector)

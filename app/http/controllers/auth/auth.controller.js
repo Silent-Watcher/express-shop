@@ -39,7 +39,7 @@ class AuthController extends Controller {
 				if (!user) return res.redirect('/auth/login');
 				req.login(user, async err => {
 					if (err) return next(err);
-					await setRememberToken(res, user);
+					if ('remember' in req.body && req.body?.remember == 'true') await setRememberToken(res, user);
 					res.locals = { user: req.user };
 					return res.redirect('/');
 				});

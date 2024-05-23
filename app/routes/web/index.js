@@ -78,7 +78,7 @@ router.use(
 
 // courses routes
 router.use('/courses', courseRouter);
-//  episodes routes
+// episodes routes
 router.use('/episodes', episodeRouter);
 
 module.exports = router;

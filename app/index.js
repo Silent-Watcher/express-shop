@@ -1,3 +1,7 @@
+const vhost = require('vhost');
+
+const http = require('http');
+
 const methodOverride = require('method-override');
 
 const favicon = require('serve-favicon');
@@ -6,7 +10,6 @@ const compression = require('compression');
 const cookieParser = require('cookie-parser');
 const express = require('express');
 const flash = require('connect-flash');
-const http = require('http');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo');
 const session = require('express-session');
@@ -21,9 +24,7 @@ const i18next = require('i18next');
 const i18nextMiddleware = require('i18next-http-middleware');
 const Backend = require('i18next-fs-backend');
 const path = require('path');
-const vhost = require('vhost');
-const userDashboard = require('../subdomains/user/index');
-
+const userPanel = require('../subdomains/user/index');
 // const helmet = require('helmet');
 
 const { env } = process;
@@ -35,7 +36,7 @@ class Application {
 	constructor(port) {
 		autoBind(this);
 		this.#port = port;
-		this.#app.use(vhost('user.localhost', userDashboard));
+
 		i18next
 			.use(Backend)
 			.use(i18nextMiddleware.LanguageDetector)
@@ -78,7 +79,6 @@ class Application {
 		this.#app.set('layout extractStyles', true);
 		this.#app.set('layout extractMetas', true);
 		this.#app.use(methodOverride('_method'));
-		this.#app.use('/static', express.static(STATIC_FILES_PATH));
 		this.#app.use('/robots.txt', express.static(path.join(STATIC_FILES_PATH, 'robots.txt')));
 		this.#app.use(addBreadcrumbs);
 		this.#app.use(favicon(path.join(STATIC_FILES_PATH, 'favicon.ico')));
@@ -114,13 +114,14 @@ class Application {
 			}),
 			flash()
 		);
-
 		this.#app.use(passport.initialize());
 		this.#app.use(passport.session());
 		this.#app.use(rememberLogin);
+		this.#app.use(vhost('user.localhost', userPanel));
+		this.#app.use('/static', express.static(STATIC_FILES_PATH));
 		this.#app.use((req, res, next) => {
 			if (req.isAuthenticated()) {
-				res.locals = { user: req.user };
+				res.locals.user = req.user;
 			} else {
 				res.locals = { user: null };
 			}

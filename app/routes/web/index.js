@@ -8,6 +8,7 @@ const { redirectIfAuthenticate, isUserAuthenticate, checkUserIsAdmin } = require
 const { PORT } = require('app/common/globals');
 const date = require('../../helpers/date/convertToJalali');
 const User = require('../../models/user.model');
+const { settings } = require('../../common/globals');
 
 // main page routes
 router.use(
@@ -21,7 +22,7 @@ router.use(
 		res.locals.alert = req.flash('sweetalert');
 		res.locals.breadcrumbs = req.breadcrumbs;
 		res.locals.url = `${req.protocol}://${req.hostname}:${PORT}${req.url}`;
-		res.locals.title = 'فروشگاه عطن';
+		res.locals.title = (await settings).appName;
 		res.locals.date = date;
 		if (req.isAuthenticated()) {
 			let user = await User.findById(req.user._id, {

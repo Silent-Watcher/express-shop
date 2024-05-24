@@ -1,10 +1,6 @@
 const { Schema, model } = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
-
-const imageSchema = new Schema({
-	size: { type: String, required: true, unique: false },
-	path: { type: String, required: true, unique: false },
-});
+const imageSchema = require('./schema/image.schema');
 
 const courseSchema = new Schema(
 	{

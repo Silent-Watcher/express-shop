@@ -5,6 +5,7 @@ const courseRouter = require('./course');
 const episodeRouter = require('./episode');
 const commentRouter = require('./comment');
 const categoryRouter = require('./category');
+const settingRouter = require('./setting');
 const validateImageSize = require('../../../validators/imageSize.validator');
 
 // fetch admin panel page
@@ -24,5 +25,8 @@ router.use('/comments', commentRouter);
 
 // admin panel category section
 router.use('/categories', categoryRouter);
+
+// admin panel setting section
+router.use('/settings', settingRouter);
 
 module.exports = router;

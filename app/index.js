@@ -1,5 +1,3 @@
-const vhost = require('vhost');
-
 const http = require('http');
 
 const methodOverride = require('method-override');
@@ -24,7 +22,6 @@ const i18next = require('i18next');
 const i18nextMiddleware = require('i18next-http-middleware');
 const Backend = require('i18next-fs-backend');
 const path = require('path');
-const userPanel = require('../subdomains/user/index');
 // const helmet = require('helmet');
 
 const { env } = process;
@@ -117,7 +114,6 @@ class Application {
 		this.#app.use(passport.initialize());
 		this.#app.use(passport.session());
 		this.#app.use(rememberLogin);
-		this.#app.use(vhost('user.localhost', userPanel));
 		this.#app.use('/static', express.static(STATIC_FILES_PATH));
 		this.#app.use((req, res, next) => {
 			if (req.isAuthenticated()) {

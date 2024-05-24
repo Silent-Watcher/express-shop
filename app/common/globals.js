@@ -11,6 +11,7 @@ module.exports = Object.freeze({
 	COURSE_IMAGES_BASE_PATH: path.join(process.cwd(), 'public', 'uploads', 'courses'),
 	DEFAULT_IMAGE_Addr: '/static/imgs/defaultImage.avif',
 	DEFAULT_THUMBNAIL: { size: 'original', path: '/static/imgs/defaultImage.avif' },
+	DEFAULT_FAVICON: { size: 'original', path: '/static/imgs/defaultImage.avif' },
 	PORT: process.env.PORT,
 	LOCALES_PATH: path.join(process.cwd(), 'app', 'locales'),
 });

@@ -116,9 +116,6 @@ importers:
       unique-string:
         specifier: '2'
         version: 2.0.0
-      vhost:
-        specifier: ^3.0.2
-        version: 3.0.2
       zarinpal-checkout:
         specifier: ^0.2.8
         version: 0.2.8
@@ -2540,10 +2537,6 @@ packages:
   vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
-
-  vhost@3.0.2:
-    resolution: {integrity: sha512-S3pJdWrpFWrKMboRU4dLYgMrTgoPALsmYwOvyebK2M6X95b9kQrjZy5rwl3uzzpfpENe/XrNYu/2U+e7/bmT5g==}
-    engines: {node: '>= 0.8.0'}
 
   wcwidth@1.0.1:
     resolution: {integrity: sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg==}
@@ -5081,8 +5074,6 @@ snapshots:
   validator@13.11.0: {}
 
   vary@1.1.2: {}
-
-  vhost@3.0.2: {}
 
   wcwidth@1.0.1:
     dependencies:

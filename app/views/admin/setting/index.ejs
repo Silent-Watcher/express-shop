@@ -1,0 +1,89 @@
+<style>
+	body.skin-dark .form-control {
+		max-width: 100%;
+		background-color: #161824;
+		border-color: transparent;
+		color: #8b8d9b;
+	}
+	.mbn-20 {
+		margin-bottom: -20px;
+	}
+
+	.mb-20 {
+		margin-bottom: 20px;
+	}
+</style>
+<div class="container">
+	<div class="row">
+		<div class="col-12 col-lg-6"><h3>تنظیمات</h3></div>
+	</div>
+	<!--  -->
+	<div class="row w-100">
+		<form enctype="multipart/form-data" method="post" action="/admin/settings/edit?_method=PUT">
+			<input type="hidden" name="settingId" value="<%= settings?._id ?? '' %>">
+			<!-- name  -->
+			<div class="col-12 mb-20">
+				<label class="mb-2 mt-4" for="siteName">عنوان سایت</label>
+				<input
+					autofocus
+					type="text"
+					id="siteName"
+					class="form-control"
+					name="appName"
+					required
+					value="<%- old?.name ?? settings?.appName %>"
+				/>
+			</div>
+			<!-- logo -->
+				<% if (settings?.logo?.length > 0) { %>
+					<!-- use default logo image -->
+					<div class="col-12 mb-20 d-flex align-items-center justify-content-center">
+						<label class="ms-2" for="useDefaultImage">از عکس پیش فرض استفاده کن</label>
+						<input type="checkbox" name="useDefaultImage" id="useDefaultImage" value="true">
+					</div>
+					<div class="text-center">
+						<img class="rounded" width="100px" src="/static/imgs/defaultImage.avif" alt="عکس پیش فرض">
+					</div>
+				<% } %>
+				<div id="editCourseImageSection">
+						<!-- image  -->
+						<div class="col-12 mb-20">
+							<label class="my-2 user-select-none" for="logo">لوگو سایت</label>
+							<div class="input-group">
+								<input
+									accept=".jpg,.jpeg,.png,.webp,.avif"
+									name="logo"
+									type="file"
+									class="form-control uploadImageInput"
+									id="logo"
+								/>
+							</div>
+							<p class="form-text user-select-none">پسوند های قابل قبول : jpg ، png ، webp ، avif</p>
+						</div>
+						<!-- preview -->
+						<% if (settings?.logo?.length > 0) { %>
+							<div class="d-flex justify-content-around align-items-center flex-wrap my-4">
+								<% settings?.logo.forEach(logo => { %>
+									<figure class="text-center">
+										<label for="favicon-<%=logo?.size%>"><img loading="lazy" width="100px" src="<%= logo?.path %>" alt="site logo : size <%= logo?.size %>" class="img-fluid rounded"></label>
+										<figcaption class="text-center mt-3"><%= logo?.size %></figcaption>
+										<% if (settings?.favicon?.size == logo?.size) { %>
+											<input type="radio" name="favicon" id="favicon-<%=logo?.size%>" checked value="<%= logo?.size %>">
+										<% } else { %>
+											<input type="radio" name="favicon" id="favicon-<%=logo?.size%>" value="<%= logo?.size %>">
+										<% } %>
+									</figure>
+								<% }) %>
+							</div>
+					<% } else { %>
+						<p class="form-text text-center mb-0 text-danger user-select-none">برای سایت لوگویی تعریف نشده است .</p>
+					<% }  %>
+				</div>
+
+			<div class="d-grid mt-4">
+				<button class="btn btn-primary btn-sm">به روز رسانی</button>
+			</div>
+		</form>
+	</div>
+</div>
+<script src="/static/admin/course/js/edit.js"></script>

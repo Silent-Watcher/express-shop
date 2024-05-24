@@ -53,6 +53,7 @@ class AuthController extends Controller {
 		req.logout(err => {
 			if (err) return next(err);
 			else {
+				res.clearCookie('userData');
 				res.clearCookie('remember_token');
 				res.redirect('/');
 			}

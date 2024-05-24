@@ -1,3 +1,5 @@
+![banner](https://github.com/Silent-Watcher/express-shop/blob/master/docs/express%20shop%20banner.png)
+
 ## atention ‼️
 This project is not finished yet. ... ☕🧙‍♂️
 

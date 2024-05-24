@@ -51,3 +51,4 @@
 *.cjs linguist-detectable=false
 *.css  linguist-detectable=false
 *.html  linguist-detectable=false
+*.ejs  linguist-detectable=false

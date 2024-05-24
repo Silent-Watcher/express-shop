@@ -1,7 +1,7 @@
 # Express shop
 
 <!-- banner start -->
-![express-shop](https://github.com/Silent-Watcher/express-shop/blob/master/docs/express%20shop%20banner.png)
+![express-shop](https://github.com/Silent-Watcher/express-shop/blob/master/docs/banner.png)
 <!-- banner end -->
 
 ## atention ‼️

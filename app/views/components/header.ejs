@@ -147,7 +147,7 @@
 								</section>
 								<ul class="dropdown-menu dropdown-menu-lg-end p-4">
 									<div class="d-flex justify-content-around align-items-center">
-										<a href="#">
+										<a href="/me">
 											<% if (user.photo) { %>
 												<img
 												class="avatar img-fluid rounded-circle"
@@ -166,27 +166,22 @@
 											<% }  %>
 										</a>
 										<div>
-											<a class="link-dark" href="#"
+											<a class="link-dark" href="/me"
 												><p class="mb-0">
 													<%= user.name ??
 													user.email.slice(0,user.email.indexOf('@')) + '@' %>
 												</p></a
 											>
-											<a class="icon-link icon-link-hover text-14" href="#">
+											<a class="icon-link icon-link-hover text-14" href="/me">
 												مشاهده پنل کاربری
 												<i class="bx bx-left-arrow-alt"></i>
 											</a>
 										</div>
 									</div>
+									<li class="fs-6 mb-2 mt-3"><a class="dropdown-item" href="/me/courses"><i class='bx bxs-folder'></i><span class="ms-2">دوره ها</span></a></li>
+									<li class="border-0 fs-6  my-2"><a class="dropdown-item" href="/me/tickets"><i class='bx bxs-chat'></i><span class="ms-2">تیکت ها</span></a></li>
+									<li class="border-0 fs-6 my-2"><a class="dropdown-item" href="/me/edit"><i class='bx bxs-user'></i><span class="ms-2">جزئیات حساب</span></a></li>
 									<li><hr class="dropdown-divider" /></li>
-									<li>
-										<a
-											class="dropdown-item d-inline-flex align-items-center"
-											href="#"
-											><i class="bx bx-video text-secondary"></i
-											><span class="ms-2">دوره ها</span></a
-										>
-									</li>
 									<li>
 										<a
 											class="dropdown-item d-inline-flex align-items-center"

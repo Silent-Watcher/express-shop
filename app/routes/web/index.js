@@ -4,6 +4,7 @@ const adminRouter = require('./admin');
 const homeRouter = require('./home');
 const courseRouter = require('./course');
 const episodeRouter = require('./episode');
+const panelRouter = require('./panel');
 const { redirectIfAuthenticate, isUserAuthenticate, checkUserIsAdmin } = require('app/http/guards/auth.guard');
 const { PORT } = require('app/common/globals');
 const date = require('../../helpers/date/convertToJalali');
@@ -81,5 +82,8 @@ router.use(
 router.use('/courses', courseRouter);
 // episodes routes
 router.use('/episodes', episodeRouter);
+
+// user panel routes
+router.use('/me', isUserAuthenticate, panelRouter);
 
 module.exports = router;

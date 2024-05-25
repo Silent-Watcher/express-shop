@@ -7,7 +7,7 @@ class PanelController extends Controller {
 
 	getIndexPage(req, res, next) {
 		try {
-			res.render('index', { title: 'فروشگاه عطن | داشبورد کاربری' });
+			res.render('pages/panel/index', { title: 'فروشگاه عطن | داشبورد کاربری' });
 		} catch (error) {
 			next(error);
 		}

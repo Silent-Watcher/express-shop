@@ -54,7 +54,7 @@
 	<body>
 		<div class="container-fluid g-0">
 			<!-- header -->
-			<%- include('../components/header.ejs') %>
+			<%- include('../components/header.ejs' , {user : user}) %>
 			<!-- header -->
 
 			<!-- messages -->
@@ -96,8 +96,8 @@
 						toast: true,
 						position: 'top-end',
 						showConfirmButton: false,
-						timer: 500,
-						width : '50rem',
+						timer: 3000,
+						width : '10rem',
 						timerProgressBar: true,
 						didOpen: toast => {
 							toast.onmouseenter = Swal.stopTimer;

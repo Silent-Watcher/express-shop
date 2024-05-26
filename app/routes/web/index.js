@@ -7,9 +7,9 @@ const episodeRouter = require('./episode');
 const panelRouter = require('./panel');
 const { redirectIfAuthenticate, isUserAuthenticate, checkUserIsAdmin } = require('app/http/guards/auth.guard');
 const { PORT } = require('app/common/globals');
-const date = require('../../helpers/date/convertToJalali');
-const User = require('../../models/user.model');
-const { settings } = require('../../common/globals');
+const date = require('app/helpers/date/convertToJalali');
+const User = require('app/models/user.model');
+const { settings } = require('app/common/globals');
 
 // main page routes
 router.use(
@@ -23,6 +23,7 @@ router.use(
 		res.locals.alert = req.flash('sweetalert');
 		res.locals.breadcrumbs = req.breadcrumbs;
 		res.locals.url = `${req.protocol}://${req.hostname}:${PORT}${req.url}`;
+		res.locals.urlPath = req.url;
 		res.locals.title = (await settings).appName;
 		res.locals.date = date;
 		if (req.isAuthenticated()) {
@@ -33,12 +34,10 @@ router.use(
 				photo: 1,
 				admin: 1,
 				likedCourses: 1,
-			})
-				.lean()
-				.populate({
-					path: 'cartItems',
-					select: 'title price slug thumbnail _id',
-				});
+			}).populate({
+				path: 'cartItems',
+				select: 'title price slug thumbnail _id',
+			});
 			let totalCost = 0;
 			if (user?.cartItems.length > 0) {
 				user.cartItems.forEach(item => {

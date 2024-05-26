@@ -1,0 +1,36 @@
+<div class="row mt-4">
+	<section class="col-12">
+		<div class="rounded bg-info d-flex w-25 p-3 pb-0">
+			<div class="rounded-2 p-1 d-inline-flex align-items-start me-3">
+				<i class="bx bxs-credit-card fs-4" style="color: #fff"></i>
+			</div>
+			<div class="text-center d-flex flex-column">
+				<p class="mb-0 fs-14px">دوره های ثبت نام شده</p>
+				<p class="mb-0 number fw-bold fs-5" data-value="<%= learningCourses.length %>"></p>
+			</div>
+		</div>
+	</section>
+	<!-- courses start -->
+	<div class="row d-flex flex-wrap mt-5">
+		<% learningCourses.forEach(course => { %>
+			<!-- course card start -->
+			<div class="card p-0">
+				<img src="<%= course?.thumbnail?.path ?? '/static/imgs/defaultImage.avif' %>" class="card-img-top" alt="<%= course.title %>" />
+				<div class="card-body">
+					<p class="card-text"><%= course.title %></p>
+				</div>
+				<div class="card-footer d-flex flex-column">
+					<div class="d-flex align-items-center justify-content-between">
+						<p class="mb-0 fs-14px">میزان مشاهده :</p>
+						<p class="mb-0"><span data-value="0" class="number fs-14px"></span><span>%</span></p>
+					</div>
+					<div class="progress mt-2" role="progressbar" style="height: 3px">
+						<div class="progress-bar bg-secondary" style="width: 25%"></div>
+					</div>
+				</div>
+			</div>
+			<!-- course card end -->
+		<% }) %>
+	</div>
+	<!-- courses end -->
+</div>

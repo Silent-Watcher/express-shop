@@ -7,5 +7,6 @@ router.use((req, res, next) => {
 });
 
 router.get('/', panelController.getIndexPage);
+router.get('/courses', panelController.getCoursesPage);
 
 module.exports = router;

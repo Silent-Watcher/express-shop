@@ -13,7 +13,7 @@ router.get('/logout', isUserAuthenticate, authController.logout);
 router.get('/contact-us', homeController.getContactUsPage);
 router.get('/about-us', homeController.getAboutUsPage);
 
-router.use('/cart', cartRouter);
+router.use('/cart', isUserAuthenticate, cartRouter);
 
 router.post('/comment', isUserAuthenticate, validateComment(), checkDataValidation, homeController.comment);
 

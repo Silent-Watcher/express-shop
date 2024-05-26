@@ -1,4 +1,4 @@
-const ZarinpalCheckout = require('zarinpal-checkout');
+const request = require('superagent');
 
 const httpErrors = require('http-errors');
 
@@ -7,8 +7,9 @@ const Controller = require('app/http/controllers/controller');
 const Course = require('../../models/course.model');
 const User = require('../../models/user.model');
 const recaptcha = require('app/config/recaptcha');
-const Comment = require('../../models/comment.model');
+const Comment = require('app/models/comment.model');
 const httpStatus = require('http-status');
+const Payment = require('../../models/payment.model');
 class HomeController extends Controller {
 	#service;
 	constructor() {
@@ -146,26 +147,66 @@ class HomeController extends Controller {
 						return this.flashAndRedirect(req, res, 'error', `عملیات خرید برای دوره ${item.title} امکان پذیر نیست`);
 					}
 				});
+
 				// TODO: start the payment process
-				let zarinpal = ZarinpalCheckout.create('xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', true);
-				zarinpal
-					.PaymentRequest({
-						Amount: res.locals.totalCost,
-						CallbackURL: 'http://localhost:3000/cart/payment/checker',
-						Description: 'Hello NodeJS API.',
-						Email: req.user.email,
-						Mobile: '09120000000',
-					})
-					.then(function (response) {
-						if (response.status == 100) {
-							res.redirect(response.url);
+				const params = {
+					pin: 'sandbox',
+					callback: 'http://localhost:3000/cart/payment/checker',
+					amount: res.locals.totalCost,
+				};
+				// send req to payment gateway
+				request
+					.post('https://panel.aqayepardakht.ir/api/v2/create')
+					.send(params)
+					.then(async response => {
+						let responseObj = JSON.parse(response.text);
+						if (responseObj.status == 'success') {
+							let payment = new Payment({
+								user: req.user._id,
+								transid: responseObj.transid,
+								amount: res.locals.totalCost,
+								course: cartItems,
+							});
+							await payment.save();
+							res.redirect(`https://panel.aqayepardakht.ir/startpay/sandbox/${responseObj.transid}`);
 						}
 					})
-					.catch(function (err) {
-						console.log(err);
+					.catch(error => {
+						return res.json(error);
 					});
 			} else return this.flashAndRedirect(req, res, 'error', 'سبد خرید خالی میباشد', req.headers.referer);
-			return this.flashAndRedirect(req, res, 'error', 'خطا در سرور', req.headers.referer);
+			// return this.flashAndRedirect(req, res, 'error', 'خطا در سرور', req.headers.referer);
+		} catch (error) {
+			next(error);
+		}
+	}
+	//
+	async checkPayment(req, res, next) {
+		try {
+			const transInfo = req.body;
+			if (transInfo?.status != 1) {
+				return this.alertAndRedirect(req, res, 'info', 'پرداخت با موفقیت انجام نشد', '/');
+			}
+			let foundedTrans = await Payment.findOne({ user: req.user._id, transid: transInfo.transid });
+			if (!foundedTrans) return this.alertAndRedirect(req, res, 'error', 'داده ارسالی پرداخت نادرست است', '/');
+			let verifyParams = {
+				pin: 'sandbox',
+				amount: foundedTrans.amount,
+				transid: foundedTrans.transid,
+			};
+			const verifyTransResponse = await request.post('https://panel.aqayepardakht.ir/api/v2/verify').send(verifyParams);
+			if (verifyTransResponse.status == 200) {
+				let responseObj = JSON.parse(verifyTransResponse.text);
+				foundedTrans.status = responseObj.code == 1 ? true : false;
+				const user = await User.findById(req.user._id, { cartItems: 1, learning: 1 });
+				user.learning = user.cartItems;
+				user.cartItems = [];
+				await user.save();
+				await foundedTrans.save();
+				return this.alertAndRedirect(req, res, 'success', 'پرداخت با موفقیت انجام شد', '/me/courses');
+			} else {
+				return this.alertAndRedirect(req, res, 'info', 'پرداخت با موفقیت انجام نشد', '/');
+			}
 		} catch (error) {
 			next(error);
 		}

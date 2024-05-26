@@ -12,6 +12,7 @@ const userSchema = new Schema(
 		learning: { type: [Schema.Types.ObjectId], ref: 'course' },
 		likedCourses: { type: [Schema.Types.ObjectId], ref: 'course' },
 		cartItems: { type: [Schema.Types.ObjectId], ref: 'course' },
+		wallet: { type: Number, required: true, default: 0 },
 	},
 	{ timestamps: true, toJSON: { virtuals: true } }
 );

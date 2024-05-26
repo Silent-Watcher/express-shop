@@ -17,17 +17,29 @@
 			rel="stylesheet"
 			type="text/css"
 		/>
+		<!-- sweet alert 2 -->
+		<link
+			href="
+					https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css
+					"
+			rel="stylesheet"
+		/>
 		<!-- icons -->
 		<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 		<!-- global css file -->
 		<link rel="stylesheet" href="/static/css/global.css" />
+		<link rel="stylesheet" href="/static/css/panel.css">
 		<style>
 			#nav li {
 				background-color: #28293D;
 			}
+			#nav li.active a{
+				color: royalblue!important;
+			}
 			#nav li a , .btn-close {
 				color: #fafafa;
 			}
+
 		</style>
 		<%- style %>
 	</head>
@@ -45,10 +57,10 @@
 							<div class="d-flex flex-column text-center">
 								<a class="fs-4 link-light" href="/">فروشگاه عطن</a>
 								<ul id="nav" class="list-group list-group-flush mt-4">
-									<li class="list-group-item border-0 fs-6  my-2"><a href="/me"><i class='bx bxs-home'></i><span class="ms-2">پیشخوان</span></a></li>
-									<li class="list-group-item border-0 fs-6 my-2"><a href="/me/courses"><i class='bx bxs-folder'></i><span class="ms-2">دوره ها</span></a></li>
-									<li class="list-group-item border-0 fs-6  my-2"><a href="/me/tickets"><i class='bx bxs-chat'></i><span class="ms-2">تیکت ها</span></a></li>
-									<li class="list-group-item border-0 fs-6 my-2"><a href="/me/edit"><i class='bx bxs-user'></i><span class="ms-2">جزئیات حساب</span></a></li>
+									<li class="list-group-item border-0 fs-6 my-2 <%= urlPath == '/me' ? 'active' : ''%>"><a href="/me"><i class='bx bxs-home'></i><span class="ms-2">پیشخوان</span></a></li>
+									<li class="list-group-item border-0 fs-6 my-2 <%= urlPath == '/me/courses' ? 'active' : ''%>"><a href="/me/courses"><i class='bx bxs-folder'></i><span class="ms-2">دوره ها</span></a></li>
+									<li class="list-group-item border-0 fs-6 my-2 <%= urlPath == '/me/tickets' ? 'active' : ''%>"><a href="/me/tickets"><i class='bx bxs-chat'></i><span class="ms-2">تیکت ها</span></a></li>
+									<li class="list-group-item border-0 fs-6 my-2 <%= urlPath == '/me/edit' ? 'active' : ''%>"><a href="/me/edit"><i class='bx bxs-user'></i><span class="ms-2">جزئیات حساب</span></a></li>
 									<li class="list-group-item border-0 fs-6 my-2"><a href="/logout"><i class='bx bx-log-out'></i><span class="ms-2">خروج</span></a></li>
 								</ul>
 							</div>
@@ -63,7 +75,7 @@
 							<button class="btn btn-sm d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">
 								<i class='bx bx-menu fs-1 me-3' style='color:#fafafa'  ></i>
 							</button>
-							<h1 class="fs-4 me-auto text-center text-lg-start">علی طباطبایی نظری عزیز خوش اومدی !</h1>
+							<h1 class="fs-4 me-auto text-center text-lg-start"><%= user.name  %> عزیز خوش اومدی ! 👋🏻</h1>
 							<div class="d-flex align-items-center justify-content-center mx-auto mx-lg-0 justify-content-lg-start">
 							<!-- cart start-->
 							<div class="btn-group order-last order-lg-first ms-3 ms-lg-0">
@@ -222,5 +234,35 @@
 			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
 			integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
 			crossorigin="anonymous"></script>
+
+		<!-- sweet alert 2  -->
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
+		<!--  -->
+		<%
+				let sweetalert = alert;
+				if(alert.length > 0) {
+						let data = sweetalert[0];
+		%>
+					<script>
+					const Toast = Swal.mixin({
+						toast: true,
+						position: 'top-end',
+						showConfirmButton: false,
+						timer: 3000,
+						width : '10rem',
+						timerProgressBar: true,
+						didOpen: toast => {
+							toast.onmouseenter = Swal.stopTimer;
+							toast.onmouseleave = Swal.resumeTimer;
+						},
+					});
+					Toast.fire({
+						icon:'<%= data.icon %>',
+						title: '<%= data.title %>',
+					});
+				</script>
+		<% } %>
+
 		<%- script %>
+		<script src="/static/js/panel.js"></script>
 </html>

@@ -116,11 +116,8 @@ class Application {
 		this.#app.use(rememberLogin);
 		this.#app.use('/static', express.static(STATIC_FILES_PATH));
 		this.#app.use((req, res, next) => {
-			if (req.isAuthenticated()) {
-				res.locals.user = req.user;
-			} else {
-				res.locals = { user: null };
-			}
+			if (req.isAuthenticated()) res.locals.user = req.user;
+			else res.locals.user = null;
 			next();
 		});
 		this.#app.use(compression({ level: 3 }));

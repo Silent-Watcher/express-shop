@@ -56,7 +56,7 @@
 						</ul>
 
 						<% if (user) { %>
-							<% if (user.admin) { %>
+							<% if (user?.admin) { %>
 								<div class="order-first mt-3 mt-lg-0">
 									<a class="btn btn-outline-primary btn-sm me-lg-4 mb-3 mb-lg-0 d-inline-block" href="/admin" target="_blank">پنل مدیریت</a>
 								</div>
@@ -128,10 +128,10 @@
 									data-bs-toggle="dropdown"
 									aria-expanded="false"
 								>
-								<% if (user.photo) { %>
+								<% if (user?.photo) { %>
 									<img
 									class="avatar img-fluid rounded-circle"
-									src="<%= user.photo %>"
+									src="<%= user?.photo %>"
 									alt="avatar"
 								/>
 								<% } else {%>
@@ -148,10 +148,10 @@
 								<ul class="dropdown-menu dropdown-menu-lg-end p-4">
 									<div class="d-flex justify-content-around align-items-center">
 										<a href="/me">
-											<% if (user.photo) { %>
+											<% if (user?.photo) { %>
 												<img
 												class="avatar img-fluid rounded-circle"
-												src="<%= user.photo %>"
+												src="<%= user?.photo %>"
 												alt="avatar"
 											/>
 											<% } else {%>
@@ -168,7 +168,7 @@
 										<div>
 											<a class="link-dark" href="/me"
 												><p class="mb-0">
-													<%= user.name ??
+													<%= user?.name ??
 													user.email.slice(0,user.email.indexOf('@')) + '@' %>
 												</p></a
 											>

@@ -17,7 +17,7 @@ class PanelController extends Controller {
 	async getCoursesPage(req, res, next) {
 		try {
 			const { learning } = await User.findById(req.user._id, { learning: 1 }).populate([
-				{ path: 'learning', select: 'thumbnail title ' },
+				{ path: 'learning', select: 'thumbnail title slug' },
 			]);
 			res.render('pages/panel/courses', { title: 'داشبورد کاربری | دوره ها', learningCourses: learning });
 		} catch (error) {

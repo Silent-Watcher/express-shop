@@ -9,7 +9,7 @@
 				<i class="bx bxs-sticker fs-4 me-2" style="color: #ffffff"></i>
 				<div class="text-center d-flex flex-column">
 					<p class="mb-0 fs-14px">همه تیکت ها</p>
-					<p class="mb-0 fw-bold fs-5"><span class="number" data-value="0">0</span><span class="ms-3">عدد</span></p>
+					<p class="mb-0 fw-bold fs-5"><span class="number" data-value="<%= tickets.length %>"></span><span class="ms-3">عدد</span></p>
 				</div>
 			</div>
 			<!--  -->
@@ -20,7 +20,7 @@
 			>
 				<i class="bx bxs-message-alt fs-4 me-2" style="color: #ffffff"></i>
 				<div class="text-center d-flex flex-column">
-					<p class="mb-0 fs-14px">همه تیکت ها</p>
+					<p class="mb-0 fs-14px">تیکت های باز</p>
 					<p class="mb-0 fw-bold fs-5"><span class="number" data-value="0">0</span><span class="ms-3">عدد</span></p>
 				</div>
 			</div>
@@ -32,7 +32,7 @@
 			>
 				<i class="bx bxs-chat fs-4 me-2" style="color: #fdfdfd"></i>
 				<div class="text-center d-flex flex-column">
-					<p class="mb-0 fs-14px">همه تیکت ها</p>
+					<p class="mb-0 fs-14px">بسته شده ها</p>
 					<p class="mb-0 fw-bold fs-5"><span class="number" data-value="0">0</span><span class="ms-3">عدد</span></p>
 				</div>
 			</div>
@@ -57,20 +57,37 @@
 	<section class="col-12 rounded-4 p-4" style="background-color: #28293d">
 		<h1 class="fs-4">تیکت ها</h1>
 		<hr />
-		<!-- ticket item start -->
-		<!-- <div class="d-flex flex-wrap align-items-center ticket p-3 rounded-3">
-			<p class="mb-0"><span>#</span><span class="number" data-value="3473"></span></p>
-			<a href="#" class="link-light me-auto ms-3">عضویت در کانال VIP</a>
-			<p class="number mb-0 me-4" data-value="21:30">21:30</p>
-			<div class="tags d-flex flex-wrap align-items-center justify-content-around">
-				<span class="rounded-4 fs-14px p-2 ticket-badge mx-1">مالی</span>
-				<span class="rounded-4 fs-14px p-2 ticket-badge mx-1">پشتیبانی</span>
+		<% if (tickets.length> 0) { %>
+				<% tickets.forEach(ticket => { %>
+					<!-- ticket item start -->
+					<div class="d-flex flex-wrap align-items-center ticket p-3 rounded-3">
+						<p class="mb-0"><span>#</span><span class="number" data-value="<%= ticket?._id?.slice(-5) %>"></span></p>
+						<a href="#" class="link-light me-auto ms-3"><%= ticket?.title %></a>
+						<p class="mb-0 me-4"><%= date(ticket?.createdAt).format('jD jMMMM jYYYY') %></p>
+						<div class="tags d-flex flex-wrap align-items-center justify-content-around">
+							<% if (ticket.department == 'finance') { %>
+								<span class="rounded-4 fs-14px p-2 ticket-badge mx-1">مالی</span>
+							<% } else if (ticket.department == 'consult') { %>
+								<span class="rounded-4 fs-14px p-2 ticket-badge mx-1">مشاوره</span>
+							<% } else if (ticket.department == 'admin') { %>
+								<span class="rounded-4 fs-14px p-2 ticket-badge mx-1">ارتباط با ادمین</span>
+							<% } else if (ticket.department == 'support') { %>
+								<span class="rounded-4 fs-14px p-2 ticket-badge mx-1">پشتیبانی</span>
+							<% } %>
+							<% if (ticket.status) { %>
+								<span class="rounded-4 fs-14px p-2 ticket-badge mx-1">بسته شده</span>
+								<% } else { %>
+								<span class="rounded-4 fs-14px p-2 ticket-badge mx-1">باز</span>
+							<% } %>
+						</div>
+					</div>
+					<!-- ticket item end -->
+				<% }) %>
+		<% } else { %>
+			<div class="text-center">
+				<p class="mb-2 text-secondary fs-6 mt-3">هیچ تیکتی ارسال نشده است 🤨</p>
+				<img class="img-fluid w-50 mx-auto mt-4" src="/static/imgs/emptyCart.svg" alt="سبد خرید خالی" />
 			</div>
-		</div> -->
-		<!-- ticket item end -->
-		<div class="text-center">
-			<p class="mb-2 text-secondary fs-6 mt-3">هیچ تیکتی ارسال نشده است 🤨</p>
-			<img class="img-fluid w-50 mx-auto mt-4" src="/static/imgs/emptyCart.svg" alt="سبد خرید خالی" />
-		</div>
+		<% } %>
 	</section>
 </div>

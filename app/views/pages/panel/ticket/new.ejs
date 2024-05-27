@@ -1,0 +1,47 @@
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"
+/>
+
+<div class="row mt-4">
+	<form id="newTicketForm" action="/me/tickets/new" method="post" class="w-100 p-5 rounded-3">
+		<h1 class="fs-5 fw-bold mb-3">ارسال تیکت</h1>
+		<hr>
+		<!-- ticket department -->
+		<div class="col-12 mb-20">
+			<label class="mb-2 mt-4" for="newTicketTitle">دپارتمان</label>
+			<select name="department" id="departmentSelectInput">
+				<option>دپارتمان مورد نظر ...</option>
+				<option value="finance">مالی</option>
+				<option value="consult">مشاوره</option>
+				<option value="admin">ارتباط با ادمین</option>
+				<option value="support">پشتیبانی</option>
+			</select>
+		</div>
+		<!-- ticket title -->
+		<div class="col-12 mb-20">
+			<label class="mb-2 mt-4" for="newTicketTitle">موضوع تیکت</label>
+			<input
+				autofocus
+				type="text"
+				id="newTicketTitle"
+				class="form-control p-3 mt-2 border-0"
+				name="title"
+				required
+				value="<%- old?.title ?? '' %>"
+				placeholder="موضوع تیکت خود را وارد کنید"
+			/>
+		</div>
+		<!-- ticket body -->
+		<div class="col-12 mb-20">
+			<label class="mb-2 mt-4" for="newTicketBody">موضوع تیکت</label>
+			<textarea class="editor" required name="body" id="newTicketBody" placeholder="متن تیکت خود را وارد کنید"><%- old?.body ?? '' %></textarea>
+		</div>
+		<!-- submit -->
+		<div class="col-12 text-end">
+			<button class="btn btn-success mt-5 " type="submit">ارسال</button>
+		</div>
+	</form>
+</div>
+<script src="//cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>

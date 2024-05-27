@@ -1,9 +1,10 @@
 .card {
 	width: 15rem;
 	color: #f8f8f8;
-	background-color: #28293d;
 }
-#nav li {
+#nav li,
+#newTicketForm,
+.card {
 	background-color: #28293d;
 }
 #nav li.active a {
@@ -20,6 +21,34 @@
 .ticket {
 	transition: all 0.3s ease;
 }
-.ticket:hover {
-	background-color: #32334d;
+.ticket:hover,
+#newTicketForm input,
+.choices__list,
+.choices__inner,
+.choices {
+	background-color: #32334d !important;
+	border: 0!important;
+	color: #919197;
+}
+
+#newTicketForm input::placeholder {
+	color: #919197;
+}
+.choices__item:hover {
+	background-color: #2a2b41;
+	color: #6c6c6e;
+}
+.choices__inner,
+.choices {
+	padding: 0;
+	border-radius: 5px!important;
+}
+.choices__inner {
+	border: 0 !important;
+}
+.choices__input {
+	color: #919197;
+}
+.choices[data-type*='select-one']:after {
+	display: none !important;
 }

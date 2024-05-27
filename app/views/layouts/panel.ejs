@@ -29,18 +29,6 @@
 		<!-- global css file -->
 		<link rel="stylesheet" href="/static/css/global.css" />
 		<link rel="stylesheet" href="/static/css/panel.css">
-		<style>
-			#nav li {
-				background-color: #28293D;
-			}
-			#nav li.active a{
-				color: royalblue!important;
-			}
-			#nav li a , .btn-close {
-				color: #fafafa;
-			}
-
-		</style>
 		<%- style %>
 	</head>
 	<body style="background-color: #28293D;" class="text-white">
@@ -60,7 +48,7 @@
 									<li class="list-group-item border-0 fs-6 my-2 <%= urlPath == '/me' ? 'active' : ''%>"><a href="/me"><i class='bx bxs-home'></i><span class="ms-2">پیشخوان</span></a></li>
 									<li class="list-group-item border-0 fs-6 my-2 <%= urlPath == '/me/courses' ? 'active' : ''%>"><a href="/me/courses"><i class='bx bxs-folder'></i><span class="ms-2">دوره ها</span></a></li>
 									<li class="list-group-item border-0 fs-6 my-2 <%= urlPath == '/me/tickets' ? 'active' : ''%>"><a href="/me/tickets"><i class='bx bxs-chat'></i><span class="ms-2">تیکت ها</span></a></li>
-									<li class="list-group-item border-0 fs-6 my-2 <%= urlPath == '/me/tickets' ? 'active' : ''%>"><a href="/me/transactions"><i class='bx bxs-dollar-circle'></i><span class="ms-2">تراکنش ها</span></a></li>
+									<li class="list-group-item border-0 fs-6 my-2 <%= urlPath == '/me/transactions' ? 'active' : ''%>"><a href="/me/transactions"><i class='bx bxs-dollar-circle'></i><span class="ms-2">تراکنش ها</span></a></li>
 									<li class="list-group-item border-0 fs-6 my-2 <%= urlPath == '/me/edit' ? 'active' : ''%>"><a href="/me/edit"><i class='bx bxs-user'></i><span class="ms-2">جزئیات حساب</span></a></li>
 									<li class="list-group-item border-0 fs-6 my-2"><a href="/logout"><i class='bx bx-log-out'></i><span class="ms-2">خروج</span></a></li>
 								</ul>
@@ -76,7 +64,7 @@
 							<button class="btn btn-sm d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">
 								<i class='bx bx-menu fs-1 me-3' style='color:#fafafa'  ></i>
 							</button>
-							<h1 class="fs-4 me-auto text-center text-lg-start"><%= user.name ?? 'کاربر'  %> عزیز خوش اومدی ! 👋🏻</h1>
+							<h1 class="fs-4 me-lg-auto text-center text-lg-start my-3 my-lg-0"><%= user.name ?? 'کاربر'  %> عزیز خوش اومدی ! 👋🏻</h1>
 							<div class="d-flex align-items-center justify-content-center mx-auto mx-lg-0 justify-content-lg-start">
 							<!-- cart start-->
 							<div class="btn-group order-last order-lg-first ms-3 ms-lg-0">

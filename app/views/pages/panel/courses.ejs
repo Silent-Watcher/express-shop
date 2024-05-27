@@ -2,7 +2,7 @@
 	<section class="col-12">
 		<div class="row">
 			<% if (learningCourses.length > 0) { %>
-				<div style="background-color: #4E81FB;" class="rounded d-flex pt-3 pb-0  justify-content-center col-6 mx-auto col-lg-4">
+				<div style="background-color: #4E81FB;" class="rounded-4 d-flex pt-3 pb-0  justify-content-center col-6 mx-auto col-lg-3">
 					<i class="bx bxs-credit-card fs-4 me-2" style="color: #fff"></i>
 					<div class="text-center d-flex flex-column">
 						<p class="mb-0 fs-14px">دوره های ثبت نام شده</p>
@@ -13,11 +13,11 @@
 		</div>
 	</section>
 	<!-- courses start -->
-	<div class="row d-flex flex-wrap mt-5">
+	<div class="row d-flex flex-wrap mt-3 g-4">
 		<% if (learningCourses.length > 0) { %>
 			<% learningCourses.forEach(course => { %>
 				<!-- course card start -->
-				<div class="card p-0">
+				<div class="card p-0 mx-auto mx-lg-1 ">
 					<a href="/courses/<%= course.slug %>">
 						<img src="<%= course?.thumbnail?.path ?? '/static/imgs/defaultImage.avif' %>" class="card-img-top" alt="<%= course.title %>" />
 					</a>

@@ -24,6 +24,14 @@ class PanelController extends Controller {
 			next(error);
 		}
 	}
+	//
+	async getTicketsPage(req, res, next) {
+		try {
+			res.render('pages/panel/tickets', { title: 'داشبورد کاربری | تیکت ها' });
+		} catch (error) {
+			next(error);
+		}
+	}
 }
 
 module.exports = new PanelController();

@@ -3,3 +3,23 @@
 	color: #f8f8f8;
 	background-color: #28293d;
 }
+#nav li {
+	background-color: #28293d;
+}
+#nav li.active a {
+	color: royalblue !important;
+}
+#nav li a,
+.btn-close {
+	color: #fafafa;
+}
+.ticket-badge {
+	background-color: #464347;
+	color: #fac12f;
+}
+.ticket {
+	transition: all 0.3s ease;
+}
+.ticket:hover {
+	background-color: #32334d;
+}

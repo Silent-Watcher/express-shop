@@ -8,5 +8,6 @@ router.use((req, res, next) => {
 
 router.get('/', panelController.getIndexPage);
 router.get('/courses', panelController.getCoursesPage);
+router.get('/tickets', panelController.getTicketsPage);
 
 module.exports = router;

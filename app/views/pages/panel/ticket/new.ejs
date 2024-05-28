@@ -1,12 +1,14 @@
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css"
-/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css" />
 
 <div class="row mt-4">
-	<form id="newTicketForm" action="/me/tickets/new" method="post" class="w-100 p-5 rounded-3">
+	<form
+		id="newTicketForm"
+		action="/me/tickets/new"
+		method="post"
+		class="w-100 p-5 rounded-3"
+	>
 		<h1 class="fs-5 fw-bold mb-3">ارسال تیکت</h1>
-		<hr>
+		<hr />
 		<!-- ticket department -->
 		<div class="col-12 mb-20">
 			<label class="mb-2 mt-4" for="newTicketTitle">دپارتمان</label>
@@ -34,12 +36,14 @@
 		</div>
 		<!-- ticket body -->
 		<div class="col-12 mb-20">
-			<label class="mb-2 mt-4" for="newTicketBody">موضوع تیکت</label>
-			<textarea class="editor" required name="body" id="newTicketBody" placeholder="متن تیکت خود را وارد کنید"><%- old?.body ?? '' %></textarea>
+			<label class="mb-2 mt-4" for="newTicketBody">متن تیکت</label>
+			<textarea class="editor" required name="body" id="newTicketBody" placeholder="متن تیکت خود را وارد کنید">
+<%- old?.body ?? '' %></textarea
+			>
 		</div>
 		<!-- submit -->
 		<div class="col-12 text-end">
-			<button class="btn btn-success mt-5 " type="submit">ارسال</button>
+			<button class="btn btn-success mt-5" type="submit">ارسال</button>
 		</div>
 	</form>
 </div>

@@ -27,5 +27,5 @@ let editorId = document.querySelector('.editor').id;
 CKEDITOR.replace(editorId, {
 	language: 'fa',
 	uiColor: '#202334',
-	filebrowserUploadUrl: '/tickets/upload-image',
+	filebrowserUploadUrl: '/me/tickets/upload-image',
 });

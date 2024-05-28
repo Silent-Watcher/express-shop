@@ -1,5 +1,6 @@
 const Controller = require('app/http/controllers/controller');
 const Ticket = require('../../models/ticket.model');
+const imageHelper = require('../../helpers/image.helper');
 
 class TicketController extends Controller {
 	constructor() {
@@ -15,9 +16,23 @@ class TicketController extends Controller {
 				.then(() => {
 					this.alertAndRedirect(req, res, 'success', 'تیکت با موفقیت ارسال شد', '/me/tickets');
 				})
-				.catch(() => {
+				.catch(error => {
+					console.log(error);
 					this.alertAndRedirect(req, res, 'error', 'خطا در ارسال تیکت', '/me/tickets');
 				});
+		} catch (error) {
+			next(error);
+		}
+	}
+	//
+	async uploadImage(req, res, next) {
+		try {
+			const image = req?.file;
+			res.json({
+				uploaded: true,
+				fileName: image.originalname,
+				url: imageHelper.createImageUrlAddr(image.path),
+			});
 		} catch (error) {
 			next(error);
 		}

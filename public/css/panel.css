@@ -4,7 +4,9 @@
 }
 #nav li,
 #newTicketForm,
-.card {
+.card,
+.trans-box,
+.trans-table-wrap {
 	background-color: #28293d;
 }
 #nav li.active a {
@@ -49,9 +51,28 @@
 .choices__inner {
 	border: 0 !important;
 }
-.choices__input {
+.choices__input,
+.trans-box-head-txt {
 	color: #919197;
 }
 .choices[data-type*='select-one']:after {
 	display: none !important;
+}
+.trans-table-wrap table th {
+	padding: 20px;
+}
+
+.trans-table-wrap table th {
+	font-size: 20px;
+}
+
+.trans-table-wrap ul li {
+	list-style: none;
+}
+
+.failed-pay-item{
+	background-color: #602431;
+}
+.successful-pay-item{
+	background-color: #166448;
 }

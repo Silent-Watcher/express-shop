@@ -5,6 +5,7 @@ Disallow: *?s=*
 Disallow: *&type=*
 Disallow: *&sort=*
 Disallow: */admin/$
+Disallow: */me/$
 Disallow: */docs/pages/$
 Disallow: *?page=*
 Disallow: *.pdf

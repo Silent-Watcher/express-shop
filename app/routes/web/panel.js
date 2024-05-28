@@ -20,4 +20,6 @@ router.post('/tickets/new', validateSenderTicketData(), checkDataValidation, tic
 router.get('/tickets/:id', ticketController.getSingleTicketPage);
 router.post('/tickets/upload-image', uploadImage.single('upload'), validateImageSize, ticketController.uploadImage);
 
+router.get('/transactions', panelController.getTransactionsPage);
+
 module.exports = router;

@@ -24,6 +24,14 @@ class PanelController extends Controller {
 			next(error);
 		}
 	}
+	//
+	async getTransactionsPage(req, res, next) {
+		try {
+			res.render('pages/panel/transactions', { title: 'داشبورد کاربری | تراکنش ها' });
+		} catch (error) {
+			next(error);
+		}
+	}
 }
 
 module.exports = new PanelController();

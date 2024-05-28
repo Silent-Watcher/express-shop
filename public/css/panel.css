@@ -21,13 +21,16 @@
 .ticket {
 	transition: all 0.3s ease;
 }
+
 .ticket:hover,
 #newTicketForm input,
 .choices__list,
 .choices__inner,
-.choices {
+.choices,
+.ticket-sender,
+.ticket-reciever {
 	background-color: #32334d !important;
-	border: 0!important;
+	border: 0 !important;
 	color: #919197;
 }
 
@@ -41,7 +44,7 @@
 .choices__inner,
 .choices {
 	padding: 0;
-	border-radius: 5px!important;
+	border-radius: 5px !important;
 }
 .choices__inner {
 	border: 0 !important;

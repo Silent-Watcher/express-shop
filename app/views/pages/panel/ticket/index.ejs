@@ -9,7 +9,7 @@
 				<i class="bx bxs-sticker fs-4 me-2" style="color: #ffffff"></i>
 				<div class="text-center d-flex flex-column">
 					<p class="mb-0 fs-14px">همه تیکت ها</p>
-					<p class="mb-0 fw-bold fs-5"><span class="number" data-value="<%= tickets.length %>"></span><span class="ms-3">عدد</span></p>
+					<p class="mb-0 fw-bold fs-5"><span class="number" data-value="<%= tickets.totalDocs %>"></span><span class="ms-3">عدد</span></p>
 				</div>
 			</div>
 			<!--  -->
@@ -21,7 +21,7 @@
 				<i class="bx bxs-message-alt fs-4 me-2" style="color: #ffffff"></i>
 				<div class="text-center d-flex flex-column">
 					<p class="mb-0 fs-14px">تیکت های باز</p>
-					<p class="mb-0 fw-bold fs-5"><span class="number" data-value="0">0</span><span class="ms-3">عدد</span></p>
+					<p class="mb-0 fw-bold fs-5"><span class="number" data-value="<%= openTickets %>"></span><span class="ms-3">عدد</span></p>
 				</div>
 			</div>
 			<!--  -->
@@ -33,7 +33,7 @@
 				<i class="bx bxs-chat fs-4 me-2" style="color: #fdfdfd"></i>
 				<div class="text-center d-flex flex-column">
 					<p class="mb-0 fs-14px">بسته شده ها</p>
-					<p class="mb-0 fw-bold fs-5"><span class="number" data-value="0">0</span><span class="ms-3">عدد</span></p>
+					<p class="mb-0 fw-bold fs-5"><span class="number" data-value="<%= closedTickets %>"></span><span class="ms-3">عدد</span></p>
 				</div>
 			</div>
 			<!--  -->
@@ -57,14 +57,15 @@
 	<section class="col-12 rounded-4 p-4" style="background-color: #28293d">
 		<h1 class="fs-4">تیکت ها</h1>
 		<hr />
-		<% if (tickets.length> 0) { %>
-				<% tickets.forEach(ticket => { %>
+		<% if (tickets.totalDocs> 0) { %>
+				<% tickets.docs.forEach(ticket => { %>
 					<!-- ticket item start -->
 					<div class="d-flex flex-wrap align-items-center ticket p-3 rounded-3">
-						<p class="mb-0"><span>#</span><span class="number" data-value="<%= ticket?._id?.slice(-5) %>"></span></p>
-						<a href="#" class="link-light me-auto ms-3"><%= ticket?.title %></a>
-						<p class="mb-0 me-4"><%= date(ticket?.createdAt).format('jD jMMMM jYYYY') %></p>
-						<div class="tags d-flex flex-wrap align-items-center justify-content-around">
+						<p class="mb-0"><span>#</span><span class="number" ><%= ticket._id.toString().slice(-5) %></span></p>
+						<a href="/me/tickets/<%= ticket._id %>" class="link-light me-auto ms-3"><%= ticket?.title %></a>
+						<span class="me-2"><%= date(ticket?.createdAt).format('H:m') %></span>
+						<p class="mb-0 me-4"><span><%= date(ticket?.createdAt).format('jD jMMMM jYYYY') %></span></p>
+						<div class="tags d-flex flex-wrap align-items-center justify-content-around mt-3 mt-lg-0">
 							<% if (ticket.department == 'finance') { %>
 								<span class="rounded-4 fs-14px p-2 ticket-badge mx-1">مالی</span>
 							<% } else if (ticket.department == 'consult') { %>
@@ -83,6 +84,11 @@
 					</div>
 					<!-- ticket item end -->
 				<% }) %>
+				<div class="d-flex justify-content-center">
+					<!-- pagination -->
+					<%- include('../../../components/pagination.ejs' , {pagination : tickets}) %>
+					<!-- pagination -->
+				</div>
 		<% } else { %>
 			<div class="text-center">
 				<p class="mb-2 text-secondary fs-6 mt-3">هیچ تیکتی ارسال نشده است 🤨</p>

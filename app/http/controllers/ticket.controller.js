@@ -6,13 +6,45 @@ class TicketController extends Controller {
 		super();
 	}
 	//
+	async new(req, res, next) {
+		try {
+			const { department, title, body } = req.body;
+			const newTicket = new Ticket({ body, department, title, sender: req.user._id });
+			newTicket
+				.save()
+				.then(() => {
+					this.alertAndRedirect(req, res, 'success', 'تیکت با موفقیت ارسال شد', '/me/tickets');
+				})
+				.catch(() => {
+					this.alertAndRedirect(req, res, 'error', 'خطا در ارسال تیکت', '/me/tickets');
+				});
+		} catch (error) {
+			next(error);
+		}
+	}
+	//
 	async getIndexPage(req, res, next) {
 		try {
-			const tickets = await Ticket.find(
-				{ Sender: req.user._id },
-				{ title: 1, createdAt: 1, status: 1, department: 1, _id: 1 }
-			).lean();
-			res.render('pages/panel/ticket/index', { title: 'داشبورد کاربری | تیکت ها', tickets });
+			let page = req.query.page ?? 1;
+			if (isNaN(page)) return this.alertAndRedirect(req, res, 'error', 'شماره صفحه نامعتبر است', '/me/tickets');
+			const tickets = await Ticket.paginate(
+				{ sender: req.user._id },
+				{
+					select: { title: 1, createdAt: 1, status: 1, department: 1, _id: 1 },
+					limit: 6,
+					page,
+					sort: { createdAt: 'desc' },
+					lean: true,
+				}
+			);
+			const openTickets = tickets.docs.filter(ticket => ticket.status == false);
+			const closedTickets = tickets.docs.filter(ticket => ticket.status == true);
+			res.render('pages/panel/ticket/index', {
+				title: 'داشبورد کاربری | تیکت ها',
+				tickets,
+				openTickets: openTickets.length,
+				closedTickets: closedTickets.length,
+			});
 		} catch (error) {
 			next(error);
 		}
@@ -21,6 +53,26 @@ class TicketController extends Controller {
 	getNewTicketPage(req, res, next) {
 		try {
 			res.render('pages/panel/ticket/new', { title: 'داشبورد کاربری | تیکت جدید' });
+		} catch (error) {
+			next(error);
+		}
+	}
+	//
+	async getSingleTicketPage(req, res, next) {
+		try {
+			const { id: ticketId } = req.params;
+			const foundedTicket = await Ticket.findById(ticketId, { title: 1, body: 1, createdAt: 1 })
+				.populate([
+					{ path: 'sender', select: 'name' },
+					{ path: 'respondent', select: 'name' },
+					{ path: 'answers', select: 'body' },
+				])
+				.lean();
+			if (!foundedTicket) return this.alertAndRedirect(req, res, 'error', 'تیکت یافت نشد', req.headers.referer);
+			res.render('pages/panel/ticket/single', {
+				title: `داشبورد کاربری | تیکت ${ticketId.toString().slice(-5)}#`,
+				ticket: foundedTicket,
+			});
 		} catch (error) {
 			next(error);
 		}

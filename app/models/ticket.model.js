@@ -3,16 +3,22 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 
 const ticketSchema = new Schema(
 	{
-		Sender: { type: Schema.Types.ObjectId, ref: 'user', required: true },
-		Respondent: { type: Schema.Types.ObjectId, ref: 'user', default: undefined },
-		RespondTo: { type: Schema.Types.ObjectId, ref: 'ticket', default: undefined },
+		sender: { type: Schema.Types.ObjectId, ref: 'user', required: true },
+		respondent: { type: Schema.Types.ObjectId, ref: 'user', default: undefined },
+		respondTo: { type: Schema.Types.ObjectId, ref: 'ticket', default: undefined },
 		title: { type: String, required: true, unique: false },
 		body: { type: String, required: true, unique: false },
 		department: { type: String, enum: ['finance', 'consult', 'admin', 'support'], required: true },
 		status: { type: Boolean, default: false, required: true },
 	},
-	{ timestamps: true }
+	{ timestamps: true, toJSON: { virtuals: true } }
 );
+
+ticketSchema.virtual('answers', {
+	ref: 'ticket',
+	localField: '_id',
+	foreignField: 'respondTo',
+});
 
 ticketSchema.plugin(mongoosePaginate);
 

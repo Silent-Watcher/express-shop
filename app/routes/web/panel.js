@@ -12,5 +12,7 @@ router.get('/courses', panelController.getCoursesPage);
 
 router.get('/tickets', ticketController.getIndexPage);
 router.get('/tickets/new', ticketController.getNewTicketPage);
+router.post('/tickets/new', ticketController.new);
+router.get('/tickets/:id', ticketController.getSingleTicketPage);
 
 module.exports = router;

@@ -14,15 +14,15 @@
 					<div class="mt-3 text-white"><%- ticket.body %></div>
 				</div>
 				<% if (ticket.answers.length > 0) { %>
-						<% answers.forEach(answer => { %>
+						<% ticket.answers.forEach(answer => { %>
 							<!-- answer ticket -->
 							<div dir="ltr" class="ticket-reciever col-10 d-flex flex-column p-4 rounded-3 m-3 me-auto">
-								<p class="mb-0 fw-bold fs-4 text-white"><%= ticket.sender.name %></p>
+								<p class="mb-0 fw-bold fs-4 text-white"><%= answer.sender.name %></p>
 								<div class="d-inline-flex ms-auto">
-									<span dir="rtl" class="fs-14px d-inline-block ms-2"><%= date(ticket.createdAt).format('H:m') %></span>
-									<span dir="rtl" class="fs-14px"><%= date(ticket.createdAt).format('jD jMMMM jYYYY') %></span>
+									<span dir="rtl" class="fs-14px d-inline-block ms-2"><%= date(answer.createdAt).format('H:m') %></span>
+									<span dir="rtl" class="fs-14px"><%= date(answer.createdAt).format('jD jMMMM jYYYY') %></span>
 								</div>
-								<div dir="rtl" class="mt-3 text-white"><%- ticket.body %></div>
+								<div dir="rtl" class="mt-3 text-white"><%- answer.body %></div>
 							</div>
 							<!-- answer ticket -->
 						<% }) %>

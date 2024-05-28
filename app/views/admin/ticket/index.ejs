@@ -48,8 +48,7 @@
 					</td>
 					<td>
 						<div class="d-flex flex-column flex-lg-row justify-content-center">
-							<a href="/admin/tickets/<%= ticket?._id %>/reply" class="btn btn-primary rounded ms-1 btn-sm">پاسخ</a>
-							<a href="/admin/tickets/<%= ticket?._id %>/delete" class="btn btn-outline-danger rounded ms-1 btn-sm">حذف</a>
+							<a href="/admin/tickets/<%= ticket?._id %>/reply" class="btn btn-primary rounded ms-1 btn-sm"><%= ticket.status ? 'مشاهده' : 'پاسخ' %></a>
 						</div>
 					</td>
 				</tr>

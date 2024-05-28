@@ -5,15 +5,24 @@ class TicketController extends Controller {
 	constructor() {
 		super();
 	}
-	reply(req, res, next) {
+	async reply(req, res, next) {
 		try {
-			return res.json(req.body);
-			// check if the ticket id param is valid
-			// check if the sender id is a valid id
-			// check if the respondTo value is equal to current ticket id
-			// check if the respondent is a true user
-			// create a new ticket
-			// change the state of ticket status
+			const ticket = await Ticket.findById(req.body.respondTo, { status: 1 });
+			const replyTicket = new Ticket({
+				body: req.body.body,
+				sender: req.body.respondent,
+				respondTo: req.body.respondTo,
+			});
+			await replyTicket.save().catch(() => {
+				return this.flashAndRedirect(req, res, 'error', 'خطا در ایجاد تیکت پاسخ', req.headers.referer);
+			});
+			if (req.body.status == 'true' && ticket.status == false) {
+				ticket.status = true;
+				await ticket.save().catch(() => {
+					return this.flashAndRedirect(req, res, 'error', 'خطا در به روز رسانی وضعیت تیکت', req.headers.referer);
+				});
+			}
+			return this.flashAndRedirect(req, res, 'success', 'پاسخ تیکت با موفقیت ارسال شد', '/admin/tickets');
 			// optional: email the user and let them know that we answer their ticket
 			// optional: send new notification to user when their ticket is answered
 		} catch (error) {
@@ -26,9 +35,9 @@ class TicketController extends Controller {
 			let page = req.query.page ?? 1;
 			if (isNaN(page)) return this.flashAndRedirect(req, res, 'error', 'شماره صفحه نامعتبر است', '/admin/tickets');
 			const tickets = await Ticket.paginate(
-				{},
+				{ respondTo: { $exists: false } },
 				{
-					select: { sender: 1, title: 1, department: 1 },
+					select: { sender: 1, title: 1, department: 1, status: 1 },
 					limit: 6,
 					page,
 					sort: { createdAt: 'desc' },
@@ -36,6 +45,7 @@ class TicketController extends Controller {
 					populate: [{ path: 'sender', select: 'name' }],
 				}
 			);
+
 			res.render('admin/ticket/index', { title: 'پنل مدیریت | تیکت ها', tickets });
 		} catch (error) {
 			next(error);

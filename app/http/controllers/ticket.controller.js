@@ -10,7 +10,7 @@ class TicketController extends Controller {
 	async new(req, res, next) {
 		try {
 			const { department, title, body } = req.body;
-			const newTicket = new Ticket({ body, department, title, sender: req.user._id });
+			const newTicket = new Ticket({ body, department, title, sender: req.user._id, status: false });
 			newTicket
 				.save()
 				.then(() => {
@@ -43,7 +43,7 @@ class TicketController extends Controller {
 			let page = req.query.page ?? 1;
 			if (isNaN(page)) return this.alertAndRedirect(req, res, 'error', 'شماره صفحه نامعتبر است', '/me/tickets');
 			const tickets = await Ticket.paginate(
-				{ sender: req.user._id },
+				{ sender: req.user._id, respondTo: { $exists: false } },
 				{
 					select: { title: 1, createdAt: 1, status: 1, department: 1, _id: 1 },
 					limit: 6,
@@ -76,11 +76,18 @@ class TicketController extends Controller {
 	async getSingleTicketPage(req, res, next) {
 		try {
 			const { id: ticketId } = req.params;
-			const foundedTicket = await Ticket.findById(ticketId, { title: 1, body: 1, createdAt: 1 })
+			const foundedTicket = await Ticket.findById(ticketId, {
+				title: 1,
+				body: 1,
+				createdAt: 1,
+				sender: 1,
+				respondent: 1,
+				answers: 1,
+			})
 				.populate([
 					{ path: 'sender', select: 'name' },
 					{ path: 'respondent', select: 'name' },
-					{ path: 'answers', select: 'body' },
+					{ path: 'answers', select: 'body sender', populate: [{ path: 'sender', select: 'name' }] },
 				])
 				.lean();
 			if (!foundedTicket) return this.alertAndRedirect(req, res, 'error', 'تیکت یافت نشد', req.headers.referer);

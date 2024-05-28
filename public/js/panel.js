@@ -1,4 +1,6 @@
 const numbers = document.querySelectorAll('.number');
+const closeButton = document.querySelectorAll('.btn-close')[1];
+
 function replaceEnglishWithPersianNumbers(inputString) {
 	const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
 
@@ -28,4 +30,9 @@ CKEDITOR.replace(editorId, {
 	language: 'fa',
 	uiColor: '#202334',
 	filebrowserUploadUrl: '/me/tickets/upload-image',
+});
+
+closeButton.addEventListener('click', e => {
+	let parent = e.target.parentElement;
+	parent.remove();
 });

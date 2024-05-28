@@ -3,6 +3,7 @@ const uploadImage = require('app/config/imageUploader');
 const router = require('express').Router();
 const courseRouter = require('./course');
 const episodeRouter = require('./episode');
+const ticketRouter = require('./ticket');
 const commentRouter = require('./comment');
 const categoryRouter = require('./category');
 const settingRouter = require('./setting');
@@ -28,5 +29,8 @@ router.use('/categories', categoryRouter);
 
 // admin panel setting section
 router.use('/settings', settingRouter);
+
+// admin panel tickets section
+router.use('/tickets', ticketRouter);
 
 module.exports = router;

@@ -1,0 +1,75 @@
+<style>
+	body.skin-dark .form-control {
+		max-width: 100%;
+		background-color: #161824;
+		border-color: transparent;
+		color: #8b8d9b;
+	}
+</style>
+
+<div class="container">
+	<!-- ticket header -->
+	<div class="row w-100">
+		<div class="col-12 col-lg-6"><h3>پاسخ به تیکت "<%= ticket.title %>" </h3></div>
+		<div class="col-12 col-lg-6 text-start mt-3 mt-lg-0">
+			<a type="button" class="btn btn-primary ms-auto btn-sm" href="/admin/tickets">تیکت ها</a>
+		</div>
+	</div>
+	<!-- ticket info start -->
+	<div class="row w-100 mt-5">
+		<div class="col-12 col-lg-6">
+			<h4>اطلاعات فرستنده</h4>
+			<div class="d-flex flex-column align-items-start mt-3">
+				<p class="mb-0">
+					<img
+						width="50px"
+						class="img-fluid rounded-circle"
+						src="<%= ticket.sender.photo ?? '/static/imgs/avatar.png' %>"
+						alt="تصویر کاربر"
+					/>
+				</p>
+				<p class="me-2 mt-3"><span class="fw-bold">نام کاربر :</span> <%= ticket.sender.name %></p>
+				<p class="me-2">
+					<span class="fw-bold">ایمیل کاربر :</span>
+					<a href="mailto:<%= ticket.sender.email %>" target="_blank"><%= ticket.sender.email %></a>
+				</p>
+				<h4 class="mb-2 mt-2 fw-bold">ارسال شده برای دپارتمان</h4>
+				<p><span class="fw-bold"> عنوان دپارتمان : </span> <span class=" "><%= ticket.department %></span></p>
+			</div>
+		</div>
+		<div class="col-12 col-lg-6">
+			<h4 class="mt-4 mt-lg-0">متن تیکت</h4>
+			<div class="p-3  ">
+				<%- ticket.body %>
+			</div>
+			<p class="mb-0 fw-bold mt-3  ">ارسال شده در تاریخ :</p>
+			<p class="mt-2 mb-0"><%= date(ticket.createdAt).format('jD jMMMM jYYYY') %></p>
+			<h4 class="mt-4">وضعیت تیکت</h4>
+			<p class="<%= ticket.status ? '' : 'text-warning'  %>"><%= ticket.status ? 'بسته شده' : 'باز'  %></p>
+		</div>
+	</div>
+	<!-- ticket info end -->
+	<!-- change ticket status & reply start -->
+	<div class="row w-100 mt-3">
+		<form action="/admin/tickets/<%= ticket._id %>/reply?_method=PUT" method="POST">
+			<input type="hidden" name="respondent" value="<%= user._id %>">
+			<input type="hidden" name="respondTo" value="<%= ticket._id %>">
+			<input type="hidden" name="sender" value="<%= ticket.sender._id %>">
+			<div class="col-12 mb-20">
+				<h4 class="my-3">وضعیت تیکت</h4>
+				<select class="form-control" name="status" id="isAnswered" required>
+					<option value="true" <%- ticket.status ? 'selected' : '' %>>بسته شده</option>
+					<option value="false" <%- ticket.status ? '' : 'selected' %>>باز</option>
+				</select>
+			</div>
+			<div class="col-12 mb-20">
+				<label class="my-2   fw-bold" for="newCourseBody">پاسخ</label>
+				<%- include('../../components/editor.ejs' , {id : 'newCourseBody' , body: ''}) %>
+			</div>
+			<div class="d-flex">
+				<button class="btn btn-primary btn-sm me-auto mt-3">پاسخ و به روز رسانی</button>
+			</div>
+		</form>
+	</div>
+	<!-- change ticket status & reply start -->
+</div>

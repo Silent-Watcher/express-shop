@@ -1,0 +1,67 @@
+<div class="container">
+	<!-- course header -->
+	<div class="row w-100">
+		<div class="col-12 col-lg-6 d-flex align-items-center w-100">
+			<div class="d-flex-flex-column">
+				<h3>تیکت ها</h3>
+				<p class="admin_sub_heading mt-3">مجموع :  <span><%= tickets.totalDocs %></span></p>
+			</div>
+		</div>
+	</div>
+	<!-- tickets table -->
+	<table class="mt-5 w-100">
+		<thead>
+			<tr class="text-center">
+				<th>تیکت</th>
+				<th>ارسال کننده</th>
+				<th>دپارتمان</th>
+				<th>وضعیت</th>
+				<th>تنظیمات</th>
+			</tr>
+		</thead>
+		<tbody class="table-group-divider">
+			<% tickets.docs.forEach(ticket => { %>
+				<tr class="text-center">
+					<td>
+						<p><%= ticket.title %></p>
+					</td>
+					<td class="d-none d-sm-table-cell">
+						<%= ticket.sender.name%>
+					</td>
+					<td class="d-none d-sm-table-cell">
+						<% if (ticket.department == 'consult') { %>
+							مشاوره
+						<% } else if (ticket.department == 'finance') { %>
+							مالی
+						<% } else if (ticket.department == 'support') { %>
+							پشتیبانی
+						<% } else if (ticket.department == 'admin') { %>
+							گفتگو با ادمین
+						<% }  %>
+					</td>
+					<td class="d-none d-sm-table-cell">
+						<% if (ticket.status) { %>
+							<span>بسته شده</span>
+							<% } else { %>
+								<span class="text-warning">باز</span>
+						<% } %>
+					</td>
+					<td>
+						<div class="d-flex flex-column flex-lg-row justify-content-center">
+							<a href="/admin/tickets/<%= ticket?._id %>/reply" class="btn btn-primary rounded ms-1 btn-sm">پاسخ</a>
+							<a href="/admin/tickets/<%= ticket?._id %>/delete" class="btn btn-outline-danger rounded ms-1 btn-sm">حذف</a>
+						</div>
+					</td>
+				</tr>
+			<% }) %>
+		</tbody>
+	</table>
+	<div class="d-flex justify-content-center">
+		<!-- pagination -->
+		<%- include('../../components/pagination.ejs' , {pagination : tickets}) %>
+		<!-- pagination -->
+	</div>
+</div>
+
+
+

@@ -16,6 +16,8 @@ class CourseController extends Controller {
 			const image = req?.file;
 			let imageAddrs = [];
 			if (image) imageAddrs = Object.values(imageHelper.resizeImage(image.path));
+			if (price < 1000)
+				return this.flashAndRedirect(req, res, 'error', 'مبلغ دوره باید حداقل 1000 تومان باشد', req.headers.referer);
 			await Course.create({
 				title,
 				type,

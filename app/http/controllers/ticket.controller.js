@@ -53,12 +53,12 @@ class TicketController extends Controller {
 				}
 			);
 			const openTickets = tickets.docs.filter(ticket => ticket.status == false);
-			const closedTickets = tickets.docs.filter(ticket => ticket.status == true);
+			const closedTickets = tickets.docs.length - openTickets.length;
 			res.render('pages/panel/ticket/index', {
 				title: 'داشبورد کاربری | تیکت ها',
 				tickets,
 				openTickets: openTickets.length,
-				closedTickets: closedTickets.length,
+				closedTickets: closedTickets,
 			});
 		} catch (error) {
 			next(error);

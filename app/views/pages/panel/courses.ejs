@@ -19,7 +19,7 @@
 				<!-- course card start -->
 				<div class="card p-0 mx-auto mx-lg-1 ">
 					<a href="/courses/<%= course.slug %>">
-						<img src="<%= course?.thumbnail?.path ?? '/static/imgs/defaultImage.avif' %>" class="card-img-top" alt="<%= course.title %>" />
+						<img loading="lazy" src="<%= course?.thumbnail?.path ?? '/static/imgs/defaultImage.avif' %>" class="card-img-top" alt="<%= course.title %>" />
 					</a>
 					<div class="card-body">
 						<a class="link-light" href="/courses/<%= course.slug %>">
@@ -40,7 +40,7 @@
 			<% }) %>
 		<% } else { %>
 				<p class="mb-2 text-secondary fs-6 mt-3 text-center">هیچ دوره ای خریداری نشده است ! 🥲</p>
-				<img class="img-fluid w-50 mx-auto" src="/static/imgs/emptyCart.svg" alt="سبد خرید خالی" />
+				<img class="img-fluid w-50 mx-auto" loading="lazy" src="/static/imgs/emptyCart.svg" alt="سبد خرید خالی" />
 				<a class="btn btn-primary mt-4" style="background-color: #4E81FB;" href="/courses">
 					<span class="me-2">شروع یادگیری برنامه نویسی</span>
 				<svg width="23" height="15" viewBox="0 0 23 15" fill="#fff" xmlns="http://www.w3.org/2000/svg">

@@ -46,43 +46,65 @@
 	<section class="col-12 trans-table-wrap my-5 p-3 p-lg-5">
 		<h2 class="fs-4 pb-3">تاریخچه تراکنش ها</h2>
 		<hr>
-		<ul class="w-100 mx-auto p-0">
-			<li class="d-flex align-items-center justify-content-evenly text-md-center">
-				<p class="mb-0 w-100">شماره پیگیری</p>
-				<p class="mb-0 d-none d-lg-block w-100">شرح تراکنش</p>
-				<p class="mb-0 w-100">مبلغ</p>
-				<p class="mb-0 w-100 d-none d-lg-block">ساعت</p>
-				<p class="mb-0 w-100">تاریخ</p>
-			</li>
-			<!-- failed payment start -->
-			<li class="my-3 p-3 rounded-2 d-flex failed-pay-item justify-content-between">
-				<p class="mb-0 ">
-					<svg width="24" height="24" viewBox="0 0 24 24" fill="#DC2626" xmlns="http://www.w3.org/2000/svg">
-						<path fill-rule="evenodd" clip-rule="evenodd" d="M0 12C0 21.882 2.118 24 12 24C21.882 24 24 21.882 24 12C24 2.118 21.882 0 12 0C2.118 0 0 2.118 0 12ZM8.46452 8.46443C8.85505 8.07391 9.48821 8.07391 9.87874 8.46443L12.0001 10.5858L14.1214 8.46452C14.5119 8.074 15.145 8.074 15.5356 8.46452C15.9261 8.85505 15.9261 9.48821 15.5356 9.87874L13.4143 12L15.5356 14.1213C15.9261 14.5118 15.9261 15.145 15.5356 15.5355C15.1451 15.926 14.5119 15.926 14.1214 15.5355L12.0001 13.4142L9.87871 15.5356C9.48819 15.9261 8.85503 15.9261 8.4645 15.5356C8.07398 15.1451 8.07398 14.5119 8.4645 14.1214L10.5859 12L8.46452 9.87864C8.074 9.48812 8.074 8.85496 8.46452 8.46443Z" fill="#DC2626"></path>
-						</svg>
-					<span class="ms-lg-4">79990</span>
-				</p>
-				<p class="mb-0 d-none d-lg-block">خرید از طریق سبد خرید</p>
-				<p class="mb-0 "><span data-value="580000" class="number me-2"></span><img loading="lazy" width="20px" src="/static/imgs/toman-white.svg" alt="تومان" class=""></p>
-				<p class="mb-0 d-none d-lg-block">23:13</p>
-				<p class="mb-0 ">12 اردیبهشت 1403</p>
-			</li>
-			<!-- successful payment start -->
-			<li class="my-3 p-3 rounded-2 d-flex successful-pay-item justify-content-between">
-				<p class="mb-0 ">
-					<svg width="24" height="24" viewBox="0 0 18 13" fill="#22C55E" xmlns="http://www.w3.org/2000/svg">
-						<path fill="#22C55E" fill-rule="evenodd" clip-rule="evenodd" d="M16.849 2.91808C17.4348 2.3323 17.4348 1.38255 16.849 0.796762C16.2633 0.210975 15.3135 0.210975 14.7277 0.796762L6.5012 9.02328L2.91808 5.44015C2.3323 4.85437 1.38255 4.85437 0.796762 5.44015C0.210975 6.02594 0.210975 6.97569 0.796762 7.56147L5.43997 12.2047C5.78681 12.5515 6.26124 12.693 6.71217 12.6291C7.02331 12.5853 7.32334 12.4438 7.56263 12.2045L16.849 2.91808Z">
-						</path>
-					</svg>
-					<span class="ms-lg-4">79990</span>
-				</p>
-				<p class="mb-0 d-none d-lg-block">خرید از طریق سبد خرید</p>
-				<p class="mb-0 "><span data-value="580000" class="number me-2"></span><img loading="lazy" width="20px" src="/static/imgs/toman-white.svg" alt="تومان" class=""></p>
-				<p class="mb-0 d-none d-lg-block">23:13</p>
-				<p class="mb-0 ">12 اردیبهشت 1403</p>
-			</li>
-			<!-- successful payment start -->
-
-		</ul>
+		<% if (transactions.totalDocs > 0) { %>
+			<ul class="w-100 mx-auto p-0">
+				<li class="d-flex align-items-center justify-content-evenly text-md-center">
+					<p class="mb-0 w-100">شماره پیگیری</p>
+					<p class="mb-0 d-none d-lg-block w-100">شرح تراکنش</p>
+					<p class="mb-0 w-100">مبلغ</p>
+					<p class="mb-0 w-100 d-none d-lg-block">ساعت</p>
+					<p class="mb-0 w-100">تاریخ</p>
+				</li>
+				<!-- failed payment start -->
+				<% transactions.docs.forEach(transaction => { %>
+						<% if (transaction.status) { %>
+								<!-- successful payment start -->
+								<li class="my-3 p-3 rounded-2 d-flex successful-pay-item justify-content-between">
+									<p class="mb-0 ">
+										<svg width="24" height="24" viewBox="0 0 18 13" fill="#22C55E" xmlns="http://www.w3.org/2000/svg">
+											<path fill="#22C55E" fill-rule="evenodd" clip-rule="evenodd" d="M16.849 2.91808C17.4348 2.3323 17.4348 1.38255 16.849 0.796762C16.2633 0.210975 15.3135 0.210975 14.7277 0.796762L6.5012 9.02328L2.91808 5.44015C2.3323 4.85437 1.38255 4.85437 0.796762 5.44015C0.210975 6.02594 0.210975 6.97569 0.796762 7.56147L5.43997 12.2047C5.78681 12.5515 6.26124 12.693 6.71217 12.6291C7.02331 12.5853 7.32334 12.4438 7.56263 12.2045L16.849 2.91808Z">
+											</path>
+										</svg>
+										<span class="ms-lg-4"><%= transaction.transid %></span>
+									</p>
+									<p class="mb-0 d-none d-lg-block">
+										<% if (transaction.wallet) { %>
+											شارژ کیف پول
+										<% }  else if (transaction.vip) {%>
+											تمدید و فعال سازی عضویت ویژه
+										<% } else { %>
+											پرداخت از طریق سبد خرید
+										<% } %>
+									</p>
+									<p class="mb-0 "><span data-value="<%= transaction.amount %>" class="number me-2"></span><img loading="lazy" width="20px" src="/static/imgs/toman-white.svg" alt="تومان" class=""></p>
+									<p class="mb-0 d-none d-lg-block"><%= date(transaction.createdAt).format('H:m') %></p>
+									<p class="mb-0 "><%= date(transaction.createdAt).format('jD jMMMM jYYYY') %></p>
+								</li>
+								<!-- successful payment start -->
+						<% } else {  %>
+								<li class="my-3 p-3 rounded-2 d-flex failed-pay-item justify-content-between">
+									<p class="mb-0 ">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="#DC2626" xmlns="http://www.w3.org/2000/svg">
+											<path fill-rule="evenodd" clip-rule="evenodd" d="M0 12C0 21.882 2.118 24 12 24C21.882 24 24 21.882 24 12C24 2.118 21.882 0 12 0C2.118 0 0 2.118 0 12ZM8.46452 8.46443C8.85505 8.07391 9.48821 8.07391 9.87874 8.46443L12.0001 10.5858L14.1214 8.46452C14.5119 8.074 15.145 8.074 15.5356 8.46452C15.9261 8.85505 15.9261 9.48821 15.5356 9.87874L13.4143 12L15.5356 14.1213C15.9261 14.5118 15.9261 15.145 15.5356 15.5355C15.1451 15.926 14.5119 15.926 14.1214 15.5355L12.0001 13.4142L9.87871 15.5356C9.48819 15.9261 8.85503 15.9261 8.4645 15.5356C8.07398 15.1451 8.07398 14.5119 8.4645 14.1214L10.5859 12L8.46452 9.87864C8.074 9.48812 8.074 8.85496 8.46452 8.46443Z" fill="#DC2626"></path>
+											</svg>
+										<span class="ms-lg-4"><%= transaction.transid  %></span>
+									</p>
+									<p class="mb-0 d-none d-lg-block">
+										<% if (transaction.wallet) { %>
+											شارژ کیف پول
+										<% }  else if (transaction.vip) {%>
+											تمدید و فعال سازی عضویت ویژه
+										<% } else { %>
+											پرداخت از طریق سبد خرید
+										<% } %>
+									</p>
+									<p class="mb-0 "><span data-value="<%= transaction.amount %>" class="number me-2"></span><img loading="lazy" width="20px" src="/static/imgs/toman-white.svg" alt="تومان" class=""></p>
+									<p class="mb-0 d-none d-lg-block"><%= date(transaction.createdAt).format('H:m') %></p>
+									<p class="mb-0 "><%= date(transaction.createdAt).format('jD jMMMM jYYYY')%></p>
+								</li>
+						<% } %>
+				<% }) %>
+			</ul>
+		<% } %>
 	</section>
 </div>

@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const paymentSchema = new Schema(
 	{
@@ -10,8 +11,9 @@ const paymentSchema = new Schema(
 		amount: { type: Number, required: true },
 		status: { type: Boolean, required: true, default: false },
 	},
-	{ timestamps: true }
+	{ timestamps: true, toJSON: { virtuals: true } }
 );
+paymentSchema.plugin(mongoosePaginate);
 
 const Payment = model('payment', paymentSchema);
 

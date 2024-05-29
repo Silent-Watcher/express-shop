@@ -31,6 +31,7 @@ passport.use(
 			});
 			return done(null, newUser);
 		} catch (error) {
+			console.log(error);
 			done(error, false, req.flash('error', 'ثبت نام با موفقیت انجام نشد. لطفا دوباره سعی کنید'));
 		}
 	})

@@ -1,3 +1,4 @@
+const Payment = require('../../models/payment.model');
 const User = require('../../models/user.model');
 const Controller = require('app/http/controllers/controller');
 
@@ -27,7 +28,27 @@ class PanelController extends Controller {
 	//
 	async getTransactionsPage(req, res, next) {
 		try {
-			res.render('pages/panel/transactions', { title: 'داشبورد کاربری | تراکنش ها' });
+			let page = req.query.page ?? 1;
+			if (isNaN(page)) return this.alertAndRedirect(req, res, 'error', 'شماره صفحه نامعتبر است', '/me/tickets');
+			const transactions = await Payment.paginate(
+				{ user: req.user._id },
+				{
+					limit: 10,
+					page,
+					sort: { createdAt: 'desc' },
+					lean: true,
+				}
+			);
+			// return res.json(transactions);
+			res.render('pages/panel/transactions', { title: 'داشبورد کاربری | تراکنش ها', transactions });
+		} catch (error) {
+			next(error);
+		}
+	}
+	//
+	async getAccountPage(req, res, next) {
+		try {
+			res.render('pages/panel/account', { title: 'داشبورد کاربری | جزئیات حساب' });
 		} catch (error) {
 			next(error);
 		}

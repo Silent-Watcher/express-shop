@@ -1,6 +1,6 @@
 const Controller = require('app/http/controllers/controller');
-const Ticket = require('../../models/ticket.model');
-const imageHelper = require('../../helpers/image.helper');
+const Ticket = require('app/models/ticket.model');
+const imageHelper = require('app/helpers/image.helper');
 
 class TicketController extends Controller {
 	constructor() {

@@ -9,7 +9,6 @@ const { redirectIfAuthenticate, isUserAuthenticate, checkUserIsAdmin } = require
 const { PORT } = require('app/common/globals');
 const date = require('app/helpers/date/convertToJalali');
 const User = require('app/models/user.model');
-const { settings } = require('app/common/globals');
 
 // main page routes
 router.use(
@@ -24,14 +23,16 @@ router.use(
 		res.locals.breadcrumbs = req.breadcrumbs;
 		res.locals.url = `${req.protocol}://${req.hostname}:${PORT}${req.url}`;
 		res.locals.urlPath = req.url;
-		res.locals.title = (await settings).appName;
+		res.locals.title = 'فروشگاه عطن';
 		res.locals.date = date;
 		if (req.isAuthenticated()) {
 			let user = await User.findById(req.user._id, {
 				cartItems: 1,
-				name: 1,
+				firstName: 1,
+				lastName: 1,
 				email: 1,
-				photo: 1,
+				avatar: 1,
+				photos: 1,
 				admin: 1,
 				likedCourses: 1,
 			}).populate({

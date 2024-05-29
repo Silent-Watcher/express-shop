@@ -128,10 +128,10 @@
 									data-bs-toggle="dropdown"
 									aria-expanded="false"
 								>
-								<% if (user?.photo) { %>
+								<% if (user?.avatar?.path?.length > 0) { %>
 									<img
 									class="avatar img-fluid rounded-circle"
-									src="<%= user?.photo %>"
+									src="<%= user?.avatar?.path %>"
 									alt="avatar"
 								/>
 								<% } else {%>
@@ -148,10 +148,10 @@
 								<ul class="dropdown-menu dropdown-menu-lg-end p-4">
 									<div class="d-flex justify-content-around align-items-center">
 										<a href="/me">
-											<% if (user?.photo) { %>
+											<% if (user?.avatar?.path) { %>
 												<img
 												class="avatar img-fluid rounded-circle"
-												src="<%= user?.photo %>"
+												src="<%= user?.avatar?.path %>"
 												alt="avatar"
 											/>
 											<% } else {%>
@@ -168,7 +168,7 @@
 										<div>
 											<a class="link-dark" href="/me"
 												><p class="mb-0">
-													<%= user?.name ??
+													<%= user?.firstName ??
 													user.email.slice(0,user.email.indexOf('@')) + '@' %>
 												</p></a
 											>

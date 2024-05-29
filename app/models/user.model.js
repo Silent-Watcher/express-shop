@@ -1,12 +1,16 @@
 const { Schema, model } = require('mongoose');
+const avatarSchema = require('./schema/avatar.scheme');
 
 const userSchema = new Schema(
 	{
-		name: { type: String, required: false },
+		firstName: { type: String, required: false, unique: false },
+		lastName: { type: String, required: false, unique: false },
 		email: { type: String, required: true, trim: true, unique: true },
+		phone: { type: String, required: false },
 		password: { type: String, required: true, trim: true },
 		admin: { type: Boolean, required: true, default: false },
-		photo: { type: String, required: false },
+		photos: { type: [avatarSchema], required: false, unique: false },
+		avatar: { type: avatarSchema, required: false, unique: false },
 		bio: { type: String, required: false },
 		rememberToken: { type: String, required: false, default: null },
 		learning: { type: [Schema.Types.ObjectId], ref: 'course' },

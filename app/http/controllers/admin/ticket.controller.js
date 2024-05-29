@@ -1,5 +1,5 @@
 const Controller = require('app/http/controllers/controller');
-const Ticket = require('../../../models/ticket.model');
+const Ticket = require('app/models/ticket.model');
 
 class TicketController extends Controller {
 	constructor() {

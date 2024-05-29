@@ -101,9 +101,9 @@
                       <a class="toggle" href="#">
                         <span class="user">
                           <span class="avatar">
-														<% if (user.photo != null) { %>
+														<% if (user?.avatar?.path?.length > 0) { %>
 															<img
-																src="<%= user.photo %>"
+																src="<%= user.avatar.path%>"
 																alt=""
 															/>
 														<% } else {%>
@@ -120,7 +120,7 @@
                       <!-- Dropdown -->
                       <div class="adomx-dropdown-menu dropdown-menu-user">
                         <div class="head">
-                          <h5 class="name"><a href="#"><%= user.name %></a></h5>
+                          <h5 class="name"><a href="#"><%= user.firstName %></a></h5>
                           <a class="mail" href="#"><%= user.email %></a>
                         </div>
                         <div class="body">

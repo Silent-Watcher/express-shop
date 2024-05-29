@@ -22,4 +22,5 @@ router.post('/tickets/upload-image', uploadImage.single('upload'), validateImage
 
 router.get('/transactions', panelController.getTransactionsPage);
 
+router.get('/account', panelController.getAccountPage);
 module.exports = router;

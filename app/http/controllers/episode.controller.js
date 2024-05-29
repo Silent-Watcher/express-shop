@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 const Controller = require('app/http/controllers/controller');
-const Episode = require('../../models/episode.model');
+const Episode = require('app/models/episode.model');
 
 class EpisodeController extends Controller {
 	constructor() {

@@ -30,10 +30,11 @@ passport.use(
 					return done(null, foundUser);
 				}
 				const newUser = new User({
-					name: profile.displayName,
+					firstName: profile.displayName,
 					email: profile.emails[0].value,
 					password: profile.id,
-					photo: profile?.photos[0]?.value,
+					photos: [{ source: 'google', path: profile?.photos[0]?.value }],
+					avatar: { source: 'google', path: profile?.photos[0]?.value },
 				});
 				await newUser.save();
 				return done(null, newUser);

@@ -49,7 +49,7 @@
 									<li class="list-group-item border-0 fs-6 my-2 <%= urlPath == '/me/courses' ? 'active' : ''%>"><a href="/me/courses"><i class='bx bxs-folder'></i><span class="ms-2">دوره ها</span></a></li>
 									<li class="list-group-item border-0 fs-6 my-2 <%= urlPath == '/me/tickets' ? 'active' : ''%>"><a href="/me/tickets"><i class='bx bxs-chat'></i><span class="ms-2">تیکت ها</span></a></li>
 									<li class="list-group-item border-0 fs-6 my-2 <%= urlPath == '/me/transactions' ? 'active' : ''%>"><a href="/me/transactions"><i class='bx bxs-dollar-circle'></i><span class="ms-2">تراکنش ها</span></a></li>
-									<li class="list-group-item border-0 fs-6 my-2 <%= urlPath == '/me/edit' ? 'active' : ''%>"><a href="/me/edit"><i class='bx bxs-user'></i><span class="ms-2">جزئیات حساب</span></a></li>
+									<li class="list-group-item border-0 fs-6 my-2 <%= urlPath == '/me/edit' ? 'active' : ''%>"><a href="/me/account"><i class='bx bxs-user'></i><span class="ms-2">جزئیات حساب</span></a></li>
 									<li class="list-group-item border-0 fs-6 my-2"><a href="/logout"><i class='bx bx-log-out'></i><span class="ms-2">خروج</span></a></li>
 								</ul>
 							</div>
@@ -64,7 +64,7 @@
 							<button class="btn btn-sm d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">
 								<i class='bx bx-menu fs-1 me-3' style='color:#fafafa'  ></i>
 							</button>
-							<h1 class="fs-4 me-lg-auto text-center text-lg-start my-3 my-lg-0"><%= user.name ?? 'کاربر'  %> عزیز خوش اومدی ! 👋🏻</h1>
+							<h1 class="fs-4 me-lg-auto text-center text-lg-start my-3 my-lg-0"><%= user.firstName ?? 'کاربر'  %> عزیز خوش اومدی ! 👋🏻</h1>
 							<div class="d-flex align-items-center justify-content-center mx-auto mx-lg-0 justify-content-lg-start">
 							<!-- cart start-->
 							<div class="btn-group order-last order-lg-first ms-3 ms-lg-0">
@@ -132,10 +132,10 @@
 									data-bs-toggle="dropdown"
 									aria-expanded="false"
 								>
-								<% if (user.photo) { %>
+								<% if (user?.avatar?.path?.length > 0) { %>
 									<img
 									class="avatar img-fluid rounded-circle"
-									src="<%= user.photo %>"
+									src="<%= user?.avatar?.path %>"
 									alt="avatar"
 								/>
 								<% } else {%>
@@ -152,10 +152,10 @@
 								<ul class="dropdown-menu dropdown-menu-lg-end p-4">
 									<div class="d-flex justify-content-around align-items-center">
 										<a href="#">
-											<% if (user.photo) { %>
+											<% if (user?.avatar?.path?.length > 0) { %>
 												<img
 												class="avatar img-fluid rounded-circle"
-												src="<%= user.photo %>"
+												src="<%= user?.avatar?.path %>"
 												alt="avatar"
 											/>
 											<% } else {%>
@@ -172,7 +172,7 @@
 										<div>
 											<a class="link-dark" href="/me"
 												><p class="mb-0">
-													<%= user.name ??
+													<%= user.firstName ??
 													user.email.slice(0,user.email.indexOf('@')) + '@' %>
 												</p></a
 											>

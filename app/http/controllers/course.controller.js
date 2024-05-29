@@ -1,10 +1,10 @@
 const httpStatus = require('http-status');
 
 const Controller = require('app/http/controllers/controller');
-const Course = require('../../models/course.model');
-const User = require('../../models/user.model');
-const Rating = require('../../models/rating.model');
-const Category = require('../../models/category.model');
+const Course = require('app/models/course.model');
+const User = require('app/models/user.model');
+const Rating = require('app/models/rating.model');
+const Category = require('app/models/category.model');
 
 class CourseController extends Controller {
 	//

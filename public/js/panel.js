@@ -18,21 +18,9 @@ numbers.forEach(number => {
 	number.innerHTML = replaceEnglishWithPersianNumbers(value);
 });
 
-// select form
-const selectElem = document.querySelector('#departmentSelectInput');
-// eslint-disable-next-line no-undef
-new Choices(selectElem);
-
-// editor
-let editorId = document.querySelector('.editor').id;
-// eslint-disable-next-line no-undef
-CKEDITOR.replace(editorId, {
-	language: 'fa',
-	uiColor: '#202334',
-	filebrowserUploadUrl: '/me/tickets/upload-image',
-});
-
-closeButton.addEventListener('click', e => {
-	let parent = e.target.parentElement;
-	parent.remove();
-});
+if (closeButton) {
+	closeButton.addEventListener('click', e => {
+		let parent = e.target.parentElement;
+		parent.remove();
+	});
+}

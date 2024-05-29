@@ -1,3 +1,5 @@
+const gravatar = require('gravatar');
+
 const autoBind = require('auto-bind');
 
 const sharp = require('sharp');
@@ -24,6 +26,10 @@ class ImageHelper {
 	// ====================
 	createImageUrlAddr(imagePath) {
 		return imagePath.replace(`${STATIC_FILES_PATH}\\`, '/static/');
+	}
+	// ====================
+	createGravatarUrl(email) {
+		return gravatar.url(email);
 	}
 	// ====================
 	resizeImage(filePath) {

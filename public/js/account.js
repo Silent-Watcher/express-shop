@@ -28,17 +28,26 @@ uploadButton.addEventListener('click', () => {
 const gravatarOption = document.getElementById('gravatarOption');
 const googleOption = document.getElementById('googleOption');
 const uploadOption = document.getElementById('uploadOption');
-
+const editAccountForm = document.getElementById('editAccountForm');
 const avatarUploader = document.querySelector('.file-upload');
 
 gravatarOption.addEventListener('change', e => {
-	if (e.target.checked) avatarUploader.type = 'text';
+	if (e.target.checked) {
+		avatarUploader.type = 'text';
+		editAccountForm.removeAttribute('enctype');
+	}
 });
 googleOption.addEventListener('change', e => {
-	if (e.target.checked) avatarUploader.type = 'text';
+	if (e.target.checked) {
+		avatarUploader.type = 'text';
+		editAccountForm.removeAttribute('enctype');
+	}
 });
 uploadOption.addEventListener('change', e => {
-	if (e.target.checked) avatarUploader.type = 'file';
+	if (e.target.checked) {
+		avatarUploader.type = 'file';
+		editAccountForm.setAttribute('enctype', 'multipart/form-data');
+	}
 });
 
 if (gravatarOption.checked) avatarUploader.type = 'text';

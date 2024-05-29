@@ -4,6 +4,7 @@
 }
 #nav li,
 #newTicketForm,
+#editAccountForm,
 .card,
 .trans-box,
 .trans-table-wrap {
@@ -26,6 +27,7 @@
 
 .ticket:hover,
 #newTicketForm input,
+#editAccountForm input,
 .choices__list,
 .choices__inner,
 .choices,
@@ -36,7 +38,8 @@
 	color: #919197;
 }
 
-#newTicketForm input::placeholder {
+#newTicketForm input::placeholder,
+#editAccountForm input::placeholder {
 	color: #919197;
 }
 .choices__item:hover {
@@ -70,9 +73,9 @@
 	list-style: none;
 }
 
-.failed-pay-item{
+.failed-pay-item {
 	background-color: #602431;
 }
-.successful-pay-item{
+.successful-pay-item {
 	background-color: #166448;
 }

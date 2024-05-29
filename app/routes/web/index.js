@@ -33,6 +33,7 @@ router.use(
 				email: 1,
 				avatar: 1,
 				photos: 1,
+				phone: 1,
 				admin: 1,
 				likedCourses: 1,
 			}).populate({

@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const avatarSchema = require('./schema/avatar.scheme');
+// const avatarSchema = require('./schema/avatar.scheme');
 
 const userSchema = new Schema(
 	{
@@ -9,8 +9,8 @@ const userSchema = new Schema(
 		phone: { type: String, required: false },
 		password: { type: String, required: true, trim: true },
 		admin: { type: Boolean, required: true, default: false },
-		photos: { type: [avatarSchema], required: false, unique: false },
-		avatar: { type: avatarSchema, required: false, unique: false },
+		photos: [{ source: String, path: String }],
+		avatar: { source: String, path: String },
 		bio: { type: String, required: false },
 		rememberToken: { type: String, required: false, default: null },
 		learning: { type: [Schema.Types.ObjectId], ref: 'course' },

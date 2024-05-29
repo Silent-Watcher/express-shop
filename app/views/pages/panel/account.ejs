@@ -5,7 +5,8 @@
 <link rel="stylesheet" href="/static/css/account.css" />
 
 <div class="row mt-4">
-	<form id="newTicketForm" action="/me/account/update" method="post" class="w-100 p-5 rounded-3 row g-3">
+	<form id="editAccountForm"  <%= user.avatar.source == 'upload' ? 'enctype="multipart/form-data"' : '' %> action="/me/account/update" method="post" class="w-100 p-5 rounded-3 row g-3">
+		<input type="hidden" name="user" value="<%= user._id %>">
 		<h1 class="fs-5 fw-bold mb-3">جزئیات حساب کاربری</h1>
 		<hr />
 		<!-- user photo -->
@@ -16,7 +17,7 @@
 					<div class="upload-button">
 						<i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
 					</div>
-					<input class="file-upload" type="file" accept="image/*" />
+					<input class="file-upload" type="file" accept="image/*" name="upload" />
 				</div>
 			</div>
 			<div class="col-12 col-lg-6 d-flex flex-column align-items-center">
@@ -50,11 +51,11 @@
 		<!-- info -->
 		<div class="col-12 col-md-6 mt-3">
 			<label for="firstName" class="form-label">نام</label>
-			<input value="<%= user.firstName %> <%= user?.lastName  %>" type="text" class="form-control p-2" name="firstName" id="firstName" />
+			<input value="<%= user?.firstName %>" type="text" class="form-control p-2" name="firstName" id="firstName" />
 		</div>
 		<div class="col-12 col-md-6">
 			<label for="lastName" class="form-label">نام خانوادگی</label>
-			<input placeholder="<%= user?.lastName ? '' : 'ثبت نشده 🥲' %>" type="text" class="form-control p-2" name="lastName" id="lastName" />
+			<input placeholder="<%= user?.lastName ? '' : 'ثبت نشده 🥲' %>" type="text" class="form-control p-2" name="lastName" id="lastName" value="<%= user?.lastName %>" />
 		</div>
 		<div class="col-12 col-md-6 mt-3">
 			<label for="email" class="form-label">ایمیل</label>
@@ -62,7 +63,7 @@
 		</div>
 		<div class="col-12 col-md-6">
 			<label for="phone" class="form-label">شماره همراه</label>
-			<input value="<%= user?.phone ?? '' %>" <%= user?.phone ? 'readonly disabled' : '' %> class="form-control p-2" id="phone" />
+			<input value="<%= user?.phone ?? '' %>" class="form-control p-2" id="phone" name="phone" />
 		</div>
 		<!-- submit -->
 		<div class="col-12 text-end">

@@ -7,7 +7,9 @@
 #editAccountForm,
 .card,
 .trans-box,
-.trans-table-wrap {
+.trans-table-wrap,
+.latest-tickets-wrap,
+.latest-courses-wrap{
 	background-color: #28293d;
 }
 #nav li.active a {

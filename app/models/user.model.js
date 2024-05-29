@@ -33,6 +33,18 @@ userSchema.virtual('ratedCourses', {
 	foreignField: 'user',
 });
 
+userSchema.virtual('tickets', {
+	ref: 'ticket',
+	localField: '_id',
+	foreignField: 'sender',
+});
+
+userSchema.virtual('transactions', {
+	ref: 'payment',
+	localField: '_id',
+	foreignField: 'user',
+});
+
 // eslint-disable-next-line no-unused-vars
 userSchema.methods.checkIfLearning = function (courseId) {
 	return this.learning.indexOf(courseId) == -1 ? false : true;

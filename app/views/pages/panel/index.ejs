@@ -1,0 +1,148 @@
+<div class="row mt-5">
+	<section class="col-12">
+		<div class="row g-4">
+			<!--  -->
+			<div
+				style="background-color: #4e81fb"
+				class="rounded-4 d-flex pt-3 pb-0 justify-content-center col-12 col-sm-3 mx-auto"
+			>
+				<i class="bx bxs-sticker fs-4 me-2" style="color: #ffffff"></i>
+				<div class="text-center d-flex flex-column">
+					<p class="mb-0 fs-14px">مجموع پرداخت ها</p>
+					<p class="mb-0 fw-bold fs-5 mt-2"><span class="number me-2" data-value="<%= totalPayment %>"></span><img width="20px" src="/static/imgs/toman-white.svg" alt=""></p>
+				</div>
+			</div>
+			<!--  -->
+			<!--  -->
+			<div
+				style="background-color: #facc15"
+				class="rounded-4 d-flex pt-3 pb-0 justify-content-center col-12 mx-auto col-sm-3  "
+			>
+				<i class="bx bxs-message-alt fs-4 me-2" style="color: #ffffff"></i>
+				<div class="text-center d-flex flex-column">
+					<p class="mb-0 fs-14px">دوره های من</p>
+					<p class="mb-0 fw-bold fs-5"><span class="number" data-value="<%= data.learning.length %>"></span><span class="ms-3">عدد</span></p>
+				</div>
+			</div>
+			<!--  -->
+			<!--  -->
+			<div
+				style="background-color: #f43f5e"
+				class="rounded-4 d-flex pt-3 pb-0 justify-content-center col-12  col-sm-3 mx-auto "
+			>
+				<i class="bx bxs-chat fs-4 me-2" style="color: #fdfdfd"></i>
+				<div class="text-center d-flex flex-column">
+					<p class="mb-0 fs-14px">مجموع تیکت ها</p>
+					<p class="mb-0 fw-bold fs-5"><span class="number" data-value="<%= data.tickets.length %>"></span><span class="ms-3">عدد</span></p>
+				</div>
+			</div>
+			<!--  -->
+
+		</div>
+		<div class="row">
+			<!--  -->
+			<div
+				style="background-color: #2ED573"
+				class="rounded-4 d-flex pt-3 pb-0 justify-content-center col-12 col-sm-3 mx-auto mt-3"
+			>
+				<i class='bx bxs-wallet fs-4 me-2' style='color:#ffffff'  ></i>
+				<div class="text-center d-flex flex-column">
+					<p class="mb-0 fs-14px">موجودی حساب</p>
+					<p class="mb-0 fw-bold fs-5"><span class="number me-2" data-value="<%= data.wallet %>"></span><img width="20px" src="/static/imgs/toman-white.svg" alt="تومان"></p>
+				</div>
+			</div>
+			<!--  -->
+		</div>
+	</section>
+</div>
+
+<div class="row mt-5 g-4">
+	<section class="col-12 col-lg-6">
+		<% if (data.learning.length > 0) { %>
+			<div class="d-flex align-items-center latest-courses-wrap p-4 rounded-4">
+				<h3 class="fs-6">اخیرا خریداری شده</h3>
+				<a style="color: #4E81FB; background-color: #2C3251; font-size: 10px;" class=" p-3 rounded-4 ms-auto" href="/me/tickets"><span class="me-2">مشاهده همه دوره ها</span>
+					<svg width="15" height="7" viewBox="0 0 23 15" fill="#4E81FB" xmlns="http://www.w3.org/2000/svg">
+					<path class="fill-current transition duration-200 text-dark-550 dark:group-hover:text-gray-20 dark:text-white group-hover:text-dark-700" opacity="0.4" d="M16.5073 5.95329L21.0752 5.54932C22.1003 5.54932 22.9315 6.38856 22.9315 7.42367C22.9315 8.45878 22.1003 9.29802 21.0752 9.29802L16.5073 8.89404C15.7031 8.89404 15.0511 8.23571 15.0511 7.42367C15.0511 6.61027 15.7031 5.95329 16.5073 5.95329"></path>
+					<path class="fill-current transition duration-200 text-dark-550 dark:group-hover:text-gray-20 dark:text-white group-hover:text-dark-700" d="M1.16786 6.02753C1.23926 5.95544 1.50598 5.65076 1.75653 5.39776C3.21811 3.81313 7.03437 1.22195 9.03073 0.428959C9.33382 0.302461 10.1003 0.0331419 10.5112 0.0140991C10.9032 0.0140991 11.2776 0.105232 11.6346 0.284778C12.0805 0.536415 12.4361 0.933592 12.6328 1.4015C12.7581 1.72523 12.9548 2.69777 12.9548 2.71545C13.1501 3.77776 13.2565 5.50521 13.2565 7.41493C13.2565 9.23215 13.1501 10.8889 12.9898 11.9689C12.9723 11.9879 12.7756 13.1944 12.5614 13.6079C12.1694 14.3642 11.4029 14.8321 10.5826 14.8321H10.5112C9.97638 14.8144 8.85292 14.3451 8.85292 14.3288C6.96297 13.5358 3.23697 11.0698 1.73902 9.43074C1.73902 9.43074 1.31604 9.00908 1.13284 8.74656C0.84726 8.36843 0.70447 7.90052 0.70447 7.43261C0.70447 6.9103 0.864772 6.42471 1.16786 6.02753"></path>
+					</svg>
+				</a>
+			</div>
+		<% } %>
+		<div class="latest-courses-cards d-flex justify-content-between mt-4">
+			<% if (data.learning.length > 0) { %>
+				<% data.learning.forEach(course => { %>
+					<!-- course card start -->
+					<div class="card p-0 mx-auto mx-lg-1 " style="width: 12rem;" >
+						<a href="/courses/<%= course.slug %>">
+							<img loading="lazy" src="<%= course?.thumbnail?.path ?? '/static/imgs/defaultImage.avif' %>" class="card-img-top" alt="<%= course.title %>" />
+						</a>
+						<div class="card-body">
+							<a class="link-light" href="/courses/<%= course.slug %>">
+								<p class="card-text"><%= course.title %></p>
+							</a>
+						</div>
+						<div class="card-footer d-flex flex-column">
+							<div class="d-flex align-items-center justify-content-between">
+								<p class="mb-0 fs-14px">میزان مشاهده :</p>
+								<p class="mb-0"><span data-value="0" class="number fs-14px"></span><span>%</span></p>
+							</div>
+							<div class="progress mt-2" role="progressbar" style="height: 3px">
+								<div class="progress-bar bg-secondary" style="width: 25%"></div>
+							</div>
+						</div>
+					</div>
+					<!-- course card end -->
+				<% }) %>
+			<% } else { %>
+				<div class="d-flex flex-column justify-content-center mx-auto">
+					<p>دوره ای فعلا خریداری نشده است 🥲</p>
+					<a href="/courses" class="btn" style="background-color: #4E81FB;">مشاهده دوره ها</a>
+				</div>
+			<% } %>
+		</div>
+	</section>
+	<section class="col-12 col-lg-6  ">
+		<div class="latest-tickets-wrap p-4 rounded-4 d-flex flex-column">
+			<div class="d-flex align-items-center">
+				<% if (data.tickets.length > 0) { %>
+					<h3 class="fs-6">تیکت های اخیر</h3>
+					<a style="color: #4E81FB;" class="fs-14px ms-auto" href="/me/tickets"><span class="me-2">مشاهده همه دوره ها</span>
+						<svg width="23" height="15" viewBox="0 0 23 15" fill="#4E81FB" xmlns="http://www.w3.org/2000/svg">
+						<path class="fill-current transition duration-200 text-dark-550 dark:group-hover:text-gray-20 dark:text-white group-hover:text-dark-700" opacity="0.4" d="M16.5073 5.95329L21.0752 5.54932C22.1003 5.54932 22.9315 6.38856 22.9315 7.42367C22.9315 8.45878 22.1003 9.29802 21.0752 9.29802L16.5073 8.89404C15.7031 8.89404 15.0511 8.23571 15.0511 7.42367C15.0511 6.61027 15.7031 5.95329 16.5073 5.95329"></path>
+						<path class="fill-current transition duration-200 text-dark-550 dark:group-hover:text-gray-20 dark:text-white group-hover:text-dark-700" d="M1.16786 6.02753C1.23926 5.95544 1.50598 5.65076 1.75653 5.39776C3.21811 3.81313 7.03437 1.22195 9.03073 0.428959C9.33382 0.302461 10.1003 0.0331419 10.5112 0.0140991C10.9032 0.0140991 11.2776 0.105232 11.6346 0.284778C12.0805 0.536415 12.4361 0.933592 12.6328 1.4015C12.7581 1.72523 12.9548 2.69777 12.9548 2.71545C13.1501 3.77776 13.2565 5.50521 13.2565 7.41493C13.2565 9.23215 13.1501 10.8889 12.9898 11.9689C12.9723 11.9879 12.7756 13.1944 12.5614 13.6079C12.1694 14.3642 11.4029 14.8321 10.5826 14.8321H10.5112C9.97638 14.8144 8.85292 14.3451 8.85292 14.3288C6.96297 13.5358 3.23697 11.0698 1.73902 9.43074C1.73902 9.43074 1.31604 9.00908 1.13284 8.74656C0.84726 8.36843 0.70447 7.90052 0.70447 7.43261C0.70447 6.9103 0.864772 6.42471 1.16786 6.02753"></path>
+						</svg>
+					</a>
+					<% } else { %>
+						<h3 class="fs-6">تیکت جدید</h3>
+						<a style="color: #4E81FB;" class="fs-14px ms-auto" href="/me/tickets/new"><span class="me-2">ارسال تیکت</span>
+							<svg width="23" height="15" viewBox="0 0 23 15" fill="#4E81FB" xmlns="http://www.w3.org/2000/svg">
+							<path class="fill-current transition duration-200 text-dark-550 dark:group-hover:text-gray-20 dark:text-white group-hover:text-dark-700" opacity="0.4" d="M16.5073 5.95329L21.0752 5.54932C22.1003 5.54932 22.9315 6.38856 22.9315 7.42367C22.9315 8.45878 22.1003 9.29802 21.0752 9.29802L16.5073 8.89404C15.7031 8.89404 15.0511 8.23571 15.0511 7.42367C15.0511 6.61027 15.7031 5.95329 16.5073 5.95329"></path>
+							<path class="fill-current transition duration-200 text-dark-550 dark:group-hover:text-gray-20 dark:text-white group-hover:text-dark-700" d="M1.16786 6.02753C1.23926 5.95544 1.50598 5.65076 1.75653 5.39776C3.21811 3.81313 7.03437 1.22195 9.03073 0.428959C9.33382 0.302461 10.1003 0.0331419 10.5112 0.0140991C10.9032 0.0140991 11.2776 0.105232 11.6346 0.284778C12.0805 0.536415 12.4361 0.933592 12.6328 1.4015C12.7581 1.72523 12.9548 2.69777 12.9548 2.71545C13.1501 3.77776 13.2565 5.50521 13.2565 7.41493C13.2565 9.23215 13.1501 10.8889 12.9898 11.9689C12.9723 11.9879 12.7756 13.1944 12.5614 13.6079C12.1694 14.3642 11.4029 14.8321 10.5826 14.8321H10.5112C9.97638 14.8144 8.85292 14.3451 8.85292 14.3288C6.96297 13.5358 3.23697 11.0698 1.73902 9.43074C1.73902 9.43074 1.31604 9.00908 1.13284 8.74656C0.84726 8.36843 0.70447 7.90052 0.70447 7.43261C0.70447 6.9103 0.864772 6.42471 1.16786 6.02753"></path>
+							</svg>
+						</a>
+				<% } %>
+			</div>
+			<hr>
+			<% if (data.tickets.length > 0) { %>
+				<% data.tickets.forEach(ticket => { %>
+					<!-- ticket item start -->
+					<div class="d-flex flex-wrap align-items-center ticket p-3 rounded-3">
+						<p class="mb-0 fs-14px"><span>#</span><span class="number" ><%= ticket._id.toString().slice(-5) %></span></p>
+						<a href="/me/tickets/<%= ticket._id %>" class="link-light me-auto ms-3 fs-14px"><%= ticket?.title %></a>
+						<div class="tags d-flex flex-wrap align-items-center justify-content-around mt-3 mt-lg-0">
+							<% if (ticket.status) { %>
+								<span class="rounded-4 fs-14px p-2 ticket-badge mx-1">بسته شده</span>
+								<% } else { %>
+								<span class="rounded-4 fs-14px p-2 ticket-badge mx-1">باز</span>
+							<% } %>
+						</div>
+					</div>
+					<!-- ticket item end -->
+				<% }) %>
+			<% } else { %>
+					<p class="mb-0 fs-14px">هیچ تیکتی ثبت نشده است</p>
+			<% } %>
+		</div>
+	</section>
+</div>

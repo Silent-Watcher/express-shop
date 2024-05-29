@@ -8,9 +8,31 @@ class PanelController extends Controller {
 		super();
 	}
 
-	getIndexPage(req, res, next) {
+	async getIndexPage(req, res, next) {
 		try {
-			res.render('pages/panel/index', { title: 'فروشگاه عطن | داشبورد کاربری' });
+			const user = await User.findById(req.user._id, {
+				password: 0,
+				rememberToken: 0,
+				photos: 0,
+				admin: 0,
+				email: 0,
+				likedCourses: 0,
+				firstName: 0,
+				lastName: 0,
+				avatar: 0,
+				phone: 0,
+			})
+				.populate([
+					{ path: 'tickets', select: 'title status _id', limit: 3 },
+					{ path: 'learning', select: 'thumbnail title slug', limit: 4 },
+					{ path: 'transactions', select: 'amount', match: { status: true } },
+				])
+				.lean();
+			let totalPayment = 0;
+			user.transactions.forEach(transaction => {
+				totalPayment += transaction.amount;
+			});
+			res.render('pages/panel/index', { title: 'فروشگاه عطن | داشبورد کاربری', data: user, totalPayment });
 		} catch (error) {
 			next(error);
 		}

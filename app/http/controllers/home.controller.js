@@ -204,9 +204,7 @@ class HomeController extends Controller {
 				await user.save();
 				await foundedTrans.save();
 				return this.alertAndRedirect(req, res, 'success', 'پرداخت با موفقیت انجام شد', '/me/courses');
-			} else {
-				return this.alertAndRedirect(req, res, 'info', 'پرداخت با موفقیت انجام نشد', '/');
-			}
+			} else return this.alertAndRedirect(req, res, 'info', 'پرداخت با موفقیت انجام نشد', '/');
 		} catch (error) {
 			next(error);
 		}

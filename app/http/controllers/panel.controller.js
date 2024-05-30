@@ -83,11 +83,13 @@ class PanelController extends Controller {
 			const { phone, avatarOption, user } = req.body;
 			const foundedUser = await User.findById(user, { _id: 1, email: 1, photos: 1, avatar: 1 });
 			if (!foundedUser) return this.alertAndRedirect(req, res, 'error', 'شناسه کاربر نامعتبر است', req.headers.referer);
-			let imageAddr = null;
+			let imageAddr = foundedUser?.avatar?.path ?? null;
 			if (avatarOption == 'upload') {
 				const image = req?.file;
-				// eslint-disable-next-line no-unused-vars
-				imageAddr = imageHelper.createImageUrlAddr(image.path);
+				if (image) {
+					// eslint-disable-next-line no-unused-vars
+					imageAddr = imageHelper.createImageUrlAddr(image?.path);
+				}
 			} else if (avatarOption == 'gravatar') {
 				// eslint-disable-next-line no-unused-vars
 				imageAddr = imageHelper.createGravatarUrl(foundedUser.email);
@@ -104,7 +106,7 @@ class PanelController extends Controller {
 			let result = await User.updateOne(
 				{ _id: foundedUser._id },
 				{
-					$set: { ...req.body, phone, avatar: { source: avatarOption, path: imageAddr } },
+					$set: { ...req.body, phone, avatar: { source: avatarOption ?? foundedUser.avatar.source, path: imageAddr } },
 					$addToSet: { photos: { source: avatarOption, path: imageAddr } },
 				}
 			);

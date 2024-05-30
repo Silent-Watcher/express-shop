@@ -37,12 +37,15 @@ gravatarOption.addEventListener('change', e => {
 		editAccountForm.removeAttribute('enctype');
 	}
 });
-googleOption.addEventListener('change', e => {
-	if (e.target.checked) {
-		avatarUploader.type = 'text';
-		editAccountForm.removeAttribute('enctype');
-	}
-});
+if (googleOption) {
+	googleOption.addEventListener('change', e => {
+		if (e.target.checked) {
+			avatarUploader.type = 'text';
+			editAccountForm.removeAttribute('enctype');
+		}
+	});
+}
+
 uploadOption.addEventListener('change', e => {
 	if (e.target.checked) {
 		avatarUploader.type = 'file';
@@ -50,6 +53,7 @@ uploadOption.addEventListener('change', e => {
 	}
 });
 
+if (!uploadOption.checked) avatarUploader.type = 'text';
 if (gravatarOption.checked) avatarUploader.type = 'text';
 if (googleOption.checked) avatarUploader.type = 'text';
 if (uploadOption.checked) avatarUploader.type = 'file';

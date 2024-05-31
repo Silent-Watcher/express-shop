@@ -8,6 +8,7 @@ const commentRouter = require('./comment');
 const categoryRouter = require('./category');
 const settingRouter = require('./setting');
 const validateImageSize = require('../../../validators/imageSize.validator');
+const userRouter = require('./user');
 
 // fetch admin panel page
 router.get('/', adminController.getIndexPage);
@@ -32,5 +33,8 @@ router.use('/settings', settingRouter);
 
 // admin panel tickets section
 router.use('/tickets', ticketRouter);
+
+// admin panel users section
+router.use('/users', userRouter);
 
 module.exports = router;

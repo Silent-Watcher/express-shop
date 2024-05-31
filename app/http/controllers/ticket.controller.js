@@ -85,9 +85,9 @@ class TicketController extends Controller {
 				answers: 1,
 			})
 				.populate([
-					{ path: 'sender', select: 'name' },
-					{ path: 'respondent', select: 'name' },
-					{ path: 'answers', select: 'body sender', populate: [{ path: 'sender', select: 'name' }] },
+					{ path: 'sender', select: 'firstName lastName' },
+					{ path: 'respondent', select: 'firstName lastName' },
+					{ path: 'answers', select: 'body sender', populate: [{ path: 'sender', select: 'firstName lastName' }] },
 				])
 				.lean();
 			if (!foundedTicket) return this.alertAndRedirect(req, res, 'error', 'تیکت یافت نشد', req.headers.referer);

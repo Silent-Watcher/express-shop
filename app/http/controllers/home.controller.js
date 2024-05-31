@@ -199,7 +199,7 @@ class HomeController extends Controller {
 				let responseObj = JSON.parse(verifyTransResponse.text);
 				foundedTrans.status = responseObj.code == 1 ? true : false;
 				const user = await User.findById(req.user._id, { cartItems: 1, learning: 1 });
-				user.learning = user.cartItems;
+				user.learning = user.learning.concat(user.cartItems);
 				user.cartItems = [];
 				await user.save();
 				await foundedTrans.save();

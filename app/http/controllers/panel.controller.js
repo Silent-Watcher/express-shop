@@ -1,13 +1,14 @@
-const Payment = require('../../models/payment.model');
-const User = require('../../models/user.model');
+const Payment = require('app/models/payment.model');
+const User = require('app/models/user.model');
 const Controller = require('app/http/controllers/controller');
 const imageHelper = require('app/helpers/image.helper');
 
 class PanelController extends Controller {
+	//
 	constructor() {
 		super();
 	}
-
+	//
 	async getIndexPage(req, res, next) {
 		try {
 			const user = await User.findById(req.user._id, {

@@ -6,7 +6,7 @@
 			<div class="row d-flex flex-column">
 				<!-- sender ticket -->
 				<div class="ticket-sender col-10 d-flex flex-column p-4 rounded-3 m-3">
-					<p class="mb-0 fw-bold fs-4 text-white"><%= ticket.sender.name %></p>
+					<p class="mb-0 fw-bold fs-4 text-white"><%= ticket.sender.firstName %><%= ticket.sender.lastName %></p>
 					<div class="d-flex">
 						<span class="fs-14px"><%= date(ticket.createdAt).format('jD jMMMM jYYYY') %></span>
 						<span class="fs-14px d-inline-block ms-2"><%= date(ticket.createdAt).format('H:m') %></span>
@@ -17,7 +17,7 @@
 						<% ticket.answers.forEach(answer => { %>
 							<!-- answer ticket -->
 							<div dir="ltr" class="ticket-reciever col-10 d-flex flex-column p-4 rounded-3 m-3 me-auto">
-								<p class="mb-0 fw-bold fs-4 text-white"><%= answer.sender.name %></p>
+								<p class="mb-0 fw-bold fs-4 text-white"><%= answer.sender.firstName %><%= answer.sender.lastName %></p>
 								<div class="d-inline-flex ms-auto">
 									<span dir="rtl" class="fs-14px d-inline-block ms-2"><%= date(answer.createdAt).format('H:m') %></span>
 									<span dir="rtl" class="fs-14px"><%= date(answer.createdAt).format('jD jMMMM jYYYY') %></span>

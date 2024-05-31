@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 // const avatarSchema = require('./schema/avatar.scheme');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const userSchema = new Schema(
 	{
@@ -54,6 +55,8 @@ userSchema.methods.isVip = function () {
 	// TODO: check if a user became a vip or not
 	return false;
 };
+
+userSchema.plugin(mongoosePaginate);
 
 const User = model('user', userSchema);
 

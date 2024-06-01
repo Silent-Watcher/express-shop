@@ -1,0 +1,83 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" /><link
+	rel="stylesheet"
+	href="./style.css"
+/>
+
+<link rel="stylesheet" href="/static/css/account.css" />
+<style>
+	body.skin-dark .form-control {
+		max-width: 100%;
+		background-color: #161824;
+		border-color: transparent;
+		color: #8b8d9b;
+	}
+</style>
+
+<div class="row">
+	<form id="editAccountForm"  <%= user.avatar.source == 'upload' ? 'enctype="multipart/form-data"' : '' %> action="/me/account/update" method="post" class="w-100  rounded-3 row g-3">
+		<input type="hidden" name="user" value="<%= user._id %>">
+		<h1 class="fs-5 fw-bold mb-3">جزئیات حساب کاربری</h1>
+		<hr />
+		<!-- user photo -->
+		<div class="row">
+			<div class="col-12 col-lg-6 my-4">
+				<div class="avatar-wrapper">
+					<img class="profile-pic" src="<%= user?.avatar?.path ?? '' %>" />
+					<div class="upload-button">
+						<i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+					</div>
+					<input class="file-upload" type="file" accept="image/*" name="upload" />
+				</div>
+			</div>
+			<div class="col-12 col-lg-6 d-flex flex-column align-items-center">
+				<% user.photos.forEach(photo => { %>
+					<% if (photo.source == 'google') { %>
+						<div>
+							<input type="radio" class="btn-check" name="avatarOption" value="google" id="googleOption" <%= user?.avatar?.source == 'google' ? 'checked' :'' %> autocomplete="off" >
+							<label class="btn text-white d-inline-flex align-items-center" for="googleOption">
+								<span class="me-3">Google</span>
+								<img class="avatarPreview" width="25px" src="/static/imgs/google.svg" alt="google">
+							</label>
+						</div>
+					<% } %>
+				<% }) %>
+				<div class="mt-2">
+					<input type="radio" class="btn-check" name="avatarOption" value="gravatar" id="gravatarOption" autocomplete="off" <%= user?.avatar?.source == 'gravatar' ? 'checked' :'' %>>
+					<label class="btn text-white d-inline-flex align-items-center" for="gravatarOption">
+						<span class="me-2">Gravatar</span>
+						<img width="25px" src="/static/imgs/gravatar.svg" alt="gravatar">
+					</label>
+				</div>
+				<div class="mt-2">
+					<input type="radio" class="btn-check" name="avatarOption" value="upload" id="uploadOption" autocomplete="off">
+					<label class="btn text-white d-inline-flex align-items-center" for="uploadOption">
+						<span class="me-3">بارگذاری </span>
+						<img width="28px" src="/static/imgs/package.svg" alt="package">
+					</label>
+				</div>
+			</div>
+		</div>
+		<!-- info -->
+		<div class="col-12 col-md-6 mt-3">
+			<label for="firstName" class="form-label">نام</label>
+			<input value="<%= user?.firstName %>" type="text" class="form-control p-2" name="firstName" id="firstName" />
+		</div>
+		<div class="col-12 col-md-6">
+			<label for="lastName" class="form-label">نام خانوادگی</label>
+			<input placeholder="<%= user?.lastName ? '' : 'ثبت نشده 🥲' %>" type="text" class="form-control p-2" name="lastName" id="lastName" value="<%= user?.lastName %>" />
+		</div>
+		<div class="col-12 col-md-6 mt-3">
+			<label for="email" class="form-label">ایمیل</label>
+			<input value="<%= user.email %>" readonly disabled class="form-control p-2" id="email" />
+		</div>
+		<div class="col-12 col-md-6">
+			<label for="phone" class="form-label">شماره همراه</label>
+			<input value="<%= user?.phone ?? '' %>" class="form-control p-2" id="phone" name="phone" />
+		</div>
+		<!-- submit -->
+		<div class="col-12 text-end">
+			<button class="btn btn-success mt-5" type="submit">ثبت اطلاعات</button>
+		</div>
+	</form>
+</div>
+<script src="/static/js/account.js"></script>

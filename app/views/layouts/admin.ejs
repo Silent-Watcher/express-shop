@@ -101,9 +101,9 @@
                       <a class="toggle" href="#">
                         <span class="user">
                           <span class="avatar">
-														<% if (user?.avatar?.path?.length > 0) { %>
+														<% if (admin?.avatar?.path?.length > 0) { %>
 															<img
-																src="<%= user.avatar.path%>"
+																src="<%= admin.avatar.path%>"
 																alt=""
 															/>
 														<% } else {%>
@@ -120,8 +120,8 @@
                       <!-- Dropdown -->
                       <div class="adomx-dropdown-menu dropdown-menu-user">
                         <div class="head">
-                          <h5 class="name"><a href="#"><%= user.firstName %></a></h5>
-                          <a class="mail" href="#"><%= user.email %></a>
+                          <h5 class="name"><a href="#"><%= admin.firstName %></a></h5>
+                          <a class="mail" href="#"><%= admin.email %></a>
                         </div>
                         <div class="body">
                           <ul>
@@ -274,6 +274,12 @@
 									<span>کاربران</span>
 								</a>
 								<ul class="side-header-sub-menu">
+                  <li>
+										<a href="/admin/users/new">
+											<i class="zmdi zmdi-plus-circle-o"></i>
+											<span>ایجاد کاربر</span>
+										</a>
+									</li>
                   <li>
 										<a href="/admin/users">
 											<i class="zmdi zmdi-format-list-bulleted"></i>

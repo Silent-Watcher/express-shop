@@ -72,7 +72,7 @@ router.use(
 	checkUserIsAdmin,
 	(req, res, next) => {
 		req.app.set('layout', 'layouts/admin');
-		res.locals.user = req.user;
+		res.locals.admin = req.user;
 		res.locals.title = 'پنل مدیریت';
 		next();
 	},

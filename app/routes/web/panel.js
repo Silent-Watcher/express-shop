@@ -6,6 +6,7 @@ const validateImageSize = require('app/validators/imageSize.validator');
 const checkDataValidation = require('app/http/middlewares/validation.middleware');
 const { validateSenderTicketData } = require('../../validators/ticket.validator');
 const getOldData = require('app/http/middlewares/getOldData');
+const { validateUserInfoData } = require('../../validators/userInfo.validator');
 
 router.use((req, res, next) => {
 	req.app.set('layout', 'layouts/panel');
@@ -29,6 +30,8 @@ router.post(
 	uploadImage.single('upload'),
 	validateImageSize,
 	getOldData,
+	validateUserInfoData(),
+	checkDataValidation,
 	panelController.updateUserInfo
 );
 module.exports = router;

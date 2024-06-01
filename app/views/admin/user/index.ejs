@@ -47,6 +47,9 @@
 					<td>
 						<div class="d-flex flex-column flex-lg-row justify-content-center">
 							<a href="/admin/users/<%= user?._id %>/edit" class="btn btn-primary rounded ms-1 btn-sm">ویرایش</a>
+							<% if (admin._id.toString() != user._id.toString()) { %>
+								<a href="/admin/users/<%= user?._id %>/delete" class="btn btn-outline-primary rounded ms-1 btn-sm">حذف</a>
+							<% } %>
 							<a href="/admin/users/<%= user?._id %>/toggleAdmin" class="btn <%= user.admin ? 'btn-danger': 'btn-outline-info' %> rounded ms-1 btn-sm mt-2 mt-lg-0"><%= user.admin ? 'لغو مدیریت' : 'مدیر شو' %></a>
 							<% if (user.admin) { %>
 								<a href="/admin/users/<%= user?._id %>/changeRole" class="btn btn-info rounded ms-1 btn-sm mt-2 mt-lg-0">تغییر سطح دسترسی</a>

@@ -1,0 +1,46 @@
+<link rel="stylesheet" href="/static/admin/course/css/delete.css" />
+
+<div class="row">
+	<h1 class="text-center">حذف کاربر</h1>
+	<p class="text-center mb-0">
+		<a class="fw-bold" href="/admin/users">بازگشت <i class="zmdi zmdi-long-arrow-left"></i> </a>
+	</p>
+	<div class="col-12 col-lg-6 offset-lg-3 text-center mx-auto mt-3">
+		<div class="alert alert-warning" role="alert">
+			با حذف تمام اطلاعات مربوط به
+			<span class="fw-bold"
+				><%= (user?.firstName ?? user.email.slice(0,user.email.indexOf('@')) + '@') + ' ' + (user?.lastName ?? '')
+				%></span
+			>
+			از سایت حذف خواهد شد!
+		</div>
+	</div>
+	<div class="text-center d-flex align-items-center justify-content-center">
+		<label for="isOkToDelete">از تصمیم خود اطمینان دارم</label>
+		<input type="checkbox" id="isOkToDelete" class="me-2" />
+	</div>
+	<section class="deleteFormSection" hidden>
+		<div class="row">
+			<form method="POST" action="/admin/users/<%= user._id %>/delete" class="col-12 col-lg-4 mb-15 mx-auto mt-4">
+				<p class="form-text mb-1">برای حذف عبارت "<%= user._id %>" را وارد کنید</p>
+				<input
+					data-course="<%= user._id %>"
+					id="deleteCourseInput"
+					type="text"
+					class="form-control danger"
+					name="episode"
+				/>
+				<button
+					id="deleteCourseButton"
+					type="submit"
+					class="button button-outline button-secondary w-100 mt-3"
+					disabled
+				>
+					<span>حذف کاربر</span>
+				</button>
+			</form>
+		</div>
+	</section>
+</div>
+
+<script src="/static/admin/course/js/delete.js"></script>

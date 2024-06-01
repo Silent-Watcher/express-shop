@@ -28,4 +28,13 @@ router.get(
 // edit user info
 router.get('/:id/edit', param('id').isMongoId().withMessage('شناسه کاربر نامعتبر است'), userController.edit);
 
+// edit user info
+router.get(
+	'/:id/delete',
+	param('id').isMongoId().withMessage('شناسه کاربر نامعتبر است'),
+	userController.getDeleteUserPage
+);
+
+router.post('/:id/delete', param('id').isMongoId().withMessage('شناسه کاربر نامعتبر است'), userController.delete);
+
 module.exports = router;

@@ -61,7 +61,7 @@ class CourseController extends Controller {
 						populate: [{ path: 'children', select: 'name slug' }, { path: 'parent' }],
 						select: 'name children slug',
 					},
-					{ path: 'user', select: 'photo bio firstName lastName' },
+					{ path: 'user', select: 'photo bio firstName lastName email' },
 					{
 						path: 'comments',
 						match: { parent: null, isApproved: true },

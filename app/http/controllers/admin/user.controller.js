@@ -1,5 +1,7 @@
 const Controller = require('app/http/controllers/controller');
 const User = require('../../../models/user.model');
+const Course = require('../../../models/course.model');
+const Comment = require('../../../models/comment.model');
 const passwordUtil = require('../../../utils/password.util');
 
 class UserController extends Controller {
@@ -84,6 +86,48 @@ class UserController extends Controller {
 		try {
 			const user = await User.findById(req.params.id, { firstName: 1, lastName: 1, avatar: 1, email: 1, photos: 1 });
 			res.render('admin/user/edit', { title: 'پنل مدیریت | ویرایش کاربر', user });
+		} catch (error) {
+			next(error);
+		}
+	}
+	//
+	async getDeleteUserPage(req, res, next) {
+		try {
+			const foundedUser = await User.findById(req.params.id, { _id: 1, firstName: 1, lastName: 1, email: 1 }).lean();
+			res.render('admin/user/delete', { title: 'پنل مدیریت | حذف کاربر', user: foundedUser });
+		} catch (error) {
+			next(error);
+		}
+	}
+	//
+	async delete(req, res, next) {
+		try {
+			const foundedUser = await User.findById(req.params.id, { _id: 1 }).populate([
+				{ path: 'courses', select: '_id', populate: [{ path: 'episodes', select: '_id' }] },
+				{ path: 'tickets', select: '_id' },
+				{ path: 'comments', select: '_id', populate: [{ path: 'comments', select: '_id' }] },
+			]);
+			if (!foundedUser)
+				return this.flashAndRedirect(req, res, 'error', 'کاربری با چنین شناسه ای یافت نشد', '/admin/users');
+			// delete user courses and episodes
+			if (foundedUser.courses.length) {
+				foundedUser.courses.forEach(async course => {
+					course.episodes.forEach(async episode => await episode.remove());
+					await Course.deleteOne({ _id: course._id });
+				});
+			}
+			// delete user tickets
+			if (foundedUser.tickets.length) foundedUser.tickets.forEach(async ticket => await ticket.remove());
+			// delete user comments
+			if (foundedUser.comments.length) {
+				foundedUser.comments.forEach(async comment => {
+					// remove sub comments too !
+					comment.comments.forEach(async comment => await comment.remove());
+					await Comment.deleteOne({ _id: comment._id });
+				});
+			}
+			await User.deleteOne({ _id: foundedUser._id });
+			return this.flashAndRedirect(req, res, 'success', 'کاربر با موفقیت حذف شد', '/admin/users');
 		} catch (error) {
 			next(error);
 		}

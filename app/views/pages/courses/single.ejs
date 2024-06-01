@@ -275,7 +275,7 @@
 				<div class="row mt-4">
 					<div class="d-flex flex-column justify-content-center align-items-center bg-secondary-subtle rounded p-4">
 						<img class="rounded-circle" width="50px" src="<%= course.user.photo%>" alt="مدرس">
-						<p class="d-inline-flex align-items-start mb-0 mt-2 justify-content-center fw-bold"><img class="mt-1" loading="lazy" src="/static/imgs/badge.svg" width="15px" alt=""><span class="ms-1"><%= course.user.firstName %> <%= course.user.lastName %></span></p>
+						<p class="d-inline-flex align-items-start mb-0 mt-2 justify-content-center fw-bold"><img class="mt-1" loading="lazy" src="/static/imgs/badge.svg" width="15px" alt=""><span class="ms-1"><%= course?.user?.firstName ?? course?.user?.email.slice(0,course.user.email.indexOf('@')) + '@' %> <%= course?.user?.lastName ?? '' %></span></p>
 						<p class="mb-0 text-secandary fs-14px">مدرس دوره</p>
 						<p class="mt-2 fs-14px text-center"><%= course.user.bio %></p>
 					</div>

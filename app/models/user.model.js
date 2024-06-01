@@ -47,6 +47,12 @@ userSchema.virtual('transactions', {
 	foreignField: 'user',
 });
 
+userSchema.virtual('comments', {
+	ref: 'comment',
+	localField: '_id',
+	foreignField: 'user',
+});
+
 // eslint-disable-next-line no-unused-vars
 userSchema.methods.checkIfLearning = function (courseId) {
 	return this.learning.indexOf(courseId) == -1 ? false : true;

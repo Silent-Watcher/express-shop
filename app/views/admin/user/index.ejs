@@ -25,10 +25,10 @@
 						<p><%= user.firstName ?? user.email.slice(0,user.email.indexOf('@')) + '@' %><%= user.lastName ?? '' %></p>
 					</td>
 					<td class="d-none d-sm-table-cell">
-						<%= user.email %>
+						<a href="mailto:<%= user.email %>"><%= user.email %></a>
 					</td>
 					<td class="d-none d-sm-table-cell">
-						<% if (user.role == 'admin') { %>
+						<% if (user.admin) { %>
 							ادمین
 						<% } else if (user.role == 'instructor') { %>
 							مدرس
@@ -40,7 +40,8 @@
 						<div class="d-flex flex-column flex-lg-row justify-content-center">
 							<a href="/admin/users/<%= user?._id %>/edit" class="btn btn-primary rounded ms-1 btn-sm">ویرایش</a>
 							<% if (user.admin) { %>
-								<a href="/admin/users/<%= user?._id %>/toggleAdmin" class="btn btn-primary rounded ms-1 btn-sm"></a>
+								<a href="/admin/users/<%= user?._id %>/toggleAdmin" class="btn btn-danger rounded ms-1 btn-sm mt-2 mt-lg-0">لغو مدیریت</a>
+								<a href="/admin/users/<%= user?._id %>/changeRole" class="btn btn-info rounded ms-1 btn-sm mt-2 mt-lg-0">تغییر سطح دسترسی</a>
 							<% } %>
 						</div>
 					</td>

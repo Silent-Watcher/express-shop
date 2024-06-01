@@ -8,7 +8,7 @@ class AdminController extends Controller {
 	uploadImage(req, res, next) {
 		try {
 			const image = req?.file;
-			res.json({
+			res.send({
 				uploaded: true,
 				fileName: image.originalname,
 				url: imageHelper.createImageUrlAddr(image.path),

@@ -1,9 +1,8 @@
 // avatar image uploader
 
 const fileUpload = document.querySelector('.file-upload');
-console.log('fileUpload: ', fileUpload);
+
 const uploadButton = document.querySelector('.upload-button');
-console.log('uploadButton: ', uploadButton);
 
 const readURL = input => {
 	if (input.files && input.files[0]) {

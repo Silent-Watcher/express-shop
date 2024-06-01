@@ -34,6 +34,7 @@ class TicketController extends Controller {
 				url: imageHelper.createImageUrlAddr(image.path),
 			});
 		} catch (error) {
+			console.log(error);
 			next(error);
 		}
 	}

@@ -6,7 +6,6 @@ const validateImageSize = require('app/validators/imageSize.validator');
 const checkDataValidation = require('app/http/middlewares/validation.middleware');
 const { validateSenderTicketData } = require('../../validators/ticket.validator');
 const getOldData = require('app/http/middlewares/getOldData');
-const { validateUserInfoData } = require('../../validators/userInfo.validator');
 
 router.use((req, res, next) => {
 	req.app.set('layout', 'layouts/panel');
@@ -20,14 +19,7 @@ router.get('/tickets', ticketController.getIndexPage);
 router.get('/tickets/new', ticketController.getNewTicketPage);
 router.post('/tickets/new', validateSenderTicketData(), checkDataValidation, ticketController.new);
 router.get('/tickets/:id', ticketController.getSingleTicketPage);
-router.post(
-	'/tickets/upload-image',
-	uploadImage.single('upload'),
-	validateImageSize,
-	validateUserInfoData(),
-	checkDataValidation,
-	ticketController.uploadImage
-);
+router.post('/tickets/upload-image', uploadImage.single('upload'), ticketController.uploadImage);
 
 router.get('/transactions', panelController.getTransactionsPage);
 

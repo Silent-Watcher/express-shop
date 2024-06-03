@@ -42,7 +42,7 @@ class TicketController extends Controller {
 					page,
 					sort: { createdAt: 'desc' },
 					lean: true,
-					populate: [{ path: 'sender', select: 'name' }],
+					populate: [{ path: 'sender', select: 'firstName lastName email' }],
 				}
 			);
 
@@ -64,7 +64,7 @@ class TicketController extends Controller {
 				status: 1,
 				_id: 1,
 			})
-				.populate([{ path: 'sender', select: 'name photo email' }])
+				.populate([{ path: 'sender', select: 'firstName lastName photo email' }])
 				.lean();
 			res.render('admin/ticket/reply', { title: 'پنل مدیریت | پاسخ به تیکت علی', ticket });
 		} catch (error) {

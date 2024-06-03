@@ -2128,8 +2128,6 @@ body.side-header-light .side-header-sub-menu li:hover > a {
 	color: #428bfa;
 }
 
-
-
 /*Dark & RTL Version Style*/
 /*----------------------------------------*/
 /*  21. Dark Skin (Dark Version) CSS
@@ -3492,13 +3490,12 @@ body.skin-dark .pagination .page-item .page-link {
 	color: #fafafa;
 }
 
-.admin_sub_heading{
+.admin_sub_heading {
 	color: #444444;
 	font-size: 12px;
 }
 
-
-body.skin-dark .admin_sub_heading{
+body.skin-dark .admin_sub_heading {
 	color: #fafafa;
 }
 
@@ -3507,3 +3504,17 @@ body.skin-dark textarea {
 	user-select: none;
 }
 
+body.skin-dark .form-control {
+	max-width: 100%;
+	background-color: #161824;
+	border-color: transparent;
+	color: #8b8d9b;
+}
+
+.mbn-20 {
+	margin-bottom: -20px;
+}
+
+.mb-20 {
+	margin-bottom: 20px;
+}

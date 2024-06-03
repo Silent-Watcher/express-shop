@@ -1,17 +1,14 @@
 <link rel="stylesheet" href="/static/admin/course/css/delete.css" />
 
 <div class="row">
-	<h1 class="text-center">حذف کاربر</h1>
+	<h1 class="text-center">حذف اجازه دسترسی</h1>
 	<p class="text-center mb-0">
-		<a class="fw-bold" href="/admin/users">بازگشت <i class="zmdi zmdi-long-arrow-left"></i> </a>
+		<a class="fw-bold" href="/admin/users/permissions">بازگشت <i class="zmdi zmdi-long-arrow-left"></i> </a>
 	</p>
 	<div class="col-12 col-lg-6 offset-lg-3 text-center mx-auto mt-3">
 		<div class="alert alert-warning" role="alert">
 			با حذف تمام اطلاعات مربوط به
-			<span class="fw-bold"
-				><%= (user?.firstName ?? user.email.slice(0,user.email.indexOf('@')) + '@') + ' ' + (user?.lastName ?? '')
-				%></span
-			>
+			<span class="fw-bold">"<%= permission?.name %>"</span>
 			از سایت حذف خواهد شد!
 		</div>
 	</div>
@@ -21,14 +18,14 @@
 	</div>
 	<section class="deleteFormSection" hidden>
 		<div class="row">
-			<form method="POST" action="/admin/users/<%= user._id %>/delete" class="col-12 col-lg-4 mb-15 mx-auto mt-4">
-				<p class="form-text mb-1">برای حذف عبارت "<%= user._id %>" را وارد کنید</p>
+			<form method="POST" action="/admin/users/permissions/<%= permission._id %>/delete?_method=DELETE" class="col-12 col-lg-4 mb-15 mx-auto mt-4">
+				<p class="form-text mb-1">برای حذف عبارت "<%= permission._id %>" را وارد کنید</p>
 				<input
-					data-course="<%= user._id %>"
+					data-course="<%= permission._id %>"
 					id="deleteCourseInput"
 					type="text"
 					class="form-control danger"
-					name="user"
+					name="permission"
 				/>
 				<button
 					id="deleteCourseButton"
@@ -36,7 +33,7 @@
 					class="button button-outline button-secondary w-100 mt-3"
 					disabled
 				>
-					<span>حذف کاربر</span>
+					<span>حذف اجازه سطح دسترسی</span>
 				</button>
 			</form>
 		</div>

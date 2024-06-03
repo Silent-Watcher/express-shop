@@ -26,7 +26,7 @@
 						<p><%= ticket.title %></p>
 					</td>
 					<td class="d-none d-sm-table-cell">
-						<%= ticket.sender.name%>
+						<%= (ticket.sender.firstName ?? ticket.sender.email.slice(0,ticket.sender.email.indexOf('@')) + '@') + ' ' + (ticket.sender.lastName ?? '') %>
 					</td>
 					<td class="d-none d-sm-table-cell">
 						<% if (ticket.department == 'consult') { %>

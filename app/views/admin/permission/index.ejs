@@ -1,0 +1,52 @@
+<div class="container">
+	<!-- permissions header -->
+	<div class="row w-100">
+		<div class="col-12 col-lg-6 d-flex align-items-center w-100">
+			<div class="d-flex justify-content-between w-100">
+				<div class="d-flex flex-column">
+					<h3>اجازه دسترسی ها</h3>
+					<p class="admin_sub_heading mt-3">مجموع :  <span><%= permissions.totalDocs %></span></p>
+				</div>
+				<div class="d-flex align-items-center">
+					<a class="btn btn-primary btn-sm" href="/admin/users/permissions/new">ایجاد اجازه دسترسی جدید</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- permissions table -->
+	<table class="mt-5 w-100">
+		<thead>
+			<tr class="text-center">
+				<th>نام</th>
+				<th>توضیحات</th>
+				<th>تنظیمات</th>
+			</tr>
+		</thead>
+		<tbody class="table-group-divider">
+			<% permissions.docs.forEach(permission => { %>
+				<tr class="text-center">
+					<td>
+						<p><%= permission.name %></p>
+					</td>
+					<td>
+						<p><%= permission.label %></p>
+					</td>
+					<td>
+						<div class="d-flex flex-column flex-lg-row justify-content-center">
+							<a href="/admin/users/permissions/<%= permission._id %>/edit" class="btn btn-info rounded ms-1 btn-sm">ویرایش</a>
+							<a href="/admin/users/permissions/<%= permission._id %>/delete" class="btn btn-outline-danger rounded ms-1 btn-sm">حذف</a>
+						</div>
+					</td>
+				</tr>
+			<% }) %>
+		</tbody>
+	</table>
+	<div class="d-flex justify-content-center">
+		<!-- pagination -->
+		<%- include('../../components/pagination.ejs' , {pagination : permissions}) %>
+		<!-- pagination -->
+	</div>
+</div>
+
+
+

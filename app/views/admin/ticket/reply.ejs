@@ -1,12 +1,3 @@
-<style>
-	body.skin-dark .form-control {
-		max-width: 100%;
-		background-color: #161824;
-		border-color: transparent;
-		color: #8b8d9b;
-	}
-</style>
-
 <div class="container">
 	<!-- ticket header -->
 	<div class="row w-100">
@@ -28,7 +19,7 @@
 						alt="تصویر کاربر"
 					/>
 				</p>
-				<p class="me-2 mt-3"><span class="fw-bold">نام کاربر :</span> <%= ticket.sender.name %></p>
+				<p class="me-2 mt-3"><span class="fw-bold">نام کاربر :</span> 	<%= (ticket.sender.firstName ?? ticket.sender.email.slice(0,ticket.sender.email.indexOf('@')) + '@') + ' ' + (ticket.sender.lastName ?? '') %></p>
 				<p class="me-2">
 					<span class="fw-bold">ایمیل کاربر :</span>
 					<a href="mailto:<%= ticket.sender.email %>" target="_blank"><%= ticket.sender.email %></a>

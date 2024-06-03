@@ -1,8 +1,8 @@
 const Controller = require('app/http/controllers/controller');
-const User = require('../../../models/user.model');
-const Course = require('../../../models/course.model');
-const Comment = require('../../../models/comment.model');
-const passwordUtil = require('../../../utils/password.util');
+const User = require('app/models/user.model');
+const Course = require('app/models/course.model');
+const Comment = require('app/models/comment.model');
+const passwordUtil = require('app/utils/password.util');
 
 class UserController extends Controller {
 	constructor() {
@@ -49,10 +49,10 @@ class UserController extends Controller {
 				return this.flashAndRedirect(req, res, 'error', 'کاربری با ایمیل قبلا ثبت نام کرده است', req.headers.referer);
 			// hash password
 			password = await passwordUtil.hash(password);
-
 			// store in database
 			const newUser = await User.create({ email, password });
-			if (!newUser) return this.flashAndRedirect(req, res, 'error', 'کاربر ساخته نشد لطفا دوباره سعی کنید');
+			if (!newUser)
+				return this.flashAndRedirect(req, res, 'error', 'کاربر ساخته نشد لطفا دوباره سعی کنید', '/admin/users');
 			return this.flashAndRedirect(req, res, 'success', 'کاربر با موفقیت ایجاد شد', '/admin/users');
 		} catch (error) {
 			next(error);

@@ -89,8 +89,10 @@
 				<% } %>
 			</li>
 			<li class="mx-2">
-				<img loading="lazy" src="/static/imgs/comment.svg" alt="کامنت">
-				<span class="number" data-value="<%= course.commentCount ?? 0 %>"></span>
+				<a class="link-dark" href="#comments">
+					<img loading="lazy" src="/static/imgs/comment.svg" alt="کامنت">
+					<span class="number" data-value="<%= course.commentCount ?? 0 %>"></span>
+				</a>
 			</li>
 			<li class="mx-2">
 					<img width="25px" class="img-fluid me-1" loading="lazy" src="/static/imgs/eye.svg" alt="بازدید">

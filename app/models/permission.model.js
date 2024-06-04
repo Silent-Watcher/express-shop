@@ -3,7 +3,7 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 
 const permissionSchema = new Schema({
 	name: { type: String, required: true, unique: true, trim: true },
-	label: { type: String, required: true },
+	label: { type: String, required: true, unique: true },
 });
 
 permissionSchema.plugin(mongoosePaginate);

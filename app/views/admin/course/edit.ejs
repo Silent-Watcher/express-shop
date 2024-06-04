@@ -41,9 +41,9 @@
 					<div class="col-12 mb-20">
 						<label class="my-2 user-select-none" for="newCourseCategories">دسته بندی دوره</label>
 						<% if (course.categories.length > 0) { %>
-							<%- include('../../components/multiSelectInput.ejs' , {labelId: 'newCourseCategories' , options: categories , courseCategories : course.categories})  %>
+							<%- include('../../components/multiSelectInput.ejs' , {labelId: 'newCourseCategories' , options: categories , courseCategories : course.categories , name:'categories'})  %>
 						<% } else { %>
-							<%- include('../../components/multiSelectInput.ejs' , {labelId: 'newCourseCategories' , options: categories , courseCategories : []})  %>
+							<%- include('../../components/multiSelectInput.ejs' , {labelId: 'newCourseCategories' , options: categories , courseCategories : [] , name:'categories'})  %>
 						<% } %>
 					</div>
 				<% } %>

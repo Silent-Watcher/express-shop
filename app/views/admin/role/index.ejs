@@ -1,0 +1,52 @@
+<div class="container">
+	<!-- roles header -->
+	<div class="row w-100">
+		<div class="col-12 col-lg-6 d-flex align-items-center w-100">
+			<div class="d-flex justify-content-between w-100">
+				<div class="d-flex flex-column">
+					<h3>نقش های کاربری</h3>
+					<p class="admin_sub_heading mt-3">مجموع :  <span><%= roles.totalDocs %></span></p>
+				</div>
+				<div class="d-flex align-items-center">
+					<a class="btn btn-primary btn-sm" href="/admin/users/roles/new">ایجاد نقش جدید</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- roles table -->
+	<table class="mt-5 w-100">
+		<thead>
+			<tr class="text-center">
+				<th>نام</th>
+				<th>توضیحات</th>
+				<th>تنظیمات</th>
+			</tr>
+		</thead>
+		<tbody class="table-group-divider">
+			<% roles.docs.forEach(role => { %>
+				<tr class="text-center">
+					<td>
+						<p><%= role.name %></p>
+					</td>
+					<td>
+						<p><%= role.label %></p>
+					</td>
+					<td>
+						<div class="d-flex flex-column flex-lg-row justify-content-center">
+							<a href="/admin/users/roles/<%= role._id %>/edit" class="btn btn-info rounded ms-1 btn-sm">ویرایش</a>
+							<a href="/admin/users/roles/<%= role._id %>/delete" class="btn btn-outline-danger rounded ms-1 btn-sm">حذف</a>
+						</div>
+					</td>
+				</tr>
+			<% }) %>
+		</tbody>
+	</table>
+	<div class="d-flex justify-content-center">
+		<!-- pagination -->
+		<%- include('../../components/pagination.ejs' , {pagination : roles}) %>
+		<!-- pagination -->
+	</div>
+</div>
+
+
+

@@ -29,6 +29,7 @@ class CourseController extends Controller {
 				thumbnail: imageAddrs.find(imageAddr => imageAddr.size == 'original') ?? DEFAULT_THUMBNAIL,
 				price,
 				tags,
+				...req.body,
 			});
 			return this.flashAndRedirect(req, res, 'success', `دوره ${title} با موفقیت ایجاد شد`, '/admin/courses');
 		} catch (error) {

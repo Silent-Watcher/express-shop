@@ -10,6 +10,7 @@ const settingRouter = require('./setting');
 const validateImageSize = require('../../../validators/imageSize.validator');
 const userRouter = require('./user');
 const permissionRouter = require('./permission');
+const roleRouter = require('./role');
 
 // fetch admin panel page
 router.get('/', adminController.getIndexPage);
@@ -40,5 +41,8 @@ router.use('/users', userRouter);
 
 // admin panel permissions section
 router.use('/users/permissions', permissionRouter);
+
+// admin panel roles section
+router.use('/users/roles', roleRouter);
 
 module.exports = router;

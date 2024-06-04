@@ -27,7 +27,7 @@ class PermissionController extends Controller {
 	async edit(req, res, next) {
 		try {
 			const { id, label, name } = req.body;
-			const foundedPermissionBasedOnName = await Permission.findOne({ name }, { _id: 1 }).lean();
+			const foundedPermissionBasedOnName = await Permission.findOne({ name, _id: { $ne: id } }, { _id: 1 }).lean();
 			if (foundedPermissionBasedOnName)
 				return this.flashAndRedirect(
 					req,

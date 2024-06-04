@@ -37,4 +37,11 @@ router.get(
 
 router.post('/:id/delete', param('id').isMongoId().withMessage('شناسه کاربر نامعتبر است'), userController.delete);
 
+router.get(
+	'/:id/addRole',
+	param('id').isMongoId().withMessage('شناسه کاربر نامعتبر است'),
+	userController.getAddRolePage
+);
+router.post('/:id/addRole', param('id').isMongoId().withMessage('شناسه کاربر نامعتبر است'), userController.addRole);
+
 module.exports = router;

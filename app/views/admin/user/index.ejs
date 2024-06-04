@@ -52,7 +52,7 @@
 							<% } %>
 							<a href="/admin/users/<%= user?._id %>/toggleAdmin" class="btn <%= user.admin ? 'btn-danger': 'btn-outline-info' %> rounded ms-1 btn-sm mt-2 mt-lg-0"><%= user.admin ? 'لغو مدیریت' : 'مدیر شو' %></a>
 							<% if (user.admin) { %>
-								<a href="/admin/users/<%= user?._id %>/changeRole" class="btn btn-info rounded ms-1 btn-sm mt-2 mt-lg-0">تغییر سطح دسترسی</a>
+								<a href="/admin/users/<%= user?._id %>/addRole" class="btn btn-info rounded ms-1 btn-sm mt-2 mt-lg-0">اعمال سطح دسترسی</a>
 							<% } %>
 						</div>
 					</td>

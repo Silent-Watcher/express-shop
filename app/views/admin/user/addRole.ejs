@@ -1,0 +1,39 @@
+<div class="container">
+	<!-- add role header -->
+	<div class="row w-100">
+		<div class="col-12 col-lg-6"><h3>تغییر نقش کاربر</h3></div>
+		<div class="col-12 col-lg-6 text-center">
+			<a type="button" class="btn btn-primary ms-auto btn-sm" href="/admin/users">کاربران</a>
+		</div>
+	</div>
+	<!-- create a new course form start -->
+	<div class="row w-100">
+		<form method="POST" action="/admin/users/<%= user._id %>/addRole" class="col-12 col-lg-8 offset-lg-2">
+			<div class="row mbn-20">
+				<!-- name & email  -->
+				<div class="col-12 mb-20">
+					<label class="mb-2 mt-4" for="userInfo">مشخصات</label>
+					<input
+						type="text"
+						id="userInfo"
+						class="form-control"
+						value="<%- user.firstName + ' ' + user.lastName + '/' + user.email %>"
+					/>
+				</div>
+					<!-- roles  -->
+					<% if (roles.length > 0) { %>
+						<!-- category -->
+						<div class="col-12 mb-20 mt-4">
+							<label class="my-2" for="userRoles">نقش های کاربری</label>
+							<%- include('../../components/multiSelectInput.ejs' , {labelId: 'userRoles' , options: roles , name: 'roles' , courseCategories : user.roles ?? []})  %>
+						</div>
+					<% } %>
+				<!--  -->
+				<div class="d-grid mt-4">
+					<button class="btn btn-primary btn-sm">اعمال</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- create a new course form end -->
+</div>

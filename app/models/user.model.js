@@ -13,7 +13,7 @@ const userSchema = new Schema(
 		photos: [{ source: String, path: String }],
 		avatar: { source: String, path: String },
 		bio: { type: String, required: false },
-		role: { type: String, enum: ['user', 'admin', 'instructor', 'author'], required: true, default: 'user' },
+		roles: { type: [Schema.Types.ObjectId], ref: 'role' },
 		rememberToken: { type: String, required: false, default: null },
 		learning: { type: [Schema.Types.ObjectId], ref: 'course' },
 		likedCourses: { type: [Schema.Types.ObjectId], ref: 'course' },

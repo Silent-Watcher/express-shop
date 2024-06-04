@@ -1,0 +1,55 @@
+<div class="container">
+	<!-- new role header -->
+	<div class="row w-100">
+		<div class="col-12 col-lg-6"><h3>ایجاد نقش کاربری جدید</h3></div>
+		<div class="col-12 col-lg-6 text-center">
+			<a type="button" class="btn btn-primary ms-auto btn-sm" href="/admin/users/roles">نقش های کاربری</a>
+		</div>
+	</div>
+	<!-- create a new role form start -->
+	<div class="row w-100">
+		<form method="POST" action="/admin/users/roles/new" class="col-12 col-lg-8 offset-lg-2">
+			<div class="row mbn-20">
+				<!-- name  -->
+				<div class="col-12 mb-20">
+					<label class="mb-2 mt-4" for="newRoleName">نام</label>
+					<input
+						autofocus
+						type="text"
+						id="newRoleName"
+						class="form-control"
+						name="name"
+						required="true"
+						value="<%- old?.name ?? '' %>"
+					/>
+					<p class="form-text text-secondary">نام باید به لاتین نوشته شود</p>
+				</div>
+				<!-- label -->
+				<div class="form-group mt-3">
+					<label for="newRoleLable" class="control-label mb-2">توضیح</label>
+					<input
+						id="newRoleLable"
+						type="text"
+						class="form-control"
+						name="label"
+						required="true"
+						value="<%= old?.label %>"
+					/>
+				</div>
+				<!-- permissions  -->
+				<% if (permissions.length > 0) { %>
+					<!-- category -->
+					<div class="col-12 mb-20 mt-4">
+						<label class="my-2" for="newRolePermissions">دسترسی ها</label>
+						<%- include('../../components/multiSelectInput.ejs' , {labelId: 'newRolePermissions' , options: permissions , name: 'permissions' , courseCategories : []})  %>
+					</div>
+				<% } %>
+				<!--  -->
+				<div class="d-grid mt-4">
+					<button class="btn btn-primary btn-sm">ایجاد</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- create a new permission form end -->
+</div>

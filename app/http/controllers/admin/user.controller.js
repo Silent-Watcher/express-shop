@@ -1,8 +1,9 @@
 const Controller = require('app/http/controllers/controller');
-const User = require('app/models/user.model');
+const User = require('../../../models/user.model');
 const Course = require('app/models/course.model');
 const Comment = require('app/models/comment.model');
 const passwordUtil = require('app/utils/password.util');
+const Role = require('../../../models/role.model');
 
 class UserController extends Controller {
 	constructor() {
@@ -128,6 +129,36 @@ class UserController extends Controller {
 			}
 			await User.deleteOne({ _id: foundedUser._id });
 			return this.flashAndRedirect(req, res, 'success', 'کاربر با موفقیت حذف شد', '/admin/users');
+		} catch (error) {
+			next(error);
+		}
+	}
+	//
+	async getAddRolePage(req, res, next) {
+		try {
+			const foundedUser = await User.findById(req.params.id, { _id: 1, firstName: 1, lastName: 1, email: 1 })
+				.populate([{ path: 'roles', select: 'label _id' }])
+				.lean();
+			const roles = await Role.find({}, { _id: 1, label: 1 }).lean();
+			res.render('admin/user/addRole', { title: 'پنل مدیریت | حذف کاربر', user: foundedUser, roles });
+		} catch (error) {
+			next(error);
+		}
+	}
+	//
+	async addRole(req, res, next) {
+		try {
+			const newRoles = req.body.roles;
+			const result = await User.findByIdAndUpdate(req.params.id, { $set: { roles: newRoles } });
+			if (!result)
+				return this.flashAndRedirect(
+					req,
+					res,
+					'error',
+					'نقش های کاربر به روز نشد دوباره سعی کنید',
+					req.headers.referer
+				);
+			return this.flashAndRedirect(req, res, 'success', 'نقش ها با موفقیت به روز شد', '/admin/users');
 		} catch (error) {
 			next(error);
 		}

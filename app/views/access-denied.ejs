@@ -1,0 +1,5 @@
+<div class="d-flex flex-column justify-content-center align-items-center">
+	<h1 class="text-center text-primary user-select-none"><%= error.status %></h1>
+	<h3 class="text-center text-secondary user-select-none"><%= error.message %></h>
+	<a href="<%= error?.redirectLink ?? '/' %>" class="btn btn-danger">بازگشت</a>
+</div>

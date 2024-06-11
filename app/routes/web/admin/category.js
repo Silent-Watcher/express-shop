@@ -2,6 +2,7 @@ const getOldData = require('../../../http/middlewares/getOldData');
 const checkDataValidation = require('../../../http/middlewares/validation.middleware');
 const { param } = require('express-validator');
 const categoryController = require('../../../http/controllers/admin/category.controller');
+const gate = require('../../../http/guards/gate.guard');
 
 const router = require('express').Router();
 
@@ -22,7 +23,7 @@ router.all(
 router.get('/:id/edit', categoryController.getEditPage);
 router.put('/:id/edit', categoryController.edit);
 
-router.get('/:id/delete', categoryController.getDeletePage);
+router.get('/:id/delete', gate.can('delete-categories'), categoryController.getDeletePage);
 router.delete('/:id/delete', categoryController.delete);
 
 module.exports = router;

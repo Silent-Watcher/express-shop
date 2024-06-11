@@ -21,8 +21,8 @@
 						<p><%= comment.comment %></p>
 					</td>
 					<td class="d-none d-sm-table-cell">
-						<img width="25px" class="img-fluid ms-2 rounded-circle" src="<%= comment.user.photo ?? '/static/imgs/avatar.png'%>" alt="">
-						<%= comment.user.name %>
+						<img width="25px" class="img-fluid ms-2 rounded-circle" src="<%= comment.user.avatar.path ?? '/static/imgs/avatar.png'%>" alt="">
+						<%= comment.user.firstName ?? ' ' + comment.user.lastName ?? '' %>
 					</td>
 					<td class="<%= comment.isApproved ? '' : 'text-warning'  %>"><%= comment.isApproved ? 'تایید شده' : 'نیاز به برسی'  %></td>
 					<td>

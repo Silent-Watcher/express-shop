@@ -1,3 +1,5 @@
+const i18N = require('i18n');
+
 const http = require('http');
 
 const methodOverride = require('method-override');
@@ -18,10 +20,10 @@ const { handleExceptions, handleNotFoundError } = require('app/http/middlewares/
 const passport = require('passport');
 const rememberLogin = require('app/http/middlewares/remember.middleware');
 const addBreadcrumbs = require('./http/middlewares/breadcrumb.middleware');
-const i18next = require('i18next');
-const i18nextMiddleware = require('i18next-http-middleware');
-const Backend = require('i18next-fs-backend');
+
 const path = require('path');
+const gate = require('./http/guards/gate.guard');
+const { LOCALES_PATH } = require('./common/globals');
 // const helmet = require('helmet');
 
 const { env } = process;
@@ -33,25 +35,6 @@ class Application {
 	constructor(port) {
 		autoBind(this);
 		this.#port = port;
-
-		i18next
-			.use(Backend)
-			.use(i18nextMiddleware.LanguageDetector)
-			.init({
-				backend: {
-					loadPath: path.join(process.cwd(), 'app', 'locales', 'fa.json'),
-				},
-				detection: {
-					order: ['header'],
-				},
-				fallbackLng: 'fa',
-				preload: ['en', 'fa'], // Preload English and Persian translations
-			});
-		this.#app.use((req, res, next) => {
-			req.headers['accept-language'] = 'fa';
-			next();
-		});
-		this.#app.use(i18nextMiddleware.handle(i18next));
 		this.setConfigs();
 		this.router();
 		this.connectToMongoDb(env.DB_URL, env.DB_NAME).then(() => {
@@ -76,6 +59,13 @@ class Application {
 		this.#app.set('layout extractStyles', true);
 		this.#app.set('layout extractMetas', true);
 		this.#app.use(methodOverride('_method'));
+		i18N.configure({
+			locales: ['en', 'fa'],
+			directory: LOCALES_PATH,
+			defaultLocale: 'fa',
+			cookie: 'lang',
+		});
+		this.#app.use(i18N.init);
 		this.#app.use('/robots.txt', express.static(path.join(STATIC_FILES_PATH, 'robots.txt')));
 		this.#app.use(addBreadcrumbs);
 		this.#app.use(favicon(path.join(STATIC_FILES_PATH, 'favicon.ico')));
@@ -116,10 +106,15 @@ class Application {
 		this.#app.use(rememberLogin);
 		this.#app.use('/static', express.static(STATIC_FILES_PATH));
 		this.#app.use((req, res, next) => {
+			res.locals.lang = req.getLocale();
+			next();
+		});
+		this.#app.use((req, res, next) => {
 			if (req.isAuthenticated()) res.locals.user = req.user;
 			else res.locals.user = null;
 			next();
 		});
+		this.#app.use(gate.middleware());
 		this.#app.use(compression({ level: 3 }));
 	}
 	//------------------

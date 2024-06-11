@@ -1,25 +1,12 @@
 <!doctype html>
-<html lang="Fa-IR" dir="rtl">
+<html dir="<%= lang == "fa" ? 'rtl' : "ltr" %>"</html>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 		<!-- Primary Meta Tags -->
-		<title>فروشگاه عطن : مرجع آموزش های تخصصی در زمینه وب</title>
 		<meta name="title" content="فروشگاه عطن : مرجع آموزش های تخصصی در زمینه وب" />
 		<meta name="description" content="برنامه نویسی رو از اینجا شروع کنیم.." />
-		<!-- Open Graph / Facebook -->
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content="https://opengraphgenerator.com/" />
-		<meta property="og:title" content="فروشگاه عطن : مرجع آموزش های تخصصی در زمینه وب" />
-		<meta property="og:description" content="برنامه نویسی رو از اینجا شروع کنیم.." />
-		<meta property="og:image" content="/static/meta.png" />
-		<!-- Twitter -->
-		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content="https://opengraphgenerator.com/" />
-		<meta property="twitter:title" content="فروشگاه عطن : مرجع آموزش های تخصصی در زمینه وب" />
-		<meta property="twitter:description" content="برنامه نویسی رو از اینجا شروع کنیم.." />
-		<meta property="twitter:image" content="/static/meta.png" />
 
 		<%- meta %>
 		<!-- Swiper slider -->
@@ -49,12 +36,12 @@
 		<%- style %>
 		<!-- CSS files -->
 		<link rel="stylesheet" href="/static/css/global.css" />
-		<title><%= title ?? 'فروشگاه' %></title>
+		<title><%= __('title') %></title>
 	</head>
 	<body>
 		<div class="container-fluid g-0">
 			<!-- header -->
-			<%- include('../components/header.ejs' , {user : user}) %>
+			<%- include('../components/header.ejs' , {user : user , lang: lang}) %>
 			<!-- header -->
 
 			<!-- messages -->

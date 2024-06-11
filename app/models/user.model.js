@@ -58,6 +58,13 @@ userSchema.methods.checkIfLearning = function (courseId) {
 	return this.learning.indexOf(courseId) == -1 ? false : true;
 };
 
+userSchema.methods.hasRole = function (roles) {
+	let result = roles.filter(role => {
+		return this.roles.indexOf(role) > -1;
+	});
+	return !!result.length;
+};
+
 userSchema.methods.isVip = function () {
 	// TODO: check if a user became a vip or not
 	return false;

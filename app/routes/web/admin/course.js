@@ -1,3 +1,4 @@
+const gate = require('../../../http/guards/gate.guard');
 const router = require('express').Router();
 const courseController = require('app/http/controllers/admin/course.controller');
 const { validateCreateCourseData, validateEditCourseData } = require('app/validators/admin/course.validator');
@@ -9,9 +10,9 @@ const validateImageSize = require('../../../validators/imageSize.validator');
 
 // ========== COURSES PATHS ================
 // COURSE INDEX PAGE
-router.get('/', checkDataValidation, courseController.getIndexPage);
+router.get('/', gate.can('show-courses'), checkDataValidation, courseController.getIndexPage);
 // CREATE COURSES
-router.get('/create', courseController.getCreateCoursePage);
+router.get('/create', gate.can('add-course'), courseController.getCreateCoursePage);
 router.post(
 	'/create',
 	uploadImage.single('image'),
@@ -24,6 +25,7 @@ router.post(
 // EDIT COURSES
 router.get(
 	'/:id/edit',
+	gate.can('edit-courses'),
 	param('id').isMongoId().withMessage('شناسه دوره نامعتبر است'),
 	checkDataValidation,
 	courseController.getEditCoursePage
@@ -40,6 +42,7 @@ router.put(
 // DELETE COURSES
 router.get(
 	'/:id/delete',
+	gate.can('delete-courses'),
 	param('id').isMongoId().withMessage('شناسه دوره نامعتبر است'),
 	checkDataValidation,
 	courseController.getDeleteCoursePage

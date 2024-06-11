@@ -102,7 +102,7 @@ class CommentController extends Controller {
 					sort: { createdAt: 'desc' },
 					lean: true,
 					populate: [
-						{ path: 'user', select: 'name photo' },
+						{ path: 'user', select: 'firstName lastName avatar' },
 						{ path: 'course', select: 'title' },
 						{ path: 'episode', select: 'title' },
 					],
@@ -121,7 +121,7 @@ class CommentController extends Controller {
 				.populate([
 					{ path: 'course', select: 'title thumbnail slug' },
 					'episode',
-					{ path: 'user', select: 'name photo email' },
+					{ path: 'user', select: 'firstName lastName avatar email' },
 				]);
 			if (!comment)
 				return this.flashAndRedirect(req, res, 'error', 'دیدگاه با این شناسه یافت نشد', req.headers.referer);

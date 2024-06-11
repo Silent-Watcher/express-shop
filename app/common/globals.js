@@ -1,9 +1,4 @@
 const path = require('path');
-const Setting = require('../models/setting.model');
-const getSettings = async () => {
-	const [settings] = await Setting.find({}, { appName: 1, logo: 1, favicon: 1 }).lean();
-	return settings;
-};
 
 module.exports = Object.freeze({
 	VIEW_FILES_PATH: path.join(process.cwd(), 'app', 'views'),
@@ -19,5 +14,4 @@ module.exports = Object.freeze({
 	DEFAULT_FAVICON: { size: 'original', path: '/static/imgs/defaultImage.avif' },
 	PORT: process.env.PORT,
 	LOCALES_PATH: path.join(process.cwd(), 'app', 'locales'),
-	settings: getSettings(),
 });

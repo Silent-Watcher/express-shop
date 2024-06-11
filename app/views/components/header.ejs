@@ -4,7 +4,7 @@
 			<!-- navbar start -->
 			<nav class="navbar navbar-expand-lg sticky-top">
 				<div class="container-fluid align-items-center d-flex">
-					<a class="navbar-brand" href="/">فروشگاه عطن</a>
+					<a class="navbar-brand" href="/"><%= __('title') %></a>
 					<button
 						class="navbar-toggler"
 						type="button"
@@ -20,50 +20,40 @@
 						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 							<li class="nav-item">
 								<a class="nav-link active" aria-current="page" href="/"
-									>صفحه اصلی</a
+									><%= lang == "fa"  ? 'صفحه اصلی' : 'home' %></a
 								>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="/courses">دوره ها</a>
+								<a class="nav-link" href="/courses"><%= lang == "fa"  ? 'دوره ها' : 'courses' %></a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="/about-us">درباره ما</a>
+								<a class="nav-link" href="/about-us"><%= lang == "fa"  ? 'درباره ما' : 'about us' %></a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="/contact-us">تماس با ما</a>
-							</li>
-							<li class="nav-item dropdown">
-								<a
-									class="nav-link dropdown-toggle"
-									href="#"
-									role="button"
-									data-bs-toggle="dropdown"
-									aria-expanded="false"
-								>
-									مقالات
-								</a>
-								<ul class="dropdown-menu">
-									<li><a class="dropdown-item" href="#">Action</a></li>
-									<li>
-										<a class="dropdown-item" href="#">Another action</a>
-									</li>
-									<li><hr class="dropdown-divider" /></li>
-									<li>
-										<a class="dropdown-item" href="#">Something else here</a>
-									</li>
-								</ul>
+								<a class="nav-link" href="/contact-us"><%= lang == "fa"  ? 'تماس با ما' : 'contact us' %></a>
 							</li>
 						</ul>
-
+						<!-- language start -->
+						<div class="dropdown mx-lg-4">
+							<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<%= lang == 'fa' ? 'fa' : 'en' %>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/lang/fa"><%= lang == 'fa' ? 'فارسی' : 'Persian' %></a></li>
+								<li><a class="dropdown-item" href="/lang/en"><%= lang == 'en' ? 'English' : 'انگلیسی'%></a></li>
+							</ul>
+						</div>
+						<!-- language end -->
 						<% if (user) { %>
 							<% if (user?.admin) { %>
 								<div class="order-first mt-3 mt-lg-0">
-									<a class="btn btn-outline-primary btn-sm me-lg-4 mb-3 mb-lg-0 d-inline-block" href="/admin" target="_blank">پنل مدیریت</a>
+									<a class="btn btn-outline-primary btn-sm me-lg-4 mb-3 mb-lg-0 d-inline-block" href="/admin" target="_blank"><%= lang == "fa"  ? 'پنل مدیریت' : 'admin panel' %></a>
 								</div>
 							<% } %>
-						<div class="d-flex mt-3 mt-lg-0">
-							<!-- cart  start-->
-						<div class="btn-group order-last order-lg-first ms-3 ms-lg-0">
+					<div class="d-flex mt-3 mt-lg-0">
+
+					<!-- cart  start-->
+					<div class="btn-group order-last order-lg-first ms-3 ms-lg-0">
 							<button class="position-relative me-lg-5 cart-button" data-bs-toggle="dropdown"  aria-expanded="false">
 								<svg width="22" height="22" viewBox="0 0 22 22" fill="#454545" xmlns="http://www.w3.org/2000/svg">
 									<path class="fill-current text-biscay-700 dark:text-gray-900 dark:group-hover:text-dark-920 group-hover:text-biscay-300" fill-rule="evenodd" clip-rule="evenodd" d="M19.1705 14.9551L18.4657 9.27669C18.0363 7.25046 16.8211 6.41663 15.6626 6.41663H6.35407C5.17937 6.41663 3.92365 7.1921 3.55909 9.27669L2.84616 14.9551C2.26286 19.1243 4.40973 20.1666 7.21282 20.1666H14.8119C17.6069 20.1666 19.689 18.6574 19.1705 14.9551ZM8.33901 11.1362C7.89158 11.1362 7.52887 10.7629 7.52887 10.3024C7.52887 9.84187 7.89158 9.46855 8.33901 9.46855C8.78644 9.46855 9.14915 9.84187 9.14915 10.3024C9.14915 10.7629 8.78644 11.1362 8.33901 11.1362ZM12.8353 10.3024C12.8353 10.7629 13.198 11.1362 13.6454 11.1362C14.0928 11.1362 14.4555 10.7629 14.4555 10.3024C14.4555 9.84187 14.0928 9.46855 13.6454 9.46855C13.198 9.46855 12.8353 9.84187 12.8353 10.3024Z"></path>
@@ -178,16 +168,16 @@
 											</a>
 										</div>
 									</div>
-									<li class="fs-6 mb-2 mt-3"><a class="dropdown-item" href="/me/courses"><i class='bx bxs-folder'></i><span class="ms-2">دوره ها</span></a></li>
-									<li class="border-0 fs-6  my-2"><a class="dropdown-item" href="/me/tickets"><i class='bx bxs-chat'></i><span class="ms-2">تیکت ها</span></a></li>
-									<li class="border-0 fs-6 my-2"><a class="dropdown-item" href="/me/edit"><i class='bx bxs-user'></i><span class="ms-2">جزئیات حساب</span></a></li>
+									<li class="fs-6 mb-2 mt-3"><a class="dropdown-item" href="/me/courses"><i class='bx bxs-folder'></i><span class="ms-2"><%= lang == "fa"  ? 'دوره ها' : 'courses' %></span></a></li>
+									<li class="border-0 fs-6  my-2"><a class="dropdown-item" href="/me/tickets"><i class='bx bxs-chat'></i><span class="ms-2"><%= lang == "fa"  ? 'تیکت ها' : 'tickets' %></span></a></li>
+									<li class="border-0 fs-6 my-2"><a class="dropdown-item" href="/me/edit"><i class='bx bxs-user'></i><span class="ms-2"><%= lang == "fa"  ? 'جزئیات حساب' : 'account' %></span></a></li>
 									<li><hr class="dropdown-divider" /></li>
 									<li>
 										<a
-											class="dropdown-item d-inline-flex align-items-center"
+											class="dropdown-item d-inline-flex align-items-center mx-auto"
 											href="/logout"
-											><i class="bx bx-log-out text-secondary"></i>
-											<span class="ms-2">خروج از حساب کاربری</span></a
+											><i class="bx bx-log-out text-secondary ms-2"></i>
+											<span class="ms-2"><%= lang == "fa"  ? 'خروج از حساب کاربری' : 'logout' %></span></a
 										>
 									</li>
 								</ul>

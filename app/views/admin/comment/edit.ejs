@@ -15,11 +15,11 @@
 					<img
 						width="50px"
 						class="img-fluid rounded-circle"
-						src="<%= comment.user.photo ?? '/static/imgs/avatar.png' %>"
+						src="<%= comment.user.avatar.path ?? '/static/imgs/avatar.png' %>"
 						alt="تصویر کاربر"
 					/>
 				</p>
-				<p class="me-2 mt-3"><span class="fw-bold">نام کاربر :</span> <%= comment.user.name %></p>
+				<p class="me-2 mt-3"><span class="fw-bold">نام کاربر :</span> <%= comment.user.firstName ?? comment.user.email.slice(0,comment.user.email.indexOf('@')) + ' ' + comment.user.lastName ?? '' %></p>
 				<p class="me-2">
 					<span class="fw-bold">ایمیل کاربر :</span>
 					<a href="mailto:<%= comment.user.email %>" target="_blank"><%= comment.user.email %></a>

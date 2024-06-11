@@ -1,11 +1,11 @@
 <!-- start from here ... -->
 <!-- header -->
-<div class="container my-5">
+<div class="container my-5" >
 	<header class="row">
 		<section class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
-			<h1 class="fw-bold fs-2">برنامه نویسی رو از اینجا شروع میکنیم ...</h1>
-			<p>یادگیری برنامه‌نویسی آرزو نیست، فقط نیاز هست، تلاش و تمرین داشته باشید</p>
-			<a href="#latestCourses" class="btn btn-primary">شروع یادگیری</a>
+			<h1 class="fw-bold fs-2"><%= __('header') %></h1>
+			<p><%= __('subHeader') %></p>
+			<a href="#latestCourses" class="btn btn-primary"><%= lang == 'fa' ?  'شروع یادگیری': 'start learning' %></a>
 			<div class="header_meta d-flex flex-column mt-4 w-100">
 				<div class="row text-center d-none d-md-flex">
 					<p class="col-6">
@@ -24,7 +24,7 @@
 								d="M19.0432 3.4589C16.1689 1.90568 14.3052 0.973391 12.3791 0.973389C10.4529 0.973389 8.58925 1.90568 5.71494 3.4589L5.66333 3.48679C4.24222 4.25471 3.11182 4.86554 2.34149 5.38588C1.95135 5.64941 1.59935 5.92484 1.3381 6.22484C1.07383 6.5283 0.836426 6.93396 0.836426 7.43725V14.8245C0.836426 15.3345 1.24985 15.7479 1.75984 15.7479C2.26982 15.7479 2.68325 15.3345 2.68325 14.8245V9.71094C3.19973 10.0359 3.83998 10.3961 4.58945 10.8055C4.5299 11.5482 4.52998 12.5083 4.53007 13.7474L4.53008 13.901C4.53008 18.5181 5.90983 19.4415 12.3473 19.4415C18.3812 19.4415 20.228 18.5181 20.228 13.901C20.228 12.5893 20.228 11.5817 20.1622 10.809C21.0898 10.3024 21.8505 9.87105 22.4166 9.48863C22.8067 9.2251 23.1587 8.94967 23.42 8.64967C23.6843 8.3462 23.9217 7.94054 23.9217 7.43725C23.9217 6.93396 23.6843 6.5283 23.42 6.22483C23.1587 5.92484 22.8067 5.64941 22.4166 5.38588C21.6463 4.86555 20.5159 4.25471 19.0948 3.4868L19.0432 3.4589ZM18.3645 11.7804C15.8668 13.1137 14.1493 13.9011 12.3791 13.9011C10.6081 13.9011 8.89004 13.113 6.39073 11.7789C6.37715 12.3309 6.3769 13.0206 6.3769 13.901C6.3769 16.1773 6.75931 16.6617 7.08659 16.8917C7.33186 17.0641 7.7906 17.2616 8.69009 17.3996C9.58312 17.5366 10.7639 17.5947 12.3473 17.5947C13.8247 17.5947 14.9599 17.537 15.8408 17.4001C16.726 17.2626 17.2299 17.0628 17.5283 16.8645C17.9408 16.5904 18.3812 16.0445 18.3812 13.901C18.3812 13.0204 18.3798 12.331 18.3645 11.7804ZM3.37523 6.91628C3.03344 7.14715 2.83624 7.3168 2.73122 7.43725C2.83624 7.55771 3.03344 7.72736 3.37523 7.95823C4.0603 8.42098 5.10889 8.9889 6.59293 9.79084C9.57742 11.4036 11.0095 12.0543 12.3791 12.0543C13.7486 12.0543 15.1807 11.4036 18.1652 9.79085C19.6492 8.9889 20.6978 8.42098 21.3829 7.95823C21.7246 7.72736 21.9219 7.55771 22.0269 7.43725C21.9219 7.31679 21.7247 7.14714 21.3829 6.91627C20.6978 6.45352 19.6492 5.8856 18.1652 5.08366C15.1807 3.47091 13.7486 2.82021 12.3791 2.82021C11.0095 2.82021 9.57742 3.4709 6.59293 5.08366C5.1089 5.88561 4.06031 6.45353 3.37523 6.91628ZM22.0893 7.52173L22.0881 7.51925C22.089 7.52091 22.0893 7.52173 22.0893 7.52173ZM22.0881 7.35525L22.0893 7.35278C22.0893 7.35277 22.089 7.35359 22.0881 7.35525ZM2.66996 7.35526C2.66909 7.35359 2.66874 7.35277 2.66879 7.35278L2.66996 7.35526Z"
 								fill="#E81C4D"
 							></path></svg
-						><span class="ms-2">بیش از <%= courseCount %> دوره آموزشی</span>
+						><span class="ms-2"> <%= lang=='fa' ? 'بیش از ' : 'over than' %> <%= courseCount %> <%= lang == 'fa' ? 'دوره آموزشی' : 'courses' %> </span>
 					</p>
 					<p class="col-6">
 						<svg class="ml-4" width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -59,7 +59,7 @@
 								transform="rotate(-36.651 21.2863 19.8875)"
 								fill="#51B6FF"
 							></circle></svg
-						><span class="ms-2">پشتیبانی 24 ساعته</span>
+						><span class="ms-2"><%= __('support') %></span>
 					</p>
 				</div>
 				<div class="row text-center d-none d-md-flex">
@@ -87,7 +87,7 @@
 								transform="rotate(-33.8601 19.348 20.348)"
 								fill="#98A3B8"
 							></circle></svg
-						><span class="ms-2">ضمانت بازگشت وجه</span>
+						><span class="ms-2"><%= __('payReturn') %></span>
 					</p>
 					<p class="col-6">
 						<svg class="ml-4" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -112,7 +112,7 @@
 								stroke-width="2"
 								stroke-linejoin="round"
 							></path></svg
-						><span class="ms-2">یادگیری با تمرین و آزمون</span>
+						><span class="ms-2"><%= __('learningHow') %></span>
 					</p>
 				</div>
 			</div>
@@ -138,38 +138,40 @@
 	</div>
 </div>
 <!-- header -->
-<!-- latest courses start -->
-<div class="container my-5">
-	<div class="row d-flex justify-content-between">
-		<section class="d-flex col-6">
-			<svg width="37" height="34" viewBox="0 0 37 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<circle cx="10" cy="24" r="10" fill="currentColor"></circle>
-				<circle cx="30" cy="13" r="7" fill="currentColor" fill-opacity="0.4"></circle>
-				<circle cx="15" cy="4" r="4" fill="currentColor" fill-opacity="0.7"></circle>
-			</svg>
-			<h2 id="latestCourses" class="fw-bold fs-4 ms-3 user-select-none">آخرین دوره ها</h2>
-		</section>
-		<section class="col-6 text-center">
-			<a class="link-dark" href="/courses"><span class="me-2">مشاهده همه دوره ها</span>
-				<svg width="23" height="15" viewBox="0 0 23 15" fill="#454545" xmlns="http://www.w3.org/2000/svg">
-				<path class="fill-current transition duration-200 text-dark-550 dark:group-hover:text-gray-20 dark:text-white group-hover:text-dark-700" opacity="0.4" d="M16.5073 5.95329L21.0752 5.54932C22.1003 5.54932 22.9315 6.38856 22.9315 7.42367C22.9315 8.45878 22.1003 9.29802 21.0752 9.29802L16.5073 8.89404C15.7031 8.89404 15.0511 8.23571 15.0511 7.42367C15.0511 6.61027 15.7031 5.95329 16.5073 5.95329"></path>
-				<path class="fill-current transition duration-200 text-dark-550 dark:group-hover:text-gray-20 dark:text-white group-hover:text-dark-700" d="M1.16786 6.02753C1.23926 5.95544 1.50598 5.65076 1.75653 5.39776C3.21811 3.81313 7.03437 1.22195 9.03073 0.428959C9.33382 0.302461 10.1003 0.0331419 10.5112 0.0140991C10.9032 0.0140991 11.2776 0.105232 11.6346 0.284778C12.0805 0.536415 12.4361 0.933592 12.6328 1.4015C12.7581 1.72523 12.9548 2.69777 12.9548 2.71545C13.1501 3.77776 13.2565 5.50521 13.2565 7.41493C13.2565 9.23215 13.1501 10.8889 12.9898 11.9689C12.9723 11.9879 12.7756 13.1944 12.5614 13.6079C12.1694 14.3642 11.4029 14.8321 10.5826 14.8321H10.5112C9.97638 14.8144 8.85292 14.3451 8.85292 14.3288C6.96297 13.5358 3.23697 11.0698 1.73902 9.43074C1.73902 9.43074 1.31604 9.00908 1.13284 8.74656C0.84726 8.36843 0.70447 7.90052 0.70447 7.43261C0.70447 6.9103 0.864772 6.42471 1.16786 6.02753"></path>
+<% if (courses.length > 0) { %>
+	<!-- latest courses start -->
+	<div class="container my-5" >
+		<div class="row d-flex justify-content-between">
+			<section class="d-flex col-6">
+				<svg width="37" height="34" viewBox="0 0 37 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<circle cx="10" cy="24" r="10" fill="currentColor"></circle>
+					<circle cx="30" cy="13" r="7" fill="currentColor" fill-opacity="0.4"></circle>
+					<circle cx="15" cy="4" r="4" fill="currentColor" fill-opacity="0.7"></circle>
 				</svg>
-			</a>
-		</section>
+				<h2 id="latestCourses" class="fw-bold fs-4 ms-3 user-select-none">آخرین دوره ها</h2>
+			</section>
+			<section class="col-6 text-center">
+				<a class="link-dark" href="/courses"><span class="me-2">مشاهده همه دوره ها</span>
+					<svg width="23" height="15" viewBox="0 0 23 15" fill="#454545" xmlns="http://www.w3.org/2000/svg">
+					<path class="fill-current transition duration-200 text-dark-550 dark:group-hover:text-gray-20 dark:text-white group-hover:text-dark-700" opacity="0.4" d="M16.5073 5.95329L21.0752 5.54932C22.1003 5.54932 22.9315 6.38856 22.9315 7.42367C22.9315 8.45878 22.1003 9.29802 21.0752 9.29802L16.5073 8.89404C15.7031 8.89404 15.0511 8.23571 15.0511 7.42367C15.0511 6.61027 15.7031 5.95329 16.5073 5.95329"></path>
+					<path class="fill-current transition duration-200 text-dark-550 dark:group-hover:text-gray-20 dark:text-white group-hover:text-dark-700" d="M1.16786 6.02753C1.23926 5.95544 1.50598 5.65076 1.75653 5.39776C3.21811 3.81313 7.03437 1.22195 9.03073 0.428959C9.33382 0.302461 10.1003 0.0331419 10.5112 0.0140991C10.9032 0.0140991 11.2776 0.105232 11.6346 0.284778C12.0805 0.536415 12.4361 0.933592 12.6328 1.4015C12.7581 1.72523 12.9548 2.69777 12.9548 2.71545C13.1501 3.77776 13.2565 5.50521 13.2565 7.41493C13.2565 9.23215 13.1501 10.8889 12.9898 11.9689C12.9723 11.9879 12.7756 13.1944 12.5614 13.6079C12.1694 14.3642 11.4029 14.8321 10.5826 14.8321H10.5112C9.97638 14.8144 8.85292 14.3451 8.85292 14.3288C6.96297 13.5358 3.23697 11.0698 1.73902 9.43074C1.73902 9.43074 1.31604 9.00908 1.13284 8.74656C0.84726 8.36843 0.70447 7.90052 0.70447 7.43261C0.70447 6.9103 0.864772 6.42471 1.16786 6.02753"></path>
+					</svg>
+				</a>
+			</section>
+		</div>
+		<!-- course list start -->
+		<div class="row mt-5 d-flex flex-wrap justify-content-center" style="gap: 16px;">
+			<% courses.forEach(course => { %>
+				<%- include('./components/courseCard.ejs' , {course:course}) %>
+			<% }) %>
+		</div>
+		<!-- course list end  -->
 	</div>
-	<!-- course list start -->
-	<div class="row mt-5 d-flex flex-wrap justify-content-center" style="gap: 16px;">
-		<% courses.forEach(course => { %>
-			<%- include('./components/courseCard.ejs' , {course:course}) %>
-		<% }) %>
-	</div>
-	<!-- course list end  -->
-</div>
-<!-- latest courses end-->
+	<!-- latest courses end-->
+<% } %>
 <!-- testimonial section start -->
 <!-- Slider main container -->
-<div class="container" style="margin-top: 8rem;">
+<div class="container"  style="margin-top: 8rem;">
 	<div class="row">
 		<div class="col d-flex justify-content-center flex-column align-items-center">
 			<section class="d-flex">

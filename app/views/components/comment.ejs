@@ -10,9 +10,9 @@
 				<% if (isAuthenticated) { %>
 					<div hidden class="border border-secondary-subtle p-4 mt-4 rounded" id="newCommentSection">
 						<div class="d-flex align-items-center mt-2">
-							<img loading="lazy" width="55px" height="55px" src="<%= user.photo ?? '/static/imgs/avatar.png' %>" alt="کاربر" class="img-fluid rounded-circle">
+							<img loading="lazy" width="55px" height="55px" src="<%= user.avatar.path ?? '/static/imgs/avatar.png' %>" alt="کاربر" class="img-fluid rounded-circle">
 							<div class="ms-3">
-								<p class="mb-0"><%= user.name %></p>
+								<p class="mb-0"><%= (user.firstName ?? admin.email.slice(0,admin.email.indexOf('@')) + '@') + ' ' + (user.lastName ?? '') %></p>
 								<p class="mb-0"><%= user.email.split('@')[0] %>@</p>
 							</div>
 						</div>
@@ -30,9 +30,9 @@
 					<!-- reply box start -->
 					<div hidden style="z-index: 100;background-color: #ccc;" class=" position-fixed bottom-0 start-50 translate-middle-x border border-secondary-subtle p-4 mt-4 rounded w-50" id="newReplySection">
 						<div class="d-flex align-items-center mt-2">
-							<img loading="lazy" width="55px" height="55px" src="<%= user?.photo ?? '/static/imgs/avatar.png' %>" alt="کاربر" class="img-fluid rounded-circle">
+							<img loading="lazy" width="55px" height="55px" src="<%= user?.avatar.path ?? '/static/imgs/avatar.png' %>" alt="کاربر" class="img-fluid rounded-circle">
 							<div class="ms-3">
-								<p class="mb-0"><%= user?.name %></p>
+								<p class="mb-0"><%= (user.firstName ?? admin.email.slice(0,admin.email.indexOf('@')) + '@') + ' ' + (user.lastName ?? '')%></p>
 								<p class="mb-0"><%= user?.email?.split('@')[0] %>@</p>
 							</div>
 						</div>

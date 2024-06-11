@@ -199,12 +199,16 @@
 									<span>دوره ها</span>
 								</a>
                 <ul class="side-header-sub-menu">
-                  <li>
-                    <a href="/admin/courses/create">
-											<i class="zmdi zmdi-plus-circle-o"></i>
-											<span>ایجاد دوره </span>
-											</a>
-                  </li>
+
+									<% if (userCan('add-course')) { %>
+										<li>
+											<a href="/admin/courses/create">
+												<i class="zmdi zmdi-plus-circle-o"></i>
+												<span>ایجاد دوره </span>
+												</a>
+										</li>
+									<% } %>
+
                   <li>
 										<a href="/admin/episodes">
 											<i class="zmdi zmdi-videocam"></i>
@@ -219,18 +223,24 @@
 									</li>
                 </ul>
               </li>
-              <li>
-                <a href="/admin/comments">
-									<i class="zmdi zmdi-comment"></i>
-									<span>نظرات</span>
-								</a>
-              </li>
-              <li>
-                <a href="/admin/settings">
-									<i class="zmdi zmdi-settings"></i>
-									<span>تنظیمات</span>
-								</a>
-              </li>
+
+							<% if (userCan('show-comments')) { %>
+								<li>
+									<a href="/admin/comments">
+										<i class="zmdi zmdi-comment"></i>
+										<span>نظرات</span>
+									</a>
+								</li>
+							<% } %>
+
+							<% if (userCan('change-settings')) { %>
+								<li>
+									<a href="/admin/settings">
+										<i class="zmdi zmdi-settings"></i>
+										<span>تنظیمات</span>
+									</a>
+								</li>
+							<% } %>
 							<!-- categories -->
               <li>
                 <a href="#">
@@ -238,18 +248,22 @@
 									<span>دسته بندی ها</span>
 								</a>
 								<ul class="side-header-sub-menu">
-                  <li>
-                    <a href="/admin/categories/create">
-											<i class="zmdi zmdi-plus-circle-o"></i>
-											<span>ایجاد دسته بندی </span>
+									<% if (userCan('create-category')) { %>
+										<li>
+											<a href="/admin/categories/create">
+												<i class="zmdi zmdi-plus-circle-o"></i>
+												<span>ایجاد دسته بندی </span>
+												</a>
+										</li>
+									<% } %>
+									<% if (userCan('show-categories')) { %>
+										<li>
+											<a href="/admin/categories">
+												<i class="zmdi zmdi-format-list-bulleted"></i>
+												<span>لیست دسته بندی ها</span>
 											</a>
-                  </li>
-                  <li>
-										<a href="/admin/categories">
-											<i class="zmdi zmdi-format-list-bulleted"></i>
-											<span>لیست دسته بندی ها</span>
-										</a>
-									</li>
+										</li>
+									<% } %>
                 </ul>
               </li>
 							<!-- tickets -->
@@ -259,12 +273,14 @@
 									<span>تیکت ها</span>
 								</a>
 								<ul class="side-header-sub-menu">
-                  <li>
-										<a href="/admin/tickets">
-											<i class="zmdi zmdi-format-list-bulleted"></i>
-											<span>لیست تیکت ها</span>
-										</a>
-									</li>
+									<% if (userCan('show-tickets')) { %>
+										<li>
+											<a href="/admin/tickets">
+												<i class="zmdi zmdi-format-list-bulleted"></i>
+												<span>لیست تیکت ها</span>
+											</a>
+										</li>
+									<% } %>
                 </ul>
               </li>
 							<!-- users -->

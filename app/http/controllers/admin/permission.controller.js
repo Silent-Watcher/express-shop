@@ -76,7 +76,7 @@ class PermissionController extends Controller {
 				return this.flashAndRedirect(req, res, 'error', 'شماره صفحه نامعتبر است', '/admin/users/permissions');
 			const permissions = await Permission.paginate(
 				{},
-				{ select: { name: 1, _id: 1, label: 1 }, lean: true, limit: 6, page, sort: { createdAt: 'desc' } }
+				{ select: { name: 1, _id: 1, label: 1 }, lean: true, limit: 10, page, sort: { createdAt: 'desc' } }
 			);
 			res.render('admin/permission/index', { title: 'پنل مدیریت | اجازه دسترسی', permissions });
 		} catch (error) {

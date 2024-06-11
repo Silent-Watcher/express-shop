@@ -17,7 +17,7 @@
 						type="text"
 						id="userInfo"
 						class="form-control"
-						value="<%- user.firstName + ' ' + user.lastName + '/' + user.email %>"
+						value="<%- user.firstName ?? user.email.slice(0,user.email.indexOf('@')) +  ' ' + (user.lastName ?? '') + '/' + user.email %>"
 					/>
 				</div>
 					<!-- roles  -->
